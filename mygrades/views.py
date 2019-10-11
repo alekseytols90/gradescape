@@ -258,11 +258,11 @@ def assignment_upload(request):
     next(io_string)
     for column in csv.reader(io_string, delimiter=',', quotechar="|"):
         obj_c, curriculum = Curriculum.objects.update_or_create(
-            curriculum = column[2],
+            curriculum_assignment = column[0],
             )
         obj_a, created = Assignment.objects.update_or_create(
-            name = column[0],
-            description = column [1],
+            name = column[1],
+            description = column [2],
             )
         obj_s, standard = Standard.objects.update_or_create(
             standard = column[3],
