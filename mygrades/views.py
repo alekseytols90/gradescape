@@ -257,12 +257,15 @@ def assignment_upload(request):
     io_string = io.StringIO(data_set)
     next(io_string)
     for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-        _, created = Assignment.objects.update_or_create(
+        obj_c, curriculum = Curriculum.objects.update_or_create(
+            curriculum = column[2],
+            )
+        obj_a, created = Assignment.objects.update_or_create(
             name = column[0],
             description = column [1],
-            curriculum = column[2],
+            )
+        obj_s, standard = Standard.objects.update_or_create(
             standard = column[3],
-            
             )
     return redirect ("/assignment")
     context = {}
