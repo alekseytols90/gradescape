@@ -1,1 +1,1 @@
-web: gunicorn mygrades.wsgi 
+web: gunicorn gradenoscrape.wsgi 
