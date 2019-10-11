@@ -76,10 +76,18 @@ WSGI_APPLICATION = 'mygrades.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        #put back for heroku and take the two lines above out
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
+
+#put back in for heroku
+DATABASES['default'] = dj_database_url.config(default='postgres://ponfgepduftckz:0f44aed0dca4ed51ce91f096a97c781e88f7150c9c9e1d03d2aa274ce26d8638@ec2-50-19-95-77.compute-1.amazonaws.com:5432/dfktbi2b4vnfo6')
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -119,3 +127,32 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+
+#STATIC_URL = '/staticfiles/'
+
+MEDIA_URL = '/media/images/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+
+#add for heroku
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#put back for heroku
+
+django_heroku.settings(locals())
