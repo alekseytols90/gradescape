@@ -1,1 +1,1 @@
-web: gunicorn enrollment.wsgi 
+web: gunicorn mygrades.wsgi 
