@@ -1,0 +1,130 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-link" href="/">Grades Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+<!-- 
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Gather Data
+          </a>
+          <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+      <a class="nav-link disabled" href="api/crawl/">Dreambox Data</a> -->
+           
+
+     <!--  </div> -->
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Students
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/students-setup">Set Up a Student</a>
+          <a class="dropdown-item" href="/students">View or Change Your Student's Information</a>
+          <a class="dropdown-item" href="/curriculum-schedule">View or Change Your Student's Curriculum</a>
+          <a class="nav-link disabled" href="/send-schedule">Send a Weekly Schedule</a>
+           <!-- <a class="dropdown-item" href="/enroll-student/">Enroll a Student in a Course</a> -->
+           <a class="nav-link disabled" href="late-assignment/">Late Assignment Report</a>
+           <a class="nav-link disabled" href="progress/">Send Progress Report</a>
+           <a class="nav-link disabled" href="report-card/">Send a Report Card</a>
+           <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
+
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Curriculum
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/curriculum">View or Edit Available Curriculum</a>
+          <a class="dropdown-item" href="/curriculum-create">Create a Custom Curriculum</a>
+          <a class="dropdown-item" href="/curriculum-assignments">See the Assignments in a Curriculum</a>
+          <a class="dropdown-item" href="/assignment-create/">Add an Assignment to a Curriculum</a>
+        
+        </div>
+      </li>
+
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Standards
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/standard">View or Edit Standards</a>
+          <a class="dropdown-item" href="/standard-create">Create a New Standard</a>
+
+        
+        </div>
+      </li>
+
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Assignments
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/assignment">View or Edit Available Assignments</a>
+          <a class="dropdown-item" href="/assignment-create">Create a Custom Assignment</a>
+        
+        </div>
+      </li>
+
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Gradebook
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/grades">View or Edit Grades</a>
+          <a class="dropdown-item" href="/grades-record">Record Grades</a>
+        
+        </div>
+      </li>
+
+   <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Enrollment
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/enroll-student">Enroll a Student In a Curriculum</a>
+        
+        </div>
+      </li>
+
+  
+
+
+      {% ifequal username tynercreek %}
+        
+        <li class="nav-item dropdown">
+          
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Upload
+          </a>
+          <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+      <a class="dropdown-item" href="standard-upload/">Upload Standards</a>
+      <a class="dropdown-item" href="curriculum-upload/">Upload Curriculum</a> 
+      <a class="dropdown-item" href="assignment-upload/">Upload Assignments</a> 
+
+        {% endifequal %}
+
+      </div>
+    </li>
+  </ul>
+
+
+    <!-- here is a search bar...
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> -->
+  </div>
+  
+</nav>
+
+  

@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1 align="center">Delete a Student?</h1>
+<p>Are you sure you want to delete this student: {{object.epicenter_id}} --
+  {{object.last_name}}, {{object.first_name}} </p>
+<a> Student Grade: {{object.grade}} </a>
+<a> Primary eMail and Phone: {{object.email}}, {{object.phone_number}}
+</a>
+<a> Secondary eMail and Phone: {{object.additional_email}},
+  {{object.additional_phone_number}} </a>
+<a> Primary Teacher: {{object.regular_teacher_last_name}},
+  {{object.regular_teacher_first_name}} </a>
+<a> Primary Teacher eMail: {{object.regular_teacher_email}} </a>
+
+
+<form action="/students">
+    <input type="submit" value="No, Do Not Delete" />
+</form>
+
+<p></p>
+
+
+<form method='POST'> {% csrf_token%}
+
+  <button class = 'btn btn-danger'> Yes, Delete </button>
+
+  </form>
+{% endblock %}

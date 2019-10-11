@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<form action="/">
+    <input type="submit" value="Return Home" />
+</form>
+<p></p>
+
+<form method='POST' action='.'>  {% csrf_token %}
+  {{ form.as_p }}
+  <button type=submit 'submit'> Save </button>
+
+
+
+</form>
+
+<!-- <br/>
+<p>If you do not receive a registration confirmation within 48 hours that looks like the sample below, please contact us directly at epiclive@epiccharterschools.org to confirm registration.</p>
+
+<p>If you DO get the confirmation, you DO NOT NEED TO CONTACT US.  Please check all information for accuracy and read the instructions for your next step.</p> -->
+
+<!-- {% load staticfiles %} <img src="{% static 'images/student-registration-confirmation-sample.JPG' %}" width= "500px" /></center>
+<form action="https://www.epicliveservices.com/admin/logout/">
+    <input type="submit" value="Logout of System Here" >
+</form> -->
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<form action="/">
+    <input type="submit" value="Return Home" />
+</form>
+<p></p>
+
+<form method='POST' action='.'>  {% csrf_token %}
+  {{ form.as_p }}
+  <button type=submit 'submit'> Send </button>
+
+
+
+</form>
+
+<!-- <br/>
+<p>A schedule that looks like the sample below will be e-mailed to both the primary and additional student e-mail addresses in the Registration System for the student.</p>
+
+{% load staticfiles %} <img src="{% static 'images/student-schedule-confirmation-sample.JPG' %}" width= "500px" /></center> -->
+
+{% endblock %}

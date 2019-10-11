@@ -1,0 +1,15 @@
+
+
+{% extends "base.html" %}
+
+{% block content %}
+Edit Assignment Information
+<h1>{{object.name}}:</h1>
+<a>Standard: {{object.standard.standard}} </a>
+<a> Objective: {{object.standard.objective}}</a>
+<a> Curriculum: {{object.curriculum.name}}</a>
+
+<a> Method of Grading: {{object.tracking}}</a>
+
+
+{% endblock %}

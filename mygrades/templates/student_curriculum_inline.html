@@ -1,0 +1,46 @@
+<div class='col-80 col-md-100 mb-1 mx-auto'>
+
+
+
+<div class='card'>
+  <div class='card-body'>
+
+      <h3 class = 'card-title'>
+        
+          {{object.first_name}} {{object.last_name}}'s Curriculum<p></p>
+      </h3><strong>Student Grade: {{object.grade}}</strong><br/><br/>
+
+          {% for enrollment in object.student_enrollment.all %}
+
+              <class = 'card-title'>
+                {{enrollment.curriculum.subject}}-
+                {{enrollment.curriculum.name}}<br/>Grade Level Assigned:
+                {{enrollment.curriculum.grade_level}}<br/> Recorded: 
+                {{enrollment.curriculum.recorded_from}}<br/> Tracked Using:
+                {{enrollment.curriculum.tracking}}</a><br/>
+                Required:
+                {{enrollment.curriculum.required}}</a><br/>
+                Weight: {{object.weight}}<br/>
+                Ending Date for the Semester or Year (Depending on Curriculum): {{enrollment.curriculum.semesterend}}<br/>
+  
+              <a href='{{ object.get_delete_url }}'>Remove {{enrollment.curriculum.name}} From
+                {{object.first_name}}
+              {{object.last_name}}'s Pacing </a>
+                
+              <p></p>
+
+              {% empty %}
+
+              <h5>This student has no curriculum set up.</h5>
+
+
+                {% endfor %}
+
+                
+      <p></p>
+    
+  </div>
+  </div>
+  
+
+</div>

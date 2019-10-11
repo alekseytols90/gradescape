@@ -1,0 +1,29 @@
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+Edit Gradebook
+<h1>Student: {{gradebook.student.first_name}} {{gradebook.student.last_name}}:</h1>
+<a>Curriculum: {{gradebook.curriculum.title}} </a>
+<a> Quarter: {{object.quarter}}</a>
+
+<a> Week: {{object.week}}</a>
+<a> Grade: {{object.grade}}</a>
+
+
+<form action="/students">
+    <input type="submit" value="No, Do Not Delete" />
+</form>
+
+<p></p>
+
+
+<form method='POST'> {% csrf_token%}
+
+  <button class = 'btn btn-danger'> Yes, Delete </button>
+
+  </form>
+
+  {% endblock %}

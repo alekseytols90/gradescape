@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+Edit Student Information
+<h1> {{object.epicenter_id}}: {{object.first_name}},
+  {{object.last_name}} </h1>
+<a> Student Grade: {{object.grade}} </a>
+<a> Primary eMail: {{object.email}}</a>
+
+<a> Secondary eMail: {{object.additional_email}}</a>
+<a> Primary Phone: {{object.phone_number}}</a>
+  <a> Second Phone:{{object.additional_phone_number}} </a>
+<a> Date of Birth: {{object.date_of_}}</a>
+<a> List of Curriculum Tracked Goes Here:</a>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1 align="center">Delete {{object.standard_code}} from all Assignments, Students, and Curriculum?</h1>
+<p>Are you sure you want to completely delete this Standard: {{object.standard_code}}? </p>
+
+Subject-<i><strong>{{object.subject}}</strong></i><br/>
+      Standard Number-{{object.standard_number}}<br/>
+      Standard Description-{{object.standard_description}}<br/>
+      Strand Code-{{object.strand_code}}<br/>
+      Strand-{{object.strand}}<br/>
+      Strand Description-{{object.strand_description}}<br/>
+      Objective Number-{{object.objective_number}}<br/>
+      Objective Description-<i><strong>{{object.objective_description}}</strong></i><br/><br/>
+ <h3 align="center">CAUTION:  This will delete this standard from all Assignments, Students, and Curriculum?</h3>    
+
+<form action="/standard">
+    <input type="submit" value="No, Do Not Delete" />
+</form>
+
+<p></p>
+
+
+<form method='POST'> {% csrf_token%}
+
+  <button class = 'btn btn-danger'> Yes, Delete </button>
+
+  </form>
+{% endblock %}

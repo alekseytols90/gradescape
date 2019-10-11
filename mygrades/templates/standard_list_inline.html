@@ -1,0 +1,37 @@
+
+
+
+<div class='col-20 col-md-50 mb-1 mx-auto'>
+<div class='card'>
+ 
+  <div class='card-body'>
+
+    
+      
+      <h5 class = 'card-title'>  {{object.standard_code}} </h5> 
+      
+
+
+
+      <div class = 'card-text'>Grade-<i><strong>{{object.grade_level}}</strong></i><br/> 
+      Subject-<i><strong>{{object.subject}}</strong></i><br/>
+      Standard Number-{{object.standard_number}}<br/>
+      Standard Description-{{object.standard_description}}<br/>
+      Strand Code-{{object.strand_code}}<br/>
+      Strand-{{object.strand}}<br/>
+      Strand Description-{{object.strand_description}}<br/>
+      Objective Number-{{object.objective_number}}<br/>
+      Objective Description-<i><strong>{{object.objective_description}}</strong></i><br/></div>
+
+
+
+
+      <a href='{{ object.get_edit_url }}' > Edit
+        {{object.standard_code}}</a><br/>
+      <a href='{{ object.get_delete_url }}' > Permanently Delete
+        {{object.standard_code}}</a>
+
+       
+  </div>
+</div>
+</div>

@@ -1,0 +1,29 @@
+
+
+
+<div class='col-20 col-md-50 mb-1 mx-auto'>
+<div class='card'>
+ 
+  <div class='card-body'>
+
+    
+      
+      <h5 class = 'card-title'> Title:  {{object.name}} </h5> 
+
+      <div class = 'card-text'> Standard: {% for object in object.standard.all %} {{object.standard_code}}, 
+                {% endfor %} <br/>
+      	Curriculum: <strong>{{object.curriculum.name}}</strong><br/>
+      	Instructions or Link: {{object.description}}<br/>
+      	Pacing Method Used: {{object.type_of}}<br/>
+      </div>
+
+
+
+
+      <a href='{{ object.get_edit_url }}' > Edit ANY Information for:
+        {{object.name}}</a> (This will edit settings for this assignment for ALL students)
+
+       
+  </div>
+</div>
+</div>
