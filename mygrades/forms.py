@@ -314,7 +314,21 @@ class AssignmentCreateForm(forms.ModelForm):
             self.fields["standard"].queryset = Standard.objects.all()
             self.fields["curriculum"].queryset = Curriculum.objects.all()  
 
-    
+class SendPacingGuideForm(forms.ModelForm):
+    class Meta:
+        model = Enrollment
+        fields = ["student"]
+
+        labels = {
+            "student": "Send This Student His or Her Pacing Guide For The Week",
+            }
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.pop("instance", None)
+        request = kwargs.pop("request", None)
+        super(SendStudentScheduleForm, self).__init__(*args, **kwargs)
+        self.fields["student"].queryset = Student.objects.filter(regular_teacher_email=request.user.email).order_by("last_name")
+  
 
 
 

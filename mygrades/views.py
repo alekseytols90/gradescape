@@ -69,8 +69,31 @@ from mygrades.forms import (
     StandardSetupForm,
     CustomCurriculumSetUpForm,
     RecordGradeForm,
-
+    SendPacingGuideForm,
     )
+
+@login_required
+def send_pacing_guide(request):
+    form = SendPacingGuideForm(request.POST or None, request=request)
+    if form.is_valid():
+        student = form.cleaned_data["student"]
+        first_name = form.cleaned_data["student"].first_name
+        last_name = form.cleaned_data["student"].last_name
+
+        subject, from_email, to = 'Your Assignments For This Week', 'tynercreeksoftware@gmail.com', [form.cleaned_data["student"].email, form.cleaned_data["student"].additional_email]
+        text_content = 'Your Most Updated Epic Live Schedule.  You may need to open this in a different browser if you do not see it here.'
+        html_content = render_to_string('mail_template.html', context=form.cleaned_data)
+        msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+        else:
+            form = SendPacingGuideForm(request=request)
+    form = SendPacingGuideForm(request=request)
+    my_title = "Send a Student His or Her Assignments for This Week"
+    template_name = "mail_pacing_guide.html"
+    context =  {"title":my_title, "form": form, 'data': request.POST} 
+    return render(request, template_name, context)
 
 # def is_valid_url(url):
 #     validate = URLValidator()
@@ -257,7 +280,7 @@ def assignment_upload(request):
     io_string = io.StringIO(data_set)
     next(io_string)
     for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-        obj_c, curriculum = Curriculum.objects.update_or_create(78)
+        obj_c, curriculum = Curriculum.objects.update_or_create(...)
         obj_a, created = Assignment.objects.update_or_create(
             name = column[1],
             description = column [2],

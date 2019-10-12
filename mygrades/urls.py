@@ -34,6 +34,7 @@ from mygrades.views import (
     standard_upload,
     curriculum_upload,
     assignment_upload,
+    send_pacing_guide,
 
     )
 
@@ -66,6 +67,7 @@ urlpatterns = [
     path("assignment-update/", assignment_list_view),
     path("assignment/<int:id>/delete/", assignment_delete_view),
     path("assignment/<int:id>/edit/", assignment_update_view),
+    path("send-pacing-guide/", send_pacing_guide),
     path("grades-record/", grades_record_view),
     path("grades/", grades_list_view),
     path("grades-update/", grades_list_view),
