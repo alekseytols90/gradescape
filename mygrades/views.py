@@ -82,7 +82,7 @@ def send_pacing_guide(request):
 
         subject, from_email, to = 'Your Assignments For This Week', 'tynercreeksoftware@gmail.com', [form.cleaned_data["student"].email, form.cleaned_data["student"].additional_email]
         text_content = 'Your Most Updated Epic Live Schedule.  You may need to open this in a different browser if you do not see it here.'
-        html_content = render_to_string('mail_template.html', context=form.cleaned_data)
+        html_content = render_to_string('mail_pacing_guide.html', context=form.cleaned_data)
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
         msg.send()
@@ -91,7 +91,7 @@ def send_pacing_guide(request):
         form = SendPacingGuideForm(request=request)
     form = SendPacingGuideForm(request=request)
     my_title = "Send a Student His or Her Assignments for This Week"
-    template_name = "mail_pacing_guide.html"
+    template_name = "send_pacing_guide_form.html"
     context =  {"title":my_title, "form": form, 'data': request.POST} 
     return render(request, template_name, context)
 
