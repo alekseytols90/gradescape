@@ -326,7 +326,7 @@ class SendPacingGuideForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         instance = kwargs.pop("instance", None)
         request = kwargs.pop("request", None)
-        super(SendStudentScheduleForm, self).__init__(*args, **kwargs)
+        super(SendPacingGuideForm, self).__init__(*args, **kwargs)
         self.fields["student"].queryset = Student.objects.filter(regular_teacher_email=request.user.email).order_by("last_name")
   
 
