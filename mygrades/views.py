@@ -1,4 +1,4 @@
-from Gradebook.admin.placeholderadmin import FrontendEditableAdminMixin
+from admin.placeholderadmin import FrontendEditableAdminMixin
 from django.shortcuts import render, redirect, render_to_response
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
