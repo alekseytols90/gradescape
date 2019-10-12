@@ -1,27 +1,21 @@
 
-{% load Gradebook_tags %}
 
-{% block content %}
-<h1>{% render_model instance "Gradebook" %}</h1>
-
-{% endblock content %}
 <!-- <div class='col-20 col-md-50 mb-1 mx-auto'>
 <div class='card'>
-
-
  
   <div class='card-body'> -->
-<!--   	<h3>Student: {{object.student.first_name}} {{object.student.last_name}}</h3>
-  	<!DOCTYPE html>
-  	<style>
-  		table {border:5px solid Green; border-radius: 13px; border-spacing: 0}
+<h3>Student: {{object.student.first_name}} {{object.student.last_name}}</h3>
+    <div class="container-fluid" style="border:1px solid #cecece;"  
+    <div class="row">                                           
+      <!-- Need to add theme, buttons -->                       
+      <div class="col-xs-12">Curriculum:</div>          
+    </div>                                                      
+    <div class="row">                                           
+      <!-- Need to add theme, buttons -->                       
+      <div class="col-xs-12">{{object.curriculum.name}}</div>               
+    </div>                                                      
+</div>   
 
-  		table td, th{border: 1px solid Green; padding:10px;}
-
-  			table.roundedCorners tr:last-child>td{border-bottom: non;}
-  		}
-  	</style>
-<table><center>
  
 <th><center>Curriculum:</th>
 	<th><center>Completed:</th>
@@ -55,7 +49,7 @@
 
  
 
-</table> -->
+</table>
 <!-- <p></p>
       <a href='{{ object.get_edit_url }}' > Edit
         {{object.name}}</a>       
