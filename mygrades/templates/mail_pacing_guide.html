@@ -9,23 +9,18 @@
 
       <h3 class = 'card-title'>
         
-          {{object.name}} Assignments:<p></p></h3>
-      
-          Grade Level: {{object.grade_level}}<br/>
-       {% for assignment in object.curriculum_assignment.all %}
+                {% for enrollment in object.student_enrollment.all %}
 
-        <class = 'card-title'>
-          
-                
-                Title: {{assignment.name}}<br/>
-                Standards Covered:{% for standard in assignment.standard.all %} {{standard.standard_code}}, 
-                {% endfor %}
-                <br/>
-                Instructions or Link: {{assignment.description}}<br/>
-          
-            Pacing Method Used: {{assignment.type_of}}<br/>
-
-                {% endfor %}
+              <class = 'card-title'>
+                {{enrollment.curriculum.subject}}-
+                {{enrollment.curriculum.name}}<br/>Grade Level Assigned:
+                {{enrollment.curriculum.grade_level}}<br/> Recorded: 
+                {{enrollment.curriculum.recorded_from}}<br/> Tracked Using:
+                {{enrollment.curriculum.tracking}}</a><br/>
+                Required:
+                {{enrollment.curriculum.required}}</a><br/>
+                Weight: {{object.weight}}<br/>
+                Ending Date for the Semester or Year (Depending on Curriculum): {{enrollment.curriculum.semesterend}}<br/>
                 </div>
   </div>
   
