@@ -87,8 +87,8 @@ def send_pacing_guide(request):
         msg.attach_alternative(html_content, "text/html")
         msg.send()
 
-        else:
-            form = SendPacingGuideForm(request=request)
+    else:
+        form = SendPacingGuideForm(request=request)
     form = SendPacingGuideForm(request=request)
     my_title = "Send a Student His or Her Assignments for This Week"
     template_name = "mail_pacing_guide.html"
