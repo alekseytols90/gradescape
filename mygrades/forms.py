@@ -272,7 +272,7 @@ class RecordGradeForm(forms.ModelForm):
             super(StudentEnrollmentForm, self).__init__(*args, **kwargs)
             self.fields["standard"].queryset = Standard.objects.all()
             #self.fields["curriculum"].queryset = Curriculum.objects.all()  
-            self.fields["curriculum"].queryset = Enrollment.objects.filter(student__epicenter_id==self.instance.epicenter_id)
+            self.fields["curriculum"].queryset = Enrollment.objects.filter(enrollment.student__epicenter_id==self.instance.student.epicenter_id)
 
 class AssignmentCreateForm(forms.ModelForm):
     STATUS = [
