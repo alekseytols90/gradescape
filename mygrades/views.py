@@ -74,7 +74,7 @@ from mygrades.forms import (
 
 @login_required
 def send_pacing_guide(request):
-    form = SendPacingGuideForm(request.POST or None, request=request)
+    form = ChooseStudentForm(request.POST or None, request=request)
     if form.is_valid():
         student = form.cleaned_data["student"]
         first_name = form.cleaned_data["student"].first_name
@@ -88,9 +88,9 @@ def send_pacing_guide(request):
         msg.send()
 
     else:
-        form = SendPacingGuideForm(request=request)
-    form = SendPacingGuideForm(request=request)
-    my_title = "Send a Student His or Her Assignments for This Week"
+        form = ChooseStudentForm(request=request)
+    form = ChooseStudentForm(request=request)
+    my_title = "Choose a Student"
     template_name = "send_pacing_guide_form.html"
     context =  {"title":my_title, "form": form, 'data': request.POST} 
     return render(request, template_name, context)

@@ -328,6 +328,20 @@ class SendPacingGuideForm(forms.ModelForm):
         instance = kwargs.pop("instance", None)
         request = kwargs.pop("request", None)
         super(SendPacingGuideForm, self).__init__(*args, **kwargs)
+
+class ChooseStudentForm(forms.ModelForm):
+    class Meta:
+        model = Enrollment
+        fields = ["student"]
+
+        labels = {
+            "student": "Choose a Student",
+            }
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.pop("instance", None)
+        request = kwargs.pop("request", None)
+        super(ChooseStudentForm, self).__init__(*args, **kwargs)
   
 
 
