@@ -70,6 +70,7 @@ from mygrades.forms import (
     CustomCurriculumSetUpForm,
     RecordGradeForm,
     SendPacingGuideForm,
+    ChooseStudentForm,
     )
 
 @login_required
