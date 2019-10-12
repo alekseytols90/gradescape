@@ -9,47 +9,42 @@
     <div class="row">                                           
       <!-- Need to add theme, buttons -->                       
       <div class="col-xs-12">Curriculum:</div>          
-    </div>                                                      
+    </div>  
+    <div class="col-xs-12">Completed:</div>          
+    </div>     
+    <div class="col-xs-12">Required:</div>          
+    </div>   
+    <div class="col-xs-12">Quarter:</div>          
+    </div>   
+    <div class="col-xs-12">Week:</div>          
+    </div> 
+    
+    <div class="col-xs-12">Semester:</div>          
+    </div> 
+    <div class="col-xs-12">Grade:</div>          
+    </div> 
+    <div class="col-xs-12">Weekly Social Studies Grade:</div>          
+    </div> 
+    <div class="col-xs-12">Weekly Science Grade:</div>          
+    </div>                                               
     <div class="row">                                           
       <!-- Need to add theme, buttons -->                       
       <div class="col-xs-12">{{object.curriculum.name}}</div>               
-    </div>                                                      
+    </div>   
+    <div class="col-xs-12">{{object.complete}}</div>               
+    </div> 
+    <div class="col-xs-12">{{object.required}}</div>               
+    </div>                                                    
+    <div class="col-xs-12">{{object.quarter}}</div>               
+    </div> 
+    <div class="col-xs-12">{{object.week}}</div>               
+    </div> 
+    <div class="col-xs-12">{{object.semester}}</div>               
+    </div> 
+    <div class="col-xs-12">{{object.grade}}</div>               
+    </div> 
 </div>   
 
- 
-<th><center>Curriculum:</th>
-	<th><center>Completed:</th>
-<th><center>Required:</th>
-
-<th><center>Quarter:</th>
-<th><center>Week:</th>
-	<th><center>Grade:</th>
-		<th><center>Semester:</th>
-			<th><center>Weekly Social Studies Grade:</th>
-				<th><center>Weekly Science Grade:</th>
-
-	 <tr>
-<td width="300 px"><center>{{object.curriculum.name}}</td>
-<td width="10%"><center>{{object.complete}}</td>
-
-<td width="10%"><center>{{object.required}}</td>
-
-
-<td width="10%"><center>{{object.quarter}}</td>
-
-
-	<td width="10%"><center>{{object.week}}</td>
-
-
-	<td width="10%"><center>{{object.grade}}</td>
-
-
-	<td width="10%"><center>{{object.semester}}</td>
-</tr>
-
- 
-
-</table>
 <!-- <p></p>
       <a href='{{ object.get_edit_url }}' > Edit
         {{object.name}}</a>       
