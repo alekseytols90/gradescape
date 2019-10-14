@@ -1,0 +1,161 @@
+2019-10-14 00:32:27 [scrapy.utils.log] INFO: Scrapy 1.7.3 started (bot: scrapegrades)
+2019-10-14 00:32:27 [scrapy.utils.log] INFO: Versions: lxml 4.4.1.0, libxml2 2.9.9, cssselect 1.1.0, parsel 1.5.2, w3lib 1.21.0, Twisted 19.7.0, Python 3.7.2+ (default, Feb  2 2019, 14:31:48) - [GCC 8.2.0], pyOpenSSL 19.0.0 (OpenSSL 1.1.1c  28 May 2019), cryptography 2.7, Platform Linux-5.2.0-kali3-amd64-x86_64-with-Kali-kali-rolling-kali-rolling
+2019-10-14 00:32:27 [scrapy.crawler] INFO: Overridden settings: {'BOT_NAME': 'scrapegrades', 'LOG_FILE': 'logs/default/gradebook/18a7335aee1a11e98c58add7156092ca.log', 'NEWSPIDER_MODULE': 'scrapegrades.spiders', 'SPIDER_MODULES': ['scrapegrades.spiders'], 'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}
+2019-10-14 00:32:27 [scrapy.extensions.telnet] INFO: Telnet Password: 92b80c99318cef87
+2019-10-14 00:32:27 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+2019-10-14 00:32:29 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--headless", "--no-sandbox"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--headless", "--no-sandbox"]}}}
+2019-10-14 00:32:29 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): 127.0.0.1:59837
+2019-10-14 00:32:42 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session HTTP/1.1" 200 641
+2019-10-14 00:32:42 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:32:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapegrades.middlewares.ScrapegradesDownloaderMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2019-10-14 00:32:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2019-10-14 00:32:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['scrapegrades.pipelines.ScrapegradesPipeline']
+2019-10-14 00:32:42 [scrapy.core.engine] INFO: Spider opened
+2019-10-14 00:32:42 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2019-10-14 00:32:42 [gradebook] INFO: Spider opened: gradebook
+2019-10-14 00:32:42 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2019-10-14 00:32:42 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/url {"url": "https://play.dreambox.com/login/n352/3kaw"}
+2019-10-14 00:33:03 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session/0e070eb4274224eed1a2386f4a28c531/url HTTP/1.1" 200 14
+2019-10-14 00:33:03 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:03 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/element {"using": "xpath", "value": "//*[@id='txtEmailAddress']"}
+2019-10-14 00:33:04 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session/0e070eb4274224eed1a2386f4a28c531/element HTTP/1.1" 200 88
+2019-10-14 00:33:04 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:04 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/element/d904350c-d8f4-4fc0-b685-7ea1da892623/value {"text": "charlotte.wood@epiccharterschools.org", "value": ["c", "h", "a", "r", "l", "o", "t", "t", "e", ".", "w", "o", "o", "d", "@", "e", "p", "i", "c", "c", "h", "a", "r", "t", "e", "r", "s", "c", "h", "o", "o", "l", "s", ".", "o", "r", "g"], "id": "d904350c-d8f4-4fc0-b685-7ea1da892623"}
+2019-10-14 00:33:04 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session/0e070eb4274224eed1a2386f4a28c531/element/d904350c-d8f4-4fc0-b685-7ea1da892623/value HTTP/1.1" 200 14
+2019-10-14 00:33:04 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:07 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/element {"using": "xpath", "value": "//*[@id='txtPassword']"}
+2019-10-14 00:33:07 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session/0e070eb4274224eed1a2386f4a28c531/element HTTP/1.1" 200 88
+2019-10-14 00:33:07 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:07 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/element/7c50ba90-9818-447b-b0e8-cdd7629ac7bd/value {"text": "Teacher1", "value": ["T", "e", "a", "c", "h", "e", "r", "1"], "id": "7c50ba90-9818-447b-b0e8-cdd7629ac7bd"}
+2019-10-14 00:33:07 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session/0e070eb4274224eed1a2386f4a28c531/element/7c50ba90-9818-447b-b0e8-cdd7629ac7bd/value HTTP/1.1" 200 14
+2019-10-14 00:33:07 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:08 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/element {"using": "xpath", "value": "/html/body/div[1]/div/div[3]/div[1]/form/div[4]/div/input"}
+2019-10-14 00:33:08 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session/0e070eb4274224eed1a2386f4a28c531/element HTTP/1.1" 200 88
+2019-10-14 00:33:08 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:08 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/element/0560cdaa-15b0-476a-8081-be88ff505574/click {"id": "0560cdaa-15b0-476a-8081-be88ff505574"}
+2019-10-14 00:33:20 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session/0e070eb4274224eed1a2386f4a28c531/element/0560cdaa-15b0-476a-8081-be88ff505574/click HTTP/1.1" 200 14
+2019-10-14 00:33:20 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:22 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/url {"url": "https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day"}
+2019-10-14 00:33:23 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "POST /session/0e070eb4274224eed1a2386f4a28c531/url HTTP/1.1" 200 14
+2019-10-14 00:33:23 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:33 [selenium.webdriver.remote.remote_connection] DEBUG: GET http://127.0.0.1:59837/session/0e070eb4274224eed1a2386f4a28c531/source {}
+2019-10-14 00:33:33 [urllib3.connectionpool] DEBUG: http://127.0.0.1:59837 "GET /session/0e070eb4274224eed1a2386f4a28c531/source HTTP/1.1" 200 343073
+2019-10-14 00:33:33 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-10-14 00:33:33 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day> (referer: None)
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Aurianna', 'Last Name': 'Conatser', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Carson', 'Last Name': 'Kissire', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Claire', 'Last Name': 'Garner', 'Total Time': '19 min', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Cody', 'Last Name': 'Whitlock', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Dylan', 'Last Name': 'Smith', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Isabelle', 'Last Name': 'Setters', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Josie', 'Last Name': 'Huddleston', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Kaytlin', 'Last Name': 'Foutch', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Kylie', 'Last Name': 'Garner', 'Total Time': '12 min', 'Lessons Completed': '1'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Malaina', 'Last Name': 'Hartsell-sheets', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Serenity', 'Last Name': 'Conatser', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Serenity', 'Last Name': 'Conatser', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Shannon', 'Last Name': 'Page', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Wesley', 'Last Name': 'Brannon', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=7d&by=day>
+{'First Name': 'Zurri', 'Last Name': 'Knight', 'Total Time': '0', 'Lessons Completed': '0'}
+2019-10-14 00:33:34 [scrapy.core.engine] INFO: Closing spider (finished)
+2019-10-14 00:33:35 [scrapy.core.engine] ERROR: Scraper close failure
+Traceback (most recent call last):
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/backends/sqlite3/base.py", line 383, in execute
+    return Database.Cursor.execute(self, query, params)
+sqlite3.OperationalError: no such table: mygrades_scrapyitem
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/root/epic/new/gradenoscrape/scrapegrades/scrapegrades/pipelines.py", line 31, in close_spider
+    item.save()
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1332, in execute_sql
+    cursor.execute(sql, params)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/backends/utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/backends/utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/root/.virtualenvs/cookiecutter-api/lib/python3.7/site-packages/django/db/backends/sqlite3/base.py", line 383, in execute
+    return Database.Cursor.execute(self, query, params)
+django.db.utils.OperationalError: no such table: mygrades_scrapyitem
+2019-10-14 00:33:37 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/response_bytes': 303119,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 55.337418,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2019, 10, 14, 0, 33, 37, 629171),
+ 'item_scraped_count': 15,
+ 'log_count/DEBUG': 47,
+ 'log_count/ERROR': 1,
+ 'log_count/INFO': 11,
+ 'memusage/max': 80797696,
+ 'memusage/startup': 80797696,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2019, 10, 14, 0, 32, 42, 291753)}
+2019-10-14 00:33:37 [scrapy.core.engine] INFO: Spider closed (finished)

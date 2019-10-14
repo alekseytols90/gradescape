@@ -41,6 +41,11 @@ class Curriculum(models.Model):
     RECORDED = [("Manual", "Manual"), 
         ("Automatic", "Automatic"), 
         ]
+
+    LEVEL = [("Core", "Core"), 
+        ("Supplemental", "Supplemental"), 
+        ]
+
     name = models.CharField(max_length=50, null=False)
     subject = models.CharField(max_length=30, choices=SUBJECT)
     grade_level = models.CharField(max_length=20, choices=CURRICULUMGRADE, null=False)
@@ -52,6 +57,7 @@ class Curriculum(models.Model):
     password = models.CharField(max_length=50, null=True)
     loginurl = models.CharField(max_length=100, null=True)
     weight = models.IntegerField(null=True)
+    level = models.CharField(max_length=20, choices=LEVEL, null=False)
 
     class Meta:
         ordering = ["grade_level"]
@@ -81,22 +87,22 @@ class Curriculum(models.Model):
 
         )
 
-# class ScrapyItem(models.Model):
-#     unique_id = models.CharField(max_length=100, null=True)
-#     data = models.TextField() # this stands for our crawled data
-#     date = models.DateTimeField(auto_now=True)
-    
-#     # This is for basic and custom serialisation to return it to client as a JSON.
-#     @property
-#     def to_dict(self):
-#         data = {
-#             'data': json.loads(self.data),
-#             'date': self.date
-#         }
-#         return data
+class ScrapyItem(models.Model):
+    unique_id = models.CharField(max_length=100, null=True)
+    data = models.TextField() # this stands for our crawled data
+    date = models.DateTimeField(auto_now=True)
 
-#     def __str__(self):
-#         return self.unique_id
+    # This is for basic and custom serialisation to return it to client as a JSON.
+    @property
+    def to_dict(self):
+        data = {
+           'data': json.loads(self.data),
+            'date': self.date
+        }
+        return data
+
+    def __str__(self):
+        return self.unique_id
 
 
 class Student(models.Model):
@@ -127,8 +133,6 @@ class Student(models.Model):
     additional_email = models.EmailField(max_length=120, null=True)
     additional_phone_number = models.CharField(max_length=20, null=True)
     grade = models.CharField(max_length=20, choices=GRADELEVEL, null=False)
-    #date_of_birth = models.DateField(null=False)
-    #registration_date = models.DateTimeField(auto_now=True)
    
 
     def get_absolute_url(self):
@@ -215,10 +219,6 @@ class Standard(models.Model):
     standard_code = models.CharField(max_length = 20, null=False)
     subject = models.CharField(max_length=30, choices=SUBJECT)
     PDF_link= models.CharField(max_length=100, choices=SUBJECT)
-
-
-
-    
 
     def get_absolute_url(self):
         return f"/standard/{self.id}"

@@ -38,7 +38,7 @@ from scrapyd_api import ScrapydAPI
 import csv, io
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
-
+from django.views.decorators.http import require_POST, require_http_methods
 
 # connect scrapyd service
 #scrapyd = ScrapydAPI('http://localhost:6800')
@@ -70,12 +70,14 @@ from mygrades.forms import (
     CustomCurriculumSetUpForm,
     RecordGradeForm,
     SendPacingGuideForm,
-    ChooseStudentForm,
     )
+
+# connect scrapyd service
+scrapyd = ScrapydAPI('http://localhost:6800')
 
 @login_required
 def send_pacing_guide(request):
-    form = ChooseStudentForm(request.POST or None, request=request)
+    form = SendPacingGuideForm(request.POST or None, request=request)
     if form.is_valid():
         student = form.cleaned_data["student"]
         first_name = form.cleaned_data["student"].first_name
@@ -89,112 +91,88 @@ def send_pacing_guide(request):
         msg.send()
 
     else:
-        form = ChooseStudentForm(request=request)
-    form = ChooseStudentForm(request=request)
-    my_title = "Choose a Student"
+        form = SendPacingGuideForm(request=request)
+    form = SendPacingGuideForm(request=request)
+    my_title = "Send a Student His or Her Assignments for This Week"
     template_name = "send_pacing_guide_form.html"
     context =  {"title":my_title, "form": form, 'data': request.POST} 
     return render(request, template_name, context)
 
-# def is_valid_url(url):
-#     validate = URLValidator()
-#     try:
-#         validate(url) # check if url format is valid
-#     except ValidationError:
-#         return False
-#     return True
+def is_valid_url(url):
+    validate = URLValidator()
+    try:
+        validate(url) # check if url format is valid
+    except ValidationError:
+        return False
 
-# @csrf_exempt
-# @require_http_methods(['POST', 'GET']) # only get and post
-# def crawl(request):
-#     # Post requests are for new crawling tasks
-#     if request.method == 'POST':
-
-#         url = request.POST.get('url', None) # take url comes from client. (From an input may be?)
-
-#         if not url:
-#             return JsonResponse({'error': 'Missing  args'})
-
-#         if not is_valid_url(url):
-#             return JsonResponse({'error': 'URL is invalid'})
-
-#         domain = urlparse(url).netloc # parse the url and extract the domain
-#         unique_id = str(uuid4()) # create a unique ID.
-
-#         # This is the custom settings for scrapy spider.
-#         # We can send anything we want to use it inside spiders and pipelines.
-#         # I mean, anything
-#         settings = {
-#             'unique_id': unique_id, # unique ID for each record for DB
-#             'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-#         }
-
-#         # Here we schedule a new crawling task from scrapyd.
-#         # Notice that settings is a special argument name.
-#         # But we can pass other arguments, though.
-#         # This returns a ID which belongs and will be belong to this task
-#         # We are goint to use that to check task's status.
-#         task = scrapyd.schedule('default', 'gradebook',
-#             settings=settings, url=url, domain=domain)
-
-#         return JsonResponse({'task_id': task, 'unique_id': unique_id, 'status': 'started' })
-
-#     # Get requests are for getting result of a specific crawling task
-#     elif request.method == 'GET':
-#         # We were passed these from past request above. Remember ?
-#         # They were trying to survive in client side.
-#         # Now they are here again, thankfully. <3
-#         # We passed them back to here to check the status of crawling
-#         # And if crawling is completed, we respond back with a crawled data.
-#         task_id = request.GET.get('task_id', None)
-#         unique_id = request.GET.get('unique_id', None)
-#         print(task_id, unique_id)
-
-#         if not task_id or not unique_id:
-#             return JsonResponse({'error': 'Missing args'})
-
-#         # Here we check status of crawling that just started a few seconds ago.
-#         # If it is finished, we can query from database and get results
-#         # If it is not finished we can return active status
-#         # Possible results are -> pending, running, finished
-#         status = scrapyd.job_status('default', task_id)
-#         if status == 'finished':
-#             try:
-#                 # this is the unique_id that we created even before crawling started.
-#                 item = ScrapyItem.objects.get(unique_id=unique_id)
-#                 return JsonResponse({'data': item.to_dict['data']})
-#             except Exception as e:
-#                 return JsonResponse({'error': str(e)})
-#         else:
-#             return JsonResponse({'status': status})
+    return True
 
 
+@csrf_exempt
+@require_http_methods(['POST', 'GET']) # only get and post
+def crawl(request):
+    # Post requests are for new crawling tasks
+    if request.method == 'POST':
 
-# Teacher account will be set up when he or she pays.
+        url = request.POST.get('url', None) # take url comes from client. (From an input may be?)
 
-# First step:  register students.
+        if not url:
+            return JsonResponse({'error': 'Missing  args'})
 
-# Model is set up.  Needs to link to available curriculum.
+        if not is_valid_url(url):
+            return JsonResponse({'error': 'URL is invalid'})
 
-# You will be able to edit this (number of weeks to complete work)
+        domain = urlparse(url).netloc # parse the url and extract the domain
+        unique_id = str(uuid4()) # create a unique ID.
 
-# Import curriculum assignments into the Curriculum database.
+        # This is the custom settings for scrapy spider.
+        # We can send anything we want to use it inside spiders and pipelines.
+        # I mean, anything
+        settings = {
+            'unique_id': unique_id, # unique ID for each record for DB
+            'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+        }
 
-# When registering students, select curriculum and the weight of each.
+        # Here we schedule a new crawling task from scrapyd.
+        # Notice that settings is a special argument name.
+        # But we can pass other arguments, though.
+        # This returns a ID which belongs and will be belong to this task
+        # We are goint to use that to check task's status.
+        task = scrapyd.schedule('default', 'gradebook',
+            settings=settings, url=url, domain=domain)
 
-# Teacher has choices of grading curriculum:  number of lessons, minutes per day, minutes per weeks
+        return JsonResponse({'task_id': task, 'unique_id': unique_id, 'status': 'started' })
 
-# After scraping:
+    # Get requests are for getting result of a specific crawling task
+    elif request.method == 'GET':
+        # We were passed these from past request above. Remember ?
+        # They were trying to survive in client side.
+        # Now they are here again, thankfully. <3
+        # We passed them back to here to check the status of crawling
+        # And if crawling is completed, we respond back with a crawled data.
+        task_id = request.GET.get('task_id', None)
+        unique_id = request.GET.get('unique_id', None)
+        print(task_id, unique_id)
 
-# Report of incomplete assignments per students
-# Top Student in each curriculum
-# %complete of total
-# Who is ahead of pace
-# Prepare schedules for the next week or two weeks, up to Teacher
-# Teachers suggests day of the week for each curric item
-# Give a standards mastered checklist to teacher each week from pacing guide
+        if not task_id or not unique_id:
+            return JsonResponse({'error': 'Missing args'})
 
-# Must upload CSV list into curric database....
+        # Here we check status of crawling that just started a few seconds ago.
+        # If it is finished, we can query from database and get results
+        # If it is not finished we can return active status
+        # Possible results are -> pending, running, finished
+        status = scrapyd.job_status('default', task_id)
+        if status == 'finished':
+            try:
+                # this is the unique_id that we created even before crawling started.
+                item = ScrapyItem.objects.get(unique_id=unique_id)
+                return JsonResponse({'data': item.to_dict['data']})
+            except Exception as e:
+                return JsonResponse({'error': str(e)})
+        else:
+            return JsonResponse({'status': status})
+
+
 @login_required
 def standard_upload(request):
     template = "standard_upload.html"

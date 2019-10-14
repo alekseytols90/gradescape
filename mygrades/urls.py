@@ -16,7 +16,7 @@ from mygrades.views import (
     curriculum_update_view,
     curriculum_delete_view,
     enroll_student_view,
-    #crawl,
+    crawl,
     standard_create_view,
     standard_list_view,
     standard_update_view,
@@ -73,6 +73,7 @@ urlpatterns = [
     path("grades-update/", grades_list_view),
     path("grades/<int:id>/delete/", grades_delete_view),
     path("grades/<int:id>/edit/", grades_update_view),
+    url(r'^api/crawl/', crawl, name='crawl'),
 
 
     # path("send-schedule/", ),

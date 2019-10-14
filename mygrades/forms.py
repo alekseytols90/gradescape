@@ -84,6 +84,7 @@ class CustomCurriculumSetUpForm(forms.ModelForm):
             "loginurl",
             "recorded_from",
             "required",
+            "level",
             ]
         labels = {
             "name": "Title of Curriculum",
@@ -97,6 +98,7 @@ class CustomCurriculumSetUpForm(forms.ModelForm):
             "username":"Your Username For Website (Only if Data Pulls Automatically - You may leave blank.)",
             "password":"Your Password For Website (Only if Data Pulls Automatically - You may leave blank.)",
             "loginurl":"EXACT URL Of Page With Data (Copy and Paste - Only if Data Pulls Automatically - You may leave blank.)",
+            "level": "CORE Determines Pace, Supplemental Adjusts to Match the Progress of the CORE Curriculum"
         }
 
 class StudentModelForm(forms.ModelForm):
@@ -140,7 +142,7 @@ class StudentModelForm(forms.ModelForm):
             qs = qs.exclude(pk=instance.pk)
         if qs.exists():
             raise forms.ValidationError(
-                "This Epicenter ID is already registered.  Please look for this student under Students, Edit Student Information.  If you find an error, please contact charlotte.wood@epiccharterschools.org."
+                "This Epicenter ID is already registered."
             )
         return cleaned_epicenter_id
 
@@ -271,8 +273,7 @@ class RecordGradeForm(forms.ModelForm):
             request = kwargs.pop("request", None)
             super(StudentEnrollmentForm, self).__init__(*args, **kwargs)
             self.fields["standard"].queryset = Standard.objects.all()
-            #self.fields["curriculum"].queryset = Curriculum.objects.all()  
-            self.fields["curriculum"].queryset = Enrollment.objects.filter(enrollment.student__epicenter_id==self.instance.student.epicenter_id)
+            self.fields["curriculum"].queryset = Curriculum.objects.all()  
 
 class AssignmentCreateForm(forms.ModelForm):
     STATUS = [
@@ -328,20 +329,6 @@ class SendPacingGuideForm(forms.ModelForm):
         instance = kwargs.pop("instance", None)
         request = kwargs.pop("request", None)
         super(SendPacingGuideForm, self).__init__(*args, **kwargs)
-
-class ChooseStudentForm(forms.ModelForm):
-    class Meta:
-        model = Enrollment
-        fields = ["student"]
-
-        labels = {
-            "student": "Choose a Student",
-            }
-
-    def __init__(self, *args, **kwargs):
-        instance = kwargs.pop("instance", None)
-        request = kwargs.pop("request", None)
-        super(ChooseStudentForm, self).__init__(*args, **kwargs)
   
 
 

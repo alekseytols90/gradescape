@@ -33,6 +33,7 @@ queuelib==1.5.0
 requests==2.22.0
 Scrapy==1.7.3
 scrapyd==1.2.1
+selenium==3.141.0
 service-identity==18.1.0
 six==1.12.0
 sqlparse==0.3.0
