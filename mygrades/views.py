@@ -253,20 +253,41 @@ def assignment_upload(request):
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         messages.error(request, "Only CSV files may be uploaded.")
-
-    data_set = csv_file.read().decode("UTF-8")
-    #for row in data_set:
-    io_string = io.StringIO(data_set)
-    next(io_string)
-    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-        obj_c, curriculum = Curriculum.objects.update_or_create(...)
-        obj_a, created = Assignment.objects.update_or_create(
-            name = column[1],
-            description = column [2],
-            curriculum=obj_c,
-            standard = column [3],
-            )
-        
+        return render(request, template)
+    dict_reader = csv.DictReader(csv_file.read().decode("UTF-8").splitlines(), dialect=csv.excel_tab)
+    counter = 1
+    for row in dict_reader:
+        row = dict(row)
+        # filtering the row values
+        grade_level = row['Grade'].replace(',', "") if type(row['Grade']) == str else None
+        subject = row['Subject'].replace(',', "") if isinstance(row['Subject'], str) else None
+        name = row['Name'].replace(',', "") if isinstance(row['Name'], str) else None
+        standard = row['Standard'].replace(',', '') if isinstance(row['Standard'], str) else None
+        curriculum = row['Curriculum'].replace(',', '') if isinstance(row['Curriculum'], str) else None
+        status = row['Status'].replace(',', '') if isinstance(row['Status'], str) else None
+        description = row['Description'].replace(',', '') if isinstance(row['Description'], str) else None
+        standards = Standard.objects.filter(standard_code=standard,
+                                           grade_level=grade_level,
+                                            subject=subject)
+        curriculum = Curriculum.objects.filter(grade_level=grade_level,
+                                               subject=subject,
+                                               name=curriculum)
+        print("curriculum is %s" % curriculum)
+        if curriculum:
+            try:
+                assignment, created = Assignment.objects.get_or_create(name=name,
+                                                                       status=status,
+                                                                       description=description,
+                                                                       curriculum=curriculum.first(),
+                                                                       type_of="Repeating Weekly")
+                assignment.standard.add(*standards.values_list('id', flat=True))
+            except Exception as e:
+                messages.error(request, "Fix error in row number %s :: <br/> %s" % (counter, e))
+                return render(request, template)
+        else:
+            messages.error(request, "cirriculum mention in row number %s is not found in the database" % counter)
+            return render(request, template)
+        counter += 1
     return redirect ("/assignment")
     context = {}
     return render(request, template, context)
