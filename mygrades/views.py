@@ -114,7 +114,7 @@ def crawl(request):
     # Post requests are for new crawling tasks
     if request.method == 'POST':
 
-        url = request.POST.get('url', None) # take url comes from client. (From an input may be?)
+        url = request.POST.get('www.google.com', None) # take url comes from client. (From an input may be?)
 
         if not url:
             return JsonResponse({'error': 'Missing  args'})
