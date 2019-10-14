@@ -114,8 +114,8 @@ class StandardFilter(django_filters.FilterSet):
         lookup_expr="icontains", label="Grade Level" )
     # name = django_filters.CharFilter(
     #     lookup_expr="icontains", label="Number Contains")
-    # objective = django_filters.CharFilter(
-    #     lookup_expr="icontains", label="Objective Contains The Words")
+    objective_description = django_filters.CharFilter(
+        lookup_expr="icontains", label="Objective Description Contains The Words")
 
     class Meta:
         model = Standard
