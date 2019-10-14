@@ -385,7 +385,7 @@ def standard_create_view(request):
 
 @login_required
 def standard_list_view(request):
-    my_title = "Standards"
+    my_title = "Standards - Spot a mistake?  <a href="mailto:tynercreeksoftware@gmail.com">PLEASE LET US KNOW!</a>"
     qs = Standard.objects.all()
     standard_filter = StandardFilter(request.GET, queryset=qs)
     template_name = "standard_list_view.html"
