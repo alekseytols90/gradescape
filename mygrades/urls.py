@@ -35,6 +35,7 @@ from mygrades.views import (
     curriculum_upload,
     assignment_upload,
     send_pacing_guide,
+    crawler,
 
     )
 
@@ -74,6 +75,8 @@ urlpatterns = [
     path("grades/<int:id>/delete/", grades_delete_view),
     path("grades/<int:id>/edit/", grades_update_view),
     url(r'^api/crawl/', crawl, name='crawl'),
+    path(r"api/crawler/<str:site>",crawler,name="crawler"),
+
 
 
     # path("send-schedule/", ),

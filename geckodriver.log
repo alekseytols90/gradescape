@@ -1,0 +1,422 @@
+1571809737624	geckodriver	INFO	geckodriver 0.21.0
+1571809737707	geckodriver	INFO	Listening on 127.0.0.1:51672
+1571809738599	mozrunner::runner	INFO	Running command: "/home/davinci/Downloads/firefox/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.MfmwvcXn3Lx1"
+*** You are running in headless mode.
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+1571809750608	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571809750629	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571809750641	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571809750666	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571809753171	Marionette	TRACE	Received observer notification profile-after-change
+1571809755582	Marionette	TRACE	Received observer notification command-line-startup
+1571809755604	Marionette	TRACE	Received observer notification nsPref:changed
+1571809755610	Marionette	DEBUG	Init aborted (running=false, enabled=true, finalUIStartup=false)
+1571809757411	Marionette	TRACE	Received observer notification toplevel-window-ready
+1571809781245	Marionette	TRACE	Received observer notification marionette-startup-requested
+1571809781247	Marionette	TRACE	Waiting until startup recorder finished recording startup scripts...
+1571809781973	Marionette	TRACE	All scripts recorded.
+1571809781977	Marionette	DEBUG	Setting recommended pref app.update.disabledForTesting to true
+1571809781998	Marionette	DEBUG	Setting recommended pref apz.content_response_timeout to 60000
+1571809782026	Marionette	DEBUG	Setting recommended pref browser.contentblocking.introCount to 99
+1571809782029	Marionette	DEBUG	Setting recommended pref browser.download.panel.shown to true
+1571809782044	Marionette	DEBUG	Setting recommended pref browser.newtabpage.enabled to false
+1571809782092	Marionette	DEBUG	Setting recommended pref browser.pagethumbnails.capturing_disabled to true
+1571809782112	Marionette	DEBUG	Setting recommended pref browser.search.update to false
+1571809782136	Marionette	DEBUG	Setting recommended pref browser.tabs.disableBackgroundZombification to false
+1571809782152	Marionette	DEBUG	Setting recommended pref browser.tabs.remote.separatePrivilegedContentProcess to false
+1571809782154	Marionette	DEBUG	Setting recommended pref browser.tabs.unloadOnLowMemory to false
+1571809782155	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnCloseOtherTabs to false
+1571809782160	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnOpen to false
+1571809782165	Marionette	DEBUG	Setting recommended pref browser.usedOnWindows10.introURL to 
+1571809782177	Marionette	DEBUG	Setting recommended pref browser.urlbar.suggest.searches to false
+1571809782190	Marionette	DEBUG	Setting recommended pref datareporting.policy.dataSubmissionPolicyAccepted to false
+1571809782204	Marionette	DEBUG	Setting recommended pref dom.disable_beforeunload to true
+1571809782216	Marionette	DEBUG	Setting recommended pref dom.disable_open_during_load to false
+1571809782228	Marionette	DEBUG	Setting recommended pref dom.file.createInChild to true
+1571809782234	Marionette	DEBUG	Setting recommended pref dom.max_chrome_script_run_time to 0
+1571809782243	Marionette	DEBUG	Setting recommended pref dom.max_script_run_time to 0
+1571809782271	Marionette	DEBUG	Setting recommended pref dom.push.connection.enabled to false
+1571809782277	Marionette	DEBUG	Setting recommended pref extensions.getAddons.cache.enabled to false
+1571809782284	Marionette	DEBUG	Setting recommended pref extensions.webservice.discoverURL to http://%(server)s/dummy/discoveryURL
+1571809782304	Marionette	DEBUG	Setting recommended pref network.http.prompt-temp-redirect to false
+1571809782307	Marionette	DEBUG	Setting recommended pref network.http.speculative-parallel-limit to 0
+1571809782314	Marionette	DEBUG	Setting recommended pref privacy.trackingprotection.enabled to false
+1571809782317	Marionette	DEBUG	Setting recommended pref security.certerrors.mitm.priming.enabled to false
+1571809782331	Marionette	DEBUG	Setting recommended pref security.fileuri.strict_origin_policy to false
+1571809782338	Marionette	DEBUG	Setting recommended pref security.notification_enable_delay to 0
+1571809782349	Marionette	DEBUG	Setting recommended pref signon.autofillForms to false
+1571809782366	Marionette	DEBUG	Setting recommended pref signon.rememberSignons to false
+1571809782385	Marionette	DEBUG	Setting recommended pref toolkit.cosmeticAnimations.enabled to false
+1571809783613	Marionette	INFO	Listening on port 45376
+1571809783628	Marionette	DEBUG	Remote service is active
+1571809783711	Marionette	DEBUG	Accepted connection 0 from 127.0.0.1:52146
+1571809786644	Marionette	DEBUG	0 -> [0,1,"WebDriver:NewSession",{"acceptInsecureCerts":true,"browserName":"firefox","capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}]
+1571809786656	Marionette	WARN	TLS certificate errors will be ignored for this session
+1571809787320	Marionette	TRACE	[4294967297] Frame script loaded
+1571809787375	Marionette	TRACE	[4294967297] Frame script registered
+1571809787612	Marionette	DEBUG	0 <- [1,1,null,{"sessionId":"34ddf4ab-a550-49b9-bdaf-8f870668c48a","capabilities":{"browserName":"firefox","browserVersion":"69.0. ... alse,"moz:webdriverClick":true,"capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}}]
+1571809787803	Marionette	DEBUG	0 -> [0,2,"WebDriver:Navigate",{"url":"https://play.dreambox.com/dashboard/login/"}]
+1571809789347	Marionette	TRACE	[4294967297] Received DOM event beforeunload for about:blank
+1571809793411	Marionette	TRACE	[4294967297] Received DOM event pagehide for about:blank
+1571809800077	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://play.dreambox.com/dashboard/login/
+1571809801920	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://play.dreambox.com/dashboard/login/
+1571809801927	Marionette	DEBUG	0 <- [1,2,null,{"value":null}]
+1571809801956	Marionette	DEBUG	0 -> [0,3,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"email_address\"]"}]
+1571809802081	Marionette	DEBUG	0 <- [1,3,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"53cb5225-05e1-4dc5-bdec-b787caf4c6ef"}}]
+1571809802182	Marionette	DEBUG	0 -> [0,4,"WebDriver:ElementSendKeys",{"id":"53cb5225-05e1-4dc5-bdec-b787caf4c6ef","text":"charlotte.wood@epiccharterschools.org", ... t","t","e",".","w","o","o","d","@","e","p","i","c","c","h","a","r","t","e","r","s","c","h","o","o","l","s",".","o","r","g"]}]
+1571809802930	Marionette	DEBUG	0 <- [1,4,null,{"value":null}]
+1571809803001	Marionette	DEBUG	0 -> [0,5,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"password\"]"}]
+1571809803175	Marionette	DEBUG	0 <- [1,5,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"3e6ed581-7922-4d6e-b370-e1613760ba11"}}]
+1571809803220	Marionette	DEBUG	0 -> [0,6,"WebDriver:ElementSendKeys",{"id":"3e6ed581-7922-4d6e-b370-e1613760ba11","text":"Teacher1","value":["T","e","a","c","h","e","r","1"]}]
+1571809803482	Marionette	DEBUG	0 <- [1,6,null,{"value":null}]
+1571809803509	Marionette	DEBUG	0 -> [0,7,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"dashboard\"]"}]
+1571809804031	Marionette	DEBUG	0 <- [1,7,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"0e2ee3ce-ba42-44c9-ac47-d2a970b8605a"}}]
+1571809804064	Marionette	DEBUG	0 -> [0,8,"WebDriver:ElementClick",{"id":"0e2ee3ce-ba42-44c9-ac47-d2a970b8605a"}]
+1571809804530	Marionette	TRACE	[4294967297] Received DOM event beforeunload for https://play.dreambox.com/dashboard/login/
+1571809807854	Marionette	TRACE	[4294967297] Received DOM event pagehide for https://play.dreambox.com/dashboard/login/
+1571809807949	Marionette	TRACE	[4294967297] Received DOM event unload for https://play.dreambox.com/dashboard/login/
+1571809851853	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://insight.dreambox.com/
+1571809855833	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://insight.dreambox.com/
+1571809855850	Marionette	DEBUG	0 <- [1,8,null,{"value":null}]
+1571809855865	Marionette	DEBUG	0 -> [0,9,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571809856037	Marionette	DEBUG	0 <- [1,9,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marione ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809856572	Marionette	DEBUG	0 -> [0,10,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571809856602	Marionette	DEBUG	0 <- [1,10,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809857118	Marionette	DEBUG	0 -> [0,11,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571809857145	Marionette	DEBUG	0 <- [1,11,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809857736	Marionette	DEBUG	0 -> [0,12,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571809857828	Marionette	DEBUG	0 <- [1,12,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809858347	Marionette	DEBUG	0 -> [0,13,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571809860994	Marionette	DEBUG	0 <- [1,13,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809861517	Marionette	DEBUG	0 -> [0,14,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571809862828	Marionette	DEBUG	0 <- [1,14,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809863338	Marionette	DEBUG	0 -> [0,15,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571809864613	Marionette	DEBUG	0 <- [1,15,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809865132	Marionette	DEBUG	0 -> [0,16,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571809866270	Marionette	DEBUG	0 <- [1,16,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"90fba333-3ea0-4d37-93fc-77e8d872e8a8"}}]
+1571809866290	Marionette	DEBUG	0 -> [0,17,"WebDriver:Navigate",{"url":"https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=123 ... 771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week"}]
+1571809871932	Marionette	TRACE	[4294967297] Received DOM event beforeunload for https://insight.dreambox.com/district/19207/classroom/1850338?breadcrumbs=d,sc,t,c&teacherId=12317771&schoolId=47805
+1571809873900	Marionette	TRACE	[4294967297] Received DOM event pagehide for https://insight.dreambox.com/district/19207/classroom/1850338?breadcrumbs=d,sc,t,c&teacherId=12317771&schoolId=47805
+1571809873945	Marionette	TRACE	[4294967297] Received DOM event unload for https://insight.dreambox.com/district/19207/classroom/1850338?breadcrumbs=d,sc,t,c&teacherId=12317771&schoolId=47805
+1571809890883	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week
+1571809894282	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week
+1571809894300	Marionette	DEBUG	0 <- [1,17,null,{"value":null}]
+1571809894330	Marionette	DEBUG	0 -> [0,18,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571809894571	Marionette	DEBUG	0 <- [1,18,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809895144	Marionette	DEBUG	0 -> [0,19,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571809895305	Marionette	DEBUG	0 <- [1,19,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809895828	Marionette	DEBUG	0 -> [0,20,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571809896733	Marionette	DEBUG	0 <- [1,20,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809897256	Marionette	DEBUG	0 -> [0,21,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571809901887	Marionette	DEBUG	0 <- [1,21,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809902404	Marionette	DEBUG	0 -> [0,22,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571809904353	Marionette	DEBUG	0 <- [1,22,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809904871	Marionette	DEBUG	0 -> [0,23,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571809907229	Marionette	DEBUG	0 <- [1,23,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809907750	Marionette	DEBUG	0 -> [0,24,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571809910120	Marionette	DEBUG	0 <- [1,24,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571809910631	Marionette	DEBUG	0 -> [0,25,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571809911945	Marionette	DEBUG	0 <- [1,25,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"6b84c228-1211-40d6-b21a-cde38d539498"}}]
+1571809911953	Marionette	DEBUG	0 -> [0,26,"WebDriver:FindElements",{"using":"xpath","value":"//div[@class='ng-scope']/section/table[1]"}]
+1571809912065	Marionette	DEBUG	0 <- [1,26,null,[{"element-6066-11e4-a52e-4f735466cecf":"c1fd3843-8ff6-4e28-807b-e5d0bd6e7800"}]]
+1571809912083	Marionette	DEBUG	0 -> [0,27,"WebDriver:FindElement",{"using":"xpath","value":"//div[@class='ng-scope']/section/table[1]"}]
+1571809912593	Marionette	DEBUG	0 <- [1,27,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"c1fd3843-8ff6-4e28-807b-e5d0bd6e7800"}}]
+1571809912607	Marionette	DEBUG	0 -> [0,28,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c1fd3843-8ff6-4e28-807b-e5d0bd6e7800","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1571809912770	Marionette	DEBUG	0 <- [1,28,null,{"value":"\n                <thead ng-show=\"localRows.length > 0\" class=\"\">\n                <tr sortable-tabl ... n localRows -->\n                <!-- ngIf: !localRows || localRows.length <=0 -->\n                </tbody>\n            "}]
+1571810270192	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571810270681	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1571810662684	geckodriver	INFO	geckodriver 0.21.0
+1571810662706	geckodriver	INFO	Listening on 127.0.0.1:42007
+1571810663721	mozrunner::runner	INFO	Running command: "/home/davinci/Downloads/firefox/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.znRdsJ7MbPCV"
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+1571810669416	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571810669423	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571810669439	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571810669442	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571810670005	Marionette	TRACE	Received observer notification profile-after-change
+1571810670344	Marionette	TRACE	Received observer notification command-line-startup
+1571810670345	Marionette	TRACE	Received observer notification nsPref:changed
+1571810670347	Marionette	DEBUG	Init aborted (running=false, enabled=true, finalUIStartup=false)
+1571810672404	Marionette	TRACE	Received observer notification toplevel-window-ready
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+1571810685229	Marionette	TRACE	Received observer notification marionette-startup-requested
+1571810685230	Marionette	TRACE	Waiting until startup recorder finished recording startup scripts...
+1571810685489	Marionette	TRACE	All scripts recorded.
+1571810685490	Marionette	DEBUG	Setting recommended pref app.update.disabledForTesting to true
+1571810685492	Marionette	DEBUG	Setting recommended pref apz.content_response_timeout to 60000
+1571810685494	Marionette	DEBUG	Setting recommended pref browser.contentblocking.introCount to 99
+1571810685496	Marionette	DEBUG	Setting recommended pref browser.download.panel.shown to true
+1571810685498	Marionette	DEBUG	Setting recommended pref browser.newtabpage.enabled to false
+1571810685501	Marionette	DEBUG	Setting recommended pref browser.pagethumbnails.capturing_disabled to true
+1571810685505	Marionette	DEBUG	Setting recommended pref browser.search.update to false
+1571810685507	Marionette	DEBUG	Setting recommended pref browser.tabs.disableBackgroundZombification to false
+1571810685512	Marionette	DEBUG	Setting recommended pref browser.tabs.remote.separatePrivilegedContentProcess to false
+1571810685513	Marionette	DEBUG	Setting recommended pref browser.tabs.unloadOnLowMemory to false
+1571810685516	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnCloseOtherTabs to false
+1571810685518	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnOpen to false
+1571810685519	Marionette	DEBUG	Setting recommended pref browser.usedOnWindows10.introURL to 
+1571810685520	Marionette	DEBUG	Setting recommended pref browser.urlbar.suggest.searches to false
+1571810685523	Marionette	DEBUG	Setting recommended pref datareporting.policy.dataSubmissionPolicyAccepted to false
+1571810685526	Marionette	DEBUG	Setting recommended pref dom.disable_beforeunload to true
+1571810685528	Marionette	DEBUG	Setting recommended pref dom.disable_open_during_load to false
+1571810685530	Marionette	DEBUG	Setting recommended pref dom.file.createInChild to true
+1571810685531	Marionette	DEBUG	Setting recommended pref dom.max_chrome_script_run_time to 0
+1571810685533	Marionette	DEBUG	Setting recommended pref dom.max_script_run_time to 0
+1571810685537	Marionette	DEBUG	Setting recommended pref dom.push.connection.enabled to false
+1571810685538	Marionette	DEBUG	Setting recommended pref extensions.getAddons.cache.enabled to false
+1571810685540	Marionette	DEBUG	Setting recommended pref extensions.webservice.discoverURL to http://%(server)s/dummy/discoveryURL
+1571810685541	Marionette	DEBUG	Setting recommended pref network.http.prompt-temp-redirect to false
+1571810685541	Marionette	DEBUG	Setting recommended pref network.http.speculative-parallel-limit to 0
+1571810685543	Marionette	DEBUG	Setting recommended pref privacy.trackingprotection.enabled to false
+1571810685544	Marionette	DEBUG	Setting recommended pref security.certerrors.mitm.priming.enabled to false
+1571810685547	Marionette	DEBUG	Setting recommended pref security.fileuri.strict_origin_policy to false
+1571810685562	Marionette	DEBUG	Setting recommended pref security.notification_enable_delay to 0
+1571810685563	Marionette	DEBUG	Setting recommended pref signon.autofillForms to false
+1571810685568	Marionette	DEBUG	Setting recommended pref signon.rememberSignons to false
+1571810685578	Marionette	DEBUG	Setting recommended pref toolkit.cosmeticAnimations.enabled to false
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+1571810686264	Marionette	INFO	Listening on port 37776
+1571810686284	Marionette	DEBUG	Remote service is active
+1571810686413	Marionette	DEBUG	Accepted connection 0 from 127.0.0.1:59280
+1571810686462	Marionette	DEBUG	0 -> [0,1,"WebDriver:NewSession",{"acceptInsecureCerts":true,"browserName":"firefox","capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}]
+1571810686493	Marionette	WARN	TLS certificate errors will be ignored for this session
+1571810686896	Marionette	TRACE	[4294967297] Frame script loaded
+1571810686930	Marionette	TRACE	[4294967297] Frame script registered
+1571810687029	Marionette	DEBUG	0 <- [1,1,null,{"sessionId":"ab01bc5c-d50d-47a2-bb35-51b4557daee1","capabilities":{"browserName":"firefox","browserVersion":"69.0. ... alse,"moz:webdriverClick":true,"capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}}]
+1571810687148	Marionette	DEBUG	0 -> [0,2,"WebDriver:Navigate",{"url":"https://play.dreambox.com/dashboard/login/"}]
+1571810687283	Marionette	TRACE	[4294967297] Received DOM event beforeunload for about:blank
+1571810691740	Marionette	TRACE	[4294967297] Received DOM event pagehide for about:blank
+1571810699796	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://play.dreambox.com/dashboard/login/
+1571810700489	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://play.dreambox.com/dashboard/login/
+1571810700514	Marionette	DEBUG	0 <- [1,2,null,{"value":null}]
+1571810700610	Marionette	DEBUG	0 -> [0,3,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"email_address\"]"}]
+1571810700642	Marionette	DEBUG	0 <- [1,3,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"4afb5ba9-b67c-4467-a93e-b4f37e142d26"}}]
+1571810700685	Marionette	DEBUG	0 -> [0,4,"WebDriver:ElementSendKeys",{"id":"4afb5ba9-b67c-4467-a93e-b4f37e142d26","text":"charlotte.wood@epiccharterschools.org", ... t","t","e",".","w","o","o","d","@","e","p","i","c","c","h","a","r","t","e","r","s","c","h","o","o","l","s",".","o","r","g"]}]
+1571810700848	Marionette	DEBUG	0 <- [1,4,null,{"value":null}]
+1571810700859	Marionette	DEBUG	0 -> [0,5,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"password\"]"}]
+1571810700886	Marionette	DEBUG	0 <- [1,5,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"ab7e74ae-e7e1-4411-ad2f-4ca890901c1a"}}]
+1571810700898	Marionette	DEBUG	0 -> [0,6,"WebDriver:ElementSendKeys",{"id":"ab7e74ae-e7e1-4411-ad2f-4ca890901c1a","text":"Teacher1","value":["T","e","a","c","h","e","r","1"]}]
+1571810701017	Marionette	DEBUG	0 <- [1,6,null,{"value":null}]
+1571810701033	Marionette	DEBUG	0 -> [0,7,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"dashboard\"]"}]
+1571810701064	Marionette	DEBUG	0 <- [1,7,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"c7faa793-504e-4044-b1f6-7702b0ee80ac"}}]
+1571810701091	Marionette	DEBUG	0 -> [0,8,"WebDriver:ElementClick",{"id":"c7faa793-504e-4044-b1f6-7702b0ee80ac"}]
+1571810701630	Marionette	TRACE	[4294967297] Received DOM event beforeunload for https://play.dreambox.com/dashboard/login/
+1571810704968	Marionette	TRACE	[4294967297] Received DOM event pagehide for https://play.dreambox.com/dashboard/login/
+1571810704988	Marionette	TRACE	[4294967297] Received DOM event unload for https://play.dreambox.com/dashboard/login/
+1571810740633	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://insight.dreambox.com/
+1571810741491	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://insight.dreambox.com/
+1571810741541	Marionette	DEBUG	0 <- [1,8,null,{"value":null}]
+1571810741616	Marionette	DEBUG	0 -> [0,9,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810741644	Marionette	DEBUG	0 <- [1,9,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marione ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810742165	Marionette	DEBUG	0 -> [0,10,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810742192	Marionette	DEBUG	0 <- [1,10,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810742711	Marionette	DEBUG	0 -> [0,11,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810742717	Marionette	DEBUG	0 <- [1,11,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810743228	Marionette	DEBUG	0 -> [0,12,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810743235	Marionette	DEBUG	0 <- [1,12,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810743745	Marionette	DEBUG	0 -> [0,13,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810743961	Marionette	DEBUG	0 <- [1,13,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810744474	Marionette	DEBUG	0 -> [0,14,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810744967	Marionette	DEBUG	0 <- [1,14,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810745480	Marionette	DEBUG	0 -> [0,15,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810745566	Marionette	DEBUG	0 <- [1,15,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810746074	Marionette	DEBUG	0 -> [0,16,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810746579	Marionette	DEBUG	0 <- [1,16,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810747089	Marionette	DEBUG	0 -> [0,17,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571810748290	Marionette	DEBUG	0 <- [1,17,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"b0085729-6cfc-458d-bb6e-37baa7746f3d"}}]
+1571810748324	Marionette	DEBUG	0 -> [0,18,"WebDriver:Navigate",{"url":"https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=123 ... 771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week"}]
+1571810750717	Marionette	TRACE	[4294967297] Received DOM event beforeunload for https://insight.dreambox.com/district/19207/classroom/1850338?breadcrumbs=d,sc,t,c&teacherId=12317771&schoolId=47805
+1571810752852	Marionette	TRACE	[4294967297] Received DOM event pagehide for https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=0w&timeframeId=0w&by=day
+1571810752867	Marionette	TRACE	[4294967297] Received DOM event unload for https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=0w&timeframeId=0w&by=day
+1571810761197	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week
+1571810762339	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week
+1571810762362	Marionette	DEBUG	0 <- [1,18,null,{"value":null}]
+1571810762493	Marionette	DEBUG	0 -> [0,19,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571810762558	Marionette	DEBUG	0 <- [1,19,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810763067	Marionette	DEBUG	0 -> [0,20,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571810764220	Marionette	DEBUG	0 <- [1,20,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810764796	Marionette	DEBUG	0 -> [0,21,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571810766302	Marionette	DEBUG	0 <- [1,21,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810766812	Marionette	DEBUG	0 -> [0,22,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571810767952	Marionette	DEBUG	0 <- [1,22,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810768476	Marionette	DEBUG	0 -> [0,23,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571810770447	Marionette	DEBUG	0 <- [1,23,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810770967	Marionette	DEBUG	0 -> [0,24,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571810773833	Marionette	DEBUG	0 <- [1,24,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571810774355	Marionette	DEBUG	0 -> [0,25,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571810775797	Marionette	DEBUG	0 <- [1,25,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"aa4040dc-5c97-45fe-a011-47cfbafe801c"}}]
+1571810775832	Marionette	DEBUG	0 -> [0,26,"WebDriver:FindElements",{"using":"xpath","value":"//div[@class='ng-scope']/section/table[1]"}]
+1571810776198	Marionette	DEBUG	0 <- [1,26,null,[{"element-6066-11e4-a52e-4f735466cecf":"e37addd7-8955-47cc-bf65-c376518d4373"}]]
+1571810776225	Marionette	DEBUG	0 -> [0,27,"WebDriver:FindElement",{"using":"xpath","value":"//div[@class='ng-scope']/section/table[1]"}]
+1571810776385	Marionette	DEBUG	0 <- [1,27,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"e37addd7-8955-47cc-bf65-c376518d4373"}}]
+1571810776410	Marionette	DEBUG	0 -> [0,28,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e37addd7-8955-47cc-bf65-c376518d4373","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1571810776958	Marionette	DEBUG	0 <- [1,28,null,{"value":"\n                <thead ng-show=\"localRows.length > 0\" class=\"\">\n                <tr sortable-tabl ... n localRows -->\n                <!-- ngIf: !localRows || localRows.length <=0 -->\n                </tbody>\n            "}]
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1571810996823	geckodriver	INFO	geckodriver 0.21.0
+1571810996951	geckodriver	INFO	Listening on 127.0.0.1:60384
+1571810997878	mozrunner::runner	INFO	Running command: "/home/davinci/Downloads/firefox/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.lmBcoOud8lFy"
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+1571811001474	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571811001482	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571811001486	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571811001491	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571811002331	Marionette	TRACE	Received observer notification profile-after-change
+1571811002639	Marionette	TRACE	Received observer notification command-line-startup
+1571811002640	Marionette	TRACE	Received observer notification nsPref:changed
+1571811002642	Marionette	DEBUG	Init aborted (running=false, enabled=true, finalUIStartup=false)
+1571811004101	Marionette	TRACE	Received observer notification toplevel-window-ready
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+Gtk-Message: Failed to load module "pantheon-filechooser-module"
+1571811015901	Marionette	TRACE	Received observer notification marionette-startup-requested
+1571811015922	Marionette	TRACE	Waiting until startup recorder finished recording startup scripts...
+1571811016569	Marionette	TRACE	All scripts recorded.
+1571811016570	Marionette	DEBUG	Setting recommended pref app.update.disabledForTesting to true
+1571811016582	Marionette	DEBUG	Setting recommended pref apz.content_response_timeout to 60000
+1571811016592	Marionette	DEBUG	Setting recommended pref browser.contentblocking.introCount to 99
+1571811016607	Marionette	DEBUG	Setting recommended pref browser.download.panel.shown to true
+1571811016610	Marionette	DEBUG	Setting recommended pref browser.newtabpage.enabled to false
+1571811016630	Marionette	DEBUG	Setting recommended pref browser.pagethumbnails.capturing_disabled to true
+1571811016653	Marionette	DEBUG	Setting recommended pref browser.search.update to false
+1571811016667	Marionette	DEBUG	Setting recommended pref browser.tabs.disableBackgroundZombification to false
+1571811016682	Marionette	DEBUG	Setting recommended pref browser.tabs.remote.separatePrivilegedContentProcess to false
+1571811016684	Marionette	DEBUG	Setting recommended pref browser.tabs.unloadOnLowMemory to false
+1571811016692	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnCloseOtherTabs to false
+1571811016697	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnOpen to false
+1571811016705	Marionette	DEBUG	Setting recommended pref browser.usedOnWindows10.introURL to 
+1571811016715	Marionette	DEBUG	Setting recommended pref browser.urlbar.suggest.searches to false
+1571811016740	Marionette	DEBUG	Setting recommended pref datareporting.policy.dataSubmissionPolicyAccepted to false
+1571811016749	Marionette	DEBUG	Setting recommended pref dom.disable_beforeunload to true
+1571811016757	Marionette	DEBUG	Setting recommended pref dom.disable_open_during_load to false
+1571811016764	Marionette	DEBUG	Setting recommended pref dom.file.createInChild to true
+1571811016773	Marionette	DEBUG	Setting recommended pref dom.max_chrome_script_run_time to 0
+1571811016782	Marionette	DEBUG	Setting recommended pref dom.max_script_run_time to 0
+1571811016806	Marionette	DEBUG	Setting recommended pref dom.push.connection.enabled to false
+1571811016816	Marionette	DEBUG	Setting recommended pref extensions.getAddons.cache.enabled to false
+1571811016819	Marionette	DEBUG	Setting recommended pref extensions.webservice.discoverURL to http://%(server)s/dummy/discoveryURL
+1571811016830	Marionette	DEBUG	Setting recommended pref network.http.prompt-temp-redirect to false
+1571811016832	Marionette	DEBUG	Setting recommended pref network.http.speculative-parallel-limit to 0
+1571811016838	Marionette	DEBUG	Setting recommended pref privacy.trackingprotection.enabled to false
+1571811016840	Marionette	DEBUG	Setting recommended pref security.certerrors.mitm.priming.enabled to false
+1571811016847	Marionette	DEBUG	Setting recommended pref security.fileuri.strict_origin_policy to false
+1571811016863	Marionette	DEBUG	Setting recommended pref security.notification_enable_delay to 0
+1571811016865	Marionette	DEBUG	Setting recommended pref signon.autofillForms to false
+1571811016873	Marionette	DEBUG	Setting recommended pref signon.rememberSignons to false
+1571811016887	Marionette	DEBUG	Setting recommended pref toolkit.cosmeticAnimations.enabled to false
+1571811017465	Marionette	INFO	Listening on port 40311
+1571811017466	Marionette	DEBUG	Remote service is active
+1571811017584	Marionette	DEBUG	Accepted connection 0 from 127.0.0.1:34024
+1571811017599	Marionette	DEBUG	0 -> [0,1,"WebDriver:NewSession",{"acceptInsecureCerts":true,"browserName":"firefox","capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}]
+1571811017608	Marionette	WARN	TLS certificate errors will be ignored for this session
+1571811017898	Marionette	TRACE	[4294967297] Frame script loaded
+1571811017916	Marionette	TRACE	[4294967297] Frame script registered
+1571811017975	Marionette	DEBUG	0 <- [1,1,null,{"sessionId":"c75a8273-6137-4e37-b019-4df2f583e0ce","capabilities":{"browserName":"firefox","browserVersion":"69.0. ... alse,"moz:webdriverClick":true,"capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}}]
+1571811018026	Marionette	DEBUG	0 -> [0,2,"WebDriver:Navigate",{"url":"https://play.dreambox.com/dashboard/login/"}]
+1571811018149	Marionette	TRACE	[4294967297] Received DOM event beforeunload for about:blank
+1571811019921	Marionette	TRACE	[4294967297] Received DOM event pagehide for about:blank
+1571811025980	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://play.dreambox.com/dashboard/login/
+1571811027006	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://play.dreambox.com/dashboard/login/
+1571811027045	Marionette	DEBUG	0 <- [1,2,null,{"value":null}]
+1571811027121	Marionette	DEBUG	0 -> [0,3,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"email_address\"]"}]
+1571811027149	Marionette	DEBUG	0 <- [1,3,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"5c1c0402-6f3d-4c2b-818a-dc377427d419"}}]
+1571811027176	Marionette	DEBUG	0 -> [0,4,"WebDriver:ElementSendKeys",{"id":"5c1c0402-6f3d-4c2b-818a-dc377427d419","text":"charlotte.wood@epiccharterschools.org", ... t","t","e",".","w","o","o","d","@","e","p","i","c","c","h","a","r","t","e","r","s","c","h","o","o","l","s",".","o","r","g"]}]
+1571811027500	Marionette	DEBUG	0 <- [1,4,null,{"value":null}]
+1571811027522	Marionette	DEBUG	0 -> [0,5,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"password\"]"}]
+1571811027572	Marionette	DEBUG	0 <- [1,5,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"d704878c-ccbf-44bb-8276-cfa895a7a9c9"}}]
+1571811027597	Marionette	DEBUG	0 -> [0,6,"WebDriver:ElementSendKeys",{"id":"d704878c-ccbf-44bb-8276-cfa895a7a9c9","text":"Teacher1","value":["T","e","a","c","h","e","r","1"]}]
+1571811027717	Marionette	DEBUG	0 <- [1,6,null,{"value":null}]
+1571811027742	Marionette	DEBUG	0 -> [0,7,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"dashboard\"]"}]
+1571811027760	Marionette	DEBUG	0 <- [1,7,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"d1b3c98f-4bc2-4bfb-b039-c50dc8cc9b17"}}]
+1571811027782	Marionette	DEBUG	0 -> [0,8,"WebDriver:ElementClick",{"id":"d1b3c98f-4bc2-4bfb-b039-c50dc8cc9b17"}]
+1571811027978	Marionette	TRACE	[4294967297] Received DOM event beforeunload for https://play.dreambox.com/dashboard/login/
+1571811030589	Marionette	TRACE	[4294967297] Received DOM event pagehide for https://play.dreambox.com/dashboard/login/
+1571811030603	Marionette	TRACE	[4294967297] Received DOM event unload for https://play.dreambox.com/dashboard/login/
+1571811094252	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://insight.dreambox.com/
+1571811095582	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://insight.dreambox.com/
+1571811095600	Marionette	DEBUG	0 <- [1,8,null,{"value":null}]
+1571811095767	Marionette	DEBUG	0 -> [0,9,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571811095788	Marionette	DEBUG	0 <- [1,9,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marione ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811096313	Marionette	DEBUG	0 -> [0,10,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571811096337	Marionette	DEBUG	0 <- [1,10,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811096853	Marionette	DEBUG	0 -> [0,11,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571811096992	Marionette	DEBUG	0 <- [1,11,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811097527	Marionette	DEBUG	0 -> [0,12,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571811098118	Marionette	DEBUG	0 <- [1,12,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811098644	Marionette	DEBUG	0 -> [0,13,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571811098737	Marionette	DEBUG	0 <- [1,13,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811099278	Marionette	DEBUG	0 -> [0,14,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571811100006	Marionette	DEBUG	0 <- [1,14,{"error":"no such element","message":"Unable to locate element: .dbl-icon","stacktrace":"WebDriverError@chrome://marion ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811100527	Marionette	DEBUG	0 -> [0,15,"WebDriver:FindElement",{"using":"css selector","value":".dbl-icon"}]
+1571811101746	Marionette	DEBUG	0 <- [1,15,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"752220f5-7e0f-4128-b3f0-ac12afd48bf0"}}]
+1571811101763	Marionette	DEBUG	0 -> [0,16,"WebDriver:Navigate",{"url":"https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=123 ... 771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week"}]
+1571811104600	Marionette	TRACE	[4294967297] Received DOM event beforeunload for https://insight.dreambox.com/district/19207/classroom/1850338?breadcrumbs=d,sc,t,c&teacherId=12317771&schoolId=47805
+1571811105941	Marionette	TRACE	[4294967297] Received DOM event pagehide for https://insight.dreambox.com/district/19207/classroom/1850338?breadcrumbs=d,sc,t,c&teacherId=12317771&schoolId=47805
+1571811105953	Marionette	TRACE	[4294967297] Received DOM event unload for https://insight.dreambox.com/district/19207/classroom/1850338?breadcrumbs=d,sc,t,c&teacherId=12317771&schoolId=47805
+1571811114874	Marionette	TRACE	[4294967297] Received DOM event DOMContentLoaded for https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week
+1571811116320	Marionette	TRACE	[4294967297] Received DOM event pageshow for https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd20191013td20191019&timeframeId=custom&by=week
+1571811116323	Marionette	DEBUG	0 <- [1,16,null,{"value":null}]
+1571811116478	Marionette	DEBUG	0 -> [0,17,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571811116626	Marionette	DEBUG	0 <- [1,17,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811117144	Marionette	DEBUG	0 -> [0,18,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571811118849	Marionette	DEBUG	0 <- [1,18,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811119362	Marionette	DEBUG	0 -> [0,19,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571811120468	Marionette	DEBUG	0 <- [1,19,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811120992	Marionette	DEBUG	0 -> [0,20,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571811124394	Marionette	DEBUG	0 <- [1,20,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811124912	Marionette	DEBUG	0 -> [0,21,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571811129652	Marionette	DEBUG	0 <- [1,21,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811130164	Marionette	DEBUG	0 -> [0,22,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571811131477	Marionette	DEBUG	0 <- [1,22,{"error":"no such element","message":"Unable to locate element: Click Here","stacktrace":"WebDriverError@chrome://mario ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1571811131994	Marionette	DEBUG	0 -> [0,23,"WebDriver:FindElement",{"using":"link text","value":"Click Here"}]
+1571811133280	Marionette	DEBUG	0 <- [1,23,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"edccb0d2-abd9-4e34-a294-378b196e431b"}}]
+1571811133304	Marionette	DEBUG	0 -> [0,24,"WebDriver:FindElements",{"using":"xpath","value":"//div[@class='ng-scope']/section/table[1]"}]
+1571811133344	Marionette	DEBUG	0 <- [1,24,null,[{"element-6066-11e4-a52e-4f735466cecf":"0ef365eb-658f-4390-aa14-57a7fe3b783f"}]]
+1571811133362	Marionette	DEBUG	0 -> [0,25,"WebDriver:FindElement",{"using":"xpath","value":"//div[@class='ng-scope']/section/table[1]"}]
+1571811133387	Marionette	DEBUG	0 <- [1,25,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"0ef365eb-658f-4390-aa14-57a7fe3b783f"}}]
+1571811133422	Marionette	DEBUG	0 -> [0,26,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"0ef365eb-658f-4390-aa14-57a7fe3b783f","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1571811133539	Marionette	DEBUG	0 <- [1,26,null,{"value":"\n                <thead ng-show=\"localRows.length > 0\" class=\"\">\n                <tr sortable-tabl ... n localRows -->\n                <!-- ngIf: !localRows || localRows.length <=0 -->\n                </tbody>\n            "}]
+1571811516369	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571811516544	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571811614079	Marionette	DEBUG	Closed connection 0
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1571812820065	Marionette	TRACE	Received observer notification xpcom-will-shutdown
+1571812820066	Marionette	DEBUG	Resetting recommended pref app.update.disabledForTesting
+1571812820066	Marionette	DEBUG	Resetting recommended pref apz.content_response_timeout
+1571812820067	Marionette	DEBUG	Resetting recommended pref browser.contentblocking.introCount
+1571812820068	Marionette	DEBUG	Resetting recommended pref browser.download.panel.shown
+1571812820069	Marionette	DEBUG	Resetting recommended pref browser.newtabpage.enabled
+1571812820071	Marionette	DEBUG	Resetting recommended pref browser.pagethumbnails.capturing_disabled
+1571812820072	Marionette	DEBUG	Resetting recommended pref browser.search.update
+1571812820072	Marionette	DEBUG	Resetting recommended pref browser.tabs.disableBackgroundZombification
+1571812820073	Marionette	DEBUG	Resetting recommended pref browser.tabs.remote.separatePrivilegedContentProcess
+1571812820074	Marionette	DEBUG	Resetting recommended pref browser.tabs.unloadOnLowMemory
+1571812820074	Marionette	DEBUG	Resetting recommended pref browser.tabs.warnOnCloseOtherTabs
+1571812820074	Marionette	DEBUG	Resetting recommended pref browser.tabs.warnOnOpen
+1571812820075	Marionette	DEBUG	Resetting recommended pref browser.usedOnWindows10.introURL
+1571812820075	Marionette	DEBUG	Resetting recommended pref browser.urlbar.suggest.searches
+1571812820076	Marionette	DEBUG	Resetting recommended pref datareporting.policy.dataSubmissionPolicyAccepted
+1571812820077	Marionette	DEBUG	Resetting recommended pref dom.disable_beforeunload
+1571812820078	Marionette	DEBUG	Resetting recommended pref dom.disable_open_during_load
+1571812820078	Marionette	DEBUG	Resetting recommended pref dom.file.createInChild
+1571812820078	Marionette	DEBUG	Resetting recommended pref dom.max_chrome_script_run_time
+1571812820079	Marionette	DEBUG	Resetting recommended pref dom.max_script_run_time
+1571812820080	Marionette	DEBUG	Resetting recommended pref dom.push.connection.enabled
+1571812820081	Marionette	DEBUG	Resetting recommended pref extensions.getAddons.cache.enabled
+1571812820081	Marionette	DEBUG	Resetting recommended pref extensions.webservice.discoverURL
+1571812820081	Marionette	DEBUG	Resetting recommended pref network.http.prompt-temp-redirect
+1571812820082	Marionette	DEBUG	Resetting recommended pref network.http.speculative-parallel-limit
+1571812820082	Marionette	DEBUG	Resetting recommended pref privacy.trackingprotection.enabled
+1571812820082	Marionette	DEBUG	Resetting recommended pref security.certerrors.mitm.priming.enabled
+1571812820083	Marionette	DEBUG	Resetting recommended pref security.fileuri.strict_origin_policy
+1571812820083	Marionette	DEBUG	Resetting recommended pref security.notification_enable_delay
+1571812820084	Marionette	DEBUG	Resetting recommended pref signon.autofillForms
+1571812820085	Marionette	DEBUG	Resetting recommended pref signon.rememberSignons
+1571812820085	Marionette	DEBUG	Resetting recommended pref toolkit.cosmeticAnimations.enabled
+1571812820086	Marionette	INFO	Stopped listening on port 40311
+1571812820087	Marionette	DEBUG	Remote service is inactive

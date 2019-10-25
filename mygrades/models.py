@@ -67,13 +67,13 @@ class Curriculum(models.Model):
 
         
     def get_absolute_url(self):
-        return f"/curriculum/{self.id}"
+        return "/curriculum/{self.id}".format(self=self)
 
     def get_edit_url(self):
-        return f"/curriculum/{self.id}/edit"
+        return "/curriculum/{self.id}/edit".format(self=self)
 
     def get_delete_url(self):
-        return f"/curriculum/{self.id}/delete"
+        return "/curriculum/{self.id}/delete".format(self=self)
 
     # def record_attendance_url(self):
     #     return f"/students/{self.Epicenter_ID}/record-attendance"
@@ -136,13 +136,13 @@ class Student(models.Model):
    
 
     def get_absolute_url(self):
-        return f"/students/{self.epicenter_id}"
+        return "/students/{self.epicenter_id}".format(self=self)
 
     def get_edit_url(self):
-        return f"/students/{self.epicenter_id}/edit"
+        return "/students/{self.epicenter_id}/edit".format(self=self)
 
     def get_delete_url(self):
-        return f"/students/{self.epicenter_id}/delete"
+        return "/students/{self.epicenter_id}/delete".format(self=self)
 
     def __str__(self):
         return "%s %s %s %s " % (
@@ -165,13 +165,13 @@ class Enrollment(models.Model):
         unique_together = ("curriculum", "student")
 
     def get_absolute_url(self):
-        return f"/enrollment/{self.id}"
+        return "/enrollment/{self.id}".format(self=self)
 
     def get_delete_url(self):
-        return f"/enrollment/{self.id}/delete"
+        return "/enrollment/{self.id}/delete".format(self=self)
 
     def get_edit_url(self):
-        return f"/enrollment/{self.id}/edit"
+        return "/enrollment/{self.id}/edit".format(self=self)
 
     def __str__(self):
         return "%s %s" % (self.student, self.id)
@@ -221,13 +221,13 @@ class Standard(models.Model):
     PDF_link= models.CharField(max_length=100, choices=SUBJECT)
 
     def get_absolute_url(self):
-        return f"/standard/{self.id}"
+        return "/standard/{self.id}".format(self=self)
 
     def get_delete_url(self):
-        return f"/standard/{self.id}/delete"
+        return "/standard/{self.id}/delete".format(self=self)
 
     def get_edit_url(self):
-        return f"/standard/{self.id}/edit"
+        return "/standard/{self.id}/edit".format(self=self)
 
     def __str__(self):
         return "%s %s" % (self.strand_code, self.id)
@@ -259,13 +259,13 @@ class Assignment(models.Model):
         unique_together = ("name", "curriculum",)
 
     def get_absolute_url(self):
-        return f"/assignment/{self.id}"
+        return "/assignment/{self.id}".format(self=self)
 
     def get_delete_url(self):
-        return f"/assignment/{self.id}/delete"
+        return "/assignment/{self.id}/delete".format(self=self)
 
     def get_edit_url(self):
-        return f"/assignment/{self.id}/edit"
+        return "/assignment/{self.id}/edit".format(self=self)
 
     def __str__(self):
         return "%s %s" % (self.name, self.id)
@@ -322,14 +322,33 @@ class Gradebook(models.Model):
         unique_together = ("student", "curriculum", "week","quarter",)
 
     def get_absolute_url(self):
-        return f"/grades/{self.id}"
+        return "/grades/{self.id}".format(self=self)
 
     def get_delete_url(self):
-        return f"/grades/{self.id}/delete"
+        return "/grades/{self.id}/delete".format(self=self)
 
     def get_edit_url(self):
-        return f"/grades/{self.id}/edit"
+        return "/grades/{self.id}/edit".format(self=self)
 
     def __str__(self):
         return "%s %s" % (self.name, self.id)
 
+
+class PulledRecords(models.Model):
+    first_name = models.CharField(max_length=50, null=False)
+    last_name = models.CharField(max_length=50, null=False)
+    score = models.CharField(max_length=5, null=True)
+    grade = models.CharField(max_length=10, null=True)
+    completed = models.CharField(max_length=20, null=True)
+    quiz = models.CharField(max_length=5,null=True)
+    attendance =models.CharField(max_length=5,null=True)
+    average_score = models.CharField(max_length=5,null=True)
+    site = models.CharField(max_length=5,null=False)
+    previous =models.CharField(max_length=5,null=True)
+    total_time = models.CharField(max_length=5,null=True)
+    presence = models.CharField(max_length=5,null=True)
+    date_taken = models.DateField()
+    date_pulled = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s %s %s" % (self.first_name,self.last_name, self.id)

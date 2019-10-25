@@ -39,6 +39,8 @@ import csv, io
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST, require_http_methods
+from mygrades.logScrap import learningWood,clever,clives,readingEggs,dreambox
+
 
 # connect scrapyd service
 #scrapyd = ScrapydAPI('http://localhost:6800')
@@ -172,7 +174,48 @@ def crawl(request):
         else:
             return JsonResponse({'status': status})
 
+@login_required
+def crawler(request,site):
+    template_name = "report_page.html"
+    if site == 'dreambox':
+        print("dream_box")
+        #response  = dreambox()
+        response ={'site':'dreambox','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firstanme'}}
+        
+        return render(request,template_name,response)
+        
 
+    elif site == 'clives':
+        print('clives')
+        #response  = clives()
+        response ={'site':'clives','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firstname'}}
+        return render(request,template_name,response)
+    elif site == 'readingEggs':
+        #response  = readingEggs()
+        return render(request,template_name,response)
+    elif site == 'learningwood':
+        print('learning wood')
+        #response  = learningWood()
+        response ={'site':'learningwood','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firname'}}
+        return render(request,template_name,response)
+    elif site == 'clever':
+        #print('clever')
+        response  = clever()
+        response ={'site':'all','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firstname'}}
+        return render(request,template_name,response)
+    elif site == 'all':
+        print('All site pulled')
+        #a= dreambox()
+        #b= clives()
+        #c= readingEggs()
+        #d = dreambox()
+        #e= clever()
+        #response ={'data':(q,b,c,d,e),'site':"all"}
+        response ={'site':'all','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firstname'}}
+        return render(request,template_name,response)
+    else:
+        print('Site not handled')
+        return  (request, template_name, {"status_code":"204",'message':"Site not handled"})
 @login_required
 def standard_upload(request):
     template = "standard_upload.html"
@@ -335,7 +378,7 @@ def student_update_view(request, epicenter_id):
         form.save()
         return redirect("/students")
     template_name = "form.html"
-    context = {"title": f"Update Information for: {obj.epicenter_id}", "form": form}
+    context = {"title": "Update Information for: {obj.epicenter_id}".format(obj=obj), "form": form}
     return render(request, template_name, context)
 
 @staff_member_required
@@ -378,7 +421,7 @@ def curriculum_update_view(request, id):
         form.save()
         return redirect("/curriculum")
     template_name = "form.html"
-    context = {"title": f"Update Information for: {obj.id}", "form": form}
+    context = {"title": "Update Information for: {obj.id}".format(obj=obj), "form": form}
     return render(request, template_name, context)
 
 
@@ -421,7 +464,7 @@ def standard_update_view(request, id):
         form.save()
         form = StandardSetupForm()
     template_name = "form.html"
-    context = {"title": f"Change Information for: {obj.standard_code}", "form": form}
+    context = {"title": "Change Information for: {obj.standard_code}".format(obj=obj), "form": form}
     return render(request, template_name, context)
 
 @staff_member_required
@@ -462,7 +505,7 @@ def assignment_update_view(request, id):
         form.save()
         return redirect("/curriculum")
     template_name = "form.html"
-    context = {"title": f"Update Information for: {obj.id}", "form": form}
+    context = {"title": "Update Information for: {obj.id}".format(obj=obj), "form": form}
     return render(request, template_name, context)
 
 
@@ -521,7 +564,7 @@ def grades_update_view(request, id):
         form.save()
         return redirect("/students")
     template_name = "form.html"
-    context = {"title": f"Update Information for: {obj.id}", "form": form}
+    context = {"title": "Update Information for: {obj.id}".format(obj=obj), "form": form}
     return render(request, template_name, context)
 
 

@@ -33,10 +33,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'u=d2h+d%p91w^5ww%b6ip7!tyf3_#ams+#2(glloc6i68l$@nt'
+SECRET_KEY = 'u=d2h+d%p91w^5ww%b6ip7!tyf3_#ams+#2(glloc6i68l$@nt'
 
 #put back for django_heroku
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -96,18 +96,18 @@ WSGI_APPLICATION = 'gradebook.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
         #put back for heroku and take the two lines above out
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
 
 #put back in for heroku
-DATABASES['default'] = dj_database_url.config(default='postgres://srrreofemriemw:2c9357a6a7613390c5d72b3e6855a67291aa3c1cc01ce069800a94dc56ff2e7e@ec2-23-21-109-177.compute-1.amazonaws.com:5432/d1l01bcuavqkrm')
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# DATABASES['default'] = dj_database_url.config(default='postgres://srrreofemriemw:2c9357a6a7613390c5d72b3e6855a67291aa3c1cc01ce069800a94dc56ff2e7e@ec2-23-21-109-177.compute-1.amazonaws.com:5432/d1l01bcuavqkrm')
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
