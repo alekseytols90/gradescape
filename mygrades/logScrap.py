@@ -20,6 +20,7 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('headless')
 chrome_driver_path = os.path.join(os.getcwd(), "mygrades/chromedriver")
 print(chrome_driver_path)
+time.sleep(10)
 driver = webdriver.Chrome(options=chrome_options, executable_path=chrome_driver_path)
 chrome_wait = WebDriverWait(driver, 3)
 
