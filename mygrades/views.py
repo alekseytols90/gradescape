@@ -181,9 +181,9 @@ def crawler(request, site_name=None):
         a = get_epiclive_data()
         b = get_dream_box_data()
         c = get_readingeggs_data()
-        d = get_clever_data()
-        e = get_learning_wood_data()
-        response ={'data': (a, b, c, d, e), 'site': "all"}
+        # d = get_clever_data()
+        # e = get_learning_wood_data()
+        response ={'data': (a, b, c), 'site': "all"}
         print(response)
         return render(request, template_name, response)
     else:

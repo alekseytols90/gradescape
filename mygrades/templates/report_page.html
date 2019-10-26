@@ -1,264 +1,297 @@
 {% extends "base.html" %}
-
-
-
-
 {% block content %}
 
 <div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="text-center">{{site}}</h3>
+                </div>
+                <div class="col-md-2">
+                    <form method="post"> {% csrf_token %}
+                        <button class="btn btn-success" type="submit" data-target="/">Save</button>
+                    </form>
 
-        
+                </div>
+                <div class="col-md-2">
+                    <a type="button" class="btn btn-danger" href="/">Discard</a>
+                </div>
+            </div>
+
+        </div>
         {% if site == "all" %}
         <ul class="nav nav-tabs">
-            
             <li class="active"><a data-toggle="tab" href="#clives">Clives</a></li>
             <li><a data-toggle="tab" href="#readingeggs">Reading Eggs</a></li>
             <li><a data-toggle="tab" href="#clever">clever</a>Clever</li>
             <li><a data-toggle="tab" href="#learningwood">Learning Wood</a></li>
             <li><a data-toggle="tab" href="#dreambox">Dream Box</a></li>
-        
+
         </ul>
-
         <div class="tab-content">
-            
             <div id="clives" class="tab-pane fade in active">
-               <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Presence</th>
-                                <th>Date</th>
-                                
-                            </tr>
-                            </thead>
-   <tbody>
-            {% for data in response %}
-                <tr>
-                    <td>Id</td>
-                    <td>First NAme</td>
-                    <td>Last Name</td>
-                    <td>Total Time</td>
-                    <td>Lesson Completed</td>
+                <table class="table table-hover">
+                    <thead class="the-box dark full">
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Presence</th>
+                        <th>Date</th>
 
-                </tr>
-            {% endfor %}                        </table>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, val in data.items %}
+                    <tr>
+                        <td>{{key| add:1}}</td>
+                        <td>{{val.first_name}}</td>
+                        <td>{{val.last_name}}</td>
+                        <td>{{val.presence}}</td>
+                        <td>{{val.date}}</td>
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
             <div id="readingeggs" class="tab-pane fade">
-                <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Score</th>
-                                <th>Completion</th>
-                                
-                            </tr>
-                            </thead>
-   <tbody>
-            {% for data in response.data %}
-                <tr>
-                    <td>Id</td>
-                    <td>First NAme</td>
-                    <td>Last Name</td>
-                    <td>Total Time</td>
-                    <td>Lesson Completed</td>
+                <table class="table table-hover">
+                    <thead class="the-box dark full">
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Quiz Score</th>
+                        <th>Attendance</th>
+                        <th>Average Score</th>
 
-                </tr>
-            {% endfor %}                        </table>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, val in data.items %}
+                    <tr>
+                        <td>{{key| add:1}}</td>
+                        <td>{{val.first_name}}</td>
+                        <td>{{val.last_name}}</td>
+                        <td>{{val.quiz_score}}</td>
+                        <td>{{val.attendance}}</td>
+                        <td>{{val.average_score}}</td>
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
             <div id="clever" class="tab-pane fade">
                 <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First</th>
-                                <th>Last Name</th>
-                                <th>Previous</th>
-                            </tr>
-                            </thead>
-   <tbody>
-            {% for data in response.data %}
-                <tr>
-                    <td>Id</td>
-                    <td>First NAme</td>
-                    <td>Last Name</td>
-                    <td>Total Time</td>
-                    <td>Lesson Completed</td>
+                    <thead class="the-box dark full">
+                    <tr>
+                        <th>Id</th>
+                        <th>First</th>
+                        <th>Last Name</th>
+                        <th>Previous</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in response.data %}
+                    <tr>
+                        <td>Id</td>
+                        <td>First NAme</td>
+                        <td>Last Name</td>
+                        <td>Total Time</td>
+                        <td>Lesson Completed</td>
 
-                </tr>
-            {% endfor %}                        </table>
-                
-            </div>
-             <div id="learningwood" class="tab-pane fade">
-               <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Score</th>
-                                <th>Completion</th>
-                                
-                            </tr>
-                            </thead>
-                        
-                        </table>
-            </div>
-             <div id="dreambox" class="tab-pane fade">
-                <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First NAme</th>
-                                <th>Last Name</th>
-                                <th>Total Time</th>
-                                <th>Lesson Completed</th>
-                                
-                            </tr>
-                            </thead>
-                               <tbody>
-            {% for data in response.data %}
-                <tr>
-                    <td>Id</td>
-                    <td>First NAme</td>
-                    <td>Last Name</td>
-                    <td>Total Time</td>
-                    <td>Lesson Completed</td>
+                    </tr>
+                    {% endfor %}
+                </table>
 
-                </tr>
-            {% endfor %}
-                        </table>
+            </div>
+            <div id="learningwood" class="tab-pane fade">
+                <table class="table table-hover">
+                    <thead class="the-box dark full">
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Score</th>
+                        <th>Completion</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, val in data.items %}
+                    <tr>
+                        <td>{{key| add:1}}</td>
+                        <td>{{val.first_name}}</td>
+                        <td>{{val.last_name}}</td>
+                        <td>{{val.score}}</td>
+                        <td>{{val.completion}}</td>
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div id="dreambox" class="tab-pane fade">
+                <table class="table table-hover">
+                    <thead class="the-box dark full">
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Total Time</th>
+                        <th>Lesson Completed</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, val in data.items %}
+                    <tr>
+                        <td>{{key| add:1}}</td>
+                        <td>{{val.first_name}}</td>
+                        <td>{{val.last_name}}</td>
+                        <td>{{val.total_time}}</td>
+                        <td>{{val.lesson_completed}}</td>
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        </div>
+
     {% elif site == "dreambox"%}
-        <table class="table table-hover" id="rec-Table">
-            <thead class="the-box dark full">
-                <tr>
-                    <th>Id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Total Time</th>
-                    <th>Lesson Completed</th>
-                </tr>
-            </thead>
-             <tbody>
-            {% for key, val in data.items %}
-                <tr>
-                    <td>{{key| add:1}}</td>
-                    <td>{{val.first_name}}</td>
-                     <td>{{val.last_name}}</td>
-                    <td>{{val.total_time}}</td>
-                    <td>{{val.lesson_completed}}</td>
 
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <table class="table table-hover">
+        <thead class="the-box dark full">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Total Time</th>
+            <th>Lesson Completed</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, val in data.items %}
+        <tr>
+            <td>{{key| add:1}}</td>
+            <td>{{val.first_name}}</td>
+            <td>{{val.last_name}}</td>
+            <td>{{val.total_time}}</td>
+            <td>{{val.lesson_completed}}</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
     {% elif site == "clever" %}
-                        <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First</th>
-                                <th>Last Name</th>
-                                <th>Previous</th>
-                            </tr>
-                            </thead>
-                                 <tbody>
-            {% for key, val in data.items %}
-                <tr>
-                    <td>{{key| add:1}}</td>
-                    <td>{{val.first_name}}</td>
-                    <td>{{val.last_name}}</td>
-                    <td>{{val.previous}}</td>
+    <table class="table table-hover">
+        <thead class="the-box dark full">
+        <tr>
+            <th>Id</th>
+            <th>First</th>
+            <th>Last Name</th>
+            <th>Previous</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, val in data.items %}
+        <tr>
+            <td>{{key| add:1}}</td>
+            <td>{{val.first_name}}</td>
+            <td>{{val.last_name}}</td>
+            <td>{{val.previous}}</td>
 
-                </tr>
-            {% endfor %}
-            </tbody>
-                        </table>
-    {% elif site == "readineggs" %}
-        <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Quiz Score</th>
-                                <th>Attendance</th>
-                                <th>Average Score</th>
-                                
-                            </tr>
-                            </thead>
-              <tbody>
-            {% for key, val in data.items %}
-                <tr>
-                    <td>{{key| add:1}}</td>
-                    <td>{{val.first_name}}</td>
-                    <td>{{val.last_name}}</td>
-                    <td>{{val.quiz_score}}</td>
-                    <td>{{val.average_score}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-                </tr>
-            {% endfor %}
-            </tbody>
-                        </table>
+    {% elif site == "readingEggs" %}
+    <table class="table table-hover">
+        <thead class="the-box dark full">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Quiz Score</th>
+            <th>Attendance</th>
+            <th>Average Score</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, val in data.items %}
+        <tr>
+            <td>{{key| add:1}}</td>
+            <td>{{val.first_name}}</td>
+            <td>{{val.last_name}}</td>
+            <td>{{val.quiz_score}}</td>
+            <td>{{val.attendance}}</td>
+            <td>{{val.average_score}}</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
     {% elif site == "learningwood"%}
-                        <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Score</th>
-                                <th>Completion</th>
-                                
-                            </tr>
-                            </thead>
-                 <tbody>
-            {% for key, val in data.items %}
-                <tr>
-                    <td>{{key| add:1}}</td>
-                    <td>{{val.first_name}}</td>
-                    <td>{{val.last_name}}</td>
-                    <td>{{val.score}}</td>
-                    <td>{{val.completion}}</td>
+    <table class="table table-hover">
+        <thead class="the-box dark full">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Score</th>
+            <th>Completion</th>
 
-                </tr>
-            {% endfor %}
-            </tbody>
-                        </table>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, val in data.items %}
+        <tr>
+            <td>{{key| add:1}}</td>
+            <td>{{val.first_name}}</td>
+            <td>{{val.last_name}}</td>
+            <td>{{val.score}}</td>
+            <td>{{val.completion}}</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
     {% elif site == "clives" %}
-                        <table class="table table-hover" id="rec-Table">
-                            <thead class="the-box dark full">
-                            <tr>
-                                <th>Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Presence</th>
-                                <th>Date</th>
-                                
-                            </tr>
-                            </thead>
-                                <tbody>
-            {% for key, val in data.items %}
-                <tr>
-                    <td>{{key| add:1}}</td>
-                    <td>{{val.first_name}}</td>
-                    <td>{{val.last_name}}</td>
-                    <td>{{val.presence}}</td>
-                    <td>{{val.date}}</td>
+    <table class="table table-hover">
+        <thead class="the-box dark full">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Presence</th>
+            <th>Date</th>
 
-                </tr>
-            {% endfor %}
-            </tbody>
-                        </table>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, val in data.items %}
+        <tr>
+            <td>{{key| add:1}}</td>
+            <td>{{val.first_name}}</td>
+            <td>{{val.last_name}}</td>
+            <td>{{val.presence}}</td>
+            <td>{{val.date}}</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     {% endif %}
-
+    </div>
+</div>
 {% endblock %}
 

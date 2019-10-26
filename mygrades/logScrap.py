@@ -13,18 +13,8 @@ from selenium.webdriver.firefox.options import Options
 options = Options()
 options.headless = True
 path = os.getcwd() + '/mygrades/geckodriver'
-driver = webdriver.Firefox(executable_path=path, options=options)
 
-# start chrome browser
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('headless')
-chrome_driver_path = os.path.join(os.getcwd(), "mygrades/chromedriver")
-print(chrome_driver_path)
-time.sleep(10)
-driver = webdriver.Chrome(options=chrome_options, executable_path=chrome_driver_path)
-chrome_wait = WebDriverWait(driver, 3)
 
-wait = WebDriverWait(driver, 10)
 def seven_days():
     a = datetime.date.today()
     day = a.weekday() % 6
@@ -95,10 +85,13 @@ def get_epiclive_data():
             response = {'status_code': '115',
                         'message': 'record not found',
                         'site': 'clives'}
+
         return response
 
 
 def get_dream_box_data():
+    driver = webdriver.Firefox(executable_path=path, options=options)
+    wait = WebDriverWait(driver, 10)
     login_url = "https://play.dreambox.com/dashboard/login/"
     a = str(seven_days()[0]).split()[0]
     b = str(seven_days()[1]).split()[0]
@@ -148,10 +141,13 @@ def get_dream_box_data():
 
     else:
         response = {'status_code': '115', 'message': 'record not found', 'site': 'dreambox'}
+    driver.close()
     return response
 
 
 def get_readingeggs_data():
+    driver = webdriver.Firefox(executable_path=path, options=options)
+    wait = WebDriverWait(driver, 10)
     login_url = "https://sso.readingeggs.com/login"
     a = str(seven_days()[0]).split()[0]
     b = str(seven_days()[1]).split()[0]
@@ -176,18 +172,15 @@ def get_readingeggs_data():
     wait.until(
         EC.presence_of_element_located((By.ID, "ember73"))
     )
-    elem = driver.find_elements_by_xpath("//div[@class='flex-container']/table[1]")
     count = 0
-    response = {'data': {'rec_1': {}, 'rec_2': {}}}
+    response = {'data': {}}
+    elem = driver.find_elements_by_xpath("//div[@class='flex-container']/table[1]")
     if len(elem) > 0:
-
         elem = driver.find_element_by_xpath("//div[@class='flex-container']/table[1]")
         bo = elem.get_attribute('innerHTML')
-
         soup = BeautifulSoup(bo, 'html.parser')
         tbody = soup.find('tbody')
         trs = tbody.find_all('tr')
-
         for tr in trs:
             tds = tr.find_all('td')
             fname = tds[0].text.strip()
@@ -195,15 +188,18 @@ def get_readingeggs_data():
             quiz = tds[2].text.strip()
             att = tds[3].text.strip()
             avg_sc = tds[4].text.strip()
-            response['data']['rec_1'][count] = {'fist_name': fname,
+            response['data'][count] = {'fist_name': fname,
                                                 'last_name': lname,
                                                 'quiz': quiz, 'attendance': att,
                                                 'average_score': avg_sc}
+            count += 1
         response['status_code'] = '100'
-        response['message'] = "Records 1 pulled successfully"
+        response['message'] = " Records 1 pulled successfully"
         response['site'] = "readingEggs"
     else:
-        response = {'status_code': '115', 'message': 'record 1 not found', 'site': 'readingEggs'}
+        response['status_code'] = '115'
+        response['message'] = " Records 1 not pulled successfully"
+        response['site'] = "readingEggs"
 
     driver.get(request_url1)
     wait.until(
@@ -225,23 +221,24 @@ def get_readingeggs_data():
             quiz = tds[2].text.strip()
             att = tds[3].text.strip()
             avg_sc = tds[4].text.strip()
-            response['data']['rec_2'][count] = {'fist_name': fname,
+            response['data'][count] = {'fist_name': fname,
                                                 'last_name': lname,
                                                 'quiz': quiz, 'attendance': att,
                                                 'average_score': avg_sc}
+            count += 1
         response['status_code'] = '100'
-        response['message'] += "Records 2 pulled successfully"
+        response['message'] += " Records 2 pulled successfully"
         response['table_type'] = "readingEggs"
-
     else:
-
-        print("record not found for the last seven days")
-        response = {'status_code': response['status_code'] + '/115',
-                    'message': response['message'] + '/record not found'}
+        response['message'] += " Records 2 not pulled successfully"
+        response['site'] = "readingEggs"
+    driver.close()
     return response
 
 
 def get_learning_wood_data():
+    driver = webdriver.Firefox(executable_path=path, options=options)
+    wait = WebDriverWait(driver, 10)
     login_url = "https://www.thelearningodyssey.com"
     a = str(seven_days()[0]).split()[0]
     b = str(seven_days()[1]).split()[0]
@@ -330,14 +327,17 @@ def get_learning_wood_data():
     response['status_code'] = '100'
     response['message'] = 'pulled successfully'
     response['site'] = 'learningWood'
-    if response['data']:
-        return response
-    else:
-        response = {'status_code': '115', 'message': 'The data could not be pulled', 'site': 'learningWood'}
-        return response
+
+    if not response['data']:
+        response['status_code'] = '100'
+        response['message'] = 'The data could not be pulled'
+    driver.close()
+    return response
 
 
 def get_clever_data():
+    driver = webdriver.Firefox(executable_path=path, options=options)
+    wait = WebDriverWait(driver, 10)
     login_url = "https://clever.com/oauth/authorize?channel=clever&client_id" \
                 "=4c63c1cf623dce82caac&confirmed=true" \
                 "&redirect_uri=https%3A%2F%2Fclever.com%2Fin%2Fauth_callback&response_type=code&state" \
@@ -396,18 +396,16 @@ def get_clever_data():
         response['status_code'] = '100'
         response['message'] = "pulled successfully"
         response['site'] = 'clever'
-    if response['data']:
-        return response
-    else:
-        return {'status_code': '115', 'message': 'data could not be pulled', 'site': 'clever'}
+    if not response['data']:
+        response['status_code'] = '115',
+        response['message'] = 'data could not be pulled'
+    driver.close()
+    return response
 
 
 if __name__ == "__main__":
-    path = os.getcwd() + '/geckodriver'
-    print(path)
-    driver = webdriver.Firefox(executable_path=path, options=options)
     # get_epiclive_data()
     # get_readingeggs_data()
     # get_dream_box_data()
-    # get_clever_data()
+    get_clever_data()
     # get_learning_wood_data()

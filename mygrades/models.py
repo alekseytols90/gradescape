@@ -17,7 +17,7 @@ class Curriculum(models.Model):
         ("Minutes", "Minutes"),
         ("Lessons", "Lessons"),
         ("Percentage Complete", "Percentage Complete"),
-        
+
     ]
     CURRICULUMGRADE = [
         ("P", "Pre-K"),
@@ -35,16 +35,16 @@ class Curriculum(models.Model):
         ("11", "11"),
         ("12", "12"),
         ("All", "All"),
-        ("High School","High School"),
-    ] 
-    
-    RECORDED = [("Manual", "Manual"), 
-        ("Automatic", "Automatic"), 
-        ]
+        ("High School", "High School"),
+    ]
 
-    LEVEL = [("Core", "Core"), 
-        ("Supplemental", "Supplemental"), 
-        ]
+    RECORDED = [("Manual", "Manual"),
+                ("Automatic", "Automatic"),
+                ]
+
+    LEVEL = [("Core", "Core"),
+             ("Supplemental", "Supplemental"),
+             ]
 
     name = models.CharField(max_length=50, null=False)
     subject = models.CharField(max_length=30, choices=SUBJECT)
@@ -61,11 +61,10 @@ class Curriculum(models.Model):
 
     class Meta:
         ordering = ["grade_level"]
-        #descending order = ["-id"]
+        # descending order = ["-id"]
 
-        #unique_together = ('name', 'gradelevel', 'semester','subject',)
+        # unique_together = ('name', 'gradelevel', 'semester','subject',)
 
-        
     def get_absolute_url(self):
         return "/curriculum/{self.id}".format(self=self)
 
@@ -87,16 +86,17 @@ class Curriculum(models.Model):
 
         )
 
+
 class ScrapyItem(models.Model):
     unique_id = models.CharField(max_length=100, null=True)
-    data = models.TextField() # this stands for our crawled data
+    data = models.TextField()  # this stands for our crawled data
     date = models.DateTimeField(auto_now=True)
 
     # This is for basic and custom serialisation to return it to client as a JSON.
     @property
     def to_dict(self):
         data = {
-           'data': json.loads(self.data),
+            'data': json.loads(self.data),
             'date': self.date
         }
         return data
@@ -122,7 +122,7 @@ class Student(models.Model):
         ("11", "11"),
         ("12", "12"),
     ]
-    
+
     epicenter_id = models.CharField(
         null=False, blank=False, unique=True, max_length=10
     )
@@ -133,7 +133,6 @@ class Student(models.Model):
     additional_email = models.EmailField(max_length=120, null=True)
     additional_phone_number = models.CharField(max_length=20, null=True)
     grade = models.CharField(max_length=20, choices=GRADELEVEL, null=False)
-   
 
     def get_absolute_url(self):
         return "/students/{self.epicenter_id}".format(self=self)
@@ -159,7 +158,7 @@ class Enrollment(models.Model):
     )
     curriculum = models.ForeignKey(
         Curriculum, on_delete=models.CASCADE, related_name="curriculum_enrollment"
-     )
+    )
 
     class Meta:
         unique_together = ("curriculum", "student")
@@ -175,7 +174,6 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.student, self.id)
-
 
 
 class Standard(models.Model):
@@ -207,18 +205,18 @@ class Standard(models.Model):
         ("History", "History"),
         ("Other", "Other"),
     ]
-    
+
     grade_level = models.CharField(max_length=60, choices=GRADELEVEL)
-    standard_number =models.CharField(max_length = 5, null=False)
-    standard_description = models.CharField(max_length = 2000, null=False)
-    strand_code= models.CharField(max_length = 10, null=False)
-    strand = models.CharField(max_length = 50, null=True)
-    strand_description = models.CharField(max_length = 1000, null=True)
-    objective_number = models.CharField(max_length = 4, null=False)
-    objective_description = models.CharField(max_length = 1000, null=False)
-    standard_code = models.CharField(max_length = 20, null=False)
+    standard_number = models.CharField(max_length=5, null=False)
+    standard_description = models.CharField(max_length=2000, null=False)
+    strand_code = models.CharField(max_length=10, null=False)
+    strand = models.CharField(max_length=50, null=True)
+    strand_description = models.CharField(max_length=1000, null=True)
+    objective_number = models.CharField(max_length=4, null=False)
+    objective_description = models.CharField(max_length=1000, null=False)
+    standard_code = models.CharField(max_length=20, null=False)
     subject = models.CharField(max_length=30, choices=SUBJECT)
-    PDF_link= models.CharField(max_length=100, choices=SUBJECT)
+    PDF_link = models.CharField(max_length=100, choices=SUBJECT)
 
     def get_absolute_url(self):
         return "/standard/{self.id}".format(self=self)
@@ -232,6 +230,7 @@ class Standard(models.Model):
     def __str__(self):
         return "%s %s" % (self.strand_code, self.id)
 
+
 class Assignment(models.Model):
     STATUS = [
         ("Not Assigned", "Not Assigned"),
@@ -243,17 +242,16 @@ class Assignment(models.Model):
         ("Repeating Weekly", "Repeating Weekly"),
         ("From Pacing List", "From Pacing List"),
     ]
-    
+
     standard = models.ManyToManyField(
         Standard)
     curriculum = models.ForeignKey(
         Curriculum, on_delete=models.CASCADE, related_name="curriculum_assignment"
-     )
-    name = models.CharField(max_length = 500, null=False)
-    description = models.CharField(max_length = 500, null=False)
+    )
+    name = models.CharField(max_length=500, null=False)
+    description = models.CharField(max_length=500, null=False)
     status = models.CharField(max_length=30, choices=STATUS, null=False)
     type_of = models.CharField(max_length=30, choices=TYPE, null=False)
-    
 
     class Meta:
         unique_together = ("name", "curriculum",)
@@ -298,28 +296,27 @@ class Gradebook(models.Model):
         ("2", "2"),
         ("3", "3"),
         ("4", "4"),
-        ]
+    ]
     SEMESTER = [
         ("1", "1"),
         ("2", "2"),
-        ]
+    ]
 
     student = models.ForeignKey(
         Student, on_delete=models.CASCADE, related_name="gradebook_student"
     )
     curriculum = models.ForeignKey(
         Curriculum, on_delete=models.CASCADE, related_name="curriculum_grade"
-     )
+    )
     complete = models.CharField(max_length=20, null=False)
-    required =  models.CharField(max_length=20, null=False)
+    required = models.CharField(max_length=20, null=False)
     quarter = models.CharField(max_length=1, choices=QUARTER, null=False)
     week = models.CharField(max_length=2, choices=WEEK, null=False)
     grade = models.IntegerField(null=False)
     semester = models.CharField(max_length=1, choices=SEMESTER, null=False)
 
-
     class Meta:
-        unique_together = ("student", "curriculum", "week","quarter",)
+        unique_together = ("student", "curriculum", "week", "quarter",)
 
     def get_absolute_url(self):
         return "/grades/{self.id}".format(self=self)
@@ -340,15 +337,15 @@ class PulledRecords(models.Model):
     score = models.CharField(max_length=5, null=True)
     grade = models.CharField(max_length=10, null=True)
     completed = models.CharField(max_length=20, null=True)
-    quiz = models.CharField(max_length=5,null=True)
-    attendance =models.CharField(max_length=5,null=True)
-    average_score = models.CharField(max_length=5,null=True)
-    site = models.CharField(max_length=5,null=False)
-    previous =models.CharField(max_length=5,null=True)
-    total_time = models.CharField(max_length=5,null=True)
-    presence = models.CharField(max_length=5,null=True)
+    quiz = models.CharField(max_length=5, null=True)
+    attendance = models.CharField(max_length=5, null=True)
+    average_score = models.CharField(max_length=5, null=True)
+    site = models.CharField(max_length=5, null=False)
+    previous = models.CharField(max_length=5, null=True)
+    total_time = models.CharField(max_length=5, null=True)
+    presence = models.CharField(max_length=5, null=True)
     date_taken = models.DateField()
     date_pulled = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "%s %s %s" % (self.first_name,self.last_name, self.id)
+        return "%s %s %s" % (self.first_name, self.last_name, self.id)
