@@ -1,30 +1,8 @@
-from django.shortcuts import render, redirect, render_to_response
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.utils import timezone
-from itertools import chain
-from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
-from django.template.loader import get_template
-from django.template import Context
-from django.http import HttpResponse
-from django.conf import settings
-from datetime import date
-from django.core.files.storage import FileSystemStorage
-from django.core.mail import EmailMessage
-from django.views.decorators.http import require_POST, require_http_methods
-from django.template import RequestContext
-from django.contrib.auth.models import User, Group
-from django.db.models import Count
-from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string
-from django.conf import settings
-from django.core import mail
-from django.utils.html import strip_tags
-from django.urls import reverse
-from django.http import HttpResponseRedirect
 from uuid import uuid4
 from urllib.parse import urlparse
 from django.core.validators import URLValidator
@@ -33,17 +11,13 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from scrapyd_api import ScrapydAPI
-#from mygrades.utils import URLUtil
-#from mygrades.models import ScrapyItem
-import csv, io
+import csv, io, os
 from django.contrib import messages
-from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST, require_http_methods
-from mygrades.logScrap import learningWood,clever,clives,readingEggs,dreambox
+from mygrades.logScrap import get_learning_wood_data, \
+    get_clever_data, get_epiclive_data, get_readingeggs_data,\
+    get_dream_box_data
 
-
-# connect scrapyd service
-#scrapyd = ScrapydAPI('http://localhost:6800')
 
 from mygrades.models import (
     Student,
@@ -52,8 +26,7 @@ from mygrades.models import (
     Standard,
     Assignment,
     Gradebook,
-    )
-
+)
 
 from mygrades.filters import (
     StudentFilter,
@@ -62,8 +35,7 @@ from mygrades.filters import (
     StandardFilter,
     GradebookFilter,
 
-    )
-
+)
 from mygrades.forms import (
     CurriculumEnrollmentForm,
     StudentModelForm,
@@ -72,10 +44,7 @@ from mygrades.forms import (
     CustomCurriculumSetUpForm,
     RecordGradeForm,
     SendPacingGuideForm,
-    )
-
-# connect scrapyd service
-scrapyd = ScrapydAPI('http://localhost:6800')
+)
 
 @login_required
 def send_pacing_guide(request):
@@ -85,8 +54,9 @@ def send_pacing_guide(request):
         first_name = form.cleaned_data["student"].first_name
         last_name = form.cleaned_data["student"].last_name
 
-        subject, from_email, to = 'Your Assignments For This Week', 'tynercreeksoftware@gmail.com', [form.cleaned_data["student"].email, form.cleaned_data["student"].additional_email]
-        text_content = 'Your Most Updated Epic Live Schedule.  You may need to open this in a different browser if you do not see it here.'
+        subject, from_email, to = 'Your Assignments For This Week', 'tynercreeksoftware@gmail.com', [
+            form.cleaned_data["student"].email, form.cleaned_data["student"].additional_email]
+        text_content = 'Your Most Updated Epic Live Schedule.  You may need to open this in a different  if you do not see it here.'
         html_content = render_to_string('mail_pacing_guide.html', context=form.cleaned_data)
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
@@ -97,13 +67,14 @@ def send_pacing_guide(request):
     form = SendPacingGuideForm(request=request)
     my_title = "Send a Student His or Her Assignments for This Week"
     template_name = "send_pacing_guide_form.html"
-    context =  {"title":my_title, "form": form, 'data': request.POST} 
+    context = {"title": my_title, "form": form, 'data': request.POST}
     return render(request, template_name, context)
+
 
 def is_valid_url(url):
     validate = URLValidator()
     try:
-        validate(url) # check if url format is valid
+        validate(url)  # check if url format is valid
     except ValidationError:
         return False
 
@@ -111,12 +82,12 @@ def is_valid_url(url):
 
 
 @csrf_exempt
-@require_http_methods(['POST', 'GET']) # only get and post
+@require_http_methods(['POST', 'GET'])  # only get and post
 def crawl(request):
     # Post requests are for new crawling tasks
     if request.method == 'POST':
 
-        url = request.POST.get('www.google.com', None) # take url comes from client. (From an input may be?)
+        url = request.POST.get('www.google.com', None)  # take url comes from client. (From an input may be?)
 
         if not url:
             return JsonResponse({'error': 'Missing  args'})
@@ -124,14 +95,14 @@ def crawl(request):
         if not is_valid_url(url):
             return JsonResponse({'error': 'URL is invalid'})
 
-        domain = urlparse(url).netloc # parse the url and extract the domain
-        unique_id = str(uuid4()) # create a unique ID.
+        domain = urlparse(url).netloc  # parse the url and extract the domain
+        unique_id = str(uuid4())  # create a unique ID.
 
         # This is the custom settings for scrapy spider.
         # We can send anything we want to use it inside spiders and pipelines.
         # I mean, anything
         settings = {
-            'unique_id': unique_id, # unique ID for each record for DB
+            'unique_id': unique_id,  # unique ID for each record for DB
             'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
         }
 
@@ -141,9 +112,9 @@ def crawl(request):
         # This returns a ID which belongs and will be belong to this task
         # We are goint to use that to check task's status.
         task = scrapyd.schedule('default', 'gradebook',
-            settings=settings, url=url, domain=domain)
+                                settings=settings, url=url, domain=domain)
 
-        return JsonResponse({'task_id': task, 'unique_id': unique_id, 'status': 'started' })
+        return JsonResponse({'task_id': task, 'unique_id': unique_id, 'status': 'started'})
 
     # Get requests are for getting result of a specific crawling task
     elif request.method == 'GET':
@@ -174,124 +145,130 @@ def crawl(request):
         else:
             return JsonResponse({'status': status})
 
-@login_required
-def crawler(request,site):
-    template_name = "report_page.html"
-    if site == 'dreambox':
-        print("dream_box")
-        #response  = dreambox()
-        response ={'site':'dreambox','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firstanme'}}
-        
-        return render(request,template_name,response)
-        
 
-    elif site == 'clives':
-        print('clives')
-        #response  = clives()
-        response ={'site':'clives','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firstname'}}
-        return render(request,template_name,response)
-    elif site == 'readingEggs':
-        #response  = readingEggs()
-        return render(request,template_name,response)
-    elif site == 'learningwood':
+@login_required
+def crawler(request, site_name=None):
+    template_name = "report_page.html"
+
+    if site_name == 'dreambox':
+        print("dream_box")
+        response = get_dream_box_data()
+        print(response)
+        return render(request, template_name, response)
+
+    elif site_name == 'clives':
+        response = get_epiclive_data()
+        print(response)
+        return render(request, template_name, response)
+
+    elif site_name == 'readingEggs':
+        response = get_readingeggs_data()
+        print(response)
+        return render(request, template_name, response)
+
+    elif site_name == 'learningwood':
         print('learning wood')
-        #response  = learningWood()
-        response ={'site':'learningwood','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firname'}}
-        return render(request,template_name,response)
-    elif site == 'clever':
-        #print('clever')
-        response  = clever()
-        response ={'site':'all','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firstname'}}
-        return render(request,template_name,response)
-    elif site == 'all':
+        response = get_learning_wood_data()
+        print(response)
+        return render(request, template_name, response)
+    elif site_name == 'clever':
+        print('clever')
+        response = get_clever_data()
+        print(response)
+        return render(request, template_name, response)
+    elif site_name == 'all':
         print('All site pulled')
-        #a= dreambox()
-        #b= clives()
-        #c= readingEggs()
-        #d = dreambox()
-        #e= clever()
-        #response ={'data':(q,b,c,d,e),'site':"all"}
-        response ={'site':'all','status_code':'100','message':'data pulled','data':{'last_name':'lastname','first_name':'firstname'}}
-        return render(request,template_name,response)
+        a = get_epiclive_data()
+        b = get_dream_box_data()
+        c = get_readingeggs_data()
+        d = get_clever_data()
+        e = get_learning_wood_data()
+        response ={'data': (a, b, c, d, e), 'site': "all"}
+        print(response)
+        return render(request, template_name, response)
     else:
         print('Site not handled')
-        return  (request, template_name, {"status_code":"204",'message':"Site not handled"})
+        return render(request, template_name, {"status_code": "204", 'message': "Site not handled"})
+
+
 @login_required
 def standard_upload(request):
     template = "standard_upload.html"
     prompt = {
-        'order':"The columns should be: Grade, Standard Number, Standard Description, Strand Code, Strand, Strand Description, Objective Number, Objective Description, Standard Code, and Subject."
+        'order': "The columns should be: Grade, Standard Number, Standard Description, Strand Code, Strand, Strand Description, Objective Number, Objective Description, Standard Code, and Subject."
     }
     if request.method == "GET":
-        return render (request, template, prompt)
+        return render(request, template, prompt)
 
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         messages.error(request, "Only CSV files may be uploaded.")
 
     data_set = csv_file.read().decode("UTF-8")
-    #for row in data_set:
+    # for row in data_set:
     io_string = io.StringIO(data_set)
     next(io_string)
     for column in csv.reader(io_string, delimiter=',', quotechar="|"):
         _, created = Standard.objects.update_or_create(
-            grade_level = column[0],
-            standard_number = column[1],
-            standard_description = column[2],
-            strand_code = column[3],
-            strand = column[4],
-            strand_description = column[5],
-            objective_number = column[6],
-            objective_description = column[7],
-            standard_code = column[8],
-            PDF_link = column [9], 
-            subject= column[10]
-            )
-    return redirect ("/standard")
+            grade_level=column[0],
+            standard_number=column[1],
+            standard_description=column[2],
+            strand_code=column[3],
+            strand=column[4],
+            strand_description=column[5],
+            objective_number=column[6],
+            objective_description=column[7],
+            standard_code=column[8],
+            PDF_link=column[9],
+            subject=column[10]
+        )
+    return redirect("/standard")
     context = {}
     return render(request, template, context)
+
 
 @login_required
 def curriculum_upload(request):
     template = "curriculum_upload.html"
     prompt = {
-        'order':"The columns should be: Name, Subject, Grade Level, Tracking (Minutes, Lessons, Percent Complete), Recorded From (Manual/Automatic), Username, Password, Login URL."
+        'order': "The columns should be: Name, Subject, Grade Level, Tracking (Minutes, Lessons, Percent Complete), Recorded From (Manual/Automatic), Username, Password, Login URL."
     }
     if request.method == "GET":
-        return render (request, template, prompt)
+        return render(request, template, prompt)
 
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         messages.error(request, "Only CSV files may be uploaded.")
 
     data_set = csv_file.read().decode("UTF-8")
-    #for row in data_set:
+    # for row in data_set:
     io_string = io.StringIO(data_set)
     next(io_string)
     for column in csv.reader(io_string, delimiter=',', quotechar="|"):
         _, created = Curriculum.objects.update_or_create(
-            name = column[0],
-            subject = column[1],
-            grade_level = column[2],
-            tracking = column[3],
-            recorded_from = column[4],
-            semesterend = column[5],
-            username = column[6],
-            password = column[7],
-            loginurl = column[8],
-            )
-    return redirect ("/curriculum")
+            name=column[0],
+            subject=column[1],
+            grade_level=column[2],
+            tracking=column[3],
+            recorded_from=column[4],
+            semesterend=column[5],
+            username=column[6],
+            password=column[7],
+            loginurl=column[8],
+        )
+    return redirect("/curriculum")
     context = {}
     return render(request, template, context)
+
 
 @login_required
 def assignment_upload(request):
     template = "assignment_upload.html"
     prompt = {
-        'order':"The columns should be: Name, Instructions or Link, Curriculum, Standard."
+        'order': "The columns should be: Name, Instructions or Link, Curriculum, Standard."
     }
     if request.method == "GET":
-        return render (request, template, prompt)
+        return render(request, template, prompt)
 
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
@@ -310,7 +287,7 @@ def assignment_upload(request):
         status = row['Status'].replace(',', '') if isinstance(row['Status'], str) else None
         description = row['Description'].replace(',', '') if isinstance(row['Description'], str) else None
         standards = Standard.objects.filter(standard_code=standard,
-                                           grade_level=grade_level,
+                                            grade_level=grade_level,
                                             subject=subject)
         curriculum = Curriculum.objects.filter(grade_level=grade_level,
                                                subject=subject,
@@ -331,9 +308,10 @@ def assignment_upload(request):
             messages.error(request, "cirriculum mention in row number %s is not found in the database" % counter)
             return render(request, template)
         counter += 1
-    return redirect ("/assignment")
+    return redirect("/assignment")
     context = {}
     return render(request, template, context)
+
 
 @login_required
 def student_setup_view(request):
@@ -353,10 +331,11 @@ def student_setup_view(request):
         #     emailto,
         #     fail_silently=True,
         # )
-        return redirect ("/students")
+        return redirect("/students")
     template_name = "basic_setup_view.html"
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
+
 
 @login_required
 def student_list_view(request):
@@ -381,6 +360,7 @@ def student_update_view(request, epicenter_id):
     context = {"title": "Update Information for: {obj.epicenter_id}".format(obj=obj), "form": form}
     return render(request, template_name, context)
 
+
 @staff_member_required
 def student_delete_view(request, epicenter_id):
     obj = get_object_or_404(Student, epicenter_id=epicenter_id)
@@ -390,6 +370,7 @@ def student_delete_view(request, epicenter_id):
         return redirect("/students")
     context = {"object": obj}
     return render(request, template_name, context)
+
 
 @login_required
 def curriculum_create_view(request):
@@ -402,6 +383,7 @@ def curriculum_create_view(request):
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
 
+
 @login_required
 def curriculum_list_view(request):
     my_title = "Curriculum Choices"
@@ -409,7 +391,7 @@ def curriculum_list_view(request):
     curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
     template_name = "curriculum_list_view.html"
     context = {"object_list": curriculum_filter, "title": my_title}
-    #context = {"title": my_title}
+    # context = {"title": my_title}
     return render(request, template_name, context)
 
 
@@ -425,7 +407,6 @@ def curriculum_update_view(request, id):
     return render(request, template_name, context)
 
 
-
 @staff_member_required
 def curriculum_delete_view(request, epicenter_id):
     obj = get_object_or_404(Curriculum, id=id)
@@ -435,6 +416,7 @@ def curriculum_delete_view(request, epicenter_id):
         return redirect("/curriculum")
     context = {"object": obj}
     return render(request, template_name, context)
+
 
 @login_required
 def standard_create_view(request):
@@ -447,6 +429,7 @@ def standard_create_view(request):
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
 
+
 @login_required
 def standard_list_view(request):
     my_title = "Standards - Spot a mistake? Send a message to tynercreeksoftware@gmail.com for us to fix it!"
@@ -455,6 +438,7 @@ def standard_list_view(request):
     template_name = "standard_list_view.html"
     context = {"object_list": standard_filter, "title": my_title}
     return render(request, template_name, context)
+
 
 @login_required
 def standard_update_view(request, id):
@@ -467,6 +451,7 @@ def standard_update_view(request, id):
     context = {"title": "Change Information for: {obj.standard_code}".format(obj=obj), "form": form}
     return render(request, template_name, context)
 
+
 @staff_member_required
 def standard_delete_view(request, id):
     obj = get_object_or_404(Standard, id=id)
@@ -476,6 +461,7 @@ def standard_delete_view(request, id):
         return redirect("/standard")
     context = {"object": obj}
     return render(request, template_name, context)
+
 
 @login_required
 def assignment_create_view(request):
@@ -488,6 +474,7 @@ def assignment_create_view(request):
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
 
+
 @login_required
 def assignment_list_view(request):
     my_title = "Assignments"
@@ -496,6 +483,7 @@ def assignment_list_view(request):
     template_name = "assignment_list_view.html"
     context = {"object_list": assignment_filter, "title": my_title}
     return render(request, template_name, context)
+
 
 @login_required
 def assignment_update_view(request, id):
@@ -507,8 +495,6 @@ def assignment_update_view(request, id):
     template_name = "form.html"
     context = {"title": "Update Information for: {obj.id}".format(obj=obj), "form": form}
     return render(request, template_name, context)
-
-
 
 
 @staff_member_required
@@ -547,6 +533,7 @@ def grades_record_view(request):
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
 
+
 @login_required
 def grades_list_view(request):
     my_title = "Gradebook"
@@ -555,6 +542,7 @@ def grades_list_view(request):
     template_name = "gradebook_list_view.html"
     context = {"object_list": gradebook_filter, "title": my_title}
     return render(request, template_name, context)
+
 
 @login_required
 def grades_update_view(request, id):
@@ -587,6 +575,7 @@ def student_curriculum_schedule(request):
     template_name = "student_curriculum_view.html"
     context = {"object_list": curriculum_filter, "title": my_title}
     return render(request, template_name, context)
+
 
 @login_required
 def curriculum_assignment_list(request):

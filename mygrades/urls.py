@@ -1,13 +1,12 @@
 from django.conf import settings
-from django.conf.urls import url,static
+from django.conf.urls import url, static
 from django.views.generic import TemplateView
 from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf.urls import handler404, handler500
 
-
 from mygrades.views import (
-	student_list_view,
+    student_list_view,
     student_delete_view,
     student_update_view,
     student_setup_view,
@@ -37,7 +36,7 @@ from mygrades.views import (
     send_pacing_guide,
     crawler,
 
-    )
+)
 
 urlpatterns = [
     path("assignment-upload/", assignment_upload, name="assignment_upload"),
@@ -45,7 +44,7 @@ urlpatterns = [
     path("standard-upload/", standard_upload, name="standard_upload"),
     path('admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
-    #path("api/crawl/", crawl),
+    # path("api/crawl/", crawl),
     path("students/", student_list_view),
     path("students/<int:epicenter_id>/edit/", student_update_view),
     path("students/<int:epicenter_id>/delete/", student_delete_view),
@@ -75,9 +74,7 @@ urlpatterns = [
     path("grades/<int:id>/delete/", grades_delete_view),
     path("grades/<int:id>/edit/", grades_update_view),
     url(r'^api/crawl/', crawl, name='crawl'),
-    path(r"api/crawler/<str:site>",crawler,name="crawler"),
-
-
+    url(r'^api/crawler/(?P<site_name>.*)/$', crawler, name="crawler"),
 
     # path("send-schedule/", ),
     # path("late-assignment/", ),
@@ -88,6 +85,6 @@ urlpatterns = [
 
 # This is required for static files while in development mode. (DEBUG=TRUE)
 # No, not relevant to scrapy or crawling :)
-# if settings.DEBUG:
-#     urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-#     urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
