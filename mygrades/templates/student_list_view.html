@@ -11,10 +11,10 @@
 
 {% for object in object_list.qs%}
 
-
+{% if user.email == object.teacher_email %}
 
 {% include 'student_list_inline.html'%}
-
+{% endif %}
        
 
 {% endfor %}

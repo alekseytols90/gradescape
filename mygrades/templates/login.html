@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+
+
+  <div id="login">
+        <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
+        	<input type='hidden' name='csrfmiddlewaretoken' value='randomchars' />
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <label class="control-label" for="username">Username</label>
+            <div class="controls">
+                <input type="text" id="username" name="username"  placeholder="Username">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" name="password" id="password" placeholder="Password"><br/>
+                <p></p>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type= submit "submit">Login</button>
+            </div>
+        </div>
+        </form>
+    </div>
+
+  {% endblock %}

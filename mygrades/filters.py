@@ -1,6 +1,5 @@
-from mygrades.models import Student, Curriculum, Assignment, Standard, Gradebook
+from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook
 import django_filters
-
 
 
 GRADELEVEL = [
@@ -19,6 +18,7 @@ GRADELEVEL = [
         ("11", "11"),
         ("12", "12"),
     ]
+
 
 class StudentFilter(django_filters.FilterSet):
     epicenter_id = django_filters.CharFilter(
@@ -83,6 +83,7 @@ class CurriculumFilter(django_filters.FilterSet):
         model = Curriculum
         fields = {}
 
+
 class StandardFilter(django_filters.FilterSet):
     GRADELEVEL = [
         ("P", "Pre-K"),
@@ -141,7 +142,7 @@ class AssignmentFilter(django_filters.FilterSet):
         fields = {}
 
 
-class GradebookFilter(django_filters.FilterSet):
+class GradeBookFilter(django_filters.FilterSet):
     WEEK = [
         ("1", "1"),
         ("2", "2"),
@@ -169,17 +170,19 @@ class GradebookFilter(django_filters.FilterSet):
         ("3", "3"),
         ("4", "4"),
         ]
-    student = django_filters.CharFilter(
-        lookup_expr="icontains", label="Student")
-    curriculum = django_filters.CharFilter(
-        lookup_expr="icontains", label="Curriculum")
+    # student = django_filters.CharFilter(
+    #     lookup_expr="icontains", label="Student")
+    # curriculum = django_filters.CharFilter(
+    #     lookup_expr="icontains", label="Curriculum")
     quarter = django_filters.CharFilter(
         lookup_expr="exact", label="Quarter")
+    semester = django_filters.CharFilter(
+        lookup_expr="exact", label="Semester")
     week = django_filters.CharFilter(
         lookup_expr="exact", label="Week")
     grade = django_filters.CharFilter(
         lookup_expr="icontains", label="Grade")
 
     class Meta:
-        model = Gradebook
+        model = GradeBook
         fields = {}

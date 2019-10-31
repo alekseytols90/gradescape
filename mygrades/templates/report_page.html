@@ -1,63 +1,66 @@
 {% extends "base.html" %}
 {% block content %}
+{% load filter_tags %}
+{% if status_code != '204' %}
 
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="text-center">{{site}}</h3>
-                </div>
-                <div class="col-md-2">
-                    <form method="post"> {% csrf_token %}
-                        <button class="btn btn-success" type="submit" data-target="/">Save</button>
-                    </form>
-
-                </div>
-                <div class="col-md-2">
-                    <a type="button" class="btn btn-danger" href="/">Discard</a>
-                </div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <h3 class="text-center">{{site | title}}</h3>
             </div>
-
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Save
+            </button>
+            <div class="col-md-2 mx-auto">
+                <a type="button" class="btn btn-danger" href="/">Discard</a>
+            </div>
         </div>
+    </div>
+    <div class="card-body">
         {% if site == "all" %}
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#clives">Clives</a></li>
-            <li><a data-toggle="tab" href="#readingeggs">Reading Eggs</a></li>
-            <li><a data-toggle="tab" href="#clever">clever</a>Clever</li>
-            <li><a data-toggle="tab" href="#learningwood">Learning Wood</a></li>
-            <li><a data-toggle="tab" href="#dreambox">Dream Box</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-selected="true" data-toggle="tab" href="#EpicLive">Epic
+                Live</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ReadingEggs">Reading Eggs</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Clever">Clever</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#LearningWood">Learning Wood</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#DreamBox">Dream Box</a></li>
 
         </ul>
         <div class="tab-content">
-            <div id="clives" class="tab-pane fade in active">
-                <table class="table table-hover">
+            <div id="EpicLive" class="tab-pane fade show active">
+                <table class="table table-hover table-responsive">
                     <thead class="the-box dark full">
                     <tr>
-                        <th>Id</th>
+                        <th>S/N</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Presence</th>
+                        <th>EPIC ID</th>
+                        <th>Attendance</th>
+                        <th>Class Title</th>
                         <th>Date</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    {% for key, val in data.items %}
+                    {% for key, val in data.0.data.items %}
                     <tr>
                         <td>{{key| add:1}}</td>
                         <td>{{val.first_name}}</td>
                         <td>{{val.last_name}}</td>
-                        <td>{{val.presence}}</td>
+                        <td>{{val.epic_id}}</td>
+                        <td>{{val.attendance}}</td>
+                        <td>{{val.class_title}}</td>
                         <td>{{val.date}}</td>
-
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <div id="readingeggs" class="tab-pane fade">
-                <table class="table table-hover">
+            <div id="ReadingEggs" class="tab-pane fade">
+                <table class="table table-hover table-responsive">
                     <thead class="the-box dark full">
                     <tr>
                         <th>Id</th>
@@ -70,7 +73,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for key, val in data.items %}
+                    {% for key, val in data.2.data.items %}
                     <tr>
                         <td>{{key| add:1}}</td>
                         <td>{{val.first_name}}</td>
@@ -78,38 +81,37 @@
                         <td>{{val.quiz_score}}</td>
                         <td>{{val.attendance}}</td>
                         <td>{{val.average_score}}</td>
-
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <div id="clever" class="tab-pane fade">
-                <table class="table table-hover" id="rec-Table">
+            <div id="Clever" class="tab-pane fade">
+                <table class="table table-hover table-responsive">
                     <thead class="the-box dark full">
                     <tr>
                         <th>Id</th>
                         <th>First</th>
                         <th>Last Name</th>
                         <th>Previous</th>
+                        <th>Current</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for data in response.data %}
+                     {% for key, val in data.3.data.items %}
                     <tr>
-                        <td>Id</td>
-                        <td>First NAme</td>
-                        <td>Last Name</td>
-                        <td>Total Time</td>
-                        <td>Lesson Completed</td>
-
+                        <td>{{key| add:1}}</td>
+                        <td>{{val.first_name}}</td>
+                        <td>{{val.last_name}}</td>
+                        <td>{{val.previous}}</td>
+                        <td>{{val.current}}</td>
                     </tr>
                     {% endfor %}
                 </table>
 
             </div>
-            <div id="learningwood" class="tab-pane fade">
-                <table class="table table-hover">
+            <div id="LearningWood" class="tab-pane fade">
+                <table class="table table-hover table-responsive">
                     <thead class="the-box dark full">
                     <tr>
                         <th>Id</th>
@@ -121,20 +123,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for key, val in data.items %}
+                      {% for key, val in data.4.data.items %}
                     <tr>
                         <td>{{key| add:1}}</td>
                         <td>{{val.first_name}}</td>
                         <td>{{val.last_name}}</td>
                         <td>{{val.score}}</td>
                         <td>{{val.completion}}</td>
-
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <div id="dreambox" class="tab-pane fade">
+            <div id="DreamBox" class="tab-pane fade">
                 <table class="table table-hover">
                     <thead class="the-box dark full">
                     <tr>
@@ -146,14 +147,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for key, val in data.items %}
+                    {% for key, val in data.1.data.items %}
                     <tr>
                         <td>{{key| add:1}}</td>
                         <td>{{val.first_name}}</td>
                         <td>{{val.last_name}}</td>
                         <td>{{val.total_time}}</td>
                         <td>{{val.lesson_completed}}</td>
-
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -162,136 +162,211 @@
         </div>
 
 
-    {% elif site == "dreambox"%}
+        {% elif site == "Dream Box"%}
 
-    <table class="table table-hover">
-        <thead class="the-box dark full">
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Total Time</th>
-            <th>Lesson Completed</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for key, val in data.items %}
-        <tr>
-            <td>{{key| add:1}}</td>
-            <td>{{val.first_name}}</td>
-            <td>{{val.last_name}}</td>
-            <td>{{val.total_time}}</td>
-            <td>{{val.lesson_completed}}</td>
+        <table class="table table-hover table-responsive">
+            <thead class="the-box dark full">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Total Time</th>
+                <th>Lesson Completed</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, val in data.items %}
+            <tr>
+                <td>{{key| add:1}}</td>
+                <td>{{val.first_name}}</td>
+                <td>{{val.last_name}}</td>
+                <td>{{val.total_time}}</td>
+                <td>{{val.lesson_completed}}</td>
 
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    {% elif site == "clever" %}
-    <table class="table table-hover">
-        <thead class="the-box dark full">
-        <tr>
-            <th>Id</th>
-            <th>First</th>
-            <th>Last Name</th>
-            <th>Previous</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for key, val in data.items %}
-        <tr>
-            <td>{{key| add:1}}</td>
-            <td>{{val.first_name}}</td>
-            <td>{{val.last_name}}</td>
-            <td>{{val.previous}}</td>
+        {% elif site == "Clever" %}
+        <table class="table table-hover table-responsive">
+            <thead class="the-box dark full">
+            <tr>
+                <th>Id</th>
+                <th>First</th>
+                <th>Last Name</th>
+                <th>Previous</th>
+                <th>Current</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, val in data.items %}
+            <tr>
+                <td>{{key| add:1}}</td>
+                <td>{{val.first_name}}</td>
+                <td>{{val.last_name}}</td>
+                <td>{{val.previous}}</td>
+                <td>{{val.current}}</td>
 
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    {% elif site == "readingEggs" %}
-    <table class="table table-hover">
-        <thead class="the-box dark full">
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Quiz Score</th>
-            <th>Attendance</th>
-            <th>Average Score</th>
+        {% elif site == "Reading Eggs" %}
+        <table class="table table-hover">
+            <thead class="the-box dark full">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Quiz Score</th>
+                <th># of lessons completed</th>
+                <th>Average Score</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for key, val in data.items %}
-        <tr>
-            <td>{{key| add:1}}</td>
-            <td>{{val.first_name}}</td>
-            <td>{{val.last_name}}</td>
-            <td>{{val.quiz_score}}</td>
-            <td>{{val.attendance}}</td>
-            <td>{{val.average_score}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, val in data.items %}
+            <tr>
+                <td>{{key| add:1}}</td>
+                <td>{{val.first_name}}</td>
+                <td>{{val.last_name}}</td>
+                <td>{{val.quiz_score}}</td>
+                <td>{{val.attendance}}</td>
+                <td>{{val.average_score}}</td>
 
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    {% elif site == "learningwood"%}
-    <table class="table table-hover">
-        <thead class="the-box dark full">
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Score</th>
-            <th>Completion</th>
+        {% elif site == "Learning Wood"%}
+        <table class="table table-hover table-responsive">
+            <thead class="the-box dark full">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Score</th>
+                <th>Completion</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for key, val in data.items %}
-        <tr>
-            <td>{{key| add:1}}</td>
-            <td>{{val.first_name}}</td>
-            <td>{{val.last_name}}</td>
-            <td>{{val.score}}</td>
-            <td>{{val.completion}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, val in data.items %}
+            <tr>
+                <td>{{key| add:1}}</td>
+                <td>{{val.first_name}}</td>
+                <td>{{val.last_name}}</td>
+                <td>{{val.score}}</td>
+                <td>{{val.completion}}</td>
 
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    {% elif site == "clives" %}
-    <table class="table table-hover">
-        <thead class="the-box dark full">
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Presence</th>
-            <th>Date</th>
+        {% elif site == "Epic Live" %}
+        <table class="table table-hover table-responsive">
+            <thead class="the-box dark full">
+            <tr>
+                <th>S/N</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>EPIC ID</th>
+                <th>Attendance</th>
+                <th>Class Title</th>
+                <th>Date</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for key, val in data.items %}
-        <tr>
-            <td>{{key| add:1}}</td>
-            <td>{{val.first_name}}</td>
-            <td>{{val.last_name}}</td>
-            <td>{{val.presence}}</td>
-            <td>{{val.date}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, val in data.items %}
+            <tr>
+                <td>{{key| add:1}}</td>
+                <td>{{val.first_name}}</td>
+                <td>{{val.last_name}}</td>
+                <td>{{val.epic_id}}</td>
+                <td>{{val.attendance}}</td>
+                <td>{{val.class_title}}</td>
+                <td>{{val.date}}</td>
 
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Save Data Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Week</label>
+                        <select class="form-control" name="week">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Quarter</label>
+                        <select class="form-control" name="quarter">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label>Semester</label>
+                        <select class="form-control" name="semester">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if status_code == '204' %}
+<p>
+<h1>{{message}}</h1>
+</p>
+{% endif %}
 {% endblock %}
 

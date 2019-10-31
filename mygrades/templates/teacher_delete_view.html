@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1 align="center">Delete a Teacher?</h1>
+<p>Are you sure you want to delete this teacher: {{object.id}} --
+  {{object.lastname}}, {{object.firstname}} </p>
+<a> eMail: {{object.email}}
+</a>
+
+
+
+<form action="/teachers">
+    <input type="submit" value="No, Do Not Delete" />
+</form>
+
+<p></p>
+
+
+<form method='POST'> {% csrf_token%}
+
+  <button class = 'btn btn-danger'> Yes, Delete </button>
+
+  </form>
+{% endblock %}

@@ -1,39 +1,35 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-from uuid import uuid4
+import csv
+import io
 from urllib.parse import urlparse
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from scrapyd_api import ScrapydAPI
-import csv, io, os
+from uuid import uuid4
+
 from django.contrib import messages
-from django.views.decorators.http import require_POST, require_http_methods
-from mygrades.logScrap import get_learning_wood_data, \
-    get_clever_data, get_epiclive_data, get_readingeggs_data,\
-    get_dream_box_data
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.core.mail import EmailMultiAlternatives
+from django.core.mail import send_mail
+from django.core.validators import URLValidator
+from django.db import IntegrityError
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+from django.shortcuts import render_to_response, get_object_or_404, redirect, render
+from django.template.loader import render_to_string
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from scrapyd_api import ScrapydAPI
 
-
-from mygrades.models import (
-    Student,
-    Curriculum,
-    Enrollment,
-    Standard,
-    Assignment,
-    Gradebook,
-)
-
+from mygrades.crawler import *
 from mygrades.filters import (
     StudentFilter,
     CurriculumFilter,
     AssignmentFilter,
     StandardFilter,
-    GradebookFilter,
+    GradeBookFilter,
+    # TeacherFilter
 
 )
 from mygrades.forms import (
@@ -44,7 +40,54 @@ from mygrades.forms import (
     CustomCurriculumSetUpForm,
     RecordGradeForm,
     SendPacingGuideForm,
+    TeacherModelForm,
 )
+from mygrades.models import (
+    Student,
+    Curriculum,
+    Standard,
+    Assignment,
+    GradeBook,
+    ExemptAssignment,
+    Teacher,
+)
+
+
+@csrf_exempt
+def user_login(request):
+    # form =  LoginForm(request)
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if user.is_active:
+                return HttpResponseRedirect("/")
+            else:
+                return HttpResponse("Your account is inactive.")
+        else:
+            return HttpResponse("Invalid Login Credentials,  <a href='/login'>Try Again</>")
+
+    # else:
+    #     form = LoginForm(request=request)
+    # form = LoginForm(request=request)
+    # my_title = "Log In"
+    # template_name = "login.html"
+    # context =  {"title":my_title, "form": form}
+    return render_to_response('login.html')
+
+
+def user_logout(request):
+    # form =  LoginForm(request)
+    username = ""
+    password = ""
+    return HttpResponse("<a href='/login'>Log Back In</>")
+
+
+# connect scrapyd service
+scrapyd = ScrapydAPI('http://localhost:6800')
+
 
 @login_required
 def send_pacing_guide(request):
@@ -56,7 +99,8 @@ def send_pacing_guide(request):
 
         subject, from_email, to = 'Your Assignments For This Week', 'tynercreeksoftware@gmail.com', [
             form.cleaned_data["student"].email, form.cleaned_data["student"].additional_email]
-        text_content = 'Your Most Updated Epic Live Schedule.  You may need to open this in a different  if you do not see it here.'
+        text_content = 'Your Most Updated Epic Live Schedule.  You may need to open this in a different browser if ' \
+                       'you do not see it here. '
         html_content = render_to_string('mail_pacing_guide.html', context=form.cleaned_data)
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
@@ -84,14 +128,10 @@ def is_valid_url(url):
 @csrf_exempt
 @require_http_methods(['POST', 'GET'])  # only get and post
 def crawl(request):
-    # Post requests are for new crawling tasks
     if request.method == 'POST':
-
-        url = request.POST.get('www.google.com', None)  # take url comes from client. (From an input may be?)
-
+        url = request.POST.get('www.google.com', None)
         if not url:
             return JsonResponse({'error': 'Missing  args'})
-
         if not is_valid_url(url):
             return JsonResponse({'error': 'URL is invalid'})
 
@@ -149,53 +189,78 @@ def crawl(request):
 @login_required
 def crawler(request, site_name=None):
     template_name = "report_page.html"
-
-    if site_name == 'dreambox':
-        print("dream_box")
+    form = request.POST
+    if site_name == 'Dream Box':
         response = get_dream_box_data()
-        print(response)
-        return render(request, template_name, response)
-
-    elif site_name == 'clives':
+    elif site_name == 'Epic Live':
         response = get_epiclive_data()
-        print(response)
-        return render(request, template_name, response)
-
-    elif site_name == 'readingEggs':
-        response = get_readingeggs_data()
-        print(response)
-        return render(request, template_name, response)
-
-    elif site_name == 'learningwood':
-        print('learning wood')
+    elif site_name == 'Reading Eggs':
+        response = get_reading_eggs_data()
+    elif site_name == 'Learning Wood':
         response = get_learning_wood_data()
-        print(response)
-        return render(request, template_name, response)
-    elif site_name == 'clever':
-        print('clever')
+        print('response => \n', response)
+    elif site_name == 'Clever':
         response = get_clever_data()
-        print(response)
-        return render(request, template_name, response)
     elif site_name == 'all':
-        print('All site pulled')
         a = get_epiclive_data()
         b = get_dream_box_data()
-        c = get_readingeggs_data()
-        # d = get_clever_data()
-        # e = get_learning_wood_data()
-        response ={'data': (a, b, c), 'site': "all"}
-        print(response)
-        return render(request, template_name, response)
+        c = get_reading_eggs_data()
+        d = get_clever_data()
+        e = get_learning_wood_data()
+        response = {'data': (a, b, c, d, e), 'site': "all"}
     else:
-        print('Site not handled')
-        return render(request, template_name, {"status_code": "204", 'message': "Site not handled"})
+        response = {"status_code": "204", 'message': "Site not handled, Invalid URL"}
+
+    if request.method == 'POST':
+        print('site name => ', site_name)
+        if site_name == 'all':
+            for resp in response['data']:
+                save_grade(request, resp, resp['site'])
+        else:
+            save_grade(request, response, site_name)
+
+    return render(request, template_name, response)
+
+
+def save_grade(request, response, site_name):
+    for key, value in response['data'].items():
+        student = Student.objects.filter(first_name__exact=value['first_name']).filter(
+            last_name__exact=value['last_name'])
+        curriculum_name = site_name.replace(' ', '').lower()
+        try:
+            curriculum = Curriculum.objects.filter(name__contains=curriculum_name)[0]
+        except IndexError:
+            pass
+        if student and curriculum:
+            form_data = request.POST
+            if site_name == 'Epic Live':
+                grade = value['epic_id']
+            elif site_name == 'Learning Wood':
+                grade = value['']
+            elif site_name == 'Clever':
+                grade = value['previous']
+            elif site_name == 'Reading Eggs':
+                grade = ord(value['average_score'])
+            else:
+                grade = value['lesson_completed']
+            try:
+                GradeBook.objects.create(student=student[0],
+                                         curriculum=curriculum,
+                                         quarter=form_data['quarter'][0],
+                                         week=form_data['week'][0],
+                                         semester=form_data['semester'],
+                                         grade=grade)
+            except IntegrityError:
+                print(student, ' information already exist in database')
+                pass
 
 
 @login_required
 def standard_upload(request):
     template = "standard_upload.html"
     prompt = {
-        'order': "The columns should be: Grade, Standard Number, Standard Description, Strand Code, Strand, Strand Description, Objective Number, Objective Description, Standard Code, and Subject."
+        'order': "The columns should be: Grade, Standard Number, Standard Description, Strand Code, Strand, "
+                 "Strand Description, Objective Number, Objective Description, Standard Code, and Subject. "
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -231,8 +296,8 @@ def standard_upload(request):
 def curriculum_upload(request):
     template = "curriculum_upload.html"
     prompt = {
-        'order': "The columns should be: Name, Subject, Grade Level, Tracking (Minutes, Lessons, Percent Complete), Recorded From (Manual/Automatic), Username, Password, Login URL."
-    }
+        'order': "The columns should be: Name, Subject, Grade Level, Tracking (Minutes, Lessons, Percent Complete),"
+                 "Recorded From (Manual/Automatic), Username, Password, Login URL."}
     if request.method == "GET":
         return render(request, template, prompt)
 
@@ -240,22 +305,33 @@ def curriculum_upload(request):
     if not csv_file.name.endswith('.csv'):
         messages.error(request, "Only CSV files may be uploaded.")
 
+    csv_file = request.FILES['file']
+    dict_reader = csv.DictReader(csv_file.read().decode('UTF-8').splitlines(), delimiter=',', dialect=csv.excel)
+    for row in dict_reader:
+        row = dict(row)
+        name = row.get('Name')
+        subject = row.get('Subject')
+        grade_level = row.get('Grade')
+        # tracking = row.get('Tracking')
+        # recorded_time = row.get('Recorded from')
+        # username = row.get('Username')
+        # password = row.get('Password')
+        # login_url = row.get('login_url')
+        _, created = Curriculum.objects.update_or_create(
+            name=name,
+            subject=subject,
+            grade_level=grade_level,
+            # tracking=tracking,
+            # recorded_from=recorded_time,
+            # username=username,
+            # password=password,
+            # loginurl=login_url
+        )
+
     data_set = csv_file.read().decode("UTF-8")
     # for row in data_set:
     io_string = io.StringIO(data_set)
-    next(io_string)
-    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-        _, created = Curriculum.objects.update_or_create(
-            name=column[0],
-            subject=column[1],
-            grade_level=column[2],
-            tracking=column[3],
-            recorded_from=column[4],
-            semesterend=column[5],
-            username=column[6],
-            password=column[7],
-            loginurl=column[8],
-        )
+
     return redirect("/curriculum")
     context = {}
     return render(request, template, context)
@@ -274,7 +350,7 @@ def assignment_upload(request):
     if not csv_file.name.endswith('.csv'):
         messages.error(request, "Only CSV files may be uploaded.")
         return render(request, template)
-    dict_reader = csv.DictReader(csv_file.read().decode("UTF-8").splitlines(), dialect=csv.excel_tab)
+    dict_reader = csv.DictReader(csv_file.read().decode("UTF-8").splitlines(), delimiter=",", dialect=csv.excel_tab)
     counter = 1
     for row in dict_reader:
         row = dict(row)
@@ -305,7 +381,8 @@ def assignment_upload(request):
                 messages.error(request, "Fix error in row number %s :: <br/> %s" % (counter, e))
                 return render(request, template)
         else:
-            messages.error(request, "cirriculum mention in row number %s is not found in the database" % counter)
+            messages.error(request,
+                           "The curriculum in row number %s does not exist.  You may import it or set it up manually." % counter)
             return render(request, template)
         counter += 1
     return redirect("/assignment")
@@ -321,18 +398,34 @@ def student_setup_view(request):
         form.cleaned_data["additional_email"] = form.cleaned_data["additional_email"].lower()
         form.cleaned_data["email"] = form.cleaned_data["email"].lower()
         form.save()
-        # emailto = [request.user.email]
-        # send_mail(
-        #     "Student Registration Confirmation",
-        #     "You successfully registered {0} {1} in the Epic Live system.  \nIf you are the Epic Live Teacher and you checked the confirmation box, you may receive more than one eMail.  That is normal.  \nHere is what was received: \nEpicenter ID: {2} \neMail: {3} \nPhone: {5} \nAlternate eMail: {4} \nAlternate Phone: {6} \nStudent is Enrolled in Grade: {7} \nReading RIT Level: {8} \nMath RIT Level: {9} \nBirthdate: {10}  \nPrimary Teacher eMail: {11}  \n Primaary Teacher: {12} {13} \nThe Primary Teacher may Edit {0} {1}'s Personal Information in Epic Live Services if it is incorrect here:  www.epicliveservices.com/students. \n\nCongratulations!  The Primary Teacher may now enroll them in Epic Live Courses.  They should start by looking through the Course Catalog for Teachers here:  www.epicliveservices.com/courses . Making a pencil/paper list of COURSE NUMBERS for each student will be most helpful in the enrollment process.\nWhen they are ready, they will enroll the student in the selected courses here:  www.epiccliveservices.com/enroll-student.\n\nPLEASE NOTE:  Students may NOT enter a Google classroom without using their Epic student eMail address.  If you did not provide this address, the Epic Live teacher is unable invite them to join the classroom.  Please go back and update your student's information now, as many teachers utilize Google classroom.".format(
-        #         form.cleaned_data["first_name"], form.cleaned_data["last_name"], form.cleaned_data["epicenter_id"], form.cleaned_data["email"], form.cleaned_data["additional_email"], form.cleaned_data["phone_number"], form.cleaned_data["additional_phone_number"], form.cleaned_data["grade"], form.cleaned_data["reading_RIT_level"], form.cleaned_data["math_RIT_level"], form.cleaned_data["date_of_birth"], form.cleaned_data["regular_teacher_email"], form.cleaned_data["regular_teacher_first_name"], form.cleaned_data["regular_teacher_last_name"],
-        #     ),
-        #     "epiclive@epiccharterschools.org",
-        #     emailto,
-        #     fail_silently=True,
-        # )
+        emailto = [request.user.email]
+        send_mail(
+            "Student Setup Confirmation",
+            "You successfully registered {0} {1} in your Gradebook system.\nHere is what was received: \nEpicenter "
+            "ID: {2} \neMail: {3} \nPhone: {5} \nAlternate eMail: {4} \nAlternate Phone: {6} \nStudent is Enrolled in "
+            "Grade: {7}\nThe next step is to enroll the student in curriculums for grade tracking.".format(
+                form.cleaned_data["first_name"], form.cleaned_data["last_name"], form.cleaned_data["epicenter_id"],
+                form.cleaned_data["email"], form.cleaned_data["additional_email"], form.cleaned_data["phone_number"],
+                form.cleaned_data["additional_phone_number"], form.cleaned_data["grade"],
+            ),
+            "tynercreeksoftware@gmail.com",
+            emailto,
+            fail_silently=True,
+        )
         return redirect("/students")
     template_name = "basic_setup_view.html"
+    context = {"form": form, "title": my_title}
+    return render(request, template_name, context)
+
+
+def teacher_setup_view(request):
+    my_title = "Setup a Teacher"
+    form = TeacherModelForm(request.POST or None)
+    if form.is_valid():
+        form.cleaned_data["email"] = form.cleaned_data["email"].lower()
+        form.save()
+        return redirect("/teachers")
+    template_name = "teacher_setup_view.html"
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
 
@@ -348,6 +441,29 @@ def student_list_view(request):
 
 
 @login_required
+def teacher_list_view(request):
+    my_title = "Teachers"
+    qs = Teacher.objects.all()
+    teacher_filter = TeacherFilter(request.GET, queryset=qs)
+    template_name = "teacher_list_view.html"
+    context = {"object_list": teacher_filter, "title": my_title}
+    return render(request, template_name, context)
+
+
+@login_required
+def teacher_update_view(request, id):
+    obj = get_object_or_404(Teacher, id=id)
+    form = TeacherModelForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.cleaned_data["email"] = form.cleaned_data["email"].lower()
+        form.save()
+        return redirect("/teachers")
+    template_name = "form.html"
+    context = {"title": f"Update Information for: {obj.firstname}", "form": form}
+    return render(request, template_name, context)
+
+
+@login_required
 def student_update_view(request, epicenter_id):
     obj = get_object_or_404(Student, epicenter_id=epicenter_id)
     form = StudentModelForm(request.POST or None, instance=obj)
@@ -357,7 +473,18 @@ def student_update_view(request, epicenter_id):
         form.save()
         return redirect("/students")
     template_name = "form.html"
-    context = {"title": "Update Information for: {obj.epicenter_id}".format(obj=obj), "form": form}
+    context = {"title": f"Update Information for: {obj.epicenter_id}", "form": form}
+    return render(request, template_name, context)
+
+
+@staff_member_required
+def teacher_delete_view(request, id):
+    obj = get_object_or_404(Teacher, id=id)
+    template_name = "teacher_delete_view.html"
+    if request.method == "POST":
+        obj.delete()
+        return redirect("/teachers")
+    context = {"object": obj}
     return render(request, template_name, context)
 
 
@@ -386,7 +513,7 @@ def curriculum_create_view(request):
 
 @login_required
 def curriculum_list_view(request):
-    my_title = "Curriculum Choices"
+    my_title = "Curriculum Choices - Missing One?  Send an e-mail to tynercreeksoftware@gmail.com to add it!"
     qs = Curriculum.objects.all()
     curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
     template_name = "curriculum_list_view.html"
@@ -403,7 +530,7 @@ def curriculum_update_view(request, id):
         form.save()
         return redirect("/curriculum")
     template_name = "form.html"
-    context = {"title": "Update Information for: {obj.id}".format(obj=obj), "form": form}
+    context = {"title": f"Update Information for: {obj.id}", "form": form}
     return render(request, template_name, context)
 
 
@@ -432,7 +559,7 @@ def standard_create_view(request):
 
 @login_required
 def standard_list_view(request):
-    my_title = "Standards - Spot a mistake? Send a message to tynercreeksoftware@gmail.com for us to fix it!"
+    my_title = "Standards - Spot a mistake or missing one? Send a message to tynercreeksoftware@gmail.com!"
     qs = Standard.objects.all()
     standard_filter = StandardFilter(request.GET, queryset=qs)
     template_name = "standard_list_view.html"
@@ -448,7 +575,7 @@ def standard_update_view(request, id):
         form.save()
         form = StandardSetupForm()
     template_name = "form.html"
-    context = {"title": "Change Information for: {obj.standard_code}".format(obj=obj), "form": form}
+    context = {"title": f"Change Information for: {obj.standard_code}", "form": form}
     return render(request, template_name, context)
 
 
@@ -477,7 +604,7 @@ def assignment_create_view(request):
 
 @login_required
 def assignment_list_view(request):
-    my_title = "Assignments"
+    my_title = "Assignments - Missing One?  Create a Custom Assignment"
     qs = Assignment.objects.all()
     assignment_filter = AssignmentFilter(request.GET, queryset=qs)
     template_name = "assignment_list_view.html"
@@ -485,20 +612,20 @@ def assignment_list_view(request):
     return render(request, template_name, context)
 
 
-@login_required
+@staff_member_required
 def assignment_update_view(request, id):
     obj = get_object_or_404(Assignment, id=id)
     form = AssignmentCreateForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        return redirect("/curriculum")
+        return redirect("/assignment")
     template_name = "form.html"
-    context = {"title": "Update Information for: {obj.id}".format(obj=obj), "form": form}
+    context = {"title": f"Update Information for: {obj.id}", "form": form}
     return render(request, template_name, context)
 
 
 @staff_member_required
-def assignment_delete_view(request, epicenter_id):
+def assignment_delete_view(request, id):
     obj = get_object_or_404(Assignment, id=id)
     template_name = "assignment_delete_view.html"
     if request.method == "POST":
@@ -537,8 +664,8 @@ def grades_record_view(request):
 @login_required
 def grades_list_view(request):
     my_title = "Gradebook"
-    qs = Gradebook.objects.all()
-    gradebook_filter = GradebookFilter(request.GET, queryset=qs)
+    qs = GradeBook.objects.all()
+    gradebook_filter = GradeBookFilter(request.GET, queryset=qs)
     template_name = "gradebook_list_view.html"
     context = {"object_list": gradebook_filter, "title": my_title}
     return render(request, template_name, context)
@@ -546,19 +673,20 @@ def grades_list_view(request):
 
 @login_required
 def grades_update_view(request, id):
-    obj = get_object_or_404(Student, id=id)
+    obj = get_object_or_404(GradeBook, id=id)
     form = RecordGradeForm(request.POST or None, instance=obj)
     if form.is_valid():
+        print('form is valid')
         form.save()
-        return redirect("/students")
+        return redirect("/grades")
     template_name = "form.html"
-    context = {"title": "Update Information for: {obj.id}".format(obj=obj), "form": form}
+    context = {"title": f"Update Information for: {obj.id}", "form": form}
     return render(request, template_name, context)
 
 
 @staff_member_required
 def grades_delete_view(request, epicenter_id):
-    obj = get_object_or_404(Gradebook, id=id)
+    obj = get_object_or_404(GradeBook, id=id)
     template_name = "gradebook_delete_view.html"
     if request.method == "POST":
         obj.delete()
@@ -585,3 +713,32 @@ def curriculum_assignment_list(request):
     template_name = "curriculum_assignment_view.html"
     context = {"object_list": curriculum_filter, "title": my_title}
     return render(request, template_name, context)
+
+
+class ShowStudents(View):
+    template_name = "show-students.html"
+
+    def get(self, request):
+        students = Student.objects.all().order_by("id")
+        return render(self.request, template_name=self.template_name, context={'students': students})
+
+
+class StudentAssignment(View):
+    template_name = "student-assignments.html"
+
+    def get(self, request, id):
+        student = get_object_or_404(Student, id=id)
+
+        try:
+            exempt_assignment = ExemptAssignment.objects.get(student=student)
+        except Exception as e:
+            exempt_assignment = None
+            assignments = Assignment.objects.filter(curriculum=student.curriculum)
+
+        if exempt_assignment:
+            exempt_assignment_ids = [x.id for x in exempt_assignment.assignments.all()]
+            assignments = Assignment.objects.filter(curriculum=student.curriculum).exclude(
+                id__in=exempt_assignment_ids).order_by("id")
+
+        return render(request, template_name=self.template_name,
+                      context={"student": student, "assignments": assignments})

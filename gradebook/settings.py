@@ -33,15 +33,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u=d2h+d%p91w^5ww%b6ip7!tyf3_#ams+#2(glloc6i68l$@nt'
+#SECRET_KEY = 'u=d2h+d%p91w^5ww%b6ip7!tyf3_#ams+#2(glloc6i68l$@nt'
 
 #put back for django_heroku
-# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "asdkasdfasdfasdfasdfasdl;fja;sldjfl;asjdfl;asjdf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,8 +54,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
+    'gradeapi',
     # 'embed_video',
     'mygrades',
+    'django_extensions',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -96,16 +99,29 @@ WSGI_APPLICATION = 'gradebook.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-
-        #put back for heroku and take the two lines above out
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'gradenoscrape',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
+"""
+DATABASES = {
+    'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        #put back for heroku and take the two lines above out
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    }
+}
+"""
+
 #put back in for heroku
-# DATABASES['default'] = dj_database_url.config(default='postgres://srrreofemriemw:2c9357a6a7613390c5d72b3e6855a67291aa3c1cc01ce069800a94dc56ff2e7e@ec2-23-21-109-177.compute-1.amazonaws.com:5432/d1l01bcuavqkrm')
+# DATABASES['default'] = dj_database_url.config(default='postgres://vkcxtktovxxukl:f31892c90866b0ac64b889a0cd1929e88600d521aea04ba17f72c7a128cdd398@ec2-54-235-163-246.compute-1.amazonaws.com:5432/dcap1le97kqpc9')
 # db_from_env = dj_database_url.config(conn_max_age=600)
 # DATABASES['default'].update(db_from_env)
 
@@ -127,6 +143,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 
 # Internationalization
@@ -159,7 +181,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 #add for heroku
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

@@ -34,8 +34,15 @@ from mygrades.views import (
     curriculum_upload,
     assignment_upload,
     send_pacing_guide,
-    crawler,
-
+    ShowStudents,
+    StudentAssignment,
+    user_login,
+    user_logout,
+    teacher_update_view,
+    teacher_delete_view,
+    teacher_setup_view,
+    teacher_list_view,
+    crawler
 )
 
 urlpatterns = [
@@ -43,6 +50,8 @@ urlpatterns = [
     path("curriculum-upload/", curriculum_upload, name="curriculum_upload"),
     path("standard-upload/", standard_upload, name="standard_upload"),
     path('admin/', admin.site.urls),
+    path('login/', user_login),
+    path('logout/', user_logout),
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
     # path("api/crawl/", crawl),
     path("students/", student_list_view),
@@ -67,6 +76,8 @@ urlpatterns = [
     path("assignment-update/", assignment_list_view),
     path("assignment/<int:id>/delete/", assignment_delete_view),
     path("assignment/<int:id>/edit/", assignment_update_view),
+    path("assignment/show-students/", ShowStudents.as_view()),
+    path("assignment/student-assignment/<int:id>/", StudentAssignment.as_view()),
     path("send-pacing-guide/", send_pacing_guide),
     path("grades-record/", grades_record_view),
     path("grades/", grades_list_view),
@@ -74,6 +85,10 @@ urlpatterns = [
     path("grades/<int:id>/delete/", grades_delete_view),
     path("grades/<int:id>/edit/", grades_update_view),
     url(r'^api/crawl/', crawl, name='crawl'),
+    path("teachers/", teacher_list_view),
+    path("teachers/<int:id>/edit/", teacher_update_view),
+    path("teachers/<int:id>/delete/", teacher_delete_view),
+    path("teachers-setup/", teacher_setup_view),
     url(r'^api/crawler/(?P<site_name>.*)/$', crawler, name="crawler"),
 
     # path("send-schedule/", ),
@@ -85,6 +100,6 @@ urlpatterns = [
 
 # This is required for static files while in development mode. (DEBUG=TRUE)
 # No, not relevant to scrapy or crawling :)
-if settings.DEBUG:
-    urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#     urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

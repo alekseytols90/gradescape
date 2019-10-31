@@ -10,10 +10,18 @@
       
       <h5 class = 'card-title'> Title:  {{object.name}} </h5> 
 
-      <div class = 'card-text'> Standard: {% for object in object.standard.all %} {{object.standard_code}}, 
-                {% endfor %} <br/>
-      	Curriculum: <strong>{{object.curriculum.name}}</strong><br/>
-      	Instructions or Link: {{object.description}}<br/>
+      <div class = 'card-text'> Standard: {% for objs_standard in object.standard.all %}
+              {{objs_standard.standard_code}}, {% endfor %}<br/>
+      	Curriculum: {{object.curriculum.name}}<br/>
+        
+        
+      	Instructions or Link: <a href="{{object.description}}">
+
+        {{object.description}}</a>
+        
+        
+        
+        <br/>
       	Pacing Method Used: {{object.type_of}}<br/>
       </div>
 
@@ -22,6 +30,9 @@
 
       <a href='{{ object.get_edit_url }}' > Edit ANY Information for:
         {{object.name}}</a> (This will edit settings for this assignment for ALL students)
+
+        <a href='{{ object.get_delete_url }}' > Delete 
+        {{object.name}}</a> (This will delete this assignment for ALL students, in all curriculum.)
 
        
   </div>

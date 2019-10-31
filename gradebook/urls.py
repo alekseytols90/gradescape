@@ -5,13 +5,12 @@ from django.urls import path, include
 from django.conf.urls import handler404, handler500
 from django.conf.urls.static import static
 
-
 urlpatterns = [
 
     #path('$/404/$'), error_404),
     #python mpath('admin/', admin.site.urls),
     path('',include('mygrades.urls')),
-    
+    path('api/v1/', include('gradeapi.urls'))
 ]
 #+ static(settings.MEDIA_URL, document_root-settings.MEDIA_ROOT)
 #
