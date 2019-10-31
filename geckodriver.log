@@ -18373,3 +18373,1284 @@ JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.m
 1572563342411	Marionette	DEBUG	0 -> [0,11,"WebDriver:ElementClick",{"id":"f06a92e0-7a48-4e45-8bf0-32c6f7b2a252"}]
 1572563342835	Marionette	DEBUG	[14] Canceled page load listener because no navigation has been detected
 1572563342835	Marionette	DEBUG	0 <- [1,11,null,{"value":null}]
+1572563347846	Marionette	DEBUG	0 -> [0,12,"WebDriver:GetCookies",{}]
+1572563347857	Marionette	DEBUG	0 <- [1,12,null,[{"name":"tcm","value":"e04ddcb9-1fd1-400e-aabd-3fa80fe54ab4","path":"/","domain":"www.thelearningodyssey.com","se ... nts%3dHelpTipTracker%3d1%2c0%2c0%2c0%2c0","path":"/","domain":"www.thelearningodyssey.com","secure":false,"httpOnly":false}]]
+1572563347868	Marionette	DEBUG	0 -> [0,13,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/InstructorAdmin/Dashboard.aspx?SessionID=3D0556D1704E4AEE8F5EAFC1710A9AB7"}]
+1572563347893	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/
+JavaScript error: https://compasslearning2.mindtouch.us/@api/deki/users/authenticate?authtoken=imp_1572563346_5cad1182a22221c37e0db6624b38e8d2_%3ditauser, line 1: ReferenceError: eyJhbGciOiJIUzI1NiIsImtpZCI6Imh0dHBzOi8vbWluZHRvdWNoLmNvbS9hdXRodG9rZW4vZGVraS8yMyIsInR5cCI6IkpXVCJ9 is not defined
+1572563353903	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/
+1572563353913	Marionette	TRACE	[14] Received DOM event unload for https://www.thelearningodyssey.com/
+1572563354631	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/InstructorAdmin/Dashboard.aspx?SessionID=3D0556D1704E4AEE8F5EAFC1710A9AB7
+1572563354972	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/InstructorAdmin/Dashboard.aspx?SessionID=3D0556D1704E4AEE8F5EAFC1710A9AB7
+1572563354975	Marionette	DEBUG	0 <- [1,13,null,{"value":null}]
+1572563354983	Marionette	DEBUG	0 -> [0,14,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/CourseManager.aspx"}]
+1572563355195	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/InstructorAdmin/Dashboard.aspx?SessionID=3D0556D1704E4AEE8F5EAFC1710A9AB7
+1572563355225	Marionette	TRACE	Received observer notification tabmodal-dialog-loaded
+1572563355228	Marionette	DEBUG	0 <- [1,14,null,{"value":null}]
+1572563355882	Marionette	TRACE	Received event DOMModalDialogClosed
+1572563360243	Marionette	DEBUG	0 -> [0,15,"WebDriver:FindElement",{"using":"xpath","value":"//*[@id=\"CourseManagerTree1t5\"]"}]
+1572563360263	Marionette	DEBUG	0 <- [1,15,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"51460256-9e33-44c4-930a-1254f1969d98"}}]
+1572563360276	Marionette	DEBUG	0 -> [0,16,"WebDriver:ElementClick",{"id":"51460256-9e33-44c4-930a-1254f1969d98"}]
+1572563360546	Marionette	DEBUG	[14] Canceled page load listener because no navigation has been detected
+1572563360549	Marionette	DEBUG	0 <- [1,16,null,{"value":null}]
+1572563360562	Marionette	DEBUG	0 -> [0,17,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563360586	Marionette	DEBUG	0 <- [1,17,{"error":"no such element","message":"Unable to locate element: [id=\"Tr1\"]","stacktrace":"WebDriverError@chrome://mar ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1572563361096	Marionette	DEBUG	0 -> [0,18,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563361114	Marionette	DEBUG	0 <- [1,18,{"error":"no such element","message":"Unable to locate element: [id=\"Tr1\"]","stacktrace":"WebDriverError@chrome://mar ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1572563361626	Marionette	DEBUG	0 -> [0,19,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563361634	Marionette	DEBUG	0 <- [1,19,{"error":"no such element","message":"Unable to locate element: [id=\"Tr1\"]","stacktrace":"WebDriverError@chrome://mar ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1572563362140	Marionette	DEBUG	0 -> [0,20,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563362144	Marionette	DEBUG	0 <- [1,20,{"error":"no such element","message":"Unable to locate element: [id=\"Tr1\"]","stacktrace":"WebDriverError@chrome://mar ... entError@chrome://marionette/content/error.js:387:5\nelement.find/</<@chrome://marionette/content/element.js:343:16\n"},null]
+1572563362647	Marionette	DEBUG	0 -> [0,21,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563362828	Marionette	DEBUG	0 <- [1,21,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"79ffe728-2b80-4e6d-b306-ab4ba718ddef"}}]
+1572563362832	Marionette	DEBUG	0 -> [0,22,"WebDriver:FindElements",{"using":"css selector","value":".gbIcon"}]
+1572563362856	Marionette	DEBUG	0 <- [1,22,null,[{"element-6066-11e4-a52e-4f735466cecf":"bf49b1de-3d39-407c-a291-8e64af2cc659"},{"element-6066-11e4-a52e-4f735466c ... ecf":"86dd33fd-29fb-440f-9f1d-100a13af7a94"},{"element-6066-11e4-a52e-4f735466cecf":"33ec4704-56ea-4a8c-83d0-81609ae15dc5"}]]
+1572563362860	Marionette	DEBUG	0 -> [0,23,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"bf49b1de-3d39-407c-a291-8e64af2cc659","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362871	Marionette	DEBUG	0 <- [1,23,null,{"value":"courseManager.openGradebook(294713);"}]
+1572563362873	Marionette	DEBUG	0 -> [0,24,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"7062740f-1aa4-46d7-8393-589c0852dd78","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362881	Marionette	DEBUG	0 <- [1,24,null,{"value":"courseManager.openGradebook(294714);"}]
+1572563362883	Marionette	DEBUG	0 -> [0,25,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"5fddef61-2354-49c9-8025-1471696677bb","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362889	Marionette	DEBUG	0 <- [1,25,null,{"value":"courseManager.openGradebook(294715);"}]
+1572563362892	Marionette	DEBUG	0 -> [0,26,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"dae348be-0aef-4539-a7ca-381bd7b38407","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362900	Marionette	DEBUG	0 <- [1,26,null,{"value":"courseManager.openGradebook(294716);"}]
+1572563362903	Marionette	DEBUG	0 -> [0,27,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ffd98ead-849a-4f80-be1a-3d8d0546d028","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362911	Marionette	DEBUG	0 <- [1,27,null,{"value":"courseManager.openGradebook(294717);"}]
+1572563362913	Marionette	DEBUG	0 -> [0,28,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e3dacc09-19f7-41e7-9886-ccbc74867e96","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362920	Marionette	DEBUG	0 <- [1,28,null,{"value":"courseManager.openGradebook(294718);"}]
+1572563362923	Marionette	DEBUG	0 -> [0,29,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"83f9addf-e0fa-4307-b9b6-34bd17537d0f","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362929	Marionette	DEBUG	0 <- [1,29,null,{"value":"courseManager.openGradebook(294719);"}]
+1572563362931	Marionette	DEBUG	0 -> [0,30,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"78dffb2e-5b42-496e-baf8-f4a09d56ccd8","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362937	Marionette	DEBUG	0 <- [1,30,null,{"value":"courseManager.openGradebook(294720);"}]
+1572563362939	Marionette	DEBUG	0 -> [0,31,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"5bff85b3-af9f-4fb2-bcec-2a2725d8ca89","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362946	Marionette	DEBUG	0 <- [1,31,null,{"value":"courseManager.openGradebook(294721);"}]
+1572563362948	Marionette	DEBUG	0 -> [0,32,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"d27a29f4-a466-4e88-8574-a9f8eca3318e","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362955	Marionette	DEBUG	0 <- [1,32,null,{"value":"courseManager.openGradebook(294722);"}]
+1572563362957	Marionette	DEBUG	0 -> [0,33,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f654419c-0c6f-4c71-b083-13ed7c3cc9e6","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362966	Marionette	DEBUG	0 <- [1,33,null,{"value":"courseManager.openGradebook(294723);"}]
+1572563362968	Marionette	DEBUG	0 -> [0,34,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"5b4c121a-c2ea-4d69-8f21-b5c5111f8080","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362975	Marionette	DEBUG	0 <- [1,34,null,{"value":"courseManager.openGradebook(294724);"}]
+1572563362977	Marionette	DEBUG	0 -> [0,35,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"3f1caa30-601a-42f8-a89f-f396370f0196","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362984	Marionette	DEBUG	0 <- [1,35,null,{"value":"courseManager.openGradebook(294725);"}]
+1572563362986	Marionette	DEBUG	0 -> [0,36,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ea88a377-0094-48f1-a429-4385d7bf2717","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563362994	Marionette	DEBUG	0 <- [1,36,null,{"value":"courseManager.openGradebook(294726);"}]
+1572563362999	Marionette	DEBUG	0 -> [0,37,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cb0696b2-a1e9-47e9-933a-850c3f939ad6","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363004	Marionette	DEBUG	0 <- [1,37,null,{"value":"courseManager.openGradebook(294727);"}]
+1572563363006	Marionette	DEBUG	0 -> [0,38,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"dce2b9c8-eed4-4bcc-913a-e6d25fe8db48","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363014	Marionette	DEBUG	0 <- [1,38,null,{"value":"courseManager.openGradebook(294728);"}]
+1572563363017	Marionette	DEBUG	0 -> [0,39,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"79419920-27fa-42a3-9d89-46919aafedb4","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363024	Marionette	DEBUG	0 <- [1,39,null,{"value":"courseManager.openGradebook(294729);"}]
+1572563363026	Marionette	DEBUG	0 -> [0,40,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cb5e470a-0a59-4bf3-bd02-8a866a4da12b","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363033	Marionette	DEBUG	0 <- [1,40,null,{"value":"courseManager.openGradebook(294730);"}]
+1572563363036	Marionette	DEBUG	0 -> [0,41,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e17b2398-29f0-4015-bf8a-5c1f0a34afec","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363044	Marionette	DEBUG	0 <- [1,41,null,{"value":"courseManager.openGradebook(294731);"}]
+1572563363048	Marionette	DEBUG	0 -> [0,42,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"bc8e6da1-b5ca-49b7-898a-e5a1f64fc2f7","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363054	Marionette	DEBUG	0 <- [1,42,null,{"value":"courseManager.openGradebook(294732);"}]
+1572563363057	Marionette	DEBUG	0 -> [0,43,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"bfe70160-a509-41d3-922c-8d38f9ef7732","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363064	Marionette	DEBUG	0 <- [1,43,null,{"value":"courseManager.openGradebook(294733);"}]
+1572563363067	Marionette	DEBUG	0 -> [0,44,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"19535574-b989-44ac-9617-0831a2cf4a46","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363072	Marionette	DEBUG	0 <- [1,44,null,{"value":"courseManager.openGradebook(294734);"}]
+1572563363075	Marionette	DEBUG	0 -> [0,45,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ac8ed9cb-a916-4e11-8ebf-c54cafa02f7b","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363082	Marionette	DEBUG	0 <- [1,45,null,{"value":"courseManager.openGradebook(301329);"}]
+1572563363086	Marionette	DEBUG	0 -> [0,46,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"470bc0ea-aac4-4c5c-99ff-50cbd120ca66","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363092	Marionette	DEBUG	0 <- [1,46,null,{"value":"courseManager.openGradebook(301330);"}]
+1572563363095	Marionette	DEBUG	0 -> [0,47,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"72b2a0ec-588e-4b22-bea3-da3bfd73fa19","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363102	Marionette	DEBUG	0 <- [1,47,null,{"value":"courseManager.openGradebook(301331);"}]
+1572563363104	Marionette	DEBUG	0 -> [0,48,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"5d5fa79a-e175-44d8-a66d-49728a021ad1","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363111	Marionette	DEBUG	0 <- [1,48,null,{"value":"courseManager.openGradebook(301332);"}]
+1572563363113	Marionette	DEBUG	0 -> [0,49,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"fe60d3a0-6d57-4dea-974c-587716609e8c","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363119	Marionette	DEBUG	0 <- [1,49,null,{"value":"courseManager.openGradebook(301333);"}]
+1572563363121	Marionette	DEBUG	0 -> [0,50,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e17b8c92-2d39-4439-8ba4-1a8aa0ff79e8","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363127	Marionette	DEBUG	0 <- [1,50,null,{"value":"courseManager.openGradebook(301334);"}]
+1572563363130	Marionette	DEBUG	0 -> [0,51,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"8a39f61f-85c0-492f-a57c-c2138a115101","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363135	Marionette	DEBUG	0 <- [1,51,null,{"value":"courseManager.openGradebook(301335);"}]
+1572563363138	Marionette	DEBUG	0 -> [0,52,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"769cc2e2-03b2-4873-8805-8edb198d3f70","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363146	Marionette	DEBUG	0 <- [1,52,null,{"value":"courseManager.openGradebook(301336);"}]
+1572563363149	Marionette	DEBUG	0 -> [0,53,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"b4dca91e-9f34-41ce-a4f6-cd82217e1158","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363162	Marionette	DEBUG	0 <- [1,53,null,{"value":"courseManager.openGradebook(302330);"}]
+1572563363164	Marionette	DEBUG	0 -> [0,54,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c1a0e2c7-7251-4c56-abb1-80780daae96c","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363172	Marionette	DEBUG	0 <- [1,54,null,{"value":"courseManager.openGradebook(302331);"}]
+1572563363174	Marionette	DEBUG	0 -> [0,55,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"a09aee3d-6536-464e-b776-72664451efee","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363181	Marionette	DEBUG	0 <- [1,55,null,{"value":"courseManager.openGradebook(302332);"}]
+1572563363184	Marionette	DEBUG	0 -> [0,56,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"6361975e-2947-4679-b78e-8007df093d03","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363189	Marionette	DEBUG	0 <- [1,56,null,{"value":"courseManager.openGradebook(302334);"}]
+1572563363192	Marionette	DEBUG	0 -> [0,57,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c2778a8f-d9cc-4a79-8b02-2340c75ab592","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363199	Marionette	DEBUG	0 <- [1,57,null,{"value":"courseManager.openGradebook(302338);"}]
+1572563363202	Marionette	DEBUG	0 -> [0,58,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e5032f73-9203-4c46-aa41-b1a7dbd11468","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363208	Marionette	DEBUG	0 <- [1,58,null,{"value":"courseManager.openGradebook(302339);"}]
+1572563363211	Marionette	DEBUG	0 -> [0,59,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"a2663599-b5b4-4c29-aeef-119253352e37","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363217	Marionette	DEBUG	0 <- [1,59,null,{"value":"courseManager.openGradebook(302340);"}]
+1572563363219	Marionette	DEBUG	0 -> [0,60,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"905c4e5c-c923-4cd7-bdaa-c45307962f1b","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363224	Marionette	DEBUG	0 <- [1,60,null,{"value":"courseManager.openGradebook(302341);"}]
+1572563363227	Marionette	DEBUG	0 -> [0,61,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"65c53a98-912d-457e-9611-71bcf3ad985e","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363234	Marionette	DEBUG	0 <- [1,61,null,{"value":"courseManager.openGradebook(302495);"}]
+1572563363237	Marionette	DEBUG	0 -> [0,62,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"8204b914-1038-4c20-ac8d-b350855b50e7","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363242	Marionette	DEBUG	0 <- [1,62,null,{"value":"courseManager.openGradebook(302496);"}]
+1572563363245	Marionette	DEBUG	0 -> [0,63,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f8dc3b20-538a-4acc-b466-f706393cfba7","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363251	Marionette	DEBUG	0 <- [1,63,null,{"value":"courseManager.openGradebook(302497);"}]
+1572563363253	Marionette	DEBUG	0 -> [0,64,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"d24331ce-6171-4149-bef8-bdf1c183f39c","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363258	Marionette	DEBUG	0 <- [1,64,null,{"value":"courseManager.openGradebook(302498);"}]
+1572563363261	Marionette	DEBUG	0 -> [0,65,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"1d89f42f-4fd2-4a2c-b606-6187c796a333","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363268	Marionette	DEBUG	0 <- [1,65,null,{"value":"courseManager.openGradebook(302499);"}]
+1572563363271	Marionette	DEBUG	0 -> [0,66,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"60741f21-68d1-4d99-b69f-248a7142258c","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363277	Marionette	DEBUG	0 <- [1,66,null,{"value":"courseManager.openGradebook(302500);"}]
+1572563363279	Marionette	DEBUG	0 -> [0,67,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"86dd33fd-29fb-440f-9f1d-100a13af7a94","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363285	Marionette	DEBUG	0 <- [1,67,null,{"value":"courseManager.openGradebook(302501);"}]
+1572563363287	Marionette	DEBUG	0 -> [0,68,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"33ec4704-56ea-4a8c-83d0-81609ae15dc5","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563363293	Marionette	DEBUG	0 <- [1,68,null,{"value":"courseManager.openGradebook(302502);"}]
+1572563363295	Marionette	DEBUG	0 -> [0,69,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294713"}]
+1572563363298	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/CourseManager.aspx
+1572563363796	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/CourseManager.aspx
+1572563363800	Marionette	TRACE	[14] Received DOM event unload for https://www.thelearningodyssey.com/Assignments/CourseManager.aspx
+1572563365748	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294713
+1572563366103	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294713
+1572563366108	Marionette	DEBUG	0 <- [1,69,null,{"value":null}]
+1572563366126	Marionette	DEBUG	0 -> [0,70,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563366131	Marionette	DEBUG	0 <- [1,70,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"8f95465c-1cc5-4e76-a389-60cb9526a43d"}}]
+1572563366134	Marionette	DEBUG	0 -> [0,71,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563366138	Marionette	DEBUG	0 <- [1,71,null,[{"element-6066-11e4-a52e-4f735466cecf":"b63110bc-1845-469d-b055-ee27566aa20f"}]]
+1572563366140	Marionette	DEBUG	0 -> [0,72,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563366143	Marionette	DEBUG	0 <- [1,72,null,[{"element-6066-11e4-a52e-4f735466cecf":"53b779e2-7f9e-4495-bff1-3d5771ae89a8"},{"element-6066-11e4-a52e-4f735466cecf":"75475d85-75f5-4ddc-9011-088b4677d676"}]]
+1572563366145	Marionette	DEBUG	0 -> [0,73,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563366149	Marionette	DEBUG	0 <- [1,73,null,[{"element-6066-11e4-a52e-4f735466cecf":"bdc9eed6-c005-42de-8f6d-476a7e55e83f"},{"element-6066-11e4-a52e-4f735466c ... ecf":"20691779-7a0d-461a-bb16-2e5975fba170"},{"element-6066-11e4-a52e-4f735466cecf":"576e8725-5975-4ec4-9dba-dbad48b3b035"}]]
+1572563366153	Marionette	DEBUG	0 -> [0,74,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563366172	Marionette	DEBUG	0 <- [1,74,null,[{"element-6066-11e4-a52e-4f735466cecf":"cd67df63-f810-42aa-9d3f-cd78de1883f0"}]]
+1572563366179	Marionette	DEBUG	0 -> [0,75,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"75475d85-75f5-4ddc-9011-088b4677d676","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563366189	Marionette	DEBUG	0 <- [1,75,null,{"value":"0%"}]
+1572563366194	Marionette	DEBUG	0 -> [0,76,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cd67df63-f810-42aa-9d3f-cd78de1883f0","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563366210	Marionette	DEBUG	0 <- [1,76,null,{"value":"Huddleston, Hunter (hh65819)"}]
+1572563366213	Marionette	DEBUG	0 -> [0,77,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"20691779-7a0d-461a-bb16-2e5975fba170","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563366235	Marionette	DEBUG	0 <- [1,77,null,{"value":"--"}]
+1572563366238	Marionette	DEBUG	0 -> [0,78,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294714"}]
+1572563366242	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294713
+1572563366699	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294713
+1572563367149	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294714
+1572563367559	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294714
+1572563367565	Marionette	DEBUG	0 <- [1,78,null,{"value":null}]
+1572563367601	Marionette	DEBUG	0 -> [0,79,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563367615	Marionette	DEBUG	0 <- [1,79,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"e79a33d2-b572-4106-9aa1-ad592245976a"}}]
+1572563367625	Marionette	DEBUG	0 -> [0,80,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563367639	Marionette	DEBUG	0 <- [1,80,null,[{"element-6066-11e4-a52e-4f735466cecf":"9bbd4e05-005c-4a8a-9d1f-3439b28a59ff"}]]
+1572563367645	Marionette	DEBUG	0 -> [0,81,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563367652	Marionette	DEBUG	0 <- [1,81,null,[{"element-6066-11e4-a52e-4f735466cecf":"d7578490-c811-4b57-9854-73f592ed759f"},{"element-6066-11e4-a52e-4f735466cecf":"f51d1089-ddcc-4f6d-8133-a3ba349a564b"}]]
+1572563367656	Marionette	DEBUG	0 -> [0,82,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563367661	Marionette	DEBUG	0 <- [1,82,null,[{"element-6066-11e4-a52e-4f735466cecf":"e92ead24-3e36-4000-91d2-bc627cb63521"},{"element-6066-11e4-a52e-4f735466c ... ecf":"f5fc206e-e6e5-43c6-95f8-2a59141a2078"},{"element-6066-11e4-a52e-4f735466cecf":"a45830f8-779e-4050-b74f-acb0f8116de2"}]]
+1572563367664	Marionette	DEBUG	0 -> [0,83,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563367667	Marionette	DEBUG	0 <- [1,83,null,[{"element-6066-11e4-a52e-4f735466cecf":"81b9daee-8a22-4ad7-8b5b-1abbb5c5440b"}]]
+1572563367670	Marionette	DEBUG	0 -> [0,84,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f51d1089-ddcc-4f6d-8133-a3ba349a564b","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563367680	Marionette	DEBUG	0 <- [1,84,null,{"value":"0%"}]
+1572563367682	Marionette	DEBUG	0 -> [0,85,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"81b9daee-8a22-4ad7-8b5b-1abbb5c5440b","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563367692	Marionette	DEBUG	0 <- [1,85,null,{"value":"Huddleston, Hunter (hh65819)"}]
+1572563367695	Marionette	DEBUG	0 -> [0,86,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f5fc206e-e6e5-43c6-95f8-2a59141a2078","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563367704	Marionette	DEBUG	0 <- [1,86,null,{"value":"--"}]
+1572563367707	Marionette	DEBUG	0 -> [0,87,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294715"}]
+1572563367710	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294714
+1572563368185	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294714
+1572563368698	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294715
+1572563369333	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294715
+1572563369337	Marionette	DEBUG	0 <- [1,87,null,{"value":null}]
+1572563369384	Marionette	DEBUG	0 -> [0,88,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563369395	Marionette	DEBUG	0 <- [1,88,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"a99981c8-5551-4cbf-a5d1-a3d7ad746eaf"}}]
+1572563369400	Marionette	DEBUG	0 -> [0,89,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563369405	Marionette	DEBUG	0 <- [1,89,null,[{"element-6066-11e4-a52e-4f735466cecf":"1cad0afc-6a95-4aa4-b6c2-ce8214c0c3b9"}]]
+1572563369407	Marionette	DEBUG	0 -> [0,90,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563369413	Marionette	DEBUG	0 <- [1,90,null,[{"element-6066-11e4-a52e-4f735466cecf":"0cb21d3b-1bf1-435d-8d8b-7da95b9dcc56"},{"element-6066-11e4-a52e-4f735466cecf":"4a16cb6d-8678-47d7-8444-e661a592418c"}]]
+1572563369416	Marionette	DEBUG	0 -> [0,91,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563369420	Marionette	DEBUG	0 <- [1,91,null,[{"element-6066-11e4-a52e-4f735466cecf":"4c039b4f-8105-4065-bd43-87e3f3d79110"},{"element-6066-11e4-a52e-4f735466c ... ecf":"89eddb22-b008-4b83-81c7-e5e34bd73297"},{"element-6066-11e4-a52e-4f735466cecf":"86fa0a80-e4f4-4ca4-a1dd-cd8711728eff"}]]
+1572563369422	Marionette	DEBUG	0 -> [0,92,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563369424	Marionette	DEBUG	0 <- [1,92,null,[{"element-6066-11e4-a52e-4f735466cecf":"7e82a333-a53d-4249-b40b-9b07c22307ef"}]]
+1572563369427	Marionette	DEBUG	0 -> [0,93,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"4a16cb6d-8678-47d7-8444-e661a592418c","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563369437	Marionette	DEBUG	0 <- [1,93,null,{"value":"0%"}]
+1572563369439	Marionette	DEBUG	0 -> [0,94,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"7e82a333-a53d-4249-b40b-9b07c22307ef","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563369447	Marionette	DEBUG	0 <- [1,94,null,{"value":"Huddleston, Hunter (hh65819)"}]
+1572563369449	Marionette	DEBUG	0 -> [0,95,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"89eddb22-b008-4b83-81c7-e5e34bd73297","element-6066-11e4-a52e-4f735466ce ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563369456	Marionette	DEBUG	0 <- [1,95,null,{"value":"--"}]
+1572563369457	Marionette	DEBUG	0 -> [0,96,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294716"}]
+1572563369462	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294715
+1572563369950	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294715
+1572563370570	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294716
+1572563370945	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294716
+1572563370949	Marionette	DEBUG	0 <- [1,96,null,{"value":null}]
+1572563370986	Marionette	DEBUG	0 -> [0,97,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563371007	Marionette	DEBUG	0 <- [1,97,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"0821e90d-e770-4beb-b4c7-9a8a7b26c678"}}]
+1572563371012	Marionette	DEBUG	0 -> [0,98,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563371015	Marionette	DEBUG	0 <- [1,98,null,[{"element-6066-11e4-a52e-4f735466cecf":"9d61c12e-b401-4201-a7b1-7ca364e7974c"}]]
+1572563371017	Marionette	DEBUG	0 -> [0,99,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563371020	Marionette	DEBUG	0 <- [1,99,null,[{"element-6066-11e4-a52e-4f735466cecf":"e4a8f848-91f1-4dd3-bfec-64cac2bf19e4"},{"element-6066-11e4-a52e-4f735466cecf":"f5b86eec-9c62-4d63-b235-f12c00fea325"}]]
+1572563371022	Marionette	DEBUG	0 -> [0,100,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563371026	Marionette	DEBUG	0 <- [1,100,null,[{"element-6066-11e4-a52e-4f735466cecf":"98e30624-7556-4037-8460-201a95df838b"},{"element-6066-11e4-a52e-4f735466 ... ecf":"97cea7f2-9224-4eac-94f3-f97548a13510"},{"element-6066-11e4-a52e-4f735466cecf":"9150233f-de99-47f5-be12-410f7dfea8b7"}]]
+1572563371028	Marionette	DEBUG	0 -> [0,101,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563371030	Marionette	DEBUG	0 <- [1,101,null,[{"element-6066-11e4-a52e-4f735466cecf":"695cd0f7-616d-4aac-b45a-9e4f9f5e8ead"}]]
+1572563371034	Marionette	DEBUG	0 -> [0,102,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f5b86eec-9c62-4d63-b235-f12c00fea325","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563371041	Marionette	DEBUG	0 <- [1,102,null,{"value":"0%"}]
+1572563371043	Marionette	DEBUG	0 -> [0,103,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"695cd0f7-616d-4aac-b45a-9e4f9f5e8ead","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563371051	Marionette	DEBUG	0 <- [1,103,null,{"value":"Huddleston, Hunter (hh65819)"}]
+1572563371053	Marionette	DEBUG	0 -> [0,104,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"97cea7f2-9224-4eac-94f3-f97548a13510","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563371060	Marionette	DEBUG	0 <- [1,104,null,{"value":"--"}]
+1572563371062	Marionette	DEBUG	0 -> [0,105,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294717"}]
+1572563371066	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294716
+1572563371498	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294716
+1572563372007	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294717
+1572563372383	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294717
+1572563372386	Marionette	DEBUG	0 <- [1,105,null,{"value":null}]
+1572563372391	Marionette	DEBUG	0 -> [0,106,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563372393	Marionette	DEBUG	0 <- [1,106,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"b2413642-6e97-477c-b7d5-9c1b2cf645e6"}}]
+1572563372395	Marionette	DEBUG	0 -> [0,107,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563372397	Marionette	DEBUG	0 <- [1,107,null,[{"element-6066-11e4-a52e-4f735466cecf":"1ebc29e4-149e-4f7d-ba90-b81011988ac6"}]]
+1572563372399	Marionette	DEBUG	0 -> [0,108,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563372402	Marionette	DEBUG	0 <- [1,108,null,[{"element-6066-11e4-a52e-4f735466cecf":"51fd2ea0-dabb-4a57-8e95-967b63fce9d4"},{"element-6066-11e4-a52e-4f735466cecf":"5a13be4c-46cd-463e-98f9-4848b46b96dd"}]]
+1572563372406	Marionette	DEBUG	0 -> [0,109,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563372410	Marionette	DEBUG	0 <- [1,109,null,[{"element-6066-11e4-a52e-4f735466cecf":"3420d1a6-dffb-49a0-98eb-b06eea3a2ec4"},{"element-6066-11e4-a52e-4f735466 ... ecf":"e65fe227-4737-4ac1-ada5-f19976f057d3"},{"element-6066-11e4-a52e-4f735466cecf":"1609a26b-551f-4e24-92c2-ec57acb5d087"}]]
+1572563372412	Marionette	DEBUG	0 -> [0,110,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563372414	Marionette	DEBUG	0 <- [1,110,null,[{"element-6066-11e4-a52e-4f735466cecf":"f84f3596-e473-47e2-83d4-eba7f1bc2c96"}]]
+1572563372417	Marionette	DEBUG	0 -> [0,111,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"5a13be4c-46cd-463e-98f9-4848b46b96dd","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563372425	Marionette	DEBUG	0 <- [1,111,null,{"value":"0%"}]
+1572563372427	Marionette	DEBUG	0 -> [0,112,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f84f3596-e473-47e2-83d4-eba7f1bc2c96","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563372433	Marionette	DEBUG	0 <- [1,112,null,{"value":"Huddleston, Hunter (hh65819)"}]
+1572563372436	Marionette	DEBUG	0 -> [0,113,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e65fe227-4737-4ac1-ada5-f19976f057d3","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563372444	Marionette	DEBUG	0 <- [1,113,null,{"value":"--"}]
+1572563372447	Marionette	DEBUG	0 -> [0,114,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294718"}]
+1572563372450	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294717
+1572563373098	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294717
+1572563373611	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294718
+1572563374095	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294718
+1572563374097	Marionette	DEBUG	0 <- [1,114,null,{"value":null}]
+1572563374104	Marionette	DEBUG	0 -> [0,115,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563374107	Marionette	DEBUG	0 <- [1,115,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"47cb7916-fcaf-4ae1-978c-0f1e89a6b4e3"}}]
+1572563374110	Marionette	DEBUG	0 -> [0,116,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563374112	Marionette	DEBUG	0 <- [1,116,null,[{"element-6066-11e4-a52e-4f735466cecf":"b0b69c2f-1488-40c9-a9f1-c663557aae3f"}]]
+1572563374115	Marionette	DEBUG	0 -> [0,117,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563374118	Marionette	DEBUG	0 <- [1,117,null,[{"element-6066-11e4-a52e-4f735466cecf":"c09b89c4-b81c-4056-96e8-07ae82091002"},{"element-6066-11e4-a52e-4f735466cecf":"19aa826f-5f3f-49fa-8b51-caeded2a07ec"}]]
+1572563374120	Marionette	DEBUG	0 -> [0,118,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563374127	Marionette	DEBUG	0 <- [1,118,null,[{"element-6066-11e4-a52e-4f735466cecf":"9fc77de8-962b-4583-86b2-2c81f1a57d06"},{"element-6066-11e4-a52e-4f735466 ... ecf":"c3a2da2c-1dca-4387-88f6-7accb49181dc"},{"element-6066-11e4-a52e-4f735466cecf":"784e0c35-1d1b-4a9d-ae8b-bc246023cb1f"}]]
+1572563374129	Marionette	DEBUG	0 -> [0,119,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563374132	Marionette	DEBUG	0 <- [1,119,null,[{"element-6066-11e4-a52e-4f735466cecf":"cfcc228d-75a5-4338-9e88-fc5721706326"}]]
+1572563374135	Marionette	DEBUG	0 -> [0,120,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"19aa826f-5f3f-49fa-8b51-caeded2a07ec","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563374143	Marionette	DEBUG	0 <- [1,120,null,{"value":"0%"}]
+1572563374146	Marionette	DEBUG	0 -> [0,121,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cfcc228d-75a5-4338-9e88-fc5721706326","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563374152	Marionette	DEBUG	0 <- [1,121,null,{"value":"Huddleston, Hunter (hh65819)"}]
+1572563374155	Marionette	DEBUG	0 -> [0,122,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c3a2da2c-1dca-4387-88f6-7accb49181dc","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563374164	Marionette	DEBUG	0 <- [1,122,null,{"value":"--"}]
+1572563374166	Marionette	DEBUG	0 -> [0,123,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294719"}]
+1572563374169	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294718
+1572563374668	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294718
+1572563375154	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294719
+1572563375565	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294719
+1572563375566	Marionette	DEBUG	0 <- [1,123,null,{"value":null}]
+1572563375573	Marionette	DEBUG	0 -> [0,124,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563375577	Marionette	DEBUG	0 <- [1,124,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"23d91dfd-1531-4ebd-824b-32986ca2d550"}}]
+1572563375586	Marionette	DEBUG	0 -> [0,125,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563375590	Marionette	DEBUG	0 <- [1,125,null,[{"element-6066-11e4-a52e-4f735466cecf":"980bed21-787c-4813-87a8-30948ef744c7"}]]
+1572563375594	Marionette	DEBUG	0 -> [0,126,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563375599	Marionette	DEBUG	0 <- [1,126,null,[{"element-6066-11e4-a52e-4f735466cecf":"c4caee85-9303-453f-a522-c9b94fc0b79f"},{"element-6066-11e4-a52e-4f735466cecf":"ddb8ad41-83e2-4e6f-a67a-d01665dfdb90"}]]
+1572563375603	Marionette	DEBUG	0 -> [0,127,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563375608	Marionette	DEBUG	0 <- [1,127,null,[{"element-6066-11e4-a52e-4f735466cecf":"d97c1ea0-ec72-4c99-b565-9877d02b0354"},{"element-6066-11e4-a52e-4f735466 ... ecf":"3adc6428-8069-477c-843c-9c23e399140a"},{"element-6066-11e4-a52e-4f735466cecf":"68ec6603-df88-42ce-9c43-4bd28a51991e"}]]
+1572563375612	Marionette	DEBUG	0 -> [0,128,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563375617	Marionette	DEBUG	0 <- [1,128,null,[{"element-6066-11e4-a52e-4f735466cecf":"cb8353e2-51fe-45fb-9851-02aa45cf6860"}]]
+1572563375622	Marionette	DEBUG	0 -> [0,129,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ddb8ad41-83e2-4e6f-a67a-d01665dfdb90","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563375635	Marionette	DEBUG	0 <- [1,129,null,{"value":"16%"}]
+1572563375639	Marionette	DEBUG	0 -> [0,130,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cb8353e2-51fe-45fb-9851-02aa45cf6860","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563375652	Marionette	DEBUG	0 <- [1,130,null,{"value":"Estes, Odin (oe31487)"}]
+1572563375657	Marionette	DEBUG	0 -> [0,131,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"3adc6428-8069-477c-843c-9c23e399140a","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563375671	Marionette	DEBUG	0 <- [1,131,null,{"value":"96%"}]
+1572563375674	Marionette	DEBUG	0 -> [0,132,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294720"}]
+1572563375680	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294719
+1572563376157	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294719
+1572563376557	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294720
+1572563376969	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294720
+1572563376972	Marionette	DEBUG	0 <- [1,132,null,{"value":null}]
+1572563377001	Marionette	DEBUG	0 -> [0,133,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563377009	Marionette	DEBUG	0 <- [1,133,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"654a54cf-4d3e-4dd7-bf46-adc03d3500f0"}}]
+1572563377015	Marionette	DEBUG	0 -> [0,134,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563377021	Marionette	DEBUG	0 <- [1,134,null,[{"element-6066-11e4-a52e-4f735466cecf":"660ca82a-dc99-432b-b4a6-1fd1a235000e"}]]
+1572563377024	Marionette	DEBUG	0 -> [0,135,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563377031	Marionette	DEBUG	0 <- [1,135,null,[{"element-6066-11e4-a52e-4f735466cecf":"a5da8eb0-ec9b-4576-a87f-0177e8e6be00"},{"element-6066-11e4-a52e-4f735466cecf":"cbcb349d-423a-45cb-9498-4aa31c3dec11"}]]
+1572563377034	Marionette	DEBUG	0 -> [0,136,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563377042	Marionette	DEBUG	0 <- [1,136,null,[{"element-6066-11e4-a52e-4f735466cecf":"fe573ff8-205d-42f6-a131-a8f7788b0941"},{"element-6066-11e4-a52e-4f735466 ... ecf":"b80f7402-2135-464a-a82d-37845e55f2ec"},{"element-6066-11e4-a52e-4f735466cecf":"0e0d943b-cce4-4791-95b1-79768de5437a"}]]
+1572563377045	Marionette	DEBUG	0 -> [0,137,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563377049	Marionette	DEBUG	0 <- [1,137,null,[{"element-6066-11e4-a52e-4f735466cecf":"2a78b0b1-0f1a-4945-967d-e6ccc264b261"}]]
+1572563377052	Marionette	DEBUG	0 -> [0,138,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cbcb349d-423a-45cb-9498-4aa31c3dec11","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563377062	Marionette	DEBUG	0 <- [1,138,null,{"value":"0%"}]
+1572563377065	Marionette	DEBUG	0 -> [0,139,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"2a78b0b1-0f1a-4945-967d-e6ccc264b261","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563377074	Marionette	DEBUG	0 <- [1,139,null,{"value":"Estes, Odin (oe31487)"}]
+1572563377077	Marionette	DEBUG	0 -> [0,140,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"b80f7402-2135-464a-a82d-37845e55f2ec","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563377085	Marionette	DEBUG	0 <- [1,140,null,{"value":"--"}]
+1572563377088	Marionette	DEBUG	0 -> [0,141,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294721"}]
+1572563377092	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294720
+1572563377641	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294720
+1572563378096	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294721
+1572563378504	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294721
+1572563378509	Marionette	DEBUG	0 <- [1,141,null,{"value":null}]
+1572563378544	Marionette	DEBUG	0 -> [0,142,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563378549	Marionette	DEBUG	0 <- [1,142,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"262a57c5-9c89-401f-806c-0f7638a3b7ad"}}]
+1572563378554	Marionette	DEBUG	0 -> [0,143,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563378559	Marionette	DEBUG	0 <- [1,143,null,[{"element-6066-11e4-a52e-4f735466cecf":"3ac1fc50-c717-4365-b69a-82ea684e4bc3"}]]
+1572563378563	Marionette	DEBUG	0 -> [0,144,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563378567	Marionette	DEBUG	0 <- [1,144,null,[{"element-6066-11e4-a52e-4f735466cecf":"a3133e86-58e2-4cd2-b517-9628555ccf5f"},{"element-6066-11e4-a52e-4f735466cecf":"06fcd491-480d-4c8a-88d6-4d1383f3144c"}]]
+1572563378570	Marionette	DEBUG	0 -> [0,145,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563378575	Marionette	DEBUG	0 <- [1,145,null,[{"element-6066-11e4-a52e-4f735466cecf":"11160438-9edf-4607-8497-183996bdcaf2"},{"element-6066-11e4-a52e-4f735466 ... ecf":"177b463c-2d21-468b-a1a2-8931b1a317f3"},{"element-6066-11e4-a52e-4f735466cecf":"37da2265-2ae2-4796-8537-9f4f4f7853eb"}]]
+1572563378579	Marionette	DEBUG	0 -> [0,146,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563378582	Marionette	DEBUG	0 <- [1,146,null,[{"element-6066-11e4-a52e-4f735466cecf":"e0090197-504c-40f2-9c21-7ed1b79a6375"}]]
+1572563378585	Marionette	DEBUG	0 -> [0,147,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"06fcd491-480d-4c8a-88d6-4d1383f3144c","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563378592	Marionette	DEBUG	0 <- [1,147,null,{"value":"27%"}]
+1572563378595	Marionette	DEBUG	0 -> [0,148,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e0090197-504c-40f2-9c21-7ed1b79a6375","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563378601	Marionette	DEBUG	0 <- [1,148,null,{"value":"Estes, Odin (oe31487)"}]
+1572563378605	Marionette	DEBUG	0 -> [0,149,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"177b463c-2d21-468b-a1a2-8931b1a317f3","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563378613	Marionette	DEBUG	0 <- [1,149,null,{"value":"92%"}]
+1572563378615	Marionette	DEBUG	0 -> [0,150,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294722"}]
+1572563378619	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294721
+1572563379153	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294721
+1572563379653	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294722
+1572563380003	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294722
+1572563380013	Marionette	DEBUG	0 <- [1,150,null,{"value":null}]
+1572563380036	Marionette	DEBUG	0 -> [0,151,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563380040	Marionette	DEBUG	0 <- [1,151,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"f656b867-186f-4678-907f-147985a8fe40"}}]
+1572563380043	Marionette	DEBUG	0 -> [0,152,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563380048	Marionette	DEBUG	0 <- [1,152,null,[{"element-6066-11e4-a52e-4f735466cecf":"c15313d0-79ee-4c57-a85b-2af46378ab09"}]]
+1572563380050	Marionette	DEBUG	0 -> [0,153,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563380054	Marionette	DEBUG	0 <- [1,153,null,[{"element-6066-11e4-a52e-4f735466cecf":"c9e08f4e-859a-4240-abe4-d625003ad58f"},{"element-6066-11e4-a52e-4f735466cecf":"973a7ad0-de3b-4770-8ec2-2b97b8b9af27"}]]
+1572563380058	Marionette	DEBUG	0 -> [0,154,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563380063	Marionette	DEBUG	0 <- [1,154,null,[{"element-6066-11e4-a52e-4f735466cecf":"2608d037-fc19-4116-acbe-53199afecc9c"},{"element-6066-11e4-a52e-4f735466 ... ecf":"51006694-efdf-4fd9-afeb-0269ac09e43c"},{"element-6066-11e4-a52e-4f735466cecf":"fae942f4-c498-4305-a035-6594de6fea06"}]]
+1572563380065	Marionette	DEBUG	0 -> [0,155,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563380067	Marionette	DEBUG	0 <- [1,155,null,[{"element-6066-11e4-a52e-4f735466cecf":"ae92ffc4-24ea-489d-9434-e7e17016bc56"}]]
+1572563380070	Marionette	DEBUG	0 -> [0,156,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"973a7ad0-de3b-4770-8ec2-2b97b8b9af27","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563380080	Marionette	DEBUG	0 <- [1,156,null,{"value":"0%"}]
+1572563380083	Marionette	DEBUG	0 -> [0,157,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ae92ffc4-24ea-489d-9434-e7e17016bc56","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563380090	Marionette	DEBUG	0 <- [1,157,null,{"value":"Estes, Odin (oe31487)"}]
+1572563380092	Marionette	DEBUG	0 -> [0,158,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"51006694-efdf-4fd9-afeb-0269ac09e43c","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563380098	Marionette	DEBUG	0 <- [1,158,null,{"value":"--"}]
+1572563380101	Marionette	DEBUG	0 -> [0,159,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294723"}]
+1572563380103	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294722
+1572563380598	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294722
+1572563381074	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294723
+1572563381445	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294723
+1572563381448	Marionette	DEBUG	0 <- [1,159,null,{"value":null}]
+1572563381461	Marionette	DEBUG	0 -> [0,160,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563381466	Marionette	DEBUG	0 <- [1,160,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"429f630e-d2cf-4118-b0a0-ab9696ba9799"}}]
+1572563381470	Marionette	DEBUG	0 -> [0,161,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563381472	Marionette	DEBUG	0 <- [1,161,null,[{"element-6066-11e4-a52e-4f735466cecf":"2a8c9cb8-9821-4bea-bd91-7cfc15240196"}]]
+1572563381476	Marionette	DEBUG	0 -> [0,162,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563381483	Marionette	DEBUG	0 <- [1,162,null,[{"element-6066-11e4-a52e-4f735466cecf":"0a17d4cd-ea67-4e90-a6d3-c7b83fcc7e6e"},{"element-6066-11e4-a52e-4f735466cecf":"032ef4d9-11cc-491d-b576-5d8338b3f38d"}]]
+1572563381486	Marionette	DEBUG	0 -> [0,163,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563381492	Marionette	DEBUG	0 <- [1,163,null,[{"element-6066-11e4-a52e-4f735466cecf":"93877fcc-881c-4635-b648-bb8705a7489c"},{"element-6066-11e4-a52e-4f735466 ... ecf":"6bd3a310-0b52-4b9e-97fa-3e51fcce07b3"},{"element-6066-11e4-a52e-4f735466cecf":"cab2e490-1fa3-46bd-8320-23d99d6bd8fc"}]]
+1572563381496	Marionette	DEBUG	0 -> [0,164,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563381500	Marionette	DEBUG	0 <- [1,164,null,[{"element-6066-11e4-a52e-4f735466cecf":"76e9d18e-0760-4f00-93ab-6a1fecbd8a38"}]]
+1572563381505	Marionette	DEBUG	0 -> [0,165,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"032ef4d9-11cc-491d-b576-5d8338b3f38d","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563381514	Marionette	DEBUG	0 <- [1,165,null,{"value":"37%"}]
+1572563381518	Marionette	DEBUG	0 -> [0,166,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"76e9d18e-0760-4f00-93ab-6a1fecbd8a38","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563381525	Marionette	DEBUG	0 <- [1,166,null,{"value":"Estes, Odin (oe31487)"}]
+1572563381530	Marionette	DEBUG	0 -> [0,167,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"6bd3a310-0b52-4b9e-97fa-3e51fcce07b3","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563381538	Marionette	DEBUG	0 <- [1,167,null,{"value":"93%"}]
+1572563381541	Marionette	DEBUG	0 -> [0,168,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294724"}]
+1572563381546	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294723
+1572563381993	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294723
+1572563382409	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294724
+1572563382900	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294724
+1572563382901	Marionette	DEBUG	0 <- [1,168,null,{"value":null}]
+1572563382904	Marionette	DEBUG	0 -> [0,169,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563382907	Marionette	DEBUG	0 <- [1,169,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"605c810a-eeee-4fe3-80e8-20c4d7d43497"}}]
+1572563382911	Marionette	DEBUG	0 -> [0,170,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563382913	Marionette	DEBUG	0 <- [1,170,null,[{"element-6066-11e4-a52e-4f735466cecf":"e7c37b5c-0877-4802-8afa-f65ae1b659ff"}]]
+1572563382917	Marionette	DEBUG	0 -> [0,171,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563382920	Marionette	DEBUG	0 <- [1,171,null,[{"element-6066-11e4-a52e-4f735466cecf":"71f396ae-0c9b-4ac9-b16b-9d7691bee566"},{"element-6066-11e4-a52e-4f735466cecf":"20787068-cf90-46dc-9168-0f8ccbfaeec8"}]]
+1572563382922	Marionette	DEBUG	0 -> [0,172,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563382926	Marionette	DEBUG	0 <- [1,172,null,[{"element-6066-11e4-a52e-4f735466cecf":"049361a0-0015-4281-ae6b-d02273c5c783"},{"element-6066-11e4-a52e-4f735466 ... ecf":"c2f9dbb6-abe2-46a2-b4b9-0344bdd90684"},{"element-6066-11e4-a52e-4f735466cecf":"6b95fab8-fa70-48f5-9a81-9507d60d7187"}]]
+1572563382928	Marionette	DEBUG	0 -> [0,173,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563382933	Marionette	DEBUG	0 <- [1,173,null,[{"element-6066-11e4-a52e-4f735466cecf":"3e519be7-e97e-47a7-90c3-02a3a68d7572"}]]
+1572563382936	Marionette	DEBUG	0 -> [0,174,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"20787068-cf90-46dc-9168-0f8ccbfaeec8","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563382942	Marionette	DEBUG	0 <- [1,174,null,{"value":"0%"}]
+1572563382944	Marionette	DEBUG	0 -> [0,175,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"3e519be7-e97e-47a7-90c3-02a3a68d7572","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563382952	Marionette	DEBUG	0 <- [1,175,null,{"value":"Estes, Odin (oe31487)"}]
+1572563382955	Marionette	DEBUG	0 -> [0,176,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c2f9dbb6-abe2-46a2-b4b9-0344bdd90684","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563382961	Marionette	DEBUG	0 <- [1,176,null,{"value":"--"}]
+1572563382963	Marionette	DEBUG	0 -> [0,177,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294725"}]
+1572563382969	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294724
+1572563383452	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294724
+1572563383948	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294725
+1572563384384	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294725
+1572563384386	Marionette	DEBUG	0 <- [1,177,null,{"value":null}]
+1572563384399	Marionette	DEBUG	0 -> [0,178,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563384411	Marionette	DEBUG	0 <- [1,178,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"eef5e590-26a5-4367-ab73-2f6d0dace1cd"}}]
+1572563384417	Marionette	DEBUG	0 -> [0,179,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563384423	Marionette	DEBUG	0 <- [1,179,null,[{"element-6066-11e4-a52e-4f735466cecf":"c4194e2e-db87-4d90-bfd1-e4cd7d8b1f4d"}]]
+1572563384428	Marionette	DEBUG	0 -> [0,180,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563384436	Marionette	DEBUG	0 <- [1,180,null,[{"element-6066-11e4-a52e-4f735466cecf":"35dc3255-b586-47b8-804a-1bf7b61bbd8e"},{"element-6066-11e4-a52e-4f735466cecf":"9df7c2d1-0eb7-43cd-9b78-fac760bab173"}]]
+1572563384442	Marionette	DEBUG	0 -> [0,181,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563384451	Marionette	DEBUG	0 <- [1,181,null,[{"element-6066-11e4-a52e-4f735466cecf":"eb872ceb-30e1-40ba-9962-7446f86b9e6c"},{"element-6066-11e4-a52e-4f735466 ... ecf":"2a0c8f81-1acf-4a2b-a911-2d4cfbb3e8a8"},{"element-6066-11e4-a52e-4f735466cecf":"5092a45e-c4e6-4bdd-be16-8cd39b01bc93"}]]
+1572563384456	Marionette	DEBUG	0 -> [0,182,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563384464	Marionette	DEBUG	0 <- [1,182,null,[{"element-6066-11e4-a52e-4f735466cecf":"6c8581a4-b3c4-4f30-8a71-f520e5be7b90"}]]
+1572563384471	Marionette	DEBUG	0 -> [0,183,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"9df7c2d1-0eb7-43cd-9b78-fac760bab173","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563384489	Marionette	DEBUG	0 <- [1,183,null,{"value":"33%"}]
+1572563384499	Marionette	DEBUG	0 -> [0,184,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"6c8581a4-b3c4-4f30-8a71-f520e5be7b90","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563384516	Marionette	DEBUG	0 <- [1,184,null,{"value":"Estes, Odin (oe31487)"}]
+1572563384520	Marionette	DEBUG	0 -> [0,185,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"2a0c8f81-1acf-4a2b-a911-2d4cfbb3e8a8","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563384531	Marionette	DEBUG	0 <- [1,185,null,{"value":"90%"}]
+1572563384533	Marionette	DEBUG	0 -> [0,186,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294726"}]
+1572563384537	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294725
+1572563385127	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294725
+1572563385727	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294726
+1572563386185	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294726
+1572563386188	Marionette	DEBUG	0 <- [1,186,null,{"value":null}]
+1572563386209	Marionette	DEBUG	0 -> [0,187,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563386218	Marionette	DEBUG	0 <- [1,187,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"7e91980b-16e1-48fd-9f65-eefd31b68ff9"}}]
+1572563386224	Marionette	DEBUG	0 -> [0,188,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563386235	Marionette	DEBUG	0 <- [1,188,null,[{"element-6066-11e4-a52e-4f735466cecf":"b24bf0cc-9c45-4923-bcf8-7a75c372e81f"}]]
+1572563386249	Marionette	DEBUG	0 -> [0,189,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563386264	Marionette	DEBUG	0 <- [1,189,null,[{"element-6066-11e4-a52e-4f735466cecf":"21be90a0-7b17-436f-a97e-2cbd37a34e0a"},{"element-6066-11e4-a52e-4f735466cecf":"dc78e411-d424-4977-9942-53434d1af55c"}]]
+1572563386271	Marionette	DEBUG	0 -> [0,190,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563386293	Marionette	DEBUG	0 <- [1,190,null,[{"element-6066-11e4-a52e-4f735466cecf":"32bf7cd2-2711-442c-984e-886cd1f8725e"},{"element-6066-11e4-a52e-4f735466 ... ecf":"0e7912b9-4e70-41c0-a4dc-2b7506ebc383"},{"element-6066-11e4-a52e-4f735466cecf":"a659f8fb-827b-4ba5-876b-ac0324a83fdc"}]]
+1572563386297	Marionette	DEBUG	0 -> [0,191,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563386301	Marionette	DEBUG	0 <- [1,191,null,[{"element-6066-11e4-a52e-4f735466cecf":"36696175-b88c-43b8-aaec-da8278dffb06"}]]
+1572563386304	Marionette	DEBUG	0 -> [0,192,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"dc78e411-d424-4977-9942-53434d1af55c","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563386312	Marionette	DEBUG	0 <- [1,192,null,{"value":"0%"}]
+1572563386314	Marionette	DEBUG	0 -> [0,193,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"36696175-b88c-43b8-aaec-da8278dffb06","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563386322	Marionette	DEBUG	0 <- [1,193,null,{"value":"Estes, Odin (oe31487)"}]
+1572563386324	Marionette	DEBUG	0 -> [0,194,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"0e7912b9-4e70-41c0-a4dc-2b7506ebc383","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563386332	Marionette	DEBUG	0 <- [1,194,null,{"value":"--"}]
+1572563386336	Marionette	DEBUG	0 -> [0,195,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294727"}]
+1572563386339	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294726
+1572563386946	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294726
+1572563387549	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294727
+1572563388150	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294727
+1572563388154	Marionette	DEBUG	0 <- [1,195,null,{"value":null}]
+1572563388186	Marionette	DEBUG	0 -> [0,196,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563388191	Marionette	DEBUG	0 <- [1,196,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"5c91bbd2-dfe4-48e6-beae-218a1cad7728"}}]
+1572563388197	Marionette	DEBUG	0 -> [0,197,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563388201	Marionette	DEBUG	0 <- [1,197,null,[{"element-6066-11e4-a52e-4f735466cecf":"d5123dbc-f0bf-4836-8f7c-9f36b1eb653c"},{"element-6066-11e4-a52e-4f735466cecf":"ad4373ff-bfe4-4ee2-95a4-5fcb1891c307"}]]
+1572563388204	Marionette	DEBUG	0 -> [0,198,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563388210	Marionette	DEBUG	0 <- [1,198,null,[{"element-6066-11e4-a52e-4f735466cecf":"8da1ee81-2cf2-433d-8d39-a24c7acdafb5"},{"element-6066-11e4-a52e-4f735466 ... ecf":"c2ec703f-c7e0-4eff-8578-4fb337187898"},{"element-6066-11e4-a52e-4f735466cecf":"09ed2782-09d4-47f4-8c68-902bb8f59310"}]]
+1572563388215	Marionette	DEBUG	0 -> [0,199,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563388225	Marionette	DEBUG	0 <- [1,199,null,[{"element-6066-11e4-a52e-4f735466cecf":"746c7890-a633-44e5-b5c6-d0fbf0d2dc97"},{"element-6066-11e4-a52e-4f735466 ... ecf":"88044276-671e-4366-856a-3a91f0ae921e"},{"element-6066-11e4-a52e-4f735466cecf":"8195df7b-ff27-4c92-bf60-448b47f8fa82"}]]
+1572563388230	Marionette	DEBUG	0 -> [0,200,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563388242	Marionette	DEBUG	0 <- [1,200,null,[{"element-6066-11e4-a52e-4f735466cecf":"4ae694f7-4a0c-4672-bc3b-ca012fdf6e06"},{"element-6066-11e4-a52e-4f735466cecf":"1be09097-a919-421b-b581-49ec4446b169"}]]
+1572563388248	Marionette	DEBUG	0 -> [0,201,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c2ec703f-c7e0-4eff-8578-4fb337187898","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563388264	Marionette	DEBUG	0 <- [1,201,null,{"value":"26%"}]
+1572563388269	Marionette	DEBUG	0 -> [0,202,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"4ae694f7-4a0c-4672-bc3b-ca012fdf6e06","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563388287	Marionette	DEBUG	0 <- [1,202,null,{"value":"Brannon, Maci (mb68448)"}]
+1572563388293	Marionette	DEBUG	0 -> [0,203,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"153a39ec-8d95-48e9-8b29-2d084e37da63","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563388305	Marionette	DEBUG	0 <- [1,203,null,{"value":"87%"}]
+1572563388308	Marionette	DEBUG	0 -> [0,204,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"09ed2782-09d4-47f4-8c68-902bb8f59310","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563388318	Marionette	DEBUG	0 <- [1,204,null,{"value":"2%"}]
+1572563388323	Marionette	DEBUG	0 -> [0,205,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"1be09097-a919-421b-b581-49ec4446b169","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563388332	Marionette	DEBUG	0 <- [1,205,null,{"value":"Estes, Gabriella (ge30846)"}]
+1572563388334	Marionette	DEBUG	0 -> [0,206,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"88044276-671e-4366-856a-3a91f0ae921e","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563388342	Marionette	DEBUG	0 <- [1,206,null,{"value":"--"}]
+1572563388343	Marionette	DEBUG	0 -> [0,207,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294728"}]
+1572563388346	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294727
+1572563388980	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294727
+1572563389669	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294728
+1572563390197	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294728
+1572563390198	Marionette	DEBUG	0 <- [1,207,null,{"value":null}]
+1572563390205	Marionette	DEBUG	0 -> [0,208,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563390208	Marionette	DEBUG	0 <- [1,208,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"7526b667-deb7-4685-b7ce-092ce0f16f76"}}]
+1572563390215	Marionette	DEBUG	0 -> [0,209,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563390223	Marionette	DEBUG	0 <- [1,209,null,[{"element-6066-11e4-a52e-4f735466cecf":"5bc552ec-05d1-4cf7-897f-cf04bb15913e"},{"element-6066-11e4-a52e-4f735466cecf":"b3211f01-77aa-4188-8e73-b55dee7479b7"}]]
+1572563390225	Marionette	DEBUG	0 -> [0,210,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563390229	Marionette	DEBUG	0 <- [1,210,null,[{"element-6066-11e4-a52e-4f735466cecf":"8685f279-5a05-49d2-a694-c43b074f4616"},{"element-6066-11e4-a52e-4f735466 ... ecf":"ebcbcdfe-ee1e-4638-9bf5-7e22f6551938"},{"element-6066-11e4-a52e-4f735466cecf":"5df326f3-400c-42ad-9478-ed2a2b166c8d"}]]
+1572563390231	Marionette	DEBUG	0 -> [0,211,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563390239	Marionette	DEBUG	0 <- [1,211,null,[{"element-6066-11e4-a52e-4f735466cecf":"18f562ee-3169-45e8-8ae5-ffbe973836a4"},{"element-6066-11e4-a52e-4f735466 ... ecf":"009ef2bd-5838-4111-b46b-45b37925833d"},{"element-6066-11e4-a52e-4f735466cecf":"673789f8-7888-4055-91e1-9fc14d8837ec"}]]
+1572563390242	Marionette	DEBUG	0 -> [0,212,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563390265	Marionette	DEBUG	0 <- [1,212,null,[{"element-6066-11e4-a52e-4f735466cecf":"71dccb85-bb1d-4084-9fdc-a16f1d544d90"},{"element-6066-11e4-a52e-4f735466cecf":"817bed21-5d0b-4d16-8fed-3de2b85c9330"}]]
+1572563390271	Marionette	DEBUG	0 -> [0,213,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ebcbcdfe-ee1e-4638-9bf5-7e22f6551938","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563390286	Marionette	DEBUG	0 <- [1,213,null,{"value":"4%"}]
+1572563390289	Marionette	DEBUG	0 -> [0,214,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"71dccb85-bb1d-4084-9fdc-a16f1d544d90","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563390299	Marionette	DEBUG	0 <- [1,214,null,{"value":"Brannon, Maci (mb68448)"}]
+1572563390302	Marionette	DEBUG	0 -> [0,215,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"850fb764-3aff-40cb-a636-51361ac476d2","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563390308	Marionette	DEBUG	0 <- [1,215,null,{"value":"80%"}]
+1572563390310	Marionette	DEBUG	0 -> [0,216,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"5df326f3-400c-42ad-9478-ed2a2b166c8d","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563390320	Marionette	DEBUG	0 <- [1,216,null,{"value":"0%"}]
+1572563390324	Marionette	DEBUG	0 -> [0,217,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"817bed21-5d0b-4d16-8fed-3de2b85c9330","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563390341	Marionette	DEBUG	0 <- [1,217,null,{"value":"Estes, Gabriella (ge30846)"}]
+1572563390344	Marionette	DEBUG	0 -> [0,218,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"009ef2bd-5838-4111-b46b-45b37925833d","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563390350	Marionette	DEBUG	0 <- [1,218,null,{"value":"--"}]
+1572563390352	Marionette	DEBUG	0 -> [0,219,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294729"}]
+1572563390356	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294728
+1572563390896	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294728
+1572563391318	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294729
+1572563391711	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294729
+1572563391714	Marionette	DEBUG	0 <- [1,219,null,{"value":null}]
+1572563391730	Marionette	DEBUG	0 -> [0,220,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563391739	Marionette	DEBUG	0 <- [1,220,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"48ddb131-a9d8-4c56-8543-d2d1b31d5dcf"}}]
+1572563391744	Marionette	DEBUG	0 -> [0,221,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563391757	Marionette	DEBUG	0 <- [1,221,null,[{"element-6066-11e4-a52e-4f735466cecf":"ab320980-94a7-4a36-81d5-a9c38c475683"},{"element-6066-11e4-a52e-4f735466cecf":"118b82c1-3313-4ff4-b445-b3aaedb4a212"}]]
+1572563391763	Marionette	DEBUG	0 -> [0,222,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563391776	Marionette	DEBUG	0 <- [1,222,null,[{"element-6066-11e4-a52e-4f735466cecf":"0f7ef0d6-1ea2-4f93-9eec-2d8efcdf004b"},{"element-6066-11e4-a52e-4f735466 ... ecf":"bb142f1c-8fbd-4a50-9364-c2dc395ab9db"},{"element-6066-11e4-a52e-4f735466cecf":"6a0a66b9-970b-4823-880f-4390addd68d6"}]]
+1572563391780	Marionette	DEBUG	0 -> [0,223,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563391794	Marionette	DEBUG	0 <- [1,223,null,[{"element-6066-11e4-a52e-4f735466cecf":"2d9944de-9ae7-4d81-b915-cf1a02915e0e"},{"element-6066-11e4-a52e-4f735466 ... ecf":"048beba9-9d3e-4277-a5cc-239414812d24"},{"element-6066-11e4-a52e-4f735466cecf":"f2f979a2-c6c5-4752-a924-77f30795e154"}]]
+1572563391796	Marionette	DEBUG	0 -> [0,224,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563391801	Marionette	DEBUG	0 <- [1,224,null,[{"element-6066-11e4-a52e-4f735466cecf":"a043bc32-b576-4c18-b251-14c72d88fd21"},{"element-6066-11e4-a52e-4f735466cecf":"cced215e-071d-4b00-9a7a-d031fe422fcb"}]]
+1572563391803	Marionette	DEBUG	0 -> [0,225,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"bb142f1c-8fbd-4a50-9364-c2dc395ab9db","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563391812	Marionette	DEBUG	0 <- [1,225,null,{"value":"15%"}]
+1572563391815	Marionette	DEBUG	0 -> [0,226,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"a043bc32-b576-4c18-b251-14c72d88fd21","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563391821	Marionette	DEBUG	0 <- [1,226,null,{"value":"Brannon, Maci (mb68448)"}]
+1572563391824	Marionette	DEBUG	0 -> [0,227,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"df09959f-13b7-4f1c-8432-2528cbe5a118","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563391831	Marionette	DEBUG	0 <- [1,227,null,{"value":"97%"}]
+1572563391833	Marionette	DEBUG	0 -> [0,228,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"6a0a66b9-970b-4823-880f-4390addd68d6","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563391840	Marionette	DEBUG	0 <- [1,228,null,{"value":"1%"}]
+1572563391843	Marionette	DEBUG	0 -> [0,229,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cced215e-071d-4b00-9a7a-d031fe422fcb","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563391850	Marionette	DEBUG	0 <- [1,229,null,{"value":"Estes, Gabriella (ge30846)"}]
+1572563391852	Marionette	DEBUG	0 -> [0,230,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"048beba9-9d3e-4277-a5cc-239414812d24","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563391860	Marionette	DEBUG	0 <- [1,230,null,{"value":"--"}]
+1572563391863	Marionette	DEBUG	0 -> [0,231,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294730"}]
+1572563391866	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294729
+1572563392342	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294729
+1572563392751	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294730
+1572563393151	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294730
+1572563393155	Marionette	DEBUG	0 <- [1,231,null,{"value":null}]
+1572563393185	Marionette	DEBUG	0 -> [0,232,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563393196	Marionette	DEBUG	0 <- [1,232,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"f4db5372-c2cb-4b01-a2e9-0501c1ef5615"}}]
+1572563393204	Marionette	DEBUG	0 -> [0,233,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563393219	Marionette	DEBUG	0 <- [1,233,null,[{"element-6066-11e4-a52e-4f735466cecf":"638f960e-5069-4208-9660-0db987e0430f"},{"element-6066-11e4-a52e-4f735466cecf":"b94115b4-879c-4daf-adcc-31b30bb14edc"}]]
+1572563393223	Marionette	DEBUG	0 -> [0,234,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563393237	Marionette	DEBUG	0 <- [1,234,null,[{"element-6066-11e4-a52e-4f735466cecf":"69ba14ed-3bd2-43a8-b2ed-afd4e4a26da7"},{"element-6066-11e4-a52e-4f735466 ... ecf":"769130b8-e502-4b23-ab6a-c603dcae316e"},{"element-6066-11e4-a52e-4f735466cecf":"4f093367-0d02-4763-a469-deab38080e24"}]]
+1572563393241	Marionette	DEBUG	0 -> [0,235,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563393255	Marionette	DEBUG	0 <- [1,235,null,[{"element-6066-11e4-a52e-4f735466cecf":"467c0a7e-9d9e-4087-8c86-fc12a6ab560f"},{"element-6066-11e4-a52e-4f735466 ... ecf":"8d86e803-77e2-47c3-b366-cfebf6c023fb"},{"element-6066-11e4-a52e-4f735466cecf":"74a7a68a-9fcb-4e42-9f12-e7b3fbc7b2e8"}]]
+1572563393257	Marionette	DEBUG	0 -> [0,236,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563393263	Marionette	DEBUG	0 <- [1,236,null,[{"element-6066-11e4-a52e-4f735466cecf":"91040821-3e4b-4b43-8de9-c5dbd6ccf76b"},{"element-6066-11e4-a52e-4f735466cecf":"f80234bd-dcd3-4680-9dfa-7564c37ef482"}]]
+1572563393266	Marionette	DEBUG	0 -> [0,237,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"769130b8-e502-4b23-ab6a-c603dcae316e","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563393274	Marionette	DEBUG	0 <- [1,237,null,{"value":"0%"}]
+1572563393277	Marionette	DEBUG	0 -> [0,238,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"91040821-3e4b-4b43-8de9-c5dbd6ccf76b","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563393286	Marionette	DEBUG	0 <- [1,238,null,{"value":"Brannon, Maci (mb68448)"}]
+1572563393289	Marionette	DEBUG	0 -> [0,239,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"15e50722-0508-413d-a2ca-aa1702b8d921","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563393303	Marionette	DEBUG	0 <- [1,239,null,{"value":"--"}]
+1572563393310	Marionette	DEBUG	0 -> [0,240,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"4f093367-0d02-4763-a469-deab38080e24","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563393319	Marionette	DEBUG	0 <- [1,240,null,{"value":"0%"}]
+1572563393324	Marionette	DEBUG	0 -> [0,241,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f80234bd-dcd3-4680-9dfa-7564c37ef482","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563393336	Marionette	DEBUG	0 <- [1,241,null,{"value":"Estes, Gabriella (ge30846)"}]
+1572563393341	Marionette	DEBUG	0 -> [0,242,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"8d86e803-77e2-47c3-b366-cfebf6c023fb","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563393352	Marionette	DEBUG	0 <- [1,242,null,{"value":"--"}]
+1572563393355	Marionette	DEBUG	0 -> [0,243,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294731"}]
+1572563393362	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294730
+1572563393795	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294730
+1572563394346	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294731
+1572563394779	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294731
+1572563394781	Marionette	DEBUG	0 <- [1,243,null,{"value":null}]
+1572563394789	Marionette	DEBUG	0 -> [0,244,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563394812	Marionette	DEBUG	0 <- [1,244,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"cdcfd626-d9c4-48f0-88e9-6dc33394c5e6"}}]
+1572563394816	Marionette	DEBUG	0 -> [0,245,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563394822	Marionette	DEBUG	0 <- [1,245,null,[{"element-6066-11e4-a52e-4f735466cecf":"bec50de5-6d3a-455a-8c27-4c64d0212155"},{"element-6066-11e4-a52e-4f735466cecf":"f15a360f-2529-48e6-bd53-e1e7daef00bd"}]]
+1572563394824	Marionette	DEBUG	0 -> [0,246,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563394831	Marionette	DEBUG	0 <- [1,246,null,[{"element-6066-11e4-a52e-4f735466cecf":"97c07fbe-0324-49b5-923e-269e919a6778"},{"element-6066-11e4-a52e-4f735466 ... ecf":"ac5584c0-9bf4-48ad-b4fe-cb775f358576"},{"element-6066-11e4-a52e-4f735466cecf":"8508c261-550b-4a43-a151-9b116f791877"}]]
+1572563394834	Marionette	DEBUG	0 -> [0,247,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563394843	Marionette	DEBUG	0 <- [1,247,null,[{"element-6066-11e4-a52e-4f735466cecf":"543e3537-dd87-4935-9491-9a0a7bd34105"},{"element-6066-11e4-a52e-4f735466 ... ecf":"f95166dc-b8a3-498a-bc1f-b1724a3fcaf9"},{"element-6066-11e4-a52e-4f735466cecf":"81598f96-0874-4a4d-b2cb-a8ad120f13c8"}]]
+1572563394845	Marionette	DEBUG	0 -> [0,248,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563394852	Marionette	DEBUG	0 <- [1,248,null,[{"element-6066-11e4-a52e-4f735466cecf":"f922e3d0-9cd6-4753-90c6-48bdc717e430"},{"element-6066-11e4-a52e-4f735466cecf":"51589d97-e09e-4ccc-98ff-16f7913e6fa5"}]]
+1572563394854	Marionette	DEBUG	0 -> [0,249,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ac5584c0-9bf4-48ad-b4fe-cb775f358576","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563394861	Marionette	DEBUG	0 <- [1,249,null,{"value":"33%"}]
+1572563394864	Marionette	DEBUG	0 -> [0,250,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f922e3d0-9cd6-4753-90c6-48bdc717e430","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563394873	Marionette	DEBUG	0 <- [1,250,null,{"value":"Brannon, Maci (mb68448)"}]
+1572563394876	Marionette	DEBUG	0 -> [0,251,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"9bfc868a-446a-4968-9e40-a08ed990e2f9","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563394884	Marionette	DEBUG	0 <- [1,251,null,{"value":"88%"}]
+1572563394887	Marionette	DEBUG	0 -> [0,252,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"8508c261-550b-4a43-a151-9b116f791877","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563394895	Marionette	DEBUG	0 <- [1,252,null,{"value":"0%"}]
+1572563394897	Marionette	DEBUG	0 -> [0,253,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"51589d97-e09e-4ccc-98ff-16f7913e6fa5","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563394906	Marionette	DEBUG	0 <- [1,253,null,{"value":"Estes, Gabriella (ge30846)"}]
+1572563394909	Marionette	DEBUG	0 -> [0,254,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f95166dc-b8a3-498a-bc1f-b1724a3fcaf9","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563394917	Marionette	DEBUG	0 <- [1,254,null,{"value":"--"}]
+1572563394920	Marionette	DEBUG	0 -> [0,255,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294732"}]
+1572563394924	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294731
+1572563395427	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294731
+1572563395822	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294732
+1572563396315	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294732
+1572563396316	Marionette	DEBUG	0 <- [1,255,null,{"value":null}]
+1572563396319	Marionette	DEBUG	0 -> [0,256,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563396322	Marionette	DEBUG	0 <- [1,256,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"8bc671a3-dfbf-48d0-9b2e-bb42ab70521a"}}]
+1572563396324	Marionette	DEBUG	0 -> [0,257,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563396328	Marionette	DEBUG	0 <- [1,257,null,[{"element-6066-11e4-a52e-4f735466cecf":"41d77e27-ac00-4c9b-ae75-c8490da959ae"},{"element-6066-11e4-a52e-4f735466cecf":"ddfde63d-7c8c-42a7-9e90-0d4ea4d5396e"}]]
+1572563396330	Marionette	DEBUG	0 -> [0,258,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563396335	Marionette	DEBUG	0 <- [1,258,null,[{"element-6066-11e4-a52e-4f735466cecf":"3b221fc1-9273-48c0-a28d-9c3a3a8a8951"},{"element-6066-11e4-a52e-4f735466 ... ecf":"3235aa32-86b5-4e9b-9672-cd68d1e8254b"},{"element-6066-11e4-a52e-4f735466cecf":"744bd249-ec5a-46d6-841a-7be7a2152f81"}]]
+1572563396337	Marionette	DEBUG	0 -> [0,259,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563396345	Marionette	DEBUG	0 <- [1,259,null,[{"element-6066-11e4-a52e-4f735466cecf":"ca4d6334-0693-47c3-83d0-bfbb3f5c50d0"},{"element-6066-11e4-a52e-4f735466 ... ecf":"49ceae8c-e356-493e-8862-751363d1cae1"},{"element-6066-11e4-a52e-4f735466cecf":"97aaace4-1834-42ab-bda7-e4ed67f4d3ea"}]]
+1572563396347	Marionette	DEBUG	0 -> [0,260,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563396350	Marionette	DEBUG	0 <- [1,260,null,[{"element-6066-11e4-a52e-4f735466cecf":"e58ac577-111f-4166-9c24-33a40b8e6c73"},{"element-6066-11e4-a52e-4f735466cecf":"9ff77676-ca56-4141-b702-2dddf3170b9c"}]]
+1572563396354	Marionette	DEBUG	0 -> [0,261,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"3235aa32-86b5-4e9b-9672-cd68d1e8254b","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563396360	Marionette	DEBUG	0 <- [1,261,null,{"value":"6%"}]
+1572563396362	Marionette	DEBUG	0 -> [0,262,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e58ac577-111f-4166-9c24-33a40b8e6c73","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563396370	Marionette	DEBUG	0 <- [1,262,null,{"value":"Brannon, Maci (mb68448)"}]
+1572563396373	Marionette	DEBUG	0 -> [0,263,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ce5dc894-be6f-468c-a554-c1405b0cf9c6","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563396380	Marionette	DEBUG	0 <- [1,263,null,{"value":"--"}]
+1572563396382	Marionette	DEBUG	0 -> [0,264,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"744bd249-ec5a-46d6-841a-7be7a2152f81","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563396389	Marionette	DEBUG	0 <- [1,264,null,{"value":"0%"}]
+1572563396392	Marionette	DEBUG	0 -> [0,265,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"9ff77676-ca56-4141-b702-2dddf3170b9c","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563396399	Marionette	DEBUG	0 <- [1,265,null,{"value":"Estes, Gabriella (ge30846)"}]
+1572563396402	Marionette	DEBUG	0 -> [0,266,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"49ceae8c-e356-493e-8862-751363d1cae1","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563396410	Marionette	DEBUG	0 <- [1,266,null,{"value":"--"}]
+1572563396412	Marionette	DEBUG	0 -> [0,267,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294733"}]
+1572563396417	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294732
+1572563396943	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294732
+1572563397379	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294733
+1572563397844	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294733
+1572563397848	Marionette	DEBUG	0 <- [1,267,null,{"value":null}]
+1572563397877	Marionette	DEBUG	0 -> [0,268,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563397895	Marionette	DEBUG	0 <- [1,268,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"655e428c-d666-4e72-99ca-7b66c8dbe9d5"}}]
+1572563397903	Marionette	DEBUG	0 -> [0,269,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563397915	Marionette	DEBUG	0 <- [1,269,null,[{"element-6066-11e4-a52e-4f735466cecf":"ac9dcaab-9488-446d-bc56-addb536d82d4"},{"element-6066-11e4-a52e-4f735466cecf":"ca69ec40-0d32-48ba-a1a7-6d46ee65b1c5"}]]
+1572563397919	Marionette	DEBUG	0 -> [0,270,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563397927	Marionette	DEBUG	0 <- [1,270,null,[{"element-6066-11e4-a52e-4f735466cecf":"64bf3f1a-a8dc-4d64-985c-80f667098657"},{"element-6066-11e4-a52e-4f735466 ... ecf":"3026cdf8-d277-45ef-8222-d285f2da14c9"},{"element-6066-11e4-a52e-4f735466cecf":"7e7c5a4c-731d-442e-a0be-38564899d9f6"}]]
+1572563397931	Marionette	DEBUG	0 -> [0,271,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563397947	Marionette	DEBUG	0 <- [1,271,null,[{"element-6066-11e4-a52e-4f735466cecf":"f4fae894-7763-48a2-9e01-cdb74a1153f5"},{"element-6066-11e4-a52e-4f735466 ... ecf":"0fc1bbc8-e225-4419-a8f6-df21ce5d3862"},{"element-6066-11e4-a52e-4f735466cecf":"626bdfed-3346-4156-b98f-684a6313eba0"}]]
+1572563397949	Marionette	DEBUG	0 -> [0,272,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563397954	Marionette	DEBUG	0 <- [1,272,null,[{"element-6066-11e4-a52e-4f735466cecf":"38ab5e85-33b9-402b-8944-8719c8571e5d"},{"element-6066-11e4-a52e-4f735466cecf":"1c3915f2-177d-45aa-9005-8101d57fe952"}]]
+1572563397959	Marionette	DEBUG	0 -> [0,273,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"3026cdf8-d277-45ef-8222-d285f2da14c9","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563397971	Marionette	DEBUG	0 <- [1,273,null,{"value":"42%"}]
+1572563397975	Marionette	DEBUG	0 -> [0,274,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"38ab5e85-33b9-402b-8944-8719c8571e5d","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563397986	Marionette	DEBUG	0 <- [1,274,null,{"value":"Brannon, Maci (mb68448)"}]
+1572563397990	Marionette	DEBUG	0 -> [0,275,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"4cf92554-c2aa-4b12-88b8-02d2a82ab979","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563398000	Marionette	DEBUG	0 <- [1,275,null,{"value":"82%"}]
+1572563398003	Marionette	DEBUG	0 -> [0,276,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"7e7c5a4c-731d-442e-a0be-38564899d9f6","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563398014	Marionette	DEBUG	0 <- [1,276,null,{"value":"5%"}]
+1572563398018	Marionette	DEBUG	0 -> [0,277,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"1c3915f2-177d-45aa-9005-8101d57fe952","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563398029	Marionette	DEBUG	0 <- [1,277,null,{"value":"Estes, Gabriella (ge30846)"}]
+1572563398033	Marionette	DEBUG	0 -> [0,278,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"0fc1bbc8-e225-4419-a8f6-df21ce5d3862","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563398044	Marionette	DEBUG	0 <- [1,278,null,{"value":"--"}]
+1572563398047	Marionette	DEBUG	0 -> [0,279,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294734"}]
+1572563398051	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294733
+1572563398497	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294733
+1572563398903	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294734
+1572563399451	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294734
+1572563399456	Marionette	DEBUG	0 <- [1,279,null,{"value":null}]
+1572563399487	Marionette	DEBUG	0 -> [0,280,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563399535	Marionette	DEBUG	0 <- [1,280,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"aba6a7c3-9931-48c6-b1dd-8b4fa211bb94"}}]
+1572563399537	Marionette	DEBUG	0 -> [0,281,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563399542	Marionette	DEBUG	0 <- [1,281,null,[{"element-6066-11e4-a52e-4f735466cecf":"8fd2093f-26f1-4cf6-9c95-eacb1e5a7159"},{"element-6066-11e4-a52e-4f735466cecf":"a318dd35-1cb8-4992-bb61-cd22e83f365a"}]]
+1572563399544	Marionette	DEBUG	0 -> [0,282,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563399551	Marionette	DEBUG	0 <- [1,282,null,[{"element-6066-11e4-a52e-4f735466cecf":"da3028be-6f55-4e76-b168-2e00dfd6704b"},{"element-6066-11e4-a52e-4f735466 ... ecf":"5e895ebb-c0cc-4630-baae-87f286ad3113"},{"element-6066-11e4-a52e-4f735466cecf":"49c17b65-d855-4dbf-aa2c-947226e12761"}]]
+1572563399553	Marionette	DEBUG	0 -> [0,283,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563399561	Marionette	DEBUG	0 <- [1,283,null,[{"element-6066-11e4-a52e-4f735466cecf":"655c0ac0-f9ea-40f0-8db7-c778fad4c50e"},{"element-6066-11e4-a52e-4f735466 ... ecf":"87ae6202-6f38-4f81-bcc1-5f19b3cce1a8"},{"element-6066-11e4-a52e-4f735466cecf":"733f6f22-3dd7-4b0d-9e12-708c2a9fb608"}]]
+1572563399562	Marionette	DEBUG	0 -> [0,284,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563399565	Marionette	DEBUG	0 <- [1,284,null,[{"element-6066-11e4-a52e-4f735466cecf":"3b4acb20-3737-4238-82d2-de25dd58f3c9"},{"element-6066-11e4-a52e-4f735466cecf":"da37326c-095b-4a18-b5e1-dbb74dbd90d0"}]]
+1572563399568	Marionette	DEBUG	0 -> [0,285,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"5e895ebb-c0cc-4630-baae-87f286ad3113","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563399574	Marionette	DEBUG	0 <- [1,285,null,{"value":"0%"}]
+1572563399576	Marionette	DEBUG	0 -> [0,286,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"3b4acb20-3737-4238-82d2-de25dd58f3c9","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563399586	Marionette	DEBUG	0 <- [1,286,null,{"value":"Brannon, Maci (mb68448)"}]
+1572563399588	Marionette	DEBUG	0 -> [0,287,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"4f1602fc-31a8-4974-8073-6187b8d63154","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563399597	Marionette	DEBUG	0 <- [1,287,null,{"value":"--"}]
+1572563399599	Marionette	DEBUG	0 -> [0,288,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"49c17b65-d855-4dbf-aa2c-947226e12761","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563399607	Marionette	DEBUG	0 <- [1,288,null,{"value":"0%"}]
+1572563399609	Marionette	DEBUG	0 -> [0,289,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"da37326c-095b-4a18-b5e1-dbb74dbd90d0","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563399616	Marionette	DEBUG	0 <- [1,289,null,{"value":"Estes, Gabriella (ge30846)"}]
+1572563399619	Marionette	DEBUG	0 -> [0,290,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"87ae6202-6f38-4f81-bcc1-5f19b3cce1a8","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563399627	Marionette	DEBUG	0 <- [1,290,null,{"value":"--"}]
+1572563399630	Marionette	DEBUG	0 -> [0,291,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301329"}]
+1572563399632	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294734
+1572563400124	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=294734
+1572563400617	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301329
+1572563401026	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301329
+1572563401028	Marionette	DEBUG	0 <- [1,291,null,{"value":null}]
+1572563401036	Marionette	DEBUG	0 -> [0,292,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563401044	Marionette	DEBUG	0 <- [1,292,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"fc3fa31f-fdf4-4bec-bfa0-f2fbbd54179f"}}]
+1572563401046	Marionette	DEBUG	0 -> [0,293,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563401054	Marionette	DEBUG	0 <- [1,293,null,[{"element-6066-11e4-a52e-4f735466cecf":"dfe02348-56c3-4012-9f56-3ebef133e33d"}]]
+1572563401056	Marionette	DEBUG	0 -> [0,294,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563401061	Marionette	DEBUG	0 <- [1,294,null,[{"element-6066-11e4-a52e-4f735466cecf":"11622e5e-2dff-4678-8d96-d0e4e4dd5355"},{"element-6066-11e4-a52e-4f735466cecf":"5068f25f-8b10-4b2f-8977-bc1e31ec427c"}]]
+1572563401064	Marionette	DEBUG	0 -> [0,295,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563401073	Marionette	DEBUG	0 <- [1,295,null,[{"element-6066-11e4-a52e-4f735466cecf":"66065d48-ec48-4588-8d8b-33a94df14782"},{"element-6066-11e4-a52e-4f735466 ... ecf":"555b2b7b-63aa-461a-898e-9b3aabe8210b"},{"element-6066-11e4-a52e-4f735466cecf":"09d0aacb-8417-491c-9a43-f19d9fe76800"}]]
+1572563401075	Marionette	DEBUG	0 -> [0,296,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563401078	Marionette	DEBUG	0 <- [1,296,null,[{"element-6066-11e4-a52e-4f735466cecf":"fe5e9098-d1d9-4751-b9c8-8b287696f082"}]]
+1572563401081	Marionette	DEBUG	0 -> [0,297,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"5068f25f-8b10-4b2f-8977-bc1e31ec427c","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563401089	Marionette	DEBUG	0 <- [1,297,null,{"value":"0%"}]
+1572563401093	Marionette	DEBUG	0 -> [0,298,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"fe5e9098-d1d9-4751-b9c8-8b287696f082","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563401103	Marionette	DEBUG	0 <- [1,298,null,{"value":"Huddleston, Tucker (th65891)"}]
+1572563401106	Marionette	DEBUG	0 -> [0,299,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"555b2b7b-63aa-461a-898e-9b3aabe8210b","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563401112	Marionette	DEBUG	0 <- [1,299,null,{"value":"--"}]
+1572563401115	Marionette	DEBUG	0 -> [0,300,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301330"}]
+1572563401119	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301329
+1572563401588	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301329
+1572563402027	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301330
+1572563402380	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301330
+1572563402388	Marionette	DEBUG	0 <- [1,300,null,{"value":null}]
+1572563402410	Marionette	DEBUG	0 -> [0,301,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563402418	Marionette	DEBUG	0 <- [1,301,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"3a6e424e-99ee-41a3-b8cc-7f89168153b0"}}]
+1572563402421	Marionette	DEBUG	0 -> [0,302,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563402428	Marionette	DEBUG	0 <- [1,302,null,[{"element-6066-11e4-a52e-4f735466cecf":"92bc1207-aeac-4305-9f21-68452048e9b1"}]]
+1572563402430	Marionette	DEBUG	0 -> [0,303,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563402443	Marionette	DEBUG	0 <- [1,303,null,[{"element-6066-11e4-a52e-4f735466cecf":"ebb1f22c-b9f2-42ba-8549-7b4c2ee4575a"},{"element-6066-11e4-a52e-4f735466cecf":"c63ae249-b674-4458-809a-59b48e00dfce"}]]
+1572563402446	Marionette	DEBUG	0 -> [0,304,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563402456	Marionette	DEBUG	0 <- [1,304,null,[{"element-6066-11e4-a52e-4f735466cecf":"d370bd1d-6244-4e8c-a706-69199f3eb3d6"},{"element-6066-11e4-a52e-4f735466 ... ecf":"c27df08f-6712-41b8-a395-53dde37aacd8"},{"element-6066-11e4-a52e-4f735466cecf":"105e9f46-5e6d-4cc3-8700-026459e8aaf1"}]]
+1572563402460	Marionette	DEBUG	0 -> [0,305,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563402464	Marionette	DEBUG	0 <- [1,305,null,[{"element-6066-11e4-a52e-4f735466cecf":"a2d24c5a-e5ca-45b8-95b3-70123d249a46"}]]
+1572563402466	Marionette	DEBUG	0 -> [0,306,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c63ae249-b674-4458-809a-59b48e00dfce","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563402479	Marionette	DEBUG	0 <- [1,306,null,{"value":"0%"}]
+1572563402482	Marionette	DEBUG	0 -> [0,307,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"a2d24c5a-e5ca-45b8-95b3-70123d249a46","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563402491	Marionette	DEBUG	0 <- [1,307,null,{"value":"Huddleston, Tucker (th65891)"}]
+1572563402494	Marionette	DEBUG	0 -> [0,308,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c27df08f-6712-41b8-a395-53dde37aacd8","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563402499	Marionette	DEBUG	0 <- [1,308,null,{"value":"--"}]
+1572563402502	Marionette	DEBUG	0 -> [0,309,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301331"}]
+1572563402505	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301330
+1572563402984	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301330
+1572563403482	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301331
+1572563403858	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301331
+1572563403865	Marionette	DEBUG	0 <- [1,309,null,{"value":null}]
+1572563403884	Marionette	DEBUG	0 -> [0,310,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563403930	Marionette	DEBUG	0 <- [1,310,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"9c32afe4-2e50-4aa7-abf4-73947c88b061"}}]
+1572563403933	Marionette	DEBUG	0 -> [0,311,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563403937	Marionette	DEBUG	0 <- [1,311,null,[{"element-6066-11e4-a52e-4f735466cecf":"0b49b91a-2e79-4e23-bdd3-aaada0cc0b07"}]]
+1572563403941	Marionette	DEBUG	0 -> [0,312,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563403949	Marionette	DEBUG	0 <- [1,312,null,[{"element-6066-11e4-a52e-4f735466cecf":"e6fae4ab-6a6b-4617-886f-1102e76dce70"},{"element-6066-11e4-a52e-4f735466cecf":"41612260-a0ba-4912-9918-a876f42ab34f"}]]
+1572563403951	Marionette	DEBUG	0 -> [0,313,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563403960	Marionette	DEBUG	0 <- [1,313,null,[{"element-6066-11e4-a52e-4f735466cecf":"766b2e5f-f656-4ea9-be78-f9c184306109"},{"element-6066-11e4-a52e-4f735466 ... ecf":"76ce193a-720d-4b2d-af5d-b70b49b81fce"},{"element-6066-11e4-a52e-4f735466cecf":"f5f5d064-1a9c-43b4-a67b-563e64ae1c9b"}]]
+1572563403962	Marionette	DEBUG	0 -> [0,314,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563403967	Marionette	DEBUG	0 <- [1,314,null,[{"element-6066-11e4-a52e-4f735466cecf":"c431c4eb-7dd0-4bdd-95fe-fd0add78f4d1"}]]
+1572563403969	Marionette	DEBUG	0 -> [0,315,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"41612260-a0ba-4912-9918-a876f42ab34f","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563403980	Marionette	DEBUG	0 <- [1,315,null,{"value":"0%"}]
+1572563403983	Marionette	DEBUG	0 -> [0,316,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c431c4eb-7dd0-4bdd-95fe-fd0add78f4d1","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563403992	Marionette	DEBUG	0 <- [1,316,null,{"value":"Huddleston, Tucker (th65891)"}]
+1572563403995	Marionette	DEBUG	0 -> [0,317,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"76ce193a-720d-4b2d-af5d-b70b49b81fce","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563404003	Marionette	DEBUG	0 <- [1,317,null,{"value":"--"}]
+1572563404005	Marionette	DEBUG	0 -> [0,318,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301332"}]
+1572563404010	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301331
+1572563404487	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301331
+1572563404917	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301332
+1572563405285	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301332
+1572563405287	Marionette	DEBUG	0 <- [1,318,null,{"value":null}]
+1572563405304	Marionette	DEBUG	0 -> [0,319,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563405313	Marionette	DEBUG	0 <- [1,319,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"e69f2300-eda3-4e33-b3a6-fc6fbe31e58f"}}]
+1572563405316	Marionette	DEBUG	0 -> [0,320,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563405320	Marionette	DEBUG	0 <- [1,320,null,[{"element-6066-11e4-a52e-4f735466cecf":"f8f15ec8-b34a-4006-8ef6-39a15602bf4f"}]]
+1572563405322	Marionette	DEBUG	0 -> [0,321,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563405328	Marionette	DEBUG	0 <- [1,321,null,[{"element-6066-11e4-a52e-4f735466cecf":"ba5ce1c4-b4d2-4544-8878-f5823629f3a8"},{"element-6066-11e4-a52e-4f735466cecf":"21777714-24ee-446d-a3f1-b20c1fec2f4a"}]]
+1572563405331	Marionette	DEBUG	0 -> [0,322,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563405342	Marionette	DEBUG	0 <- [1,322,null,[{"element-6066-11e4-a52e-4f735466cecf":"6d5519c2-ae47-4486-b70a-d79364e1aa3a"},{"element-6066-11e4-a52e-4f735466 ... ecf":"d3c3b598-ab5f-45d7-9e9e-e591c9994c2d"},{"element-6066-11e4-a52e-4f735466cecf":"8d7fcdee-a97b-4ae8-9232-538806712c1e"}]]
+1572563405347	Marionette	DEBUG	0 -> [0,323,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563405350	Marionette	DEBUG	0 <- [1,323,null,[{"element-6066-11e4-a52e-4f735466cecf":"1aad86db-a3e8-423f-aa48-8b500b9bb05f"}]]
+1572563405353	Marionette	DEBUG	0 -> [0,324,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"21777714-24ee-446d-a3f1-b20c1fec2f4a","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563405360	Marionette	DEBUG	0 <- [1,324,null,{"value":"0%"}]
+1572563405364	Marionette	DEBUG	0 -> [0,325,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"1aad86db-a3e8-423f-aa48-8b500b9bb05f","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563405374	Marionette	DEBUG	0 <- [1,325,null,{"value":"Huddleston, Tucker (th65891)"}]
+1572563405377	Marionette	DEBUG	0 -> [0,326,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"d3c3b598-ab5f-45d7-9e9e-e591c9994c2d","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563405385	Marionette	DEBUG	0 <- [1,326,null,{"value":"--"}]
+1572563405387	Marionette	DEBUG	0 -> [0,327,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301333"}]
+1572563405390	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301332
+1572563405868	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301332
+1572563406371	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301333
+1572563406743	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301333
+1572563406745	Marionette	DEBUG	0 <- [1,327,null,{"value":null}]
+1572563406750	Marionette	DEBUG	0 -> [0,328,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563406758	Marionette	DEBUG	0 <- [1,328,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"adf7f252-cd50-4b94-bd73-5bfeb6e3349f"}}]
+1572563406762	Marionette	DEBUG	0 -> [0,329,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563406769	Marionette	DEBUG	0 <- [1,329,null,[{"element-6066-11e4-a52e-4f735466cecf":"4ee9f652-f899-4c73-a329-dc88ed7e8a3c"}]]
+1572563406772	Marionette	DEBUG	0 -> [0,330,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563406778	Marionette	DEBUG	0 <- [1,330,null,[{"element-6066-11e4-a52e-4f735466cecf":"dbe6c457-0a4c-41ca-993f-7ff90da092d0"},{"element-6066-11e4-a52e-4f735466cecf":"e8ff635d-4026-4aea-a99c-352a30b290f5"}]]
+1572563406783	Marionette	DEBUG	0 -> [0,331,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563406797	Marionette	DEBUG	0 <- [1,331,null,[{"element-6066-11e4-a52e-4f735466cecf":"c284f3fb-78ba-4ac2-a0c7-f98ddae7579a"},{"element-6066-11e4-a52e-4f735466 ... ecf":"f2f7b92b-382b-444b-b49e-055b1b08c138"},{"element-6066-11e4-a52e-4f735466cecf":"720aebdb-a7cc-4013-89a5-4d64b14ba121"}]]
+1572563406801	Marionette	DEBUG	0 -> [0,332,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563406807	Marionette	DEBUG	0 <- [1,332,null,[{"element-6066-11e4-a52e-4f735466cecf":"0eea2075-a0af-4709-9b5f-db13abe4ca3a"}]]
+1572563406811	Marionette	DEBUG	0 -> [0,333,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"e8ff635d-4026-4aea-a99c-352a30b290f5","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563406824	Marionette	DEBUG	0 <- [1,333,null,{"value":"0%"}]
+1572563406828	Marionette	DEBUG	0 -> [0,334,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"0eea2075-a0af-4709-9b5f-db13abe4ca3a","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563406842	Marionette	DEBUG	0 <- [1,334,null,{"value":"Huddleston, Tucker (th65891)"}]
+1572563406845	Marionette	DEBUG	0 -> [0,335,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"f2f7b92b-382b-444b-b49e-055b1b08c138","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563406858	Marionette	DEBUG	0 <- [1,335,null,{"value":"--"}]
+1572563406861	Marionette	DEBUG	0 -> [0,336,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301334"}]
+1572563406867	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301333
+1572563407307	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301333
+1572563407723	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301334
+1572563408084	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301334
+1572563408086	Marionette	DEBUG	0 <- [1,336,null,{"value":null}]
+1572563408091	Marionette	DEBUG	0 -> [0,337,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563408112	Marionette	DEBUG	0 <- [1,337,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"6547d2b0-1fb3-4604-8df7-b98ef17f5fa4"}}]
+1572563408114	Marionette	DEBUG	0 -> [0,338,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563408118	Marionette	DEBUG	0 <- [1,338,null,[{"element-6066-11e4-a52e-4f735466cecf":"1d0a84f4-5739-4796-9340-e97ebb3eb2b1"}]]
+1572563408121	Marionette	DEBUG	0 -> [0,339,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563408127	Marionette	DEBUG	0 <- [1,339,null,[{"element-6066-11e4-a52e-4f735466cecf":"967dcc78-bd2a-4c24-bc8c-fc863b7821d5"},{"element-6066-11e4-a52e-4f735466cecf":"b022ccad-0b98-46e4-beb6-c3fe0f741f8f"}]]
+1572563408129	Marionette	DEBUG	0 -> [0,340,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563408136	Marionette	DEBUG	0 <- [1,340,null,[{"element-6066-11e4-a52e-4f735466cecf":"636b6cf0-0da5-4435-99ed-d0507ae1dba3"},{"element-6066-11e4-a52e-4f735466 ... ecf":"16f69e6c-bcf3-4317-8d02-260a56dc3bd3"},{"element-6066-11e4-a52e-4f735466cecf":"cfdeb5b3-b9a8-4c69-bcd7-115b5ba540a5"}]]
+1572563408139	Marionette	DEBUG	0 -> [0,341,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563408142	Marionette	DEBUG	0 <- [1,341,null,[{"element-6066-11e4-a52e-4f735466cecf":"0878b9ad-6372-4d55-a991-1037be356265"}]]
+1572563408144	Marionette	DEBUG	0 -> [0,342,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"b022ccad-0b98-46e4-beb6-c3fe0f741f8f","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563408151	Marionette	DEBUG	0 <- [1,342,null,{"value":"0%"}]
+1572563408154	Marionette	DEBUG	0 -> [0,343,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"0878b9ad-6372-4d55-a991-1037be356265","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563408161	Marionette	DEBUG	0 <- [1,343,null,{"value":"Huddleston, Tucker (th65891)"}]
+1572563408163	Marionette	DEBUG	0 -> [0,344,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"16f69e6c-bcf3-4317-8d02-260a56dc3bd3","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563408172	Marionette	DEBUG	0 <- [1,344,null,{"value":"--"}]
+1572563408174	Marionette	DEBUG	0 -> [0,345,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301335"}]
+1572563408178	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301334
+1572563408632	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301334
+1572563409188	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301335
+1572563409549	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301335
+1572563409553	Marionette	DEBUG	0 <- [1,345,null,{"value":null}]
+1572563409563	Marionette	DEBUG	0 -> [0,346,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563409663	Marionette	DEBUG	0 <- [1,346,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"605046f9-ac90-4c6d-9602-e12628d3c78f"}}]
+1572563409665	Marionette	DEBUG	0 -> [0,347,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563409683	Marionette	DEBUG	0 <- [1,347,null,[{"element-6066-11e4-a52e-4f735466cecf":"945cfafc-be71-4da5-8514-4eea9697c8fc"}]]
+1572563409685	Marionette	DEBUG	0 -> [0,348,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563409691	Marionette	DEBUG	0 <- [1,348,null,[{"element-6066-11e4-a52e-4f735466cecf":"4929dfe7-a74d-42cb-bb50-9c26215f0226"},{"element-6066-11e4-a52e-4f735466cecf":"ce44d0f5-7b18-4a2e-9f4b-9e6e5f29b2ec"}]]
+1572563409694	Marionette	DEBUG	0 -> [0,349,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563409701	Marionette	DEBUG	0 <- [1,349,null,[{"element-6066-11e4-a52e-4f735466cecf":"7fb7dfb0-7275-429b-8f78-c60ed4d50b37"},{"element-6066-11e4-a52e-4f735466 ... ecf":"cca0f5b7-dff8-4b53-a05c-d366e046cae9"},{"element-6066-11e4-a52e-4f735466cecf":"c7688d58-f426-4033-9023-f02317c31a54"}]]
+1572563409703	Marionette	DEBUG	0 -> [0,350,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563409707	Marionette	DEBUG	0 <- [1,350,null,[{"element-6066-11e4-a52e-4f735466cecf":"0d1ff849-5f94-4822-8d77-727f5832ce81"}]]
+1572563409709	Marionette	DEBUG	0 -> [0,351,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ce44d0f5-7b18-4a2e-9f4b-9e6e5f29b2ec","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563409716	Marionette	DEBUG	0 <- [1,351,null,{"value":"0%"}]
+1572563409719	Marionette	DEBUG	0 -> [0,352,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"0d1ff849-5f94-4822-8d77-727f5832ce81","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563409726	Marionette	DEBUG	0 <- [1,352,null,{"value":"Huddleston, Tucker (th65891)"}]
+1572563409728	Marionette	DEBUG	0 -> [0,353,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cca0f5b7-dff8-4b53-a05c-d366e046cae9","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563409734	Marionette	DEBUG	0 <- [1,353,null,{"value":"--"}]
+1572563409736	Marionette	DEBUG	0 -> [0,354,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301336"}]
+1572563409741	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301335
+1572563410169	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301335
+1572563410595	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301336
+1572563411000	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301336
+1572563411002	Marionette	DEBUG	0 <- [1,354,null,{"value":null}]
+1572563411008	Marionette	DEBUG	0 -> [0,355,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563411013	Marionette	DEBUG	0 <- [1,355,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"3b7e3b37-d667-49a2-9ace-91d863726e71"}}]
+1572563411016	Marionette	DEBUG	0 -> [0,356,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563411024	Marionette	DEBUG	0 <- [1,356,null,[{"element-6066-11e4-a52e-4f735466cecf":"1afabb8e-0f68-403d-bde1-56db773b761d"}]]
+1572563411028	Marionette	DEBUG	0 -> [0,357,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563411036	Marionette	DEBUG	0 <- [1,357,null,[{"element-6066-11e4-a52e-4f735466cecf":"cf8489cb-dec8-4de4-bbfe-09d5f3b802fc"},{"element-6066-11e4-a52e-4f735466cecf":"3c27e952-22b1-4509-b674-e1f5b423a261"}]]
+1572563411039	Marionette	DEBUG	0 -> [0,358,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563411054	Marionette	DEBUG	0 <- [1,358,null,[{"element-6066-11e4-a52e-4f735466cecf":"187602f5-e346-4969-8af5-996817bbb3e9"},{"element-6066-11e4-a52e-4f735466 ... ecf":"ab9f17dd-0543-43a3-b31a-985c8c9ae01a"},{"element-6066-11e4-a52e-4f735466cecf":"57e45f38-6524-47e9-881c-4d60552e3adc"}]]
+1572563411057	Marionette	DEBUG	0 -> [0,359,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563411062	Marionette	DEBUG	0 <- [1,359,null,[{"element-6066-11e4-a52e-4f735466cecf":"a7f6fe18-6217-4219-ae21-43ed1bf957cd"}]]
+1572563411067	Marionette	DEBUG	0 -> [0,360,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"3c27e952-22b1-4509-b674-e1f5b423a261","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563411079	Marionette	DEBUG	0 <- [1,360,null,{"value":"0%"}]
+1572563411083	Marionette	DEBUG	0 -> [0,361,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"a7f6fe18-6217-4219-ae21-43ed1bf957cd","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563411093	Marionette	DEBUG	0 <- [1,361,null,{"value":"Huddleston, Tucker (th65891)"}]
+1572563411097	Marionette	DEBUG	0 -> [0,362,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"ab9f17dd-0543-43a3-b31a-985c8c9ae01a","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563411103	Marionette	DEBUG	0 <- [1,362,null,{"value":"--"}]
+1572563411105	Marionette	DEBUG	0 -> [0,363,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302330"}]
+1572563411109	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301336
+1572563411587	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=301336
+1572563412012	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302330
+1572563412410	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302330
+1572563412416	Marionette	DEBUG	0 <- [1,363,null,{"value":null}]
+1572563412448	Marionette	DEBUG	0 -> [0,364,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563412458	Marionette	DEBUG	0 <- [1,364,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"cfdba5d5-9d9c-4d4b-99fa-6e913a2d5f68"}}]
+1572563412461	Marionette	DEBUG	0 -> [0,365,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563412465	Marionette	DEBUG	0 <- [1,365,null,[{"element-6066-11e4-a52e-4f735466cecf":"17b5aa82-fe45-4913-a825-4ee932dd5a9f"}]]
+1572563412467	Marionette	DEBUG	0 -> [0,366,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563412472	Marionette	DEBUG	0 <- [1,366,null,[{"element-6066-11e4-a52e-4f735466cecf":"6a932d3f-3f3c-47f7-ae29-d51b86899f4c"},{"element-6066-11e4-a52e-4f735466cecf":"9fa73605-9687-4df4-8a1e-4855c0ca830f"}]]
+1572563412474	Marionette	DEBUG	0 -> [0,367,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563412482	Marionette	DEBUG	0 <- [1,367,null,[{"element-6066-11e4-a52e-4f735466cecf":"43a57deb-3585-4320-b0d0-f9d82ec93125"},{"element-6066-11e4-a52e-4f735466 ... ecf":"80fd1380-5488-4846-a293-0c26a5d63d78"},{"element-6066-11e4-a52e-4f735466cecf":"e52fa032-d103-41e2-bc29-589e0ed9ec69"}]]
+1572563412484	Marionette	DEBUG	0 -> [0,368,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563412486	Marionette	DEBUG	0 <- [1,368,null,[{"element-6066-11e4-a52e-4f735466cecf":"13473e76-940f-4308-b26a-3c523257e9c8"}]]
+1572563412488	Marionette	DEBUG	0 -> [0,369,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"9fa73605-9687-4df4-8a1e-4855c0ca830f","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563412494	Marionette	DEBUG	0 <- [1,369,null,{"value":"54%"}]
+1572563412497	Marionette	DEBUG	0 -> [0,370,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"13473e76-940f-4308-b26a-3c523257e9c8","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563412504	Marionette	DEBUG	0 <- [1,370,null,{"value":"Knight, Zurri (zk70898)"}]
+1572563412506	Marionette	DEBUG	0 -> [0,371,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"80fd1380-5488-4846-a293-0c26a5d63d78","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563412513	Marionette	DEBUG	0 <- [1,371,null,{"value":"89%"}]
+1572563412515	Marionette	DEBUG	0 -> [0,372,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302331"}]
+1572563412518	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302330
+1572563413022	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302330
+1572563413471	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302331
+1572563413843	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302331
+1572563413845	Marionette	DEBUG	0 <- [1,372,null,{"value":null}]
+1572563413863	Marionette	DEBUG	0 -> [0,373,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563414002	Marionette	DEBUG	0 <- [1,373,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"bb4dafbf-27ff-4b3d-abb3-d552d35d013b"}}]
+1572563414004	Marionette	DEBUG	0 -> [0,374,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563414010	Marionette	DEBUG	0 <- [1,374,null,[{"element-6066-11e4-a52e-4f735466cecf":"53b728e2-fe71-41bb-9e29-c119e67d2460"}]]
+1572563414012	Marionette	DEBUG	0 -> [0,375,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563414019	Marionette	DEBUG	0 <- [1,375,null,[{"element-6066-11e4-a52e-4f735466cecf":"18d736a1-541e-4c45-ad84-e8d34276f253"},{"element-6066-11e4-a52e-4f735466cecf":"b87023ed-39b4-4467-aef5-e6a222f18b99"}]]
+1572563414021	Marionette	DEBUG	0 -> [0,376,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563414028	Marionette	DEBUG	0 <- [1,376,null,[{"element-6066-11e4-a52e-4f735466cecf":"9b5974bd-4124-40b6-a6c9-8745354b27a4"},{"element-6066-11e4-a52e-4f735466 ... ecf":"8a58d87b-7ef9-4e85-b636-8a77b3ba986b"},{"element-6066-11e4-a52e-4f735466cecf":"54d41297-6ff1-4a84-aedc-9e01d8d943c6"}]]
+1572563414030	Marionette	DEBUG	0 -> [0,377,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563414033	Marionette	DEBUG	0 <- [1,377,null,[{"element-6066-11e4-a52e-4f735466cecf":"c51c0430-b3fd-457e-9b97-78cabae456a0"}]]
+1572563414037	Marionette	DEBUG	0 -> [0,378,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"b87023ed-39b4-4467-aef5-e6a222f18b99","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563414045	Marionette	DEBUG	0 <- [1,378,null,{"value":"0%"}]
+1572563414048	Marionette	DEBUG	0 -> [0,379,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"c51c0430-b3fd-457e-9b97-78cabae456a0","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563414057	Marionette	DEBUG	0 <- [1,379,null,{"value":"Knight, Zurri (zk70898)"}]
+1572563414060	Marionette	DEBUG	0 -> [0,380,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"8a58d87b-7ef9-4e85-b636-8a77b3ba986b","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563414067	Marionette	DEBUG	0 <- [1,380,null,{"value":"--"}]
+1572563414070	Marionette	DEBUG	0 -> [0,381,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302332"}]
+1572563414074	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302331
+1572563414702	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302331
+1572563415199	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302332
+1572563415772	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302332
+1572563415775	Marionette	DEBUG	0 <- [1,381,null,{"value":null}]
+1572563415789	Marionette	DEBUG	0 -> [0,382,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563415796	Marionette	DEBUG	0 <- [1,382,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"4417548b-5945-4164-84ea-c3cd84f4e70c"}}]
+1572563415800	Marionette	DEBUG	0 -> [0,383,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563415810	Marionette	DEBUG	0 <- [1,383,null,[{"element-6066-11e4-a52e-4f735466cecf":"0085911d-40cd-4b96-8ba2-cf3b3657b849"}]]
+1572563415813	Marionette	DEBUG	0 -> [0,384,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563415825	Marionette	DEBUG	0 <- [1,384,null,[{"element-6066-11e4-a52e-4f735466cecf":"cd168c0e-8c69-479d-9392-6645aa088e76"},{"element-6066-11e4-a52e-4f735466cecf":"da66b758-aa0c-4f3b-8bd6-bcc1718574f6"}]]
+1572563415832	Marionette	DEBUG	0 -> [0,385,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563415850	Marionette	DEBUG	0 <- [1,385,null,[{"element-6066-11e4-a52e-4f735466cecf":"a1a8b376-d6c9-4d6e-92b1-ced087ae5faf"},{"element-6066-11e4-a52e-4f735466 ... ecf":"1a70c892-ca58-4577-8a28-f47bbc2706ae"},{"element-6066-11e4-a52e-4f735466cecf":"ca1fda71-1cb3-467b-8f0f-b2335c1a6225"}]]
+1572563415852	Marionette	DEBUG	0 -> [0,386,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563415855	Marionette	DEBUG	0 <- [1,386,null,[{"element-6066-11e4-a52e-4f735466cecf":"b48b6385-c8d1-4bff-87c0-12978a8e8a70"}]]
+1572563415859	Marionette	DEBUG	0 -> [0,387,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"da66b758-aa0c-4f3b-8bd6-bcc1718574f6","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563415867	Marionette	DEBUG	0 <- [1,387,null,{"value":"79%"}]
+1572563415869	Marionette	DEBUG	0 -> [0,388,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"b48b6385-c8d1-4bff-87c0-12978a8e8a70","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563415878	Marionette	DEBUG	0 <- [1,388,null,{"value":"Knight, Zurri (zk70898)"}]
+1572563415880	Marionette	DEBUG	0 -> [0,389,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"1a70c892-ca58-4577-8a28-f47bbc2706ae","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563415886	Marionette	DEBUG	0 <- [1,389,null,{"value":"95%"}]
+1572563415889	Marionette	DEBUG	0 -> [0,390,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302334"}]
+1572563415893	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302332
+1572563416366	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302332
+1572563416814	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302334
+1572563417186	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302334
+1572563417189	Marionette	DEBUG	0 <- [1,390,null,{"value":null}]
+1572563417199	Marionette	DEBUG	0 -> [0,391,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563417215	Marionette	DEBUG	0 <- [1,391,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"d41562d3-2445-4cab-a9c6-76775adc08a8"}}]
+1572563417221	Marionette	DEBUG	0 -> [0,392,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563417229	Marionette	DEBUG	0 <- [1,392,null,[{"element-6066-11e4-a52e-4f735466cecf":"edc17f3e-79a4-4bc2-b8b5-544c1599f57f"}]]
+1572563417235	Marionette	DEBUG	0 -> [0,393,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563417244	Marionette	DEBUG	0 <- [1,393,null,[{"element-6066-11e4-a52e-4f735466cecf":"878f8163-1573-4749-9bdf-175f962549a6"},{"element-6066-11e4-a52e-4f735466cecf":"1bbcb704-d489-435a-8604-63c4db9b6be5"}]]
+1572563417252	Marionette	DEBUG	0 -> [0,394,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563417269	Marionette	DEBUG	0 <- [1,394,null,[{"element-6066-11e4-a52e-4f735466cecf":"92409474-6542-43e5-8486-8f93b6d67197"},{"element-6066-11e4-a52e-4f735466 ... ecf":"8ede5973-c02f-4bb3-af35-251744840cc8"},{"element-6066-11e4-a52e-4f735466cecf":"a75618b4-9c05-484f-bafe-bfb1861dfbe5"}]]
+1572563417272	Marionette	DEBUG	0 -> [0,395,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563417279	Marionette	DEBUG	0 <- [1,395,null,[{"element-6066-11e4-a52e-4f735466cecf":"8b6f81a4-b7d4-4700-97fe-14f68f377cdc"}]]
+1572563417283	Marionette	DEBUG	0 -> [0,396,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"1bbcb704-d489-435a-8604-63c4db9b6be5","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563417297	Marionette	DEBUG	0 <- [1,396,null,{"value":"0%"}]
+1572563417302	Marionette	DEBUG	0 -> [0,397,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"8b6f81a4-b7d4-4700-97fe-14f68f377cdc","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563417313	Marionette	DEBUG	0 <- [1,397,null,{"value":"Knight, Zurri (zk70898)"}]
+1572563417316	Marionette	DEBUG	0 -> [0,398,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"8ede5973-c02f-4bb3-af35-251744840cc8","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563417327	Marionette	DEBUG	0 <- [1,398,null,{"value":"--"}]
+1572563417329	Marionette	DEBUG	0 -> [0,399,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302338"}]
+1572563417336	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302334
+1572563417764	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302334
+1572563418178	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302338
+1572563418551	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302338
+1572563418553	Marionette	DEBUG	0 <- [1,399,null,{"value":null}]
+1572563418556	Marionette	DEBUG	0 -> [0,400,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563418568	Marionette	DEBUG	0 <- [1,400,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"a8940f60-9694-45ae-a1cc-c900737a06ff"}}]
+1572563418570	Marionette	DEBUG	0 -> [0,401,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563418577	Marionette	DEBUG	0 <- [1,401,null,[{"element-6066-11e4-a52e-4f735466cecf":"e6766092-e4d3-458d-a045-9c651bf9fbd1"}]]
+1572563418579	Marionette	DEBUG	0 -> [0,402,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563418587	Marionette	DEBUG	0 <- [1,402,null,[{"element-6066-11e4-a52e-4f735466cecf":"d04a710d-5211-4f79-895d-b944ced103ff"},{"element-6066-11e4-a52e-4f735466cecf":"72882742-7353-418a-bc43-1ea070686919"}]]
+1572563418589	Marionette	DEBUG	0 -> [0,403,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563418601	Marionette	DEBUG	0 <- [1,403,null,[{"element-6066-11e4-a52e-4f735466cecf":"5423b11f-709f-451d-b58d-860c1d3abca6"},{"element-6066-11e4-a52e-4f735466 ... ecf":"db29ae5f-c773-43a8-87ec-73ca20102dc3"},{"element-6066-11e4-a52e-4f735466cecf":"2e77bdbe-7781-4e93-9537-0dc18b3abc61"}]]
+1572563418603	Marionette	DEBUG	0 -> [0,404,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563418610	Marionette	DEBUG	0 <- [1,404,null,[{"element-6066-11e4-a52e-4f735466cecf":"cd057a36-4461-43d3-8cc1-bb011080e444"}]]
+1572563418614	Marionette	DEBUG	0 -> [0,405,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"72882742-7353-418a-bc43-1ea070686919","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563418630	Marionette	DEBUG	0 <- [1,405,null,{"value":"64%"}]
+1572563418634	Marionette	DEBUG	0 -> [0,406,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"cd057a36-4461-43d3-8cc1-bb011080e444","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563418643	Marionette	DEBUG	0 <- [1,406,null,{"value":"Knight, Zurri (zk70898)"}]
+1572563418646	Marionette	DEBUG	0 -> [0,407,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"db29ae5f-c773-43a8-87ec-73ca20102dc3","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563418657	Marionette	DEBUG	0 <- [1,407,null,{"value":"88%"}]
+1572563418659	Marionette	DEBUG	0 -> [0,408,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302339"}]
+1572563418665	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302338
+1572563419146	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302338
+1572563419574	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302339
+1572563419943	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302339
+1572563419944	Marionette	DEBUG	0 <- [1,408,null,{"value":null}]
+1572563419951	Marionette	DEBUG	0 -> [0,409,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563419955	Marionette	DEBUG	0 <- [1,409,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"6e351a9e-7bea-4f32-b3ed-4f51ce02c57c"}}]
+1572563419958	Marionette	DEBUG	0 -> [0,410,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563419967	Marionette	DEBUG	0 <- [1,410,null,[{"element-6066-11e4-a52e-4f735466cecf":"2d73ffaf-eeb1-4657-8b57-837b1925b978"}]]
+1572563419970	Marionette	DEBUG	0 -> [0,411,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563419976	Marionette	DEBUG	0 <- [1,411,null,[{"element-6066-11e4-a52e-4f735466cecf":"d77f001a-30e2-47a6-b0ae-8ed40ef0f131"},{"element-6066-11e4-a52e-4f735466cecf":"452def0f-f76a-43fe-b0e3-a2fa0626f90f"}]]
+1572563419978	Marionette	DEBUG	0 -> [0,412,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563419989	Marionette	DEBUG	0 <- [1,412,null,[{"element-6066-11e4-a52e-4f735466cecf":"e030bf27-735a-453e-9dbf-7ad7d8d422fb"},{"element-6066-11e4-a52e-4f735466 ... ecf":"12f20222-1d3f-4b64-a17a-c8bd69c2987d"},{"element-6066-11e4-a52e-4f735466cecf":"83b69ef2-17c2-4355-8c98-f6263151ec63"}]]
+1572563419993	Marionette	DEBUG	0 -> [0,413,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563419997	Marionette	DEBUG	0 <- [1,413,null,[{"element-6066-11e4-a52e-4f735466cecf":"415388c9-1a40-4da8-b5c7-7cc424e314ae"}]]
+1572563420005	Marionette	DEBUG	0 -> [0,414,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"452def0f-f76a-43fe-b0e3-a2fa0626f90f","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563420014	Marionette	DEBUG	0 <- [1,414,null,{"value":"0%"}]
+1572563420018	Marionette	DEBUG	0 -> [0,415,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"415388c9-1a40-4da8-b5c7-7cc424e314ae","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563420027	Marionette	DEBUG	0 <- [1,415,null,{"value":"Knight, Zurri (zk70898)"}]
+1572563420030	Marionette	DEBUG	0 -> [0,416,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"12f20222-1d3f-4b64-a17a-c8bd69c2987d","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563420041	Marionette	DEBUG	0 <- [1,416,null,{"value":"--"}]
+1572563420043	Marionette	DEBUG	0 -> [0,417,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302340"}]
+1572563420047	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302339
+1572563420491	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302339
+1572563420895	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302340
+1572563421248	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302340
+1572563421250	Marionette	DEBUG	0 <- [1,417,null,{"value":null}]
+1572563421260	Marionette	DEBUG	0 -> [0,418,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563421266	Marionette	DEBUG	0 <- [1,418,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"7ee9f310-578d-42dd-9c79-3ad8243d4540"}}]
+1572563421268	Marionette	DEBUG	0 -> [0,419,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563421274	Marionette	DEBUG	0 <- [1,419,null,[{"element-6066-11e4-a52e-4f735466cecf":"478b84b0-373f-4152-a314-802dc107f5bb"}]]
+1572563421276	Marionette	DEBUG	0 -> [0,420,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563421284	Marionette	DEBUG	0 <- [1,420,null,[{"element-6066-11e4-a52e-4f735466cecf":"b388a091-aba6-463e-93e6-a3144b9dd270"},{"element-6066-11e4-a52e-4f735466cecf":"1492974a-2626-47b1-9af2-f407dba2ead5"}]]
+1572563421287	Marionette	DEBUG	0 -> [0,421,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563421297	Marionette	DEBUG	0 <- [1,421,null,[{"element-6066-11e4-a52e-4f735466cecf":"b27678a1-0493-4d20-b430-5758c7297c2a"},{"element-6066-11e4-a52e-4f735466 ... ecf":"00bf8fb4-c9dc-4413-a506-b1e2145cf7d4"},{"element-6066-11e4-a52e-4f735466cecf":"a59e94c1-7ffc-4287-86ff-3a728ca094d2"}]]
+1572563421299	Marionette	DEBUG	0 -> [0,422,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563421307	Marionette	DEBUG	0 <- [1,422,null,[{"element-6066-11e4-a52e-4f735466cecf":"d632326f-2737-45e6-bf20-6a0cc82c2fc2"}]]
+1572563421310	Marionette	DEBUG	0 -> [0,423,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"1492974a-2626-47b1-9af2-f407dba2ead5","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563421322	Marionette	DEBUG	0 <- [1,423,null,{"value":"49%"}]
+1572563421325	Marionette	DEBUG	0 -> [0,424,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"d632326f-2737-45e6-bf20-6a0cc82c2fc2","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563421335	Marionette	DEBUG	0 <- [1,424,null,{"value":"Knight, Zurri (zk70898)"}]
+1572563421343	Marionette	DEBUG	0 -> [0,425,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"00bf8fb4-c9dc-4413-a506-b1e2145cf7d4","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563421352	Marionette	DEBUG	0 <- [1,425,null,{"value":"80%"}]
+1572563421355	Marionette	DEBUG	0 -> [0,426,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302341"}]
+1572563421357	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302340
+1572563421816	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302340
+1572563422239	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302341
+1572563422628	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302341
+1572563422632	Marionette	DEBUG	0 <- [1,426,null,{"value":null}]
+1572563422664	Marionette	DEBUG	0 -> [0,427,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563422681	Marionette	DEBUG	0 <- [1,427,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"30821c3f-5b07-4312-90e7-832ba4b41462"}}]
+1572563422685	Marionette	DEBUG	0 -> [0,428,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563422691	Marionette	DEBUG	0 <- [1,428,null,[{"element-6066-11e4-a52e-4f735466cecf":"581a28b4-d444-4662-99c7-0c405ef5b676"}]]
+1572563422694	Marionette	DEBUG	0 -> [0,429,"WebDriver:FindElements",{"using":"css selector","value":".done"}]
+1572563422702	Marionette	DEBUG	0 <- [1,429,null,[{"element-6066-11e4-a52e-4f735466cecf":"1f5af89c-558a-4f1b-9023-8b211fc5c7a7"},{"element-6066-11e4-a52e-4f735466cecf":"8ebabaf6-f9f7-477d-8cdc-107aaf610646"}]]
+1572563422705	Marionette	DEBUG	0 -> [0,430,"WebDriver:FindElements",{"using":"css selector","value":".score"}]
+1572563422716	Marionette	DEBUG	0 <- [1,430,null,[{"element-6066-11e4-a52e-4f735466cecf":"a424099e-01e6-49af-a112-96d2ba283249"},{"element-6066-11e4-a52e-4f735466 ... ecf":"955d49c1-f9f1-4676-a323-50f65cfe39d5"},{"element-6066-11e4-a52e-4f735466cecf":"f886b299-94f6-45f4-afb5-11971c82b613"}]]
+1572563422718	Marionette	DEBUG	0 -> [0,431,"WebDriver:FindElements",{"using":"css selector","value":".studentName"}]
+1572563422722	Marionette	DEBUG	0 <- [1,431,null,[{"element-6066-11e4-a52e-4f735466cecf":"123c115c-713d-42a2-b1da-4808ee4deb51"}]]
+1572563422725	Marionette	DEBUG	0 -> [0,432,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"8ebabaf6-f9f7-477d-8cdc-107aaf610646","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563422735	Marionette	DEBUG	0 <- [1,432,null,{"value":"0%"}]
+1572563422737	Marionette	DEBUG	0 -> [0,433,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"123c115c-713d-42a2-b1da-4808ee4deb51","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563422746	Marionette	DEBUG	0 <- [1,433,null,{"value":"Knight, Zurri (zk70898)"}]
+1572563422749	Marionette	DEBUG	0 -> [0,434,"WebDriver:ExecuteScript",{"args":[{"ELEMENT":"955d49c1-f9f1-4676-a323-50f65cfe39d5","element-6066-11e4-a52e-4f735466c ... dow!='undefined'?window.document:null}, arguments);}\n).apply(null, arguments);","scriptTimeout":null,"specialPowers":false}]
+1572563422760	Marionette	DEBUG	0 <- [1,434,null,{"value":"--"}]
+1572563422763	Marionette	DEBUG	0 -> [0,435,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302495"}]
+1572563422768	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302341
+1572563423264	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302341
+1572563423773	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302495
+1572563423850	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302495
+1572563423851	Marionette	DEBUG	0 <- [1,435,null,{"value":null}]
+1572563423854	Marionette	DEBUG	0 -> [0,436,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563423857	Marionette	DEBUG	0 <- [1,436,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"ed43bd18-df39-48a9-9f92-ca3d4c596d8a"}}]
+1572563423859	Marionette	DEBUG	0 -> [0,437,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563423861	Marionette	DEBUG	0 <- [1,437,null,[]]
+1572563423863	Marionette	DEBUG	0 -> [0,438,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302496"}]
+1572563423868	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302495
+1572563424290	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302495
+1572563424754	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302496
+1572563424829	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302496
+1572563424831	Marionette	DEBUG	0 <- [1,438,null,{"value":null}]
+1572563424836	Marionette	DEBUG	0 -> [0,439,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563424840	Marionette	DEBUG	0 <- [1,439,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"cbc98efb-47a5-4874-88f0-14b980b7de90"}}]
+1572563424844	Marionette	DEBUG	0 -> [0,440,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563424848	Marionette	DEBUG	0 <- [1,440,null,[]]
+1572563424851	Marionette	DEBUG	0 -> [0,441,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302497"}]
+1572563424858	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302496
+1572563425307	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302496
+1572563425723	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302497
+1572563425787	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302497
+1572563425790	Marionette	DEBUG	0 <- [1,441,null,{"value":null}]
+1572563425801	Marionette	DEBUG	0 -> [0,442,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563425805	Marionette	DEBUG	0 <- [1,442,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"d6d946f6-26be-4d1d-abec-d192a675cbbd"}}]
+1572563425809	Marionette	DEBUG	0 -> [0,443,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563425811	Marionette	DEBUG	0 <- [1,443,null,[]]
+1572563425813	Marionette	DEBUG	0 -> [0,444,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302498"}]
+1572563425818	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302497
+1572563426237	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302497
+1572563426617	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302498
+1572563426711	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302498
+1572563426712	Marionette	DEBUG	0 <- [1,444,null,{"value":null}]
+1572563426716	Marionette	DEBUG	0 -> [0,445,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563426726	Marionette	DEBUG	0 <- [1,445,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"009e3fce-998a-4104-a4ed-f217271dc936"}}]
+1572563426728	Marionette	DEBUG	0 -> [0,446,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563426730	Marionette	DEBUG	0 <- [1,446,null,[]]
+1572563426731	Marionette	DEBUG	0 -> [0,447,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302499"}]
+1572563426735	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302498
+1572563427142	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302498
+1572563427595	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302499
+1572563427691	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302499
+1572563427695	Marionette	DEBUG	0 <- [1,447,null,{"value":null}]
+1572563427699	Marionette	DEBUG	0 -> [0,448,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563427722	Marionette	DEBUG	0 <- [1,448,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"1613776d-bc21-4a5d-a60f-df83bbc3dd14"}}]
+1572563427724	Marionette	DEBUG	0 -> [0,449,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563427726	Marionette	DEBUG	0 <- [1,449,null,[]]
+1572563427728	Marionette	DEBUG	0 -> [0,450,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302500"}]
+1572563427734	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302499
+1572563428149	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302499
+1572563428599	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302500
+1572563428711	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302500
+1572563428712	Marionette	DEBUG	0 <- [1,450,null,{"value":null}]
+1572563428716	Marionette	DEBUG	0 -> [0,451,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563428721	Marionette	DEBUG	0 <- [1,451,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"39979c7a-c862-434f-8a24-d1c37ee0e69f"}}]
+1572563428724	Marionette	DEBUG	0 -> [0,452,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563428728	Marionette	DEBUG	0 <- [1,452,null,[]]
+1572563428730	Marionette	DEBUG	0 -> [0,453,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302501"}]
+1572563428732	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302500
+1572563429197	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302500
+1572563429685	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302501
+1572563429770	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302501
+1572563429771	Marionette	DEBUG	0 <- [1,453,null,{"value":null}]
+1572563429778	Marionette	DEBUG	0 -> [0,454,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563429785	Marionette	DEBUG	0 <- [1,454,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"a3e6b455-68b7-43e9-8d56-7e5380047dfc"}}]
+1572563429786	Marionette	DEBUG	0 -> [0,455,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563429790	Marionette	DEBUG	0 <- [1,455,null,[]]
+1572563429791	Marionette	DEBUG	0 -> [0,456,"WebDriver:Navigate",{"url":"https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302502"}]
+1572563429796	Marionette	TRACE	[14] Received DOM event beforeunload for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302501
+1572563430190	Marionette	TRACE	[14] Received DOM event pagehide for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302501
+1572563430680	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302502
+1572563430746	Marionette	TRACE	[14] Received DOM event pageshow for https://www.thelearningodyssey.com/Assignments/Gradebook.aspx?courseid=302502
+1572563430748	Marionette	DEBUG	0 <- [1,456,null,{"value":null}]
+1572563430756	Marionette	DEBUG	0 -> [0,457,"WebDriver:FindElement",{"using":"css selector","value":"[id=\"dialog\"]"}]
+1572563430764	Marionette	DEBUG	0 <- [1,457,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"9b8ea648-f3ef-447f-a933-c13e58913e1d"}}]
+1572563430772	Marionette	DEBUG	0 -> [0,458,"WebDriver:FindElements",{"using":"css selector","value":"[id=\"Tr1\"]"}]
+1572563430774	Marionette	DEBUG	0 <- [1,458,null,[]]
+1572563430776	Marionette	DEBUG	0 -> [0,459,"WebDriver:CloseWindow",{}]
+1572563430786	Marionette	TRACE	Received DOM event unload for [object HTMLDocument]
+1572563430792	Marionette	TRACE	Received observer notification message-manager-disconnect
+1572563430793	Marionette	DEBUG	0 <- [1,459,null,["4294967299"]]
+1572563430918	Marionette	DEBUG	Closed connection 0
+1572563726319	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1572563726374	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1572563906386	geckodriver	INFO	geckodriver 0.21.0
+1572563906396	geckodriver	INFO	Listening on 127.0.0.1:55801
+1572563907398	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.idDaDRy2Fzsv"
+*** You are running in headless mode.
+1572563908240	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1572563908240	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1572563908241	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1572563908241	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1572563908415	Marionette	TRACE	Received observer notification profile-after-change
+1572563908500	Marionette	TRACE	Received observer notification command-line-startup
+1572563908500	Marionette	TRACE	Received observer notification nsPref:changed
+1572563908500	Marionette	DEBUG	Init aborted (running=false, enabled=true, finalUIStartup=false)
+1572563908967	Marionette	TRACE	Received observer notification toplevel-window-ready
+1572563911134	Marionette	TRACE	Received observer notification marionette-startup-requested
+1572563911135	Marionette	TRACE	Waiting until startup recorder finished recording startup scripts...
+1572563911256	Marionette	TRACE	All scripts recorded.
+1572563911256	Marionette	DEBUG	Setting recommended pref app.update.disabledForTesting to true
+1572563911256	Marionette	DEBUG	Setting recommended pref apz.content_response_timeout to 60000
+1572563911256	Marionette	DEBUG	Setting recommended pref browser.contentblocking.introCount to 99
+1572563911257	Marionette	DEBUG	Setting recommended pref browser.download.panel.shown to true
+1572563911257	Marionette	DEBUG	Setting recommended pref browser.newtabpage.enabled to false
+1572563911258	Marionette	DEBUG	Setting recommended pref browser.pagethumbnails.capturing_disabled to true
+1572563911259	Marionette	DEBUG	Setting recommended pref browser.search.update to false
+1572563911259	Marionette	DEBUG	Setting recommended pref browser.tabs.disableBackgroundZombification to false
+1572563911260	Marionette	DEBUG	Setting recommended pref browser.tabs.remote.separatePrivilegedContentProcess to false
+1572563911260	Marionette	DEBUG	Setting recommended pref browser.tabs.unloadOnLowMemory to false
+1572563911260	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnCloseOtherTabs to false
+1572563911260	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnOpen to false
+1572563911261	Marionette	DEBUG	Setting recommended pref browser.usedOnWindows10.introURL to 
+1572563911261	Marionette	DEBUG	Setting recommended pref browser.urlbar.suggest.searches to false
+1572563911263	Marionette	DEBUG	Setting recommended pref datareporting.policy.dataSubmissionPolicyAccepted to false
+1572563911263	Marionette	DEBUG	Setting recommended pref dom.disable_beforeunload to true
+1572563911263	Marionette	DEBUG	Setting recommended pref dom.disable_open_during_load to false
+1572563911264	Marionette	DEBUG	Setting recommended pref dom.file.createInChild to true
+1572563911264	Marionette	DEBUG	Setting recommended pref dom.max_chrome_script_run_time to 0
+1572563911264	Marionette	DEBUG	Setting recommended pref dom.max_script_run_time to 0
+1572563911265	Marionette	DEBUG	Setting recommended pref dom.push.connection.enabled to false
+1572563911265	Marionette	DEBUG	Setting recommended pref extensions.getAddons.cache.enabled to false
+1572563911265	Marionette	DEBUG	Setting recommended pref extensions.webservice.discoverURL to http://%(server)s/dummy/discoveryURL
+1572563911266	Marionette	DEBUG	Setting recommended pref network.http.prompt-temp-redirect to false
+1572563911266	Marionette	DEBUG	Setting recommended pref network.http.speculative-parallel-limit to 0
+1572563911266	Marionette	DEBUG	Setting recommended pref privacy.trackingprotection.enabled to false
+1572563911266	Marionette	DEBUG	Setting recommended pref security.certerrors.mitm.priming.enabled to false
+1572563911266	Marionette	DEBUG	Setting recommended pref security.fileuri.strict_origin_policy to false
+1572563911267	Marionette	DEBUG	Setting recommended pref security.notification_enable_delay to 0
+1572563911267	Marionette	DEBUG	Setting recommended pref signon.autofillForms to false
+1572563911267	Marionette	DEBUG	Setting recommended pref signon.rememberSignons to false
+1572563911267	Marionette	DEBUG	Setting recommended pref toolkit.cosmeticAnimations.enabled to false
+1572563911337	Marionette	INFO	Listening on port 41879
+1572563911337	Marionette	DEBUG	Remote service is active
+1572563911418	Marionette	DEBUG	Accepted connection 0 from 127.0.0.1:54328
+1572563911425	Marionette	DEBUG	0 -> [0,1,"WebDriver:NewSession",{"acceptInsecureCerts":true,"browserName":"firefox","capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}]
+1572563911428	Marionette	WARN	TLS certificate errors will be ignored for this session
+1572563911494	Marionette	TRACE	[14] Frame script loaded
+1572563911495	Marionette	TRACE	[14] Frame script registered
+1572563911500	Marionette	DEBUG	0 <- [1,1,null,{"sessionId":"e538c0ad-1c6c-4b1f-819b-d1c093645cf8","capabilities":{"browserName":"firefox","browserVersion":"70.0" ... alse,"moz:webdriverClick":true,"capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}}]
+1572563911508	Marionette	DEBUG	0 -> [0,2,"WebDriver:Navigate",{"url":"https://play.dreambox.com/dashboard/login/"}]
+1572563911538	Marionette	TRACE	[14] Received DOM event beforeunload for about:blank
+1572563913171	Marionette	TRACE	[14] Received DOM event pagehide for about:blank
+1572563919634	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://play.dreambox.com/dashboard/login/
+1572563921165	Marionette	TRACE	[14] Received DOM event pageshow for https://play.dreambox.com/dashboard/login/
+1572563921180	Marionette	DEBUG	0 <- [1,2,null,{"value":null}]
+1572563921201	Marionette	DEBUG	0 -> [0,3,"WebDriver:SetTimeouts",{"implicit":10000}]
+1572563921203	Marionette	DEBUG	0 <- [1,3,null,{"value":null}]
+1572563921218	Marionette	DEBUG	0 -> [0,4,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"email_address\"]"}]
+1572563921228	Marionette	DEBUG	0 <- [1,4,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"1a3f37f2-5742-4c67-8462-bd2dcb785777"}}]
+1572563921231	Marionette	DEBUG	0 -> [0,5,"WebDriver:ElementSendKeys",{"id":"1a3f37f2-5742-4c67-8462-bd2dcb785777","text":"charlotte.wood@epiccharterschools.org", ... t","t","e",".","w","o","o","d","@","e","p","i","c","c","h","a","r","t","e","r","s","c","h","o","o","l","s",".","o","r","g"]}]
+1572563921282	Marionette	DEBUG	0 <- [1,5,null,{"value":null}]
+1572563921289	Marionette	DEBUG	0 -> [0,6,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"password\"]"}]
+1572563921292	Marionette	DEBUG	0 <- [1,6,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"756379d4-e38a-4369-9c6f-ced4f78c9dce"}}]
+1572563921294	Marionette	DEBUG	0 -> [0,7,"WebDriver:ElementSendKeys",{"id":"756379d4-e38a-4369-9c6f-ced4f78c9dce","text":"Teacher1","value":["T","e","a","c","h","e","r","1"]}]
+1572563921313	Marionette	DEBUG	0 <- [1,7,null,{"value":null}]
+1572563921316	Marionette	DEBUG	0 -> [0,8,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"dashboard\"]"}]
+1572563921319	Marionette	DEBUG	0 <- [1,8,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"7495bf03-c0b5-43e8-8ad1-6112444ee7f9"}}]
+1572563921321	Marionette	DEBUG	0 -> [0,9,"WebDriver:ElementClick",{"id":"7495bf03-c0b5-43e8-8ad1-6112444ee7f9"}]
+1572563921345	Marionette	TRACE	[14] Received DOM event beforeunload for https://play.dreambox.com/dashboard/login/
+1572563923917	Marionette	TRACE	[14] Received DOM event pagehide for https://play.dreambox.com/dashboard/login/
+1572563923932	Marionette	TRACE	[14] Received DOM event unload for https://play.dreambox.com/dashboard/login/
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 6458, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-fpo3mL/firefox-70.0+build2/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 4941, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-fpo3mL/firefox-70.0+build2/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+Exiting due to channel error.
+Sandbox: Unexpected EOF, op 0 flags 02000000 path /usr/share/locale/locale.alias
+[Child 4990, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-fpo3mL/firefox-70.0+build2/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 7319, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-fpo3mL/firefox-70.0+build2/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 7295, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-fpo3mL/firefox-70.0+build2/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+1572563939662	geckodriver	INFO	geckodriver 0.21.0
+1572563939668	geckodriver	INFO	Listening on 127.0.0.1:52375
+1572563940671	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.caiNvRWf8ZJa"
+*** You are running in headless mode.
+1572563941444	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1572563941445	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1572563941445	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1572563941445	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1572563941624	Marionette	TRACE	Received observer notification profile-after-change
+1572563941732	Marionette	TRACE	Received observer notification command-line-startup
+1572563941732	Marionette	TRACE	Received observer notification nsPref:changed
+1572563941732	Marionette	DEBUG	Init aborted (running=false, enabled=true, finalUIStartup=false)
+1572563942293	Marionette	TRACE	Received observer notification toplevel-window-ready
+1572563944632	Marionette	TRACE	Received observer notification marionette-startup-requested
+1572563944633	Marionette	TRACE	Waiting until startup recorder finished recording startup scripts...
+1572563944739	Marionette	TRACE	All scripts recorded.
+1572563944740	Marionette	DEBUG	Setting recommended pref app.update.disabledForTesting to true
+1572563944741	Marionette	DEBUG	Setting recommended pref apz.content_response_timeout to 60000
+1572563944742	Marionette	DEBUG	Setting recommended pref browser.contentblocking.introCount to 99
+1572563944743	Marionette	DEBUG	Setting recommended pref browser.download.panel.shown to true
+1572563944744	Marionette	DEBUG	Setting recommended pref browser.newtabpage.enabled to false
+1572563944749	Marionette	DEBUG	Setting recommended pref browser.pagethumbnails.capturing_disabled to true
+1572563944751	Marionette	DEBUG	Setting recommended pref browser.search.update to false
+1572563944753	Marionette	DEBUG	Setting recommended pref browser.tabs.disableBackgroundZombification to false
+1572563944755	Marionette	DEBUG	Setting recommended pref browser.tabs.remote.separatePrivilegedContentProcess to false
+1572563944755	Marionette	DEBUG	Setting recommended pref browser.tabs.unloadOnLowMemory to false
+1572563944756	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnCloseOtherTabs to false
+1572563944757	Marionette	DEBUG	Setting recommended pref browser.tabs.warnOnOpen to false
+1572563944758	Marionette	DEBUG	Setting recommended pref browser.usedOnWindows10.introURL to 
+1572563944760	Marionette	DEBUG	Setting recommended pref browser.urlbar.suggest.searches to false
+1572563944763	Marionette	DEBUG	Setting recommended pref datareporting.policy.dataSubmissionPolicyAccepted to false
+1572563944764	Marionette	DEBUG	Setting recommended pref dom.disable_beforeunload to true
+1572563944767	Marionette	DEBUG	Setting recommended pref dom.disable_open_during_load to false
+1572563944770	Marionette	DEBUG	Setting recommended pref dom.file.createInChild to true
+1572563944773	Marionette	DEBUG	Setting recommended pref dom.max_chrome_script_run_time to 0
+1572563944775	Marionette	DEBUG	Setting recommended pref dom.max_script_run_time to 0
+1572563944778	Marionette	DEBUG	Setting recommended pref dom.push.connection.enabled to false
+1572563944779	Marionette	DEBUG	Setting recommended pref extensions.getAddons.cache.enabled to false
+1572563944779	Marionette	DEBUG	Setting recommended pref extensions.webservice.discoverURL to http://%(server)s/dummy/discoveryURL
+1572563944780	Marionette	DEBUG	Setting recommended pref network.http.prompt-temp-redirect to false
+1572563944780	Marionette	DEBUG	Setting recommended pref network.http.speculative-parallel-limit to 0
+1572563944781	Marionette	DEBUG	Setting recommended pref privacy.trackingprotection.enabled to false
+1572563944781	Marionette	DEBUG	Setting recommended pref security.certerrors.mitm.priming.enabled to false
+1572563944782	Marionette	DEBUG	Setting recommended pref security.fileuri.strict_origin_policy to false
+1572563944783	Marionette	DEBUG	Setting recommended pref security.notification_enable_delay to 0
+1572563944784	Marionette	DEBUG	Setting recommended pref signon.autofillForms to false
+1572563944784	Marionette	DEBUG	Setting recommended pref signon.rememberSignons to false
+1572563944785	Marionette	DEBUG	Setting recommended pref toolkit.cosmeticAnimations.enabled to false
+1572563944868	Marionette	INFO	Listening on port 36501
+1572563944868	Marionette	DEBUG	Remote service is active
+1572563944889	Marionette	DEBUG	Accepted connection 0 from 127.0.0.1:32768
+1572563944905	Marionette	DEBUG	0 -> [0,1,"WebDriver:NewSession",{"acceptInsecureCerts":true,"browserName":"firefox","capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}]
+1572563944906	Marionette	WARN	TLS certificate errors will be ignored for this session
+1572563944967	Marionette	TRACE	[14] Frame script loaded
+1572563944968	Marionette	TRACE	[14] Frame script registered
+1572563944981	Marionette	DEBUG	0 <- [1,1,null,{"sessionId":"ebfbb409-29c7-4f8c-bf37-941e0e9d3af9","capabilities":{"browserName":"firefox","browserVersion":"70.0" ... alse,"moz:webdriverClick":true,"capabilities":{"desiredCapabilities":{"acceptInsecureCerts":true,"browserName":"firefox"}}}}]
+1572563944988	Marionette	DEBUG	0 -> [0,2,"WebDriver:Navigate",{"url":"https://play.dreambox.com/dashboard/login/"}]
+1572563945028	Marionette	TRACE	[14] Received DOM event beforeunload for about:blank
+1572563946439	Marionette	TRACE	[14] Received DOM event pagehide for about:blank
+1572563953055	Marionette	TRACE	[14] Received DOM event DOMContentLoaded for https://play.dreambox.com/dashboard/login/
+1572563954956	Marionette	TRACE	[14] Received DOM event pageshow for https://play.dreambox.com/dashboard/login/
+1572563954964	Marionette	DEBUG	0 <- [1,2,null,{"value":null}]
+1572563954979	Marionette	DEBUG	0 -> [0,3,"WebDriver:SetTimeouts",{"implicit":10000}]
+1572563954983	Marionette	DEBUG	0 <- [1,3,null,{"value":null}]
+1572563955013	Marionette	DEBUG	0 -> [0,4,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"email_address\"]"}]
+1572563955024	Marionette	DEBUG	0 <- [1,4,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"f4bbe2d4-d5a5-45db-9670-aaf95dc856e7"}}]
+1572563955027	Marionette	DEBUG	0 -> [0,5,"WebDriver:ElementSendKeys",{"id":"f4bbe2d4-d5a5-45db-9670-aaf95dc856e7","text":"charlotte.wood@epiccharterschools.org", ... t","t","e",".","w","o","o","d","@","e","p","i","c","c","h","a","r","t","e","r","s","c","h","o","o","l","s",".","o","r","g"]}]
+1572563955076	Marionette	DEBUG	0 <- [1,5,null,{"value":null}]
+1572563955079	Marionette	DEBUG	0 -> [0,6,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"password\"]"}]
+1572563955082	Marionette	DEBUG	0 <- [1,6,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"733e4028-afb3-4217-8812-1737774993af"}}]
+1572563955091	Marionette	DEBUG	0 -> [0,7,"WebDriver:ElementSendKeys",{"id":"733e4028-afb3-4217-8812-1737774993af","text":"Teacher1","value":["T","e","a","c","h","e","r","1"]}]
+1572563955121	Marionette	DEBUG	0 <- [1,7,null,{"value":null}]
+1572563955124	Marionette	DEBUG	0 -> [0,8,"WebDriver:FindElement",{"using":"css selector","value":"[name=\"dashboard\"]"}]
+1572563955127	Marionette	DEBUG	0 <- [1,8,null,{"value":{"element-6066-11e4-a52e-4f735466cecf":"429dc38c-0608-4b12-9aae-eea6238a3f4d"}}]
+1572563955129	Marionette	DEBUG	0 -> [0,9,"WebDriver:ElementClick",{"id":"429dc38c-0608-4b12-9aae-eea6238a3f4d"}]
+1572563955155	Marionette	TRACE	[14] Received DOM event beforeunload for https://play.dreambox.com/dashboard/login/
+1572563958055	Marionette	TRACE	[14] Received DOM event pagehide for https://play.dreambox.com/dashboard/login/
+1572563958070	Marionette	TRACE	[14] Received DOM event unload for https://play.dreambox.com/dashboard/login/
+1572564255149	Marionette	DEBUG	0 <- [1,9,{"error":"timeout","message":"Timeout loading page after 300000ms","stacktrace":"WebDriverError@chrome://marionette/cont ... 5:5\nTimeoutError@chrome://marionette/content/error.js:444:5\nnotify@chrome://marionette/content/listener.js:368:11\n"},null]
+1572564255587	Marionette	DEBUG	Closed connection 0
+1572564333457	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1572564333515	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 7512, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-fpo3mL/firefox-70.0+build2/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+Exiting due to channel error.

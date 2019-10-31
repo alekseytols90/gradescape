@@ -170,8 +170,8 @@ class GradeBookFilter(django_filters.FilterSet):
         ("3", "3"),
         ("4", "4"),
         ]
-    # student = django_filters.CharFilter(
-    #     lookup_expr="icontains", label="Student")
+    student__name = django_filters.CharFilter(
+        lookup_expr="icontains", label="Student")
     # curriculum = django_filters.CharFilter(
     #     lookup_expr="icontains", label="Curriculum")
     quarter = django_filters.CharFilter(
