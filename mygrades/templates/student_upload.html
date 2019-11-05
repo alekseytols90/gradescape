@@ -23,9 +23,10 @@ Only CSV files are accepted.
 
 <form method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<label>Upload Assignments</label>
+	<label>Upload Students</label>
 	<input type="file" name="file">
 	<button type = "submit">Upload</button>
 </form>
 
 {% endif %}
+

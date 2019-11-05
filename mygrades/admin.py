@@ -8,6 +8,7 @@ from mygrades.models import (
     Curriculum,
     # Enrollment,
     Assignment,
+    StudentAssignment,
     Standard,
     ExemptAssignment,
     User,
@@ -50,12 +51,19 @@ class TeacherAdmin(admin.ModelAdmin):
 
 @admin.register(Assignment)
 class AssignmentAdmin(admin.ModelAdmin):
-    list_filter = (
-        "name",
-    )
-    raw_id_fields = ['standard']
-    fields = ['standard', 'curriculum', 'name', 'description', 'status', 'type_of', 'submission_date', 'active', 'late']
+    list_filter = ("type_of",)
+    raw_id_fields = ['standard', 'curriculum']
+    fields = ['standard', 'curriculum', 'name', 'description', 'type_of']
+
+
+@admin.register(StudentAssignment)
+class StudentAssignmentAdmin(admin.ModelAdmin):
+    list_filter = ("status","active","late")
+    raw_id_fields = ['assignment','student']
+    fields = ['student','assignment','status', 'submission_date', 'registered_datetime', 'active', 'late']
     readonly_fields = ('active', 'late', 'registered_datetime')
+
+
 
 
 @admin.register(Standard)
@@ -76,4 +84,5 @@ class GradeBookAdmin(admin.ModelAdmin):
     list_filter = (
         "week",
     )
+
 

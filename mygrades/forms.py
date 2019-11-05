@@ -8,6 +8,7 @@ from mygrades.models import (
     Enrollment,
     Standard,
     Assignment,
+    StudentAssignment,
     GradeBook,
     User,
     Teacher,
@@ -201,9 +202,29 @@ class CurriculumEnrollmentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         instance = kwargs.pop("instance", None)
         request = kwargs.pop("request", None)
+        teacher_email = kwargs.pop("teacher_email",None)
         super(CurriculumEnrollmentForm, self).__init__(*args, **kwargs)
-        self.fields["student"].queryset = Student.objects.all().order_by("last_name")
+        qs = Student.objects.all()
+        if teacher_email:
+            qs = qs.filter(teacher_email=teacher_email)
+
+        self.fields["student"].queryset = qs.order_by("last_name")
         self.fields["curriculum"].queryset = Curriculum.objects.all()
+
+    def save(self):
+        m = super(CurriculumEnrollmentForm, self).save(commit=True)
+
+        for item in self.instance.curriculum.curriculum_assignment.all():
+            sa = StudentAssignment(student=self.instance.student, assignment=item, status="Not Assigned")
+            sa.save()
+
+        #TODO: go finish curriculum list view with editable radio field of assignment status
+        #TODO: check if standards are catching with the assignment
+
+        #TODO: revisit here for enrollment form
+        #TODO: implement push button for weekly assignment
+        return m
+
 
 
 class StandardSetupForm(forms.ModelForm):
@@ -318,19 +339,19 @@ class RecordGradeForm(forms.ModelForm):
 
 
 class AssignmentCreateForm(forms.ModelForm):
-    STATUS = [
-        ("Not Assigned", "Not Assigned"),
-        ("Assigned", "Assigned"),
-        ("Incomplete", "Incomplete"),
-        ("Exempt", "Exempt"),
-    ]
+    #STATUS = [
+    #    ("Not Assigned", "Not Assigned"),
+    #    ("Assigned", "Assigned"),
+    #    ("Incomplete", "Incomplete"),
+    #    ("Exempt", "Exempt"),
+    #]
 
     TYPE = [
         ("Repeating Weekly", "Repeating Weekly"),
         ("From Pacing List", "From Pacing List"),
     ]
 
-    status = forms.ChoiceField(choices=STATUS, widget=forms.RadioSelect, label="What is the status of this assignment?")
+    #status = forms.ChoiceField(choices=STATUS, widget=forms.RadioSelect, label="What is the status of this assignment?")
 
     class Meta:
         model = Assignment
@@ -340,7 +361,7 @@ class AssignmentCreateForm(forms.ModelForm):
             "description",
             "standard",
             "curriculum",
-            "status",
+            #"status",
             "type_of",
         ]
 
@@ -350,7 +371,7 @@ class AssignmentCreateForm(forms.ModelForm):
             "standard": "OAS Standard Number",
             "curriculum": "In Which Curriculum Will This Assignment Be Included? Hold Control to DESELECT or Select "
                           "Multiple Curriculum.",
-            "status": "What is the status of this assignment?",
+            #"status": "What is the status of this assignment?",
             "type_of": "What type of assignment is this?",
         }
 
@@ -360,6 +381,25 @@ class AssignmentCreateForm(forms.ModelForm):
             super(StudentEnrollmentForm, self).__init__(*args, **kwargs)
             self.fields["standard"].queryset = Standard.objects.all()
             self.fields["curriculum"].queryset = Curriculum.objects.all()
+
+
+class PlainTextWidget(forms.Widget):
+    def render(self, name, value, attrs=None, renderer=None):
+        return mark_safe(value) if value is not None else '-'
+
+
+class StudentAssignmentForm(forms.ModelForm):
+    name = forms.CharField(widget=PlainTextWidget, required=False, label="Assignment Name")
+    status = forms.ChoiceField(choices=StudentAssignment.STATUS, widget=forms.RadioSelect())
+
+    class Meta:
+        model = StudentAssignment
+        fields = ('name','status',)
+
+    def __init__(self, *args, **kwargs):
+        super(StudentAssignmentForm, self).__init__(*args, **kwargs)
+        if self.instance.pk != None:
+            self.fields['name'].initial = self.instance.assignment.name
 
 
 class SendPacingGuideForm(forms.ModelForm):

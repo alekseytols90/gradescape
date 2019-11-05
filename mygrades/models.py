@@ -170,6 +170,9 @@ class Student(models.Model):
     def get_delete_url(self):
         return f"/students/{self.epicenter_id}/delete"
 
+    def get_curriculum_list_url(self):
+        return f"/curriculum-schedule-detail/" + str(self.pk) + "/"
+
     def __str__(self):
         return "%s %s %s %s " % (
             self.last_name,
@@ -234,14 +237,14 @@ class Standard(models.Model):
     ]
 
     grade_level = models.CharField(max_length=20, choices=GRADELEVEL)
-    standard_number = models.CharField(max_length=2, null=False)
-    standard_description = models.CharField(max_length=300, null=False)
-    strand_code = models.CharField(max_length=2, null=False)
+    standard_number = models.CharField(max_length=8, null=False)
+    standard_description = models.CharField(max_length=1000, null=False)
+    strand_code = models.CharField(max_length=8, null=False)
     strand = models.CharField(max_length=50, null=True)
-    strand_description = models.CharField(max_length=300, null=True)
+    strand_description = models.CharField(max_length=600, null=True)
     objective_number = models.CharField(max_length=2, null=False)
-    objective_description = models.CharField(max_length=300, null=False)
-    standard_code = models.CharField(max_length=10, null=False)
+    objective_description = models.CharField(max_length=1000, null=False)
+    standard_code = models.CharField(max_length=16, null=False)
     subject = models.CharField(max_length=30, choices=SUBJECT)
     PDF_link = models.CharField(max_length=300, null=False)
 
@@ -259,12 +262,6 @@ class Standard(models.Model):
 
 
 class Assignment(models.Model):
-    STATUS = [
-        ("Not Assigned", "Not Assigned"),
-        ("Assigned", "Assigned"),
-        ("Incomplete", "Incomplete"),
-        ("Exempt", "Exempt"),
-    ]
     TYPE = [
         ("Repeating Weekly", "Repeating Weekly"),
         ("From Pacing List", "From Pacing List"),
@@ -277,33 +274,50 @@ class Assignment(models.Model):
     )
     name = models.CharField(max_length=500, null=False)
     description = models.CharField(max_length=500, null=False)
-    status = models.CharField(max_length=30, choices=STATUS, null=False)
     type_of = models.CharField(max_length=30, choices=TYPE, null=False)
-    active = models.BooleanField(default=False)
-    late = models.BooleanField(default=0)
-    registered_datetime = models.DateTimeField(auto_now=True)
-    submission_date = models.DateTimeField(null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if self.status == "Assigned":
-            self.submission_date = timezone.now() + timezone.timedelta(days=7)
-            self.active = True
-        super(Assignment, self).save(*args, **kwargs)
 
     class Meta:
         unique_together = ("name", "curriculum", "description")
 
     def get_absolute_url(self):
-        return f"/assignment/{self.pk}"
+        return f"/assignment/{self.id}"
 
     def get_delete_url(self):
-        return f"/assignment/{self.pk}/delete"
+        return f"/assignment/{self.id}/delete"
 
     def get_edit_url(self):
-        return f"/assignment/{self.pk}/edit"
+        return f"/assignment/{self.id}/edit"
 
     def __str__(self):
-        return "%s %s" % (self.name, self.pk)
+        return "%s %s" % (self.name, self.id)
+
+class StudentAssignment(models.Model):
+    STATUS = [
+        ("Not Assigned", "Not Assigned"),
+        ("Assigned", "Assigned"),
+        ("Incomplete", "Incomplete"),
+        ("Exempt", "Exempt"),
+    ]
+
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    status = models.CharField(max_length=30, choices=STATUS, null=False)
+    active = models.BooleanField(default=False)
+    late = models.BooleanField(default=0)
+    registered_datetime = models.DateTimeField(auto_now=True)
+    submission_date = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Student Assignments"
+
+    def save(self, *args, **kwargs):
+        if self.status == "Assigned":
+            self.submission_date = timezone.now()+timezone.timedelta(days=7)
+            self.active = True
+        super(StudentAssignment, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "%s -> %s" % (str(self.student), self.assignment.name)
 
 
 class GradeBook(models.Model):
