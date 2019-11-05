@@ -418,7 +418,7 @@ def assignment_upload(request):
         curriculum = Curriculum.objects.filter(grade_level=grade_level,
                                                subject=subject,
                                                name=curriculum)
-        print("curriculum is %s" % curriculum)
+        #print("curriculum is %s" % curriculum)
         if curriculum:
             try:
                 assignment, created = Assignment.objects.get_or_create(name=name,
