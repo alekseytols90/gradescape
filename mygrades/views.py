@@ -29,7 +29,7 @@ from mygrades.filters import (
     AssignmentFilter,
     StandardFilter,
     GradeBookFilter,
-    # TeacherFilter
+    TeacherFilter
 
 )
 from mygrades.forms import (
@@ -639,7 +639,7 @@ def assignment_delete_view(request, id):
 def enroll_student_view(request):
     qs = Curriculum.objects.all()
     my_title = (
-        "Add a Curriculum to Student Gradebook"
+        "Add a Curriculum to Student's Gradebook"
     )
     form = CurriculumEnrollmentForm(request.POST or None, request=request)
     if form.is_valid():
@@ -647,6 +647,7 @@ def enroll_student_view(request):
     template_name = "enroll_student_view.html"
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
+    return redirect("/home")
 
 
 @login_required
