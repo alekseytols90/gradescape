@@ -189,25 +189,19 @@ def crawl(request):
 @login_required
 def crawler(request, site_name=None):
     template_name = "report_page.html"
-    form = request.POST
-    if site_name == 'Dream Box':
+    if site_name == 'Dreambox':
         response = get_dream_box_data()
-    elif site_name == 'Epic Live':
+    elif site_name == 'Epic Live Attendance':
         response = get_epiclive_data()
     elif site_name == 'Reading Eggs':
         response = get_reading_eggs_data()
-    elif site_name == 'Learning Wood':
+    elif site_name == 'Compass':
         response = get_learning_wood_data()
         print('response => \n', response)
-    elif site_name == 'Clever':
-        response = get_clever_data()
+    elif site_name == 'MyON':
+        response = get_my_on_data()
     elif site_name == 'all':
-        a = get_epiclive_data()
-        b = get_dream_box_data()
-        c = get_reading_eggs_data()
-        d = get_clever_data()
-        e = get_learning_wood_data()
-        response = {'data': (a, b, c, d, e), 'site': "all"}
+        response = get_all_data()
     else:
         response = {"status_code": "204", 'message': "Site not handled, Invalid URL"}
 
@@ -218,41 +212,61 @@ def crawler(request, site_name=None):
                 save_grade(request, resp, resp['site'])
         else:
             save_grade(request, response, site_name)
+        # return redirect('/grades')
 
     return render(request, template_name, response)
 
 
+def get_registrar(response):
+    presents = []
+    for i in response['data'].values():
+        if i['attendance'] == 'Present':
+            presents.append(i['epic_id'])
+    return collections.Counter(presents)
+
+
 def save_grade(request, response, site_name):
+    registered = []
+    if site_name == 'Epic Live Attendance':
+        registrar = get_registrar(response)
     for key, value in response['data'].items():
-        student = Student.objects.filter(first_name__exact=value['first_name']).filter(
-            last_name__exact=value['last_name'])
-        curriculum_name = site_name.replace(' ', '').lower()
         try:
-            curriculum = Curriculum.objects.filter(name__contains=curriculum_name)[0]
+            student = Student.objects.filter(first_name__exact=value['first_name']).filter(
+                last_name__exact=value['last_name'])[0]
+            curriculum_name = site_name.replace('Attendance', '').lower().replace(' ', '')
+            print(curriculum_name)
+            student_enrollment = Enrollment.objects.filter(student=student)
+            # student_curriculum_id = student_enrollment.values_list('curriculum_id', flat=True)[0]
+            curriculum = Curriculum.objects.filter(name__icontains=curriculum_name)[0]
+            print(curriculum)
+            # curriculum = Curriculum.objects.filter(id=student_curriculum_id)[0]
+            if student_enrollment:
+                print(student)
+                if curriculum:
+                    form_data = request.POST
+                    if site_name == 'Epic Live Attendance':
+                        epic_id = value['epic_id']
+                        grade = registrar[epic_id] if registrar[epic_id] else 0
+                    elif site_name == 'Compass':
+                        grade = value['score']
+                    elif site_name == 'MyON':
+                        grade = value['previous']
+                    elif site_name == 'Reading Eggs':
+                        grade = value['attendance']
+                    else:
+                        grade = value['lesson_completed']
+                    if student not in registered:
+                        GradeBook.objects.create(student=student,
+                                                 curriculum=curriculum,
+                                                 quarter=form_data['quarter'][0],
+                                                 week=form_data['week'],
+                                                 semester=form_data['semester'],
+                                                 grade=grade)
+                        if site_name == 'Epic Live Attendance':
+                            registered.append(student)
         except IndexError:
+            print('no such student')
             pass
-        if student and curriculum:
-            form_data = request.POST
-            if site_name == 'Epic Live':
-                grade = value['epic_id']
-            elif site_name == 'Learning Wood':
-                grade = value['']
-            elif site_name == 'Clever':
-                grade = value['previous']
-            elif site_name == 'Reading Eggs':
-                grade = ord(value['average_score'])
-            else:
-                grade = value['lesson_completed']
-            try:
-                GradeBook.objects.create(student=student[0],
-                                         curriculum=curriculum,
-                                         quarter=form_data['quarter'][0],
-                                         week=form_data['week'][0],
-                                         semester=form_data['semester'],
-                                         grade=grade)
-            except IntegrityError:
-                print(student, ' information already exist in database')
-                pass
 
 
 @login_required

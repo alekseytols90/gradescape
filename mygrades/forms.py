@@ -289,8 +289,8 @@ class RecordGradeForm(forms.ModelForm):
         fields = [
             "student",
             "curriculum",
-            "complete",
-            "required",
+            # "complete",
+            # "required",
             "quarter",
             "week",
             "grade",
