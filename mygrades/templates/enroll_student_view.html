@@ -1,14 +1,72 @@
-
 {% extends "base.html" %}
 
 {% block content %}
+<h3 align="center">Enrollment</h3>
+<b>Please choose a student and semester in order to begin enrollment.</b>
+<br/><br/>
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+</form>
+<br/>
+
+<form method="POST" action=".">  {% csrf_token %}
+    <table class="table table-sm table-striped">
+    <thead>
+    <tr>
+      <th style="width: 7%">Select</th>
+      <th style="width: 7%">EID</th>
+      <th style="width: 20%">First</th>
+      <th style="width: 20%">Last</th>
+      <th style="width: 22%">Email</th>
+    </tr>
+    <thead>
+    <tbody>
+    {% for object in object_list %}
+
+    <tr>
+        <td align="center"><input type="radio" name="student_pk" value="{{ object.pk }}" required></td><td>{{ object.epicenter_id }}</td><td>{{ object.first_name }}</td><td>{{ object.last_name }}</td><td><small>{{ object.email }}</small></td>
+    </tr>
 
 
+    {% endfor %}
+    </tbody>
+    </table>
 
+    <div class="pagination">
+        <span class="step-links">
+            {% if object_list.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ object_list.previous_page_number }}">previous</a>
+            {% endif %}
 
-<form method='POST' action='.'>  {% csrf_token %}
-  {{ form.as_p }}
-  <button type=submit 'submit'> Enroll </button>
+            <span class="current">
+                Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+            </span>
 
+            {% if object_list.has_next %}
+                <a href="?page={{ object_list.next_page_number }}">next</a>
+                <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <br/>
+    Academic Year and Semester:
+    <select name="semester" required>
+        <option value=""> ----- </option>
+        {% for option in semester_options %}
+        <option value="{{ option }}">{{ option }}</option>
+        {% endfor %}
+    </select><br/>
+    <br/>
+    <input class="btn btn-primary" type="submit" value="Continue">
+</form>
+
+<!-- 
+<form action="https://www.epicliveservices.com/admin/logout/">
+    <input type="submit" value="Logout of System Here" >
+</form> -->
 
 {% endblock %}
+
+

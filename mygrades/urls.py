@@ -14,7 +14,8 @@ from mygrades.views import (
     curriculum_list_view,
     curriculum_update_view,
     curriculum_delete_view,
-    enroll_student_view,
+    enroll_student_step1,
+    enroll_student_step2,
     crawl,
     standard_create_view,
     standard_list_view,
@@ -46,7 +47,8 @@ from mygrades.views import (
     teacher_setup_view,
     teacher_list_view,
     roster_list_view,
-    crawler
+    crawler,
+    api_curriculum_list
 )
 
 urlpatterns = [
@@ -71,7 +73,8 @@ urlpatterns = [
     path("curriculum/<int:id>/delete/", curriculum_delete_view),
     path("curriculum/<int:id>/edit/", curriculum_update_view),
     path("curriculum-assignments/", curriculum_assignment_list),
-    path("enroll-student/", enroll_student_view),
+    path("enroll-student/", enroll_student_step1, name='enroll_student_step1'),
+    path("enroll-student/<str:semester>/<int:student_pk>/", enroll_student_step2, name='enroll_student_step2'),
     path("standard-create/", standard_create_view),
     path("standard/", standard_list_view),
     path("standard-update/", standard_list_view),
@@ -98,6 +101,7 @@ urlpatterns = [
     path("teachers-setup/", teacher_setup_view),
     path("roster/", roster_list_view),
     url(r'^api/crawler/(?P<site_name>.*)/$', crawler, name="crawler"),
+    url(r'^api/curriculum/$', api_curriculum_list),
 
     # path("send-schedule/", ),
     # path("late-assignment/", ),

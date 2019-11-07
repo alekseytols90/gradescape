@@ -183,12 +183,47 @@ class Student(models.Model):
 
 
 class Enrollment(models.Model):
+    GRADASSIGN = [
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ]
+
+    RECORDED = [("Manual", "Manual"),
+                ("Automatic", "Automatic"),
+                ]
+
+    LEVEL = [("Core", "Core"),
+             ("Supplemental", "Supplemental"),
+             ]
+
+    TRACKING = [
+        ("Repeating Weekly", "Repeating Weekly"),
+        ("From Pacing List", "From Pacing List"),
+    ]
+
     student = models.ForeignKey(
         Student, on_delete=models.CASCADE, related_name="student_enrollment"
     )
     curriculum = models.ForeignKey(
         Curriculum, on_delete=models.CASCADE, related_name="curriculum_enrollment"
     )
+
+    academic_semester = models.CharField(max_length=16)
+    tracking = models.CharField(max_length=50, choices=TRACKING)
+    required = models.BooleanField(default=False) 
+    semesterend = models.DateTimeField()
+    weight = models.IntegerField(null=True, blank=True)
+    level = models.CharField(max_length=20, choices=LEVEL)
+    gradassign = models.CharField(max_length=5, choices=GRADASSIGN, null=True, blank=True)
+    recorded_from = models.CharField(max_length=50, choices=RECORDED)
+
+    #IF AUTOMATIC IS SELECTED FOR "recorded_from" then ask for this information:
+    username = models.CharField(max_length=50, blank=True)
+    password = models.CharField(max_length=50, blank=True)
+    loginurl = models.CharField(max_length=100, blank=True)
 
     class Meta:
         unique_together = ("curriculum", "student")
