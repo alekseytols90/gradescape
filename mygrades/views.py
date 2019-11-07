@@ -757,3 +757,26 @@ class StudentAssignment(View):
 
         return render(request, template_name=self.template_name,
                       context={"student": student, "assignments": assignments})
+
+
+    # class StudentAssignment(View):
+    # template_name = "student-assignments.html"
+
+    # def get(self, request, id):
+    #     student = get_object_or_404(Student, id=id)
+    #     assignment_filter = AssignmentFilter(request.GET, queryset=qs)
+    #     try:
+    #         exempt_assignment = ExemptAssignment.objects.get(student=student)
+    #     except Exception as e:
+    #         exempt_assignment = None
+    #         assignments = Assignment.objects.filter(curriculum=student.curriculum)
+
+    #     if exempt_assignment:
+    #         exempt_assignment_ids = [x.id for x in exempt_assignment.assignments.all()]
+    #         assignments = Assignment.objects.filter(curriculum=student.curriculum).exclude(
+    #             id__in=exempt_assignment_ids).order_by("id")
+
+    #     return render(request, template_name=self.template_name,
+    #                   context={"student": student, "assignments": assignments}, "object_list": assignment_filter)
+
+
