@@ -186,15 +186,3 @@ class GradeBookFilter(django_filters.FilterSet):
     class Meta:
         model = GradeBook
         fields = {}
-
-class TeacherFilter(django_filters.FilterSet):
-    first_name = django_filters.CharFilter(
-        lookup_expr="icontains", label="First Name Contains(Complete Name Not Required)"
-    )
-    last_name = django_filters.CharFilter(
-        lookup_expr="icontains", label="Last Name Contains(Complete Name Not Required)"
-    )
-
-    class Meta:
-        model = Teacher
-        fields = {}
