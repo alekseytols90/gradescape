@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+ul {list-style:none; padding-left:2px}
+</style>
+<h3 align="center">Enrollment</h3>
+<b>Student:</b> {{ student.first_name }} {{ student.last_name }}<br/>
+<b>Academic Year and Semester:</b> {{ semester }}<br/>
+<br/>
+<form method="POST" name="enroll_form">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <br/>
+    <input class="btn btn-primary" type="submit" name="enroll" value="Enroll">
+    <input class="btn btn-primary" type="submit" name="enroll_stay" value="Enroll and Add Another Curriculum">
+</form>
+<br/>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+$(document).ready(function() {
+    function update_recorded_from() {
+        var rf_val = $("#id_recorded_from").val();
+        if (rf_val.toLowerCase() == "automatic") {
+            $("#id_username").val("");
+            $("#id_password").val("");
+            $("#id_loginurl").val("");
+            $("#id_username").closest('tr').hide();
+            $("#id_password").closest('tr').hide();
+            $("#id_loginurl").closest('tr').hide();
+        } else if (rf_val.toLowerCase() == "manual") {
+            $("#id_username").closest('tr').show();
+            $("#id_password").closest('tr').show();
+            $("#id_loginurl").closest('tr').show();
+        } else {
+            $("#id_username").val("");
+            $("#id_password").val("");
+            $("#id_loginurl").val("");
+            $("#id_username").closest('tr').hide();
+            $("#id_password").closest('tr').hide();
+            $("#id_loginurl").closest('tr').hide();
+        }
+    }
+
+    function update_curriculum_choices() {
+        var subject_val = $("#id_subject").val();
+        var grade_level_val = $("#id_grade_level").val();
+        if (subject_val && grade_level_val) {
+            $("#id_curriculum").html("<li>Loading...</li>");
+            $.getJSON('/api/curriculum/?subject=' + subject_val.replace(/\s/g,'%20') + '&grade_level=' + grade_level_val.replace(/\s/g,'%20'), function(data) {
+                var curs = "";
+                var count = 1;
+                $.each(data.results, function(i, v) {
+                    curs += '<li><label for="id_curriculum_'+ count +'"><input type="radio" name="curriculum" value="'+ v.id +'" required="" id="id_curriculum_' + count +'">' + v.name +'</label></li>\n';
+                    count += 1;
+                });
+                $("#id_curriculum").html(curs);
+            })
+            .fail(function() {
+            })
+
+        }
+    }
+    $("#id_subject").change(function() { update_curriculum_choices(); });
+    $("#id_grade_level").change(function() { update_curriculum_choices(); });
+    $("#id_recorded_from").change(function() { update_recorded_from(); });
+
+    $("#id_semesterend").datepicker();
+    update_recorded_from();
+
+
+});
+</script>
+{% endblock %}
+
+

@@ -1,5 +1,6 @@
 import csv
 import io
+import datetime
 from urllib.parse import urlparse
 from uuid import uuid4
 
@@ -14,6 +15,7 @@ from django.core.paginator import Paginator
 from django.core.validators import URLValidator
 from django.db import IntegrityError
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
@@ -23,7 +25,11 @@ from django.urls import reverse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.utils import timezone
 from scrapyd_api import ScrapydAPI
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from mygrades.crawler import *
 from mygrades.filters import (
@@ -753,19 +759,103 @@ def assignment_delete_view(request, id):
     context = {"object": obj}
     return render(request, template_name, context)
 
+@login_required
+def enroll_student_step2(request, semester, student_pk):
+    student = get_object_or_404(Student, pk=student_pk)
+    semester_options = generate_semester_choices()
+    if not semester in semester_options:
+        raise Http404
+
+    form = CurriculumEnrollmentForm(student_pk=student_pk, initial={"student":student, "academic_semester":semester})
+
+    # restrict curriculum range for safety, defaults to none if not set during form initialization
+    cqs = Curriculum.objects.filter(
+        grade_level=request.POST.get('grade_level',''),
+        subject=request.POST.get('subject',''))
+
+    if request.method == "POST":
+        form = CurriculumEnrollmentForm(request.POST, curriculum_qs=cqs, student_pk=student_pk, initial={"student":student, "academic_semester":semester})
+
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Successfuly enrolled %s for %s" % (student, form.instance.curriculum))
+
+            if "enroll_stay" in request.POST:
+                # reinit the form with student and semester
+                form = CurriculumEnrollmentForm(student_pk=student_pk, initial={"student":student,"academic_semester":semester})
+            else:
+                return redirect(reverse("enroll_student_step1"))
+
+    template_name = "enroll_student_view_step2.html"
+    context = {"form": form, "student": student, "semester":semester} 
+    return render(request, template_name, context)
+
+
+def generate_semester_choices():
+    """ Generate options for per semester for the current academic year and the next
+
+        1- get current year
+        2- if I'm before Jul 30 of c_year, base:  (c_year-1)-c_year    -> start by c_year-1
+           if I'm after  Jul 30 of c_year, base: c_year-(c_year+1)    -> start by c_year
+
+        Examples:
+        19-20 A
+        19-20 B
+        20-21 A
+        20-21 B
+
+        Formulation:
+        start-(start+1)-A
+        start-(start+1)-B
+        (start+1)-(start+2)-A
+        (start+1)-(start+2)-B
+    """
+    now = timezone.now()
+    current_year = now.year
+    start = current_year
+    july_end = datetime.datetime(current_year,7,30) 
+    july_end_tz_aware = timezone.make_aware(july_end, timezone.get_default_timezone())
+
+    if now < july_end_tz_aware:
+        start = current_year - 1
+
+    options = []
+    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "A"))
+    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "B"))
+    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "A"))
+    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "B"))
+    return options
 
 @login_required
-def enroll_student_view(request):
-    qs = Curriculum.objects.all()
-    my_title = (
-        "Add a Curriculum to Student Gradebook"
-    )
-    form = CurriculumEnrollmentForm(request.POST or None, request=request, teacher_email=request.user.email)
-    if form.is_valid():
-        form.save()
+def enroll_student_step1(request):
+    qs = Student.objects.filter(teacher_email=request.user.email)
+    student_filter = StudentFilter(request.GET, queryset=qs)
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
     template_name = "enroll_student_view.html"
-    context = {"form": form, "title": my_title}
+    semester_options = generate_semester_choices()
+    context = {"object_list": object_list, "filter": student_filter, "semester_options":semester_options}
+
+    if request.method == "POST":
+        try:
+            student_pk = int(request.POST.get('student_pk',[])[0])
+        except Exception as e:
+            return render(request, template_name, context)
+        semester = request.POST.get('semester','')
+        return redirect(reverse("enroll_student_step2", args=[semester, student_pk]))
+
     return render(request, template_name, context)
+
+@login_required
+@api_view(['GET'])
+def api_curriculum_list(request):
+    subject = request.GET.get('subject','')
+    grade_level = request.GET.get('grade_level','')
+    results = []
+    for cur in Curriculum.objects.filter(subject=subject,grade_level=grade_level):
+        results.append({"id":cur.pk,"name":str(cur)})
+    return Response({"results":results})
 
 
 @login_required

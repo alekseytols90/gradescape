@@ -6,7 +6,7 @@ from mygrades.models import (
     Student,
     # Authentication,
     Curriculum,
-    # Enrollment,
+    Enrollment,
     Assignment,
     StudentAssignment,
     Standard,
@@ -15,6 +15,7 @@ from mygrades.models import (
     Teacher,
     GradeBook)
 
+admin.site.register(Enrollment)
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):

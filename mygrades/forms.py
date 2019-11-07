@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.safestring import mark_safe
 from django.db.models import Count, F
+from django.contrib.admin import widgets
 
 from mygrades.models import (
     Student,
@@ -189,27 +190,43 @@ class StudentModelForm(forms.ModelForm):
         return cleaned_epicenter_id
 
 
+SUBJECT_EMPTY = [('','---------')] + Curriculum.SUBJECT
+CURRICULUMGRADE_EMPTY = [('','---------')] + Curriculum.CURRICULUMGRADE
+
 class CurriculumEnrollmentForm(forms.ModelForm):
+    subject = forms.ChoiceField(choices=SUBJECT_EMPTY, required=False) # js filter purposes, value not used
+    grade_level = forms.ChoiceField(choices=CURRICULUMGRADE_EMPTY, required=False) # js filter purposes, value not used 
+
     class Meta:
         model = Enrollment
-        fields = ["student", "curriculum"]
+
+        #weight is not in the form
+        fields = ["student","academic_semester","subject","grade_level","curriculum","tracking","required","semesterend","level","gradassign","recorded_from", "username","password","loginurl"] 
 
         labels = {
-            "student": "Add Curriculum to This Student's Gradebook (Must Be Set UP FIRST)",
-            "curriculum": "Choose a Curriculum",
+            #"student": "Add Curriculum to This Student's Gradebook (Must Be Set UP FIRST)",
+            "curriculum": "Curriculum",
+        }
+        widgets = {
+                'curriculum': forms.RadioSelect(),
+                'semesternd': widgets.AdminSplitDateTime()
         }
 
     def __init__(self, *args, **kwargs):
         instance = kwargs.pop("instance", None)
-        request = kwargs.pop("request", None)
-        teacher_email = kwargs.pop("teacher_email",None)
+        student_pk = kwargs.pop("student_pk",None)
+        cqs = kwargs.pop("curriculum_qs",None)
         super(CurriculumEnrollmentForm, self).__init__(*args, **kwargs)
-        qs = Student.objects.all()
-        if teacher_email:
-            qs = qs.filter(teacher_email=teacher_email)
-
+        qs = Student.objects.filter(pk=student_pk)
         self.fields["student"].queryset = qs.order_by("last_name")
-        self.fields["curriculum"].queryset = Curriculum.objects.all()
+        self.fields["student"].widget = forms.HiddenInput()
+        self.fields["academic_semester"].widget = forms.HiddenInput() 
+
+        self.fields["curriculum"].queryset = Curriculum.objects.none()
+
+        if cqs: # early range restriction on submitted grade_level and subject
+            self.fields["curriculum"].queryset = cqs
+
 
     def save(self):
         m = super(CurriculumEnrollmentForm, self).save(commit=True)
@@ -218,11 +235,6 @@ class CurriculumEnrollmentForm(forms.ModelForm):
             sa = StudentAssignment(student=self.instance.student, assignment=item, status="Not Assigned")
             sa.save()
 
-        #TODO: go finish curriculum list view with editable radio field of assignment status
-        #TODO: check if standards are catching with the assignment
-
-        #TODO: revisit here for enrollment form
-        #TODO: implement push button for weekly assignment
         return m
 
 
