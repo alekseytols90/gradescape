@@ -25,16 +25,16 @@ $(document).ready(function() {
     function update_recorded_from() {
         var rf_val = $("#id_recorded_from").val();
         if (rf_val.toLowerCase() == "automatic") {
+            $("#id_username").closest('tr').show();
+            $("#id_password").closest('tr').show();
+            $("#id_loginurl").closest('tr').show();
+        } else if (rf_val.toLowerCase() == "manual") {
             $("#id_username").val("");
             $("#id_password").val("");
             $("#id_loginurl").val("");
             $("#id_username").closest('tr').hide();
             $("#id_password").closest('tr').hide();
             $("#id_loginurl").closest('tr').hide();
-        } else if (rf_val.toLowerCase() == "manual") {
-            $("#id_username").closest('tr').show();
-            $("#id_password").closest('tr').show();
-            $("#id_loginurl").closest('tr').show();
         } else {
             $("#id_username").val("");
             $("#id_password").val("");
