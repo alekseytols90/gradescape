@@ -24,24 +24,28 @@ from mygrades.views import (
     assignment_list_view,
     assignment_update_view,
     assignment_delete_view,
+    student_assignment_list_view,
     grades_record_view,
     grades_list_view,
     grades_update_view,
     grades_delete_view,
     student_curriculum_schedule,
+    student_curriculum_schedule_detail,
     curriculum_assignment_list,
     standard_upload,
     curriculum_upload,
     assignment_upload,
+    student_upload,
     send_pacing_guide,
     ShowStudents,
-    StudentAssignment,
+    StudentAssignmentView,
     user_login,
     user_logout,
     teacher_update_view,
     teacher_delete_view,
     teacher_setup_view,
     teacher_list_view,
+    roster_list_view,
     crawler
 )
 
@@ -49,6 +53,7 @@ urlpatterns = [
     path("assignment-upload/", assignment_upload, name="assignment_upload"),
     path("curriculum-upload/", curriculum_upload, name="curriculum_upload"),
     path("standard-upload/", standard_upload, name="standard_upload"),
+    path("student-upload/", student_upload, name="student_upload"),
     path('admin/', admin.site.urls),
     path('login/', user_login),
     path('logout/', user_logout),
@@ -59,6 +64,7 @@ urlpatterns = [
     path("students/<int:epicenter_id>/delete/", student_delete_view),
     path("students-setup/", student_setup_view),
     path("curriculum-schedule/", student_curriculum_schedule),
+    path("curriculum-schedule-detail/<int:id>/", student_curriculum_schedule_detail),
     path("curriculum-create/", curriculum_create_view),
     path("curriculum/", curriculum_list_view),
     path("curriculum-update/", curriculum_list_view),
@@ -77,7 +83,8 @@ urlpatterns = [
     path("assignment/<int:id>/delete/", assignment_delete_view),
     path("assignment/<int:id>/edit/", assignment_update_view),
     path("assignment/show-students/", ShowStudents.as_view()),
-    path("assignment/student-assignment/<int:id>/", StudentAssignment.as_view()),
+    path("assignment/student-assignment/<int:id>/", StudentAssignmentView.as_view()),
+    path("student-assignment/<int:sid>/<int:cid>/", student_assignment_list_view, name="student-assignment-list-view"),
     path("send-pacing-guide/", send_pacing_guide),
     path("grades-record/", grades_record_view),
     path("grades/", grades_list_view),
@@ -89,6 +96,7 @@ urlpatterns = [
     path("teachers/<int:id>/edit/", teacher_update_view),
     path("teachers/<int:id>/delete/", teacher_delete_view),
     path("teachers-setup/", teacher_setup_view),
+    path("roster/", roster_list_view),
     url(r'^api/crawler/(?P<site_name>.*)/$', crawler, name="crawler"),
 
     # path("send-schedule/", ),
@@ -100,6 +108,6 @@ urlpatterns = [
 
 # This is required for static files while in development mode. (DEBUG=TRUE)
 # No, not relevant to scrapy or crawling :)
-# if settings.DEBUG:
-#     urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-#     urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+     urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+     urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

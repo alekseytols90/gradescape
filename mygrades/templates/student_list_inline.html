@@ -1,5 +1,8 @@
+<tr>
+<td>{{ object.epicenter_id }}</td><td>{{ object.first_name }}</td><td>{{ object.last_name }}</td><td><small>{{ object.email }}</small></td><td><a href='{{ object.get_edit_url }}' >Edit</a></td>
+</tr>
 
-
+{% comment %}
 <div class='col-20 col-md-50 mb-1 mx-auto'>
 <div class='card'>
  
@@ -36,3 +39,4 @@
   </div>
 </div>
 </div>
+{% endcomment %}

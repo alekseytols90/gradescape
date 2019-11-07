@@ -9,13 +9,22 @@
 
 {% else %}
 
-{{order}}
+<b>Upload rules:</b><br/>
+<ul>
+<li>{{order}}</li>
+<li>
+Please make sure to have double quotation mark (") as quote character while saving csv. Both UTF8 and ISO-8859-1 file types are supported.
+</li>
+<li>
+Only CSV files are accepted.
+</li>
+</ul>
+<br/>
 
 <form method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	<label>Upload Assignments</label>
 	<input type="file" name="file">
-	<p>Only CSV Files Are Accepted</p>
 	<button type = "submit">Upload</button>
 </form>
 
