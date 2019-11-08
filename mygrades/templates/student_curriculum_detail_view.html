@@ -10,7 +10,7 @@
 
 
 {% if active_weights %}
-List of available weights for editing:<br/>
+Adjust the weights of curriculum for these subjects for this student only:<br/>
 {% for w in active_weights %}
 {% for s in w.subjects %}
 <a href="{% url "weight_edit_view" semester=w.sem student_pk=student.pk subject=s %}">{{ w.sem }} {{ s }}</a><br/>
