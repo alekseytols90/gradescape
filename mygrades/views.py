@@ -56,6 +56,7 @@ from mygrades.forms import (
     WeightForm,
     BaseWFSet,
     generate_semester_choices,
+    get_active_sems,
 )
 from mygrades.models import (
     Student,
@@ -962,8 +963,9 @@ def student_curriculum_schedule_detail(request, id):
     my_title = "Student Curriculum Enrollment Detail"
     student = get_object_or_404(Student, pk=id)
     curriculum_filter = CurriculumFilter(request.GET, queryset=student.student_enrollment)
+    active_weights = get_active_sems(student)
     template_name = "student_curriculum_detail_view.html"
-    context = {"student": student, "object_list": curriculum_filter.qs, "filter": curriculum_filter, "title": my_title}
+    context = {"student": student, "active_weights": active_weights, "object_list": curriculum_filter.qs, "filter": curriculum_filter, "title": my_title}
     return render(request, template_name, context)
 
 

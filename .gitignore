@@ -3,3 +3,4 @@
 *.db
 *.out
 .DS_Store
+geckodriver.log

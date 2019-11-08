@@ -8,6 +8,18 @@
 </form>
 <br/>
 
+
+{% if active_weights %}
+Adjust the weights of curriculum for these subjects for this student only:<br/>
+{% for w in active_weights %}
+{% for s in w.subjects %}
+<a href="{% url "weight_edit_view" semester=w.sem student_pk=student.pk subject=s %}">{{ w.sem }} {{ s }}</a><br/>
+{% endfor %}
+{% endfor %}
+<br/>
+{% endif %}
+
+
 <div class='col-80 col-md-100 mb-1 mx-auto'>
 
 <div class='card'>
@@ -31,6 +43,7 @@
                 Ending Date for the Semester or Year (Depending on Curriculum): {{enrollment.curriculum.semesterend}}<br/>
                 <a href="{% url "student-assignment-list-view" enrollment.student.pk enrollment.curriculum.pk %}">View/Edit student's assigments on this course</a>
                 <br/><br/>
+
   
               <a href='{{ enrollment.get_delete_url }}'>Remove {{enrollment.curriculum.name}} From
                 {{student.first_name}}
