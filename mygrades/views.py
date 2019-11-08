@@ -62,7 +62,11 @@ from mygrades.models import (
     GradeBook,
     ExemptAssignment,
     Teacher,
+    
 )
+
+
+
 
 @login_required
 def teacher_upload(request):
@@ -95,7 +99,7 @@ def teacher_upload(request):
         return render(request, template)
 
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
-        _, created = Standard.objects.update_or_create(
+        _, created = Teacher.objects.update_or_create(
             first_name=clear_field(column[0]),
             last_name=clear_field(column[1]),
             email=clear_field(column[2]),
