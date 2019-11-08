@@ -14,20 +14,28 @@
   <a class="nav-link" href="/logout/">&nbsp;Log Out</a>
  
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               Pull Progress
-          </a>
-          <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+               Pull Last Week's Progress
+            </a>
+            <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 
-      <a class="nav-link" href="/api/crawler/Dream Box">Dreambox Data</a>
-      <a class="nav-link" href="/api/crawler/Clever">MyOn Data</a>
-      <a class="nav-link" href="/api/crawler/Epic Live">EPIC clive data</a>
-      <a class="nav-link" href="/api/crawler/Learning Wood">Learning Wood Data</a>
-      <a class="nav-link disabled" href="/api/crawler/">Compass Data</a>
-      <a class="nav-link" href="/api/crawler/Reading Eggs">Reading Eggs Data</a>
-      <a class="nav-link disabled" href="/api/crawler/">Math Seeds Data</a>
-      <a class="nav-link disabled" href="/api/crawler/">SuccessMaker Data</a>
-      <a class="nav-link" href="/api/crawler/all">Pull ALL Data (Patience...)</a>
-     </div>
+                <a class="nav-link" href="/api/crawler/Dreambox">Dreambox Minutes Worked</a>
+                <a class="nav-link" href="/api/crawler/Epic Live Attendance">Epic Live Attendance</a>
+                <a class="nav-link" href="/api/crawler/Compass">Compass Progress</a>
+                <a class="nav-link" href="/api/crawler/Reading Eggs">Reading Eggs Lessons Complete</a>
+                <a class="nav-link disabled" href="/api/crawler/">Reading EggsPress Lessons Complete</a>
+                <a class="nav-link disabled" href="/api/crawler/">Math Seeds Lessons Complete</a>
+                <a class="nav-link" href="/api/crawler/MyON">MyON Minutes Read</a>
+                <a class="nav-link disabled" href="/api/crawler/">MyON Number of Books Read</a>
+                
+                <a class="nav-link disabled" href="/api/crawler/">SuccessMaker Math Minutes Worked</a>
+                <a class="nav-link disabled" href="/api/crawler/">SuccessMaker Reading Minutes Worked</a>
+                <a class="nav-link disabled" href="/api/crawler/">MindPlay Minutes Worked</a>
+                <a class="nav-link disabled" href="/api/crawler/">Edmentum Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Comprehend Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Apex Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Exact Path Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">ACT Method Test Prep Progress</a>
+            </div>
 
     
 
@@ -39,8 +47,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
          
-          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List</a>
-           <a class="nav-link disabled" href="late-assignment/">Pull a Late Assignment Report</a>
+          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on the Student's Screen</a>
+           <a class="nav-link disabled" href="late-assignment/">See Late Assignments</a>
       
            <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
 
@@ -57,12 +65,13 @@
           Students
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/roster">See Your Roster</a>
           <a class="dropdown-item" href="/students-setup">Set Up a Student</a>
           <a class="dropdown-item" href="/students">View or Change Your Student's Information</a>
           <a class="dropdown-item" href="/curriculum-schedule">View or Change Your Student's Curriculum</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Send a Weekly Assignment List on Student Screen</a>
+          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on Student's Screen</a>
            <!-- <a class="dropdown-item" href="/enroll-student/">Enroll a Student in a Course</a> -->
-           <a class="nav-link disabled" href="late-assignment/">Pull a Late Assignment Report</a>
+           <a class="nav-link disabled" href="late-assignment/">See Late Assignments</a>
            <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
            <a class="nav-link disabled" href="report-card/">Create a Report Card</a>
            <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
@@ -89,7 +98,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/standard">View or Edit Standards</a>
-          <a class="dropdown-item" href="/standard-create">Create a New Standard</a>
+          
 
         
         </div>
@@ -113,8 +122,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="nav-link" href="/grades">View or Edit Gradebook</a>
-          <a class="nav-link disabled" href="/grades-record">Record Grades</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Send a Weekly Assignment Lists</a>
+                    <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on Student's Screen</a>
            <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
            <a class="nav-link disabled" href="report-card/">Create a Report Card</a>
         
@@ -126,7 +134,7 @@
     Enrollment
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/enroll-student">Enroll a Student In a Curriculum</a>
+          <a class="dropdown-item" href="/enroll-student">Add a Curriculum to a Student Gradebook</a>
         
         </div>
       </li>
@@ -138,7 +146,7 @@
  
   
         
-          <a class="nav-link disabled" href="/send-pacing-guide">See My Most Progress Report</a>
+          <a class="nav-link disabled" href="/send-pacing-guide">See My Most Recent Progress Report</a>
            <a class="nav-link disabled" href="late-assignment/">This Week's Assignments</a>
       
            <a class="nav-link disabled" href="plp">Late Assignments</a>
@@ -168,9 +176,11 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
        
 
-      <a class="dropdown-item" href="standard-upload/">Upload Standards</a>
-      <a class="dropdown-item" href="curriculum-upload/">Upload Curriculum</a> 
-      <a class="dropdown-item" href="assignment-upload/">Upload Assignments</a> 
+      <a class="dropdown-item" href="/standard-upload/">Upload Standards</a>
+      <a class="dropdown-item" href="/curriculum-upload/">Upload Curriculum</a> 
+      <a class="dropdown-item" href="/assignment-upload/">Upload Assignments</a> 
+      <a class="dropdown-item" href="/student-upload/">Upload Roster</a> 
+      <a class="nav-link disabled" href="/assignment-upload/">Upload Users</a> 
        </div>
       </li>
       <li class="nav-item dropdown">
@@ -186,18 +196,29 @@
       </li>
 
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               Pull Progress
-          </a>
-          <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Pull Last Week's Progress
+            </a>
+            <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 
-      <a class="nav-link disabled" href="api/crawl/">Dreambox Data</a>
-      <a class="nav-link disabled" href="api/crawl/">MyOn Data</a>     
-      <a class="nav-link disabled" href="api/crawl/">Compass Data</a>
-      <a class="nav-link disabled" href="api/crawl/">Reading Eggs Data</a>
-      <a class="nav-link disabled" href="api/crawl/">Math Seeds Data</a>
-      <a class="nav-link disabled" href="api/crawl/">SuccessMaker Data</a>
-      <a class="nav-link disabled" href="api/crawl/">Pull ALL Data (Patience...)</a>
-     </div>
+                <a class="nav-link" href="/api/crawler/Dreambox">Dreambox Minutes Worked</a>
+                <a class="nav-link" href="/api/crawler/Epic Live Attendance">Epic Live Attendance</a>
+                <a class="nav-link" href="/api/crawler/Compass">Compass Progress</a>
+                <a class="nav-link" href="/api/crawler/Reading Eggs">Reading Eggs Lessons Complete</a>
+                <a class="nav-link disabled" href="/api/crawler/">Reading EggsPress Lessons Complete</a>
+                <a class="nav-link disabled" href="/api/crawler/">Math Seeds Lessons Complete</a>
+                <a class="nav-link" href="/api/crawler/MyON">MyON Minutes Read</a>
+                <a class="nav-link disabled" href="/api/crawler/">MyON Number of Books Read</a>
+                
+                <a class="nav-link disabled" href="/api/crawler/">SuccessMaker Math Minutes Worked</a>
+                <a class="nav-link disabled" href="/api/crawler/">SuccessMaker Reading Minutes Worked</a>
+                <a class="nav-link disabled" href="/api/crawler/">MindPlay Minutes Worked</a>
+                <a class="nav-link disabled" href="/api/crawler/">Edmentum Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Comprehend Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Apex Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Exact Path Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">ACT Method Test Prep Progress</a>
+            </div>
 
     
 
@@ -209,10 +230,12 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
          
-          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List</a>
-           <a class="nav-link disabled" href="late-assignment/">Pull a Late Assignment Report</a>
+          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on the Student's Screen</a>
+           <a class="nav-link disabled" href="late-assignment/">See Late Assignments</a>
       
            <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
+
+        </div>
 
         </div>
 </li>
@@ -227,10 +250,11 @@
           Students
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/roster">See Your Roster</a>
           <a class="dropdown-item" href="/students-setup">Set Up a Student</a>
           <a class="dropdown-item" href="/students">View or Change Your Student's Information</a>
           <a class="dropdown-item" href="/curriculum-schedule">View or Change Your Student's Curriculum</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Send a Weekly Assignment List</a>
+          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on the Student's Screen</a>
            <!-- <a class="dropdown-item" href="/enroll-student/">Enroll a Student in a Course</a> -->
            <a class="nav-link disabled" href="late-assignment/">Pull a Late Assignment Report</a>
            <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
@@ -272,7 +296,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/assignment">View or Edit Available Assignments</a>
           <a class="dropdown-item" href="/assignment-create">Create a Custom Assignment</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List</a>
+          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on the Student's Screen</a>
         
         </div>
       </li>
@@ -283,8 +307,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="nav-link disabled" href="/grades">View or Edit Gradebook</a>
-          <a class="nav-link disabled" href="/grades-record">Record Grades</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Send a Weekly Assignment Lists</a>
+                    <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on the Student's Screen</a>
            <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
            <a class="nav-link disabled" href="report-card/">Create a Report Card</a>
         
@@ -293,13 +316,16 @@
 
    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Enrollment
+    
+       Enrollment
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/enroll-student">Enroll a Student In a Curriculum</a>
+          <a class="dropdown-item" href="/enroll-student">Add a Curriculum to a Student Gradebook</a>
         
         </div>
       </li>
+        
+    
 
         {% endifequal %}
 
