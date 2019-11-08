@@ -1,4 +1,4 @@
-from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook
+from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook, Teacher
 import django_filters
 
 
@@ -28,8 +28,7 @@ class TeacherFilter(django_filters.FilterSet):
         lookup_expr="icontains", label="Last Name Contains(Complete Name Not Required)"
     )
    
-
-    class Meta:
+   class:  Meta:
         model = Teacher
         fields = {}
 
