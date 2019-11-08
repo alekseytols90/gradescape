@@ -26,13 +26,14 @@
       </div>
 
 
-
+{% ifequal user.groups.all.0.name "Owner" %}
 
       <a href='{{ object.get_edit_url }}' > Edit ANY Information for:
         {{object.name}}</a> (This will edit settings for this assignment for ALL students)
 
         <a href='{{ object.get_delete_url }}' > Delete 
         {{object.name}}</a> (This will delete this assignment for ALL students, in all curriculum.)
+        {% endif %}
 
        
   </div>
