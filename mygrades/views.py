@@ -1,6 +1,5 @@
 import csv
 import io
-import datetime
 from urllib.parse import urlparse
 from uuid import uuid4
 
@@ -51,6 +50,7 @@ from mygrades.forms import (
     RecordGradeForm,
     SendPacingGuideForm,
     TeacherModelForm,
+    generate_semester_choices,
 )
 from mygrades.models import (
     Student,
@@ -791,40 +791,6 @@ def enroll_student_step2(request, semester, student_pk):
     return render(request, template_name, context)
 
 
-def generate_semester_choices():
-    """ Generate options for per semester for the current academic year and the next
-
-        1- get current year
-        2- if I'm before Jul 30 of c_year, base:  (c_year-1)-c_year    -> start by c_year-1
-           if I'm after  Jul 30 of c_year, base: c_year-(c_year+1)    -> start by c_year
-
-        Examples:
-        19-20 A
-        19-20 B
-        20-21 A
-        20-21 B
-
-        Formulation:
-        start-(start+1)-A
-        start-(start+1)-B
-        (start+1)-(start+2)-A
-        (start+1)-(start+2)-B
-    """
-    now = timezone.now()
-    current_year = now.year
-    start = current_year
-    july_end = datetime.datetime(current_year,7,30) 
-    july_end_tz_aware = timezone.make_aware(july_end, timezone.get_default_timezone())
-
-    if now < july_end_tz_aware:
-        start = current_year - 1
-
-    options = []
-    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "A"))
-    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "B"))
-    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "A"))
-    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "B"))
-    return options
 
 @login_required
 def enroll_student_step1(request):

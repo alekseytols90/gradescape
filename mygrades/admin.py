@@ -15,7 +15,10 @@ from mygrades.models import (
     Teacher,
     GradeBook)
 
-admin.site.register(Enrollment)
+@admin.register(Enrollment)
+class EnrollmentAdmin(admin.ModelAdmin):
+    list_display = ['student','curriculum','weight','level']
+    raw_id_fields = ['student','curriculum']
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):

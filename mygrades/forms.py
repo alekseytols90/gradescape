@@ -1,7 +1,9 @@
+import datetime
 from django import forms
 from django.utils.safestring import mark_safe
 from django.db.models import Count, F
 from django.contrib.admin import widgets
+from django.utils import timezone
 
 from mygrades.models import (
     Student,
@@ -85,6 +87,41 @@ TRACKING = [
     ("Percentage Complete", "Percentage Complete"),
 
 ]
+
+def generate_semester_choices():
+    """ Generate options for per semester for the current academic year and the next
+
+        1- get current year
+        2- if I'm before Jul 30 of c_year, base:  (c_year-1)-c_year    -> start by c_year-1
+           if I'm after  Jul 30 of c_year, base: c_year-(c_year+1)    -> start by c_year
+
+        Examples:
+        19-20 A
+        19-20 B
+        20-21 A
+        20-21 B
+
+        Formulation:
+        start-(start+1)-A
+        start-(start+1)-B
+        (start+1)-(start+2)-A
+        (start+1)-(start+2)-B
+    """
+    now = timezone.now()
+    current_year = now.year
+    start = current_year
+    july_end = datetime.datetime(current_year,7,30) 
+    july_end_tz_aware = timezone.make_aware(july_end, timezone.get_default_timezone())
+
+    if now < july_end_tz_aware:
+        start = current_year - 1
+
+    options = []
+    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "A"))
+    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "B"))
+    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "A"))
+    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "B"))
+    return options
 
 
 def set_css_attr(form):
@@ -203,13 +240,16 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         #weight is not in the form
         fields = ["student","academic_semester","subject","grade_level","curriculum","tracking","required","semesterend","level","gradassign","recorded_from", "username","password","loginurl"] 
 
-        labels = {
-            #"student": "Add Curriculum to This Student's Gradebook (Must Be Set UP FIRST)",
-            "curriculum": "Curriculum",
+        help_texts = {
+            "required": "Number of Minutes or Lessons Required Each Week",
+            "semesterend": "By What Date Should This Curriculum Be Finished?",
+            "level": "Is this CORE (determines pace) or Supplemental?",
+            "recorded_from": "Will you manually enter this progress or will the system retrieve data automatically?",
+            "tracking": "Will These Assignments Come from a Pacing Guide or Repeat Each Week?"
+
         }
         widgets = {
                 'curriculum': forms.RadioSelect(),
-                'semesternd': widgets.AdminSplitDateTime()
         }
 
     def __init__(self, *args, **kwargs):
@@ -221,23 +261,98 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         self.fields["student"].queryset = qs.order_by("last_name")
         self.fields["student"].widget = forms.HiddenInput()
         self.fields["academic_semester"].widget = forms.HiddenInput() 
-
         self.fields["curriculum"].queryset = Curriculum.objects.none()
 
         if cqs: # early range restriction on submitted grade_level and subject
             self.fields["curriculum"].queryset = cqs
 
+    def clean_semesterend(self):
+        sem = self.cleaned_data['semesterend']
+        if sem < timezone.now():
+            raise forms.ValidationError("Semester end must be set to a date in future.")
+        return sem
+
+    def clean_academic_semester(self):
+        as_options = generate_semester_choices()
+        asem = self.cleaned_data['academic_semester']
+        if not asem in as_options:
+            raise forms.ValidationError("Academic semester must be in options: %s" % str(as_options))
+        return asem
+
+    def clean(self):
+        cleaned_data = super().clean()
+        cur = cleaned_data['curriculum']
+        semester = cleaned_data['academic_semester']
+        student = cleaned_data['student']
+        subject = cleaned_data['subject']
+
+        core_enrollment = Enrollment.objects.filter(student=student, academic_semester=semester, curriculum__subject=subject, level="Core")
+
+        if cleaned_data['level'] == "Core":
+            if core_enrollment.count() > 0:
+                self.add_error(None, "A core enrollment already exist for subject \"%s\"." % subject)
+        else: #supplemental
+            if core_enrollment.count() == 0:
+                self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+
+        recorded_from = cleaned_data['recorded_from']
+        username = cleaned_data['username']
+        password = cleaned_data['password']
+        loginurl = cleaned_data['loginurl']
+        if recorded_from == 'Automatic' and not (username and password and loginurl):
+            self.add_error(None, "You must enter username/password/loginurl when recording is set to automatic.")
 
     def save(self):
         m = super(CurriculumEnrollmentForm, self).save(commit=True)
 
+        # distribute weight
+        student = self.cleaned_data['student']
+        academic_semester = self.cleaned_data['academic_semester']
+        distribute_weights_for_sem(student, academic_semester)
+
+        # copy assignments
         for item in self.instance.curriculum.curriculum_assignment.all():
             sa = StudentAssignment(student=self.instance.student, assignment=item, status="Not Assigned")
             sa.save()
 
         return m
 
+# to know which sems/subjects are editable for weight
+# Example:
+# >> get_active_sems(student)
+# [{'sem': '19-20-A', 'subjects': ['Math', 'Science', 'History']}]
+def get_active_sems(student):
+    as_options = generate_semester_choices()
+    active_sems = []
+    for sem in as_options:
+        enrollments = Enrollment.objects.filter(student=student, academic_semester=sem)
+        if enrollments.count() > 0:
+            data = {'sem':sem,'subjects':[]}
+            for enr in enrollments:
+                subject = enr.curriculum.subject
+                if not subject in data['subjects']:
+                    data['subjects'].append(subject)
+            active_sems.append(data)
+    return active_sems
 
+
+# make sure total weight is 100
+# this should be called whenever enroll/withdraw happens
+def distribute_weights_for_sem(student, sem):
+    for subject in Curriculum.SUBJECT:
+        enr_set = Enrollment.objects.filter(academic_semester=academic_semester, student=student, curriculum__subject=subject[0])
+        count = enr_set.count()
+        if count > 0:
+            average = 100 // count
+
+            for enr in enr_set:
+                enr.weight = average
+                enr.save()
+
+            if average*count < 100:
+                remaining = 100 - average*count
+                enr.weight += remaining
+                enr.save()
 
 class StandardSetupForm(forms.ModelForm):
     strand_description = forms.CharField(required=False)
