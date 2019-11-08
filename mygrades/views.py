@@ -449,7 +449,7 @@ def assignment_upload(request):
 def student_upload(request):
     template = "student_upload.html"
     prompt = {
-        'order': "The columns should be: First Name, Last Name, Primary email, Second email (not required), Primary phone, Second phone (not required), Grade, Epicenter ID, Your eMail Address that You Submitted on the Order Form" 
+        'order': "The columns should be: First Name, Last Name, Primary email, Second email (not required), Primary phone, Second phone (not required), Grade, Epicenter ID, Birthdate, Your eMail Address that You Submitted on the Order Form" 
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -485,7 +485,8 @@ def student_upload(request):
             additional_phone_number=clear_field(column[5]),
             grade=clear_field(column[6]),
             epicenter_id=clear_field(column[7]),
-            teacher_email=clear_field(column[8]),
+            birthdate=clear_field(column[8]),
+            teacher_email=clear_field(column[9]),
         )
 
     return redirect("/students")
