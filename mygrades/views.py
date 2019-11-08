@@ -67,7 +67,52 @@ from mygrades.models import (
     GradeBook,
     ExemptAssignment,
     Teacher,
+    
 )
+
+
+
+
+@login_required
+def teacher_upload(request):
+    template = "teacher_upload.html"
+    prompt = {
+        'order': "The columns should be: First Name, Last Name, eMail Address, Syllabus Link, Zoom Link."
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, "Only CSV files may be uploaded.")
+        return render(request, template)
+
+    data_set = ""
+    try:
+        data_set = csv_file.read().decode("UTF8")
+    except Exception as e:
+        csv_file.seek(0)
+        data_set = csv_file.read().decode("ISO-8859-1") 
+
+    io_string = io.StringIO(data_set)
+
+    # header count check
+    header = next(io_string)
+    header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
+    if len(header_clean) != 11:
+        messages.error(request, "Make sure header consists of 5 elements. %s" % prompt['order'])
+        return render(request, template)
+
+    for column in csv.reader(io_string, delimiter=',', quotechar='"'):
+        _, created = Teacher.objects.update_or_create(
+            first_name=clear_field(column[0]),
+            last_name=clear_field(column[1]),
+            email=clear_field(column[2]),
+            syllabus=clear_field(column[3]),
+            zoom=clear_field(column[4])
+        )
+
+    return redirect("/teachers")
 
 
 @csrf_exempt
@@ -454,7 +499,7 @@ def assignment_upload(request):
 def student_upload(request):
     template = "student_upload.html"
     prompt = {
-        'order': "The columns should be: First Name, Last Name, Primary email, Second email (not required), Primary phone, Second phone (not required), Grade, Epicenter ID, Your eMail Address that You Submitted on the Order Form" 
+        'order': "The columns should be: First Name, Last Name, Primary email, Second email (not required), Primary phone, Second phone (not required), Grade, Epicenter ID, Birthdate, Your eMail Address that You Submitted on the Order Form" 
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -490,7 +535,8 @@ def student_upload(request):
             additional_phone_number=clear_field(column[5]),
             grade=clear_field(column[6]),
             epicenter_id=clear_field(column[7]),
-            teacher_email=clear_field(column[8]),
+            birthdate=clear_field(column[8]),
+            teacher_email=clear_field(column[9]),
         )
 
     return redirect("/students")
