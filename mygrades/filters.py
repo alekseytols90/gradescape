@@ -125,8 +125,8 @@ class StandardFilter(django_filters.FilterSet):
         lookup_expr="icontains", label="Subject")
     grade_level = django_filters.CharFilter(
         lookup_expr="icontains", label="Grade Level" )
-    # name = django_filters.CharFilter(
-    #     lookup_expr="icontains", label="Number Contains")
+    standard_code = django_filters.CharFilter(
+        lookup_expr="icontains", label="Name Contains")
     objective_description = django_filters.CharFilter(
         lookup_expr="icontains", label="Objective Description Contains The Words")
 
