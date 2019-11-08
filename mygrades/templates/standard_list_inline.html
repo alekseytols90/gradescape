@@ -22,13 +22,13 @@
       Objective Description-<i><strong>{{object.objective_description}}</strong></i><br/></div>
 
 
-
+{% ifequal user.groups.all.0.name "Owner" %}
 
       <a href='{{ object.get_edit_url }}' > Edit
         {{object.standard_code}}</a><br/>
       <a href='{{ object.get_delete_url }}' > Permanently Delete
         {{object.standard_code}}</a>
-
+{% endif %}
        
   </div>
 </div>
