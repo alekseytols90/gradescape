@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.errorlist {color:#f00;}
+</style>
+<h3 align="center">Weight Edit Form</h3>
+<br/><br/>
+<b>Student:</b> {{ student.first_name }} {{ student.last_name }}<br/>
+<b>Academic Year and Semester:</b> {{ semester }}<br/>
+<b>Subject:</b> {{ subject }}<br/>
+<br/>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ formset.non_form_errors }}
+    {{ formset.management_form }}
+    <table class="table table-sm table-striped">
+        <thead>
+            <th>Curriculum</th>
+            <th>Level</th>
+            <th>Weight</th>
+        <tbody>
+        {% for form in formset %}
+        <tr>
+            <td>{{ form.instance.curriculum }}</td>
+            <td>{{ form.instance.level }}</td>
+            <td>{{ form.as_p }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+</form>
+
+
+{% endblock %}
+
+

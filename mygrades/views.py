@@ -14,6 +14,7 @@ from django.core.paginator import Paginator
 from django.core.validators import URLValidator
 from django.db import IntegrityError
 from django.forms import inlineformset_factory
+from django.forms import modelformset_factory
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -50,11 +51,14 @@ from mygrades.forms import (
     RecordGradeForm,
     SendPacingGuideForm,
     TeacherModelForm,
+    WeightForm,
+    BaseWFSet,
     generate_semester_choices,
 )
 from mygrades.models import (
     Student,
     Curriculum,
+    Enrollment,
     Standard,
     Assignment,
     StudentAssignment,
@@ -811,6 +815,24 @@ def enroll_student_step1(request):
         semester = request.POST.get('semester','')
         return redirect(reverse("enroll_student_step2", args=[semester, student_pk]))
 
+    return render(request, template_name, context)
+
+@login_required
+def weight_edit_view(request, semester, student_pk, subject):
+    enrollment_instances = []
+    student = get_object_or_404(Student,pk=student_pk)
+    qs = Enrollment.objects.filter(academic_semester=semester, student=student, curriculum__subject=subject)
+
+    WFSet = modelformset_factory(Enrollment, form=WeightForm, extra=0, can_delete=False, formset=BaseWFSet)
+    formset = WFSet(queryset=qs)
+    if request.method == "POST":
+        formset = WFSet(request.POST, queryset=qs)
+        if formset.is_valid():
+            formset.save()
+            messages.info(request, "Successfuly set the weights!")
+
+    template_name = "weight_form.html"
+    context = {"formset": formset, "student":student, "semester":semester, "subject":subject}
     return render(request, template_name, context)
 
 @login_required
