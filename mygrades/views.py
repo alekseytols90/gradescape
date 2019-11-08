@@ -803,13 +803,13 @@ def enroll_student_step2(request, semester, student_pk):
 @login_required
 def enroll_student_step1(request):
     qs = Student.objects.filter(teacher_email=request.user.email)
-    student_filter = StudentFilter(request.GET, queryset=qs)
+    #student_filter = StudentFilter(request.GET, queryset=qs)
     p = Paginator(student_filter.qs, 10)
     page = request.GET.get('page',1)
     object_list = p.get_page(page)
     template_name = "enroll_student_view.html"
     semester_options = generate_semester_choices()
-    context = {"object_list": object_list, "filter": student_filter, "semester_options":semester_options}
+    context = {"object_list": object_list, "semester_options":semester_options}
 
     if request.method == "POST":
         try:

@@ -294,7 +294,7 @@ class Standard(models.Model):
         return f"/standard/{self.pk}/edit"
 
     def __str__(self):
-        return "%s %s" % (self.strand_code, self.pk)
+        return "%s %s %s" % (self.standard_code, self.subject, self.pk)
 
 
 class Assignment(models.Model):
