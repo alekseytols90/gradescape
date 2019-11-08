@@ -28,7 +28,7 @@ class TeacherFilter(django_filters.FilterSet):
         lookup_expr="icontains", label="Last Name Contains(Complete Name Not Required)"
     )
    
-    class: Meta:
+    class Meta:
         model = Teacher
         fields = {}
 
