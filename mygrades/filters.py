@@ -19,6 +19,19 @@ GRADELEVEL = [
         ("12", "12"),
     ]
 
+class TeacherFilter(django_filters.FilterSet):
+    
+    first_name = django_filters.CharFilter(
+        lookup_expr="icontains", label="First Name Contains(Complete Name Not Required)"
+    )
+    last_name = django_filters.CharFilter(
+        lookup_expr="icontains", label="Last Name Contains(Complete Name Not Required)"
+    )
+   
+
+    class Meta:
+        model = Teacher
+        fields = {}
 
 class StudentFilter(django_filters.FilterSet):
     epicenter_id = django_filters.CharFilter(

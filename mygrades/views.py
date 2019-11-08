@@ -37,7 +37,7 @@ from mygrades.filters import (
     AssignmentFilter,
     StandardFilter,
     GradeBookFilter,
-    # TeacherFilter
+    TeacherFilter
 
 )
 from mygrades.forms import (
