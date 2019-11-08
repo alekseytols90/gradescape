@@ -213,7 +213,7 @@ class Enrollment(models.Model):
 
     academic_semester = models.CharField(max_length=16)
     tracking = models.CharField(max_length=50, choices=TRACKING)
-    required = models.BooleanField(default=False) 
+    required = models.CharField(max_length=20, blank=True)
     semesterend = models.DateTimeField()
     weight = models.IntegerField(null=True, blank=True)
     level = models.CharField(max_length=20, choices=LEVEL)
