@@ -1,4 +1,4 @@
-from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook, Teacher
+from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook, StudentAssignment, Teacher
 import django_filters
 
 
@@ -151,6 +151,18 @@ class AssignmentFilter(django_filters.FilterSet):
 
     class Meta:
         model = Assignment
+        fields = {}
+
+
+class StudentAssignmentFilter(django_filters.FilterSet):
+    
+    assignment = django_filters.CharFilter(
+        lookup_expr="icontains", label="Assignment Name")
+    status = django_filters.CharFilter(
+        lookup_expr="icontains", label="Assignment Status")
+    
+    class Meta:
+        model = StudentAssignment
         fields = {}
 
 

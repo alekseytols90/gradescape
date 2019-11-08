@@ -160,6 +160,7 @@ class Student(models.Model):
     grade = models.CharField(max_length=20, choices=GRADELEVEL, null=False)
     curriculum = models.ForeignKey('curriculum', null=True, blank=True, on_delete=models.SET_NULL)
     teacher_email = models.CharField(max_length=75, null=False)
+    birthdate = models.CharField(max_length=30, null=True)
 
     def get_absolute_url(self):
         return f"/students/{self.epicenter_id}"

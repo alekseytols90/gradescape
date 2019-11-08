@@ -78,6 +78,18 @@ WSGI_APPLICATION = 'mygrades.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'gradenoscrape',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+"""
+DATABASES = {
+    'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
@@ -85,12 +97,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
+"""
 
 #put back in for heroku
-DATABASES['default'] = dj_database_url.config(default='postgres://ponfgepduftckz:0f44aed0dca4ed51ce91f096a97c781e88f7150c9c9e1d03d2aa274ce26d8638@ec2-50-19-95-77.compute-1.amazonaws.com:5432/dfktbi2b4vnfo6')
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
-
+# DATABASES['default'] = dj_database_url.config(default='postgres://vkcxtktovxxukl:f31892c90866b0ac64b889a0cd1929e88600d521aea04ba17f72c7a128cdd398@ec2-54-235-163-246.compute-1.amazonaws.com:5432/dcap1le97kqpc9')
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
