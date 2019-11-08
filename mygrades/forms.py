@@ -1,5 +1,6 @@
 import datetime
 from django import forms
+from django.forms import BaseModelFormSet 
 from django.utils.safestring import mark_safe
 from django.db.models import Count, F
 from django.contrib.admin import widgets
@@ -245,7 +246,11 @@ class CurriculumEnrollmentForm(forms.ModelForm):
             "semesterend": "By What Date Should This Curriculum Be Finished?",
             "level": "Is this CORE (determines pace) or Supplemental?",
             "recorded_from": "Will you manually enter this progress or will the system retrieve data automatically?",
-            "tracking": "Will These Assignments Come from a Pacing Guide or Repeat Each Week?"
+            "tracking": "Will These Assignments Come from a Pacing Guide or Repeat Each Week?",
+            "gradassign": "In which gradable assignment will this curriculum be included?",
+            "username": "What is your username into the site from which this progress will be pulled?",
+            "password": "What is your password into the site from which this progress will be pulled?",
+            "loginurl": "What is EXACT URL - Copy and Paste it here - of the page on which the student progress is found?",
 
         }
         widgets = {
@@ -340,7 +345,7 @@ def get_active_sems(student):
 # this should be called whenever enroll/withdraw happens
 def distribute_weights_for_sem(student, sem):
     for subject in Curriculum.SUBJECT:
-        enr_set = Enrollment.objects.filter(academic_semester=academic_semester, student=student, curriculum__subject=subject[0])
+        enr_set = Enrollment.objects.filter(academic_semester=sem, student=student, curriculum__subject=subject[0])
         count = enr_set.count()
         if count > 0:
             average = 100 // count
@@ -578,3 +583,28 @@ class TeacherModelForm(forms.ModelForm):
             instance = kwargs.pop("instance", None)
             request = kwargs.pop("request", None)
             super(TeacherModelForm, self).__init__(*args, **kwargs)
+
+class WeightForm(forms.ModelForm):
+    class Meta: 
+        model = Enrollment
+        fields = ('curriculum', 'level', 'weight',)
+
+    def __init__(self, *args, **kwargs):
+        super(WeightForm, self).__init__(*args, **kwargs)
+        self.fields['curriculum'].queryset = Curriculum.objects.filter(pk=self.instance.curriculum.pk)
+        self.fields['curriculum'].widget = forms.HiddenInput()
+        self.fields['level'].widget = forms.HiddenInput() 
+        self.fields['weight'].label = ""
+
+
+class BaseWFSet(BaseModelFormSet):
+    def clean(self):
+        if any(self.errors):
+            return
+
+        total = 0
+        for form in self.forms:
+            total += form.cleaned_data.get('weight')
+
+        if total != 100:
+            raise forms.ValidationError("Total weight must be 100.")
