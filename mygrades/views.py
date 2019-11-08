@@ -26,6 +26,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from scrapyd_api import ScrapydAPI
 
 from rest_framework.decorators import api_view
@@ -773,9 +774,10 @@ def enroll_student_step2(request, semester, student_pk):
     form = CurriculumEnrollmentForm(student_pk=student_pk, initial={"student":student, "academic_semester":semester})
 
     # restrict curriculum range for safety, defaults to none if not set during form initialization
+    subject = request.POST.get('subject','')
     cqs = Curriculum.objects.filter(
         grade_level=request.POST.get('grade_level',''),
-        subject=request.POST.get('subject',''))
+        subject=subject)
 
     if request.method == "POST":
         form = CurriculumEnrollmentForm(request.POST, curriculum_qs=cqs, student_pk=student_pk, initial={"student":student, "academic_semester":semester})
@@ -783,6 +785,7 @@ def enroll_student_step2(request, semester, student_pk):
         if form.is_valid():
             form.save()
             messages.info(request, "Successfuly enrolled %s for %s" % (student, form.instance.curriculum))
+            messages.info(request, mark_safe("Weights are distributed for subject %s, do not forget to edit weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
 
             if "enroll_stay" in request.POST:
                 # reinit the form with student and semester

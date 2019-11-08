@@ -345,7 +345,7 @@ def get_active_sems(student):
 # this should be called whenever enroll/withdraw happens
 def distribute_weights_for_sem(student, sem):
     for subject in Curriculum.SUBJECT:
-        enr_set = Enrollment.objects.filter(academic_semester=academic_semester, student=student, curriculum__subject=subject[0])
+        enr_set = Enrollment.objects.filter(academic_semester=sem, student=student, curriculum__subject=subject[0])
         count = enr_set.count()
         if count > 0:
             average = 100 // count
