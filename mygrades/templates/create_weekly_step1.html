@@ -3,11 +3,11 @@
 {% block content %}
 <br/>
 <center>
-    <a class="btn btn-primary btn-lg" href="{% url "create_weekly_step2" semester=semester student_pk=0 %}" role="button">Generate a Weekly Assignment List on Student's Screen</a><br/><br/>
-    <a class="btn btn-primary btn-lg" href="{% url "create_weekly_step2" semester=semester student_pk=0 %}?preview=false" role="button">Skip Preview and Send List to Student's Screen</a><br/><br/>
+    <a class="btn btn-primary btn-lg" href="{% url "create_weekly_step2" semester=semester student_pk=0 %}" role="button">Preview a New Assignment List for All Students Listed Below</a><br/><br/>
+    <a class="btn btn-primary btn-lg" href="{% url "create_weekly_step2" semester=semester student_pk=0 %}?preview=false" role="button">Skip Your Preview and Update All Student Screens Listed Below With New Assignments"</a><br/><br/>
     <h3>OR</h3><br/>
 </center>
-<h4 align="center"> Generate Preview For a Particular Student </h4>
+<h4 align="center">Preview a New Assignment List for ONE STUDENT ONLY By Filtering Here</h4>
 <form method="get">
     {{ filter.form.as_p }}
     <button type="submit">Search</button>

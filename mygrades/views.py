@@ -860,11 +860,11 @@ def enroll_student_step1(request):
     object_list = p.get_page(page)
     template_name = "enroll_student_view.html"
     semester_options = generate_semester_choices()
-    context = {"object_list": object_list, "semester_options":semester_options}
+    context = {"object_list": object_list, "semester_options":semester_options, "filter":student_filter}
 
     if request.method == "POST":
         try:
-            student_pk = int(request.POST.get('student_pk',[])[0])
+            student_pk = int(request.POST.get('student_pk',0))
         except Exception as e:
             return render(request, template_name, context)
         semester = request.POST.get('semester','')
