@@ -61,7 +61,7 @@
           <a class="dropdown-item" href="/students">View or Change Your Student's Information</a>
           <a class="dropdown-item" href="/curriculum-schedule">View or Change Your Student's Curriculum</a>
           <a class="dropdown-item" href="/roster">See Your Roster</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Send a Weekly Assignment List</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Send a Weekly Assignment List</a>
            <!-- <a class="dropdown-item" href="/enroll-student/">Enroll a Student in a Course</a> -->
            <a class="nav-link disabled" href="late-assignment/">Pull a Late Assignment Report</a>
            <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
@@ -103,7 +103,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/assignment">View or Edit Available Assignments</a>
           <a class="dropdown-item" href="/assignment-create">Create a Custom Assignment</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List</a>
         
         </div>
       </li>
@@ -115,7 +115,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="nav-link" href="/grades">View or Edit Gradebook</a>
           <a class="nav-link disabled" href="/grades-record">Record Grades</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Send a Weekly Assignment Lists</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Send a Weekly Assignment Lists</a>
            <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
            <a class="nav-link disabled" href="report-card/">Create a Report Card</a>
         
@@ -211,7 +211,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
          
-          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List</a>
            <a class="nav-link disabled" href="late-assignment/">Pull a Late Assignment Report</a>
       
            <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
@@ -275,7 +275,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/assignment">View or Edit Available Assignments</a>
           <a class="dropdown-item" href="/assignment-create">Create a Custom Assignment</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List</a>
         
         </div>
       </li>
