@@ -967,6 +967,38 @@ def create_weekly_home(request):
     return render(request, template_name, context)
 
 @login_required
+def see_weekly_home(request):
+    my_title = "Student Weekly Assignment"
+
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, email=request.user.email)
+        return redirect(reverse("see_weekly_detail", args=[student.pk]))
+
+    qs = Student.objects.filter(teacher_email=request.user.email)
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "student_weekly_home.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title}
+    return render(request, template_name, context)
+
+@login_required
+def see_weekly_detail(request, student_pk):
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    assignments = StudentAssignment.objects.filter(student=student, status="Assigned")
+    template_name = "student_weekly_detail.html"
+    context = {"object": student, "assignments": assignments}
+    return render(request, template_name, context)
+
+
+@login_required
 @api_view(['GET'])
 def api_curriculum_list(request):
     subject = request.GET.get('subject','')

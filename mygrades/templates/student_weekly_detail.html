@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 align="center"> {{ object.get_full_name }}'s Weekly Assignment List </h3>
+<br/>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <th>Current Assignments</th>
+    </thead>
+    <tbody>
+        {% for assignment in assignments %}
+        <tr>
+            <td>
+                {{ assignment.assignment.name }}<br/>
+                <small>{{ assignment.assignment.description }}</small>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+

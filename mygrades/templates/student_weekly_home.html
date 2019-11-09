@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 align="center"> Scroll Down to View All or Use the Filter Options </h3>
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+</form>
+<br/>
+
+<table class="table table-sm table-striped">
+<thead>
+<tr>
+  <th style="width: 7%">EID</th>
+  <th style="width: 20%">First</th>
+  <th style="width: 20%">Last</th>
+  <th style="width: 22%">Email</th>
+  <th></th>
+</tr>
+<thead>
+<tbody>
+{% for object in object_list %}
+
+{% include 'student_weekly_home_inline.html'%}
+
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}">next</a>
+            <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
+
+
