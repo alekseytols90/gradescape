@@ -63,8 +63,9 @@ class AssignmentAdmin(admin.ModelAdmin):
 @admin.register(StudentAssignment)
 class StudentAssignmentAdmin(admin.ModelAdmin):
     list_filter = ("status","active","late")
-    raw_id_fields = ['assignment','student']
-    fields = ['student','assignment','status', 'submission_date', 'registered_datetime', 'active', 'late']
+    list_display = ("__str__","status")
+    raw_id_fields = ['assignment','student', 'enrollment']
+    fields = ['student','assignment', 'enrollment', 'status', 'submission_date', 'registered_datetime', 'active', 'late']
     readonly_fields = ('active', 'late', 'registered_datetime')
 
 

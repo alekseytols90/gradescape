@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br/>
+<center>
+    <a class="btn btn-primary btn-lg" href="{% url "create_weekly_step2" semester=semester student_pk=0 %}" role="button">Generate a Weekly Assignment List on Student's Screen</a><br/><br/>
+    <a class="btn btn-primary btn-lg" href="{% url "create_weekly_step2" semester=semester student_pk=0 %}?preview=false" role="button">Skip Preview and Send List to Student's Screen</a><br/><br/>
+    <h3>OR</h3><br/>
+</center>
+<h4 align="center"> Generate Preview For a Particular Student </h4>
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+</form>
+<br/>
+
+<table class="table table-sm table-striped">
+<thead>
+<tr>
+  <th style="width: 7%">EID</th>
+  <th style="width: 20%">First</th>
+  <th style="width: 20%">Last</th>
+  <th style="width: 22%">Email</th>
+  <th></th>
+</tr>
+<thead>
+<tbody>
+{% for object in object_list %}
+
+{% include 'student_list_inline.html'%}
+
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}">next</a>
+            <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<!-- 
+<form action="https://www.epicliveservices.com/admin/logout/">
+    <input type="submit" value="Logout of System Here" >
+</form> -->
+
+{% endblock %}
+

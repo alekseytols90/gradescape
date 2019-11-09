@@ -6,14 +6,11 @@
 #status_form ul {list-style:none}
 </style>
 <div class="container mt-3">
-    <b>Student: </b> {{ student.first_name }} {{student.last_name}}<br/>
-    <b>Curriculum:</b> {{ curriculum.name }}<br/>
-    <br/>
-
     <form method="post" id="status_form">
         {{ formset.management_form }}
         {% csrf_token %}
         <table class="table table-striped table-bordered">
+            <!-- group by student then cur -->
             {% for form in formset.forms %}
                 {% if forloop.first %}
                     <thead>
@@ -26,7 +23,7 @@
                 {% endif %}
                 <tr> 
                     {% for field in form.visible_fields %}
-                    <td {% if field.name == "desc" %}width="400"{% endif %}>
+                    <td {% if field.name == "name" %}width="300"{% endif %}>
                             {# Include the hidden fields in the form #}
                             {% if forloop.first %}
                                 {% for hidden in form.hidden_fields %}
@@ -41,13 +38,10 @@
             {% endfor %}
 
         </table>
-        <input type="submit" value="Save"/>
+        <input type="submit" value="Send Lists To Student Screens"/>
 
-        {% comment %}
-        <input type="text" name="student_id" id="student_id" value="{{student.id}}" hidden="hidden">
-        <button type="button" id="student-assignments" class="btn btn-primary" name="submit">Exempt</button>
-        {% endcomment %}
-    </form>
+
+
 </div>
 {% endblock %}
 
