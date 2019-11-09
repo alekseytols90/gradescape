@@ -317,7 +317,7 @@ class CurriculumEnrollmentForm(forms.ModelForm):
 
         # copy assignments
         for item in self.instance.curriculum.curriculum_assignment.all():
-            sa = StudentAssignment(student=self.instance.student, assignment=item, status="Not Assigned")
+            sa = StudentAssignment(student=self.instance.student, assignment=item, enrollment=m, status="Not Assigned")
             sa.save()
 
         return m
@@ -521,17 +521,17 @@ class PlainTextWidget(forms.Widget):
 
 
 class StudentAssignmentForm(forms.ModelForm):
-    name = forms.CharField(widget=PlainTextWidget, required=False, label="Assignment Name")
+    desc = forms.CharField(widget=PlainTextWidget, required=False, label="Assignment")
     status = forms.ChoiceField(choices=StudentAssignment.STATUS, widget=forms.RadioSelect())
 
     class Meta:
         model = StudentAssignment
-        fields = ('name','status',)
+        fields = ('desc','status',)
 
     def __init__(self, *args, **kwargs):
         super(StudentAssignmentForm, self).__init__(*args, **kwargs)
         if self.instance.pk != None:
-            self.fields['name'].initial = self.instance.assignment.name
+            self.fields['desc'].initial = self.instance.assignment.name + "<br/><small>" + self.instance.assignment.description + "</small>"
 
 
 class SendPacingGuideForm(forms.ModelForm):
@@ -608,3 +608,20 @@ class BaseWFSet(BaseModelFormSet):
 
         if total != 100:
             raise forms.ValidationError("Total weight must be 100.")
+
+class StatusChangeForm(forms.Form):
+    assignment = forms.ModelChoiceField(queryset=StudentAssignment.objects.all())
+    student_name = forms.CharField(widget=PlainTextWidget, required=False, label="Student Name")
+    assignment_description = forms.CharField(widget=PlainTextWidget, required=False, label="Assignment")
+    new_status = forms.ChoiceField(choices=StudentAssignment.STATUS)
+
+    def __init__(self, *args, **kwargs):
+        super(StatusChangeForm, self).__init__(*args, **kwargs)
+        self.fields['assignment'].widget = forms.HiddenInput()
+
+    
+    def save(self):
+        assignment = self.cleaned_data['assignment']
+        assignment.status = self.cleaned_data['new_status']
+        assignment.save()
+

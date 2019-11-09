@@ -174,6 +174,12 @@ class Student(models.Model):
     def get_curriculum_list_url(self):
         return f"/curriculum-schedule-detail/" + str(self.pk) + "/"
 
+    def get_full_name(self):
+        return "%s %s" % (
+            self.first_name,
+            self.last_name
+        )
+
     def __str__(self):
         return "%s %s %s %s " % (
             self.last_name,
@@ -336,6 +342,7 @@ class StudentAssignment(models.Model):
     ]
 
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, null=True) #TODO: remove null=True
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     status = models.CharField(max_length=30, choices=STATUS, null=False)
     active = models.BooleanField(default=False)

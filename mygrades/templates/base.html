@@ -19,18 +19,22 @@
 <body>
 {% include 'navbar.html' %}
 <div class='container'>
-    <div class='row'>
-        <div class='col-8 mx-auto'>
-            {% block head_title %}
-
-            {% endblock %}
-            {% if messages %}
+    {% if messages %}
+    <div class="row">
+        <div class='col-10 offset-1'>
             <ul class="messages">
                 {% for message in messages %}
                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                 {% endfor %}
             </ul>
-            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <div class='row'>
+        <div class='col-8 mx-auto'>
+            {% block head_title %}
+
+            {% endblock %}
             {% block content %}
 
             {% endblock %}

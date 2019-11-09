@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br/>
+<center>
+<h4>Choose an academic year semester to continue:</h4>
+{% for sem in semesters %}
+<h5><a href="{% url "create_weekly_step1" semester=sem %}">{{ sem }}</a></h5>
+{% endfor %}
+</center>
+<br/>
+{% endblock %}
+

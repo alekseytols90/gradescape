@@ -71,8 +71,16 @@ $(document).ready(function() {
 
         }
     }
-    $("#id_subject").change(function() { update_curriculum_choices(); });
-    $("#id_grade_level").change(function() { update_curriculum_choices(); });
+    $("#id_subject").change(function() { 
+        update_curriculum_choices(); 
+        var subject = $("#id_subject").val()
+        if (subject == "Other") {
+            $("#id_level").val("Core");
+        }
+    });
+    $("#id_grade_level").change(function() {
+        update_curriculum_choices();
+    });
     $("#id_recorded_from").change(function() { update_recorded_from(); });
 
     if ( $("#id_curriculum li").length > 1) {

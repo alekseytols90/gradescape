@@ -1,5 +1,7 @@
 import csv
 import io
+from datetime import datetime, timedelta
+from dateutil import rrule
 from urllib.parse import urlparse
 from uuid import uuid4
 
@@ -13,6 +15,7 @@ from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.core.validators import URLValidator
 from django.db import IntegrityError
+from django.forms import formset_factory
 from django.forms import inlineformset_factory
 from django.forms import modelformset_factory
 from django.http import Http404
@@ -55,6 +58,7 @@ from mygrades.forms import (
     TeacherModelForm,
     WeightForm,
     BaseWFSet,
+    StatusChangeForm,
     generate_semester_choices,
     get_active_sems,
 )
@@ -886,6 +890,161 @@ def weight_edit_view(request, semester, student_pk, subject):
     context = {"formset": formset, "student":student, "semester":semester, "subject":subject}
     return render(request, template_name, context)
 
+def weeks_between(start_date, end_date):
+    weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)
+    return weeks.count()
+
+@login_required
+def create_weekly_step2(request, semester, student_pk):
+    preview = request.GET.get("preview","true")
+
+    # make status changes when submitted
+    if request.method == "POST":
+        StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
+        formset = StatusChangeFormset(request.POST)
+        if formset.is_valid():
+            for form in formset.forms:
+                form.save()
+            messages.success(request, "All assignments have been sent sucessfuly.")
+            return redirect('/')
+
+
+    data = []
+    if student_pk == 0: #all
+        for student in Student.objects.filter(teacher_email=request.user.email):
+            ordered = []
+            assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned')
+
+            # group by curriculum
+            curriculum_pks = list(assignments.values_list('assignment__curriculum',flat=True).distinct())
+            for cp in curriculum_pks:
+                cur_assignments = assignments.filter(assignment__curriculum__pk=cp)
+                enrollment = Enrollment.objects.get(academic_semester=semester, student=student, curriculum__pk=cp)
+
+                # pick by formulation, examples:
+                # Rules:
+                #   - if exact, then assign that much
+                #   - if remainder then assign + 1
+
+                # Examples:
+                # assignment count / weeks left
+                #  4/4 -> 1
+                #  8/4 -> 2
+                # 12/4 -> 3
+                #  5/4 -> 2
+                #  6/4 -> 2
+                #  7/4 -> 2
+                #  8/4 -> 2
+                #  9/4 -> 3
+                # 10/4 -> 3
+                # 11/4 -> 3
+                # 12/4 -> 3
+                #  0/4 -> 0
+
+                sem_end = enrollment.semesterend
+                weeks_left = weeks_between(timezone.now(), sem_end)
+                if weeks_left == 0: # prevent division by 0
+                    weeks_left = 1 
+                assignments_count = cur_assignments.count()
+
+                # only comment in for debugging purposes
+                # print("curriculum: %s semesterend: %s" % (str(Curriculum.objects.get(pk=cp)), str(sem_end)))
+                # print("assigments:%d weeksleft:%d\n" % (assignments_count, weeks_left))
+
+                exact_result = assignments_count // weeks_left
+                real_result = assignments_count / weeks_left
+                if real_result > exact_result:
+                    exact_result += 1
+
+                ordered += assignments.filter(assignment__curriculum__pk=cp)[:exact_result]
+
+            data.append({"student":student, "assignments":ordered})
+    else:
+        # same as above but with single instance (preview necessary)
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester)
+        data.append({"student":student, "assignments":assignments})
+        
+    # generate form
+    initial = []
+    for change in data:
+        for assignment in change["assignments"]:
+            initial.append({
+                'assignment':assignment,
+                'new_status':'Assigned', 
+                'assignment_description': assignment.assignment.name +"<br/><small>" + assignment.assignment.description + "</small>",
+                'student_name': change["student"].get_full_name()})
+    StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
+    formset = StatusChangeFormset(request.POST or None, initial=initial)
+
+    # skip preview
+    if preview == "false":
+        for form in formset.forms:
+            form.cleaned_data = {
+                'assignment': form.initial['assignment'],
+                'new_status': form.initial['new_status']}
+            form.save()
+        messages.success(request, "All assignments have been sent sucessfuly.")
+        return redirect('/')
+
+    context = {"formset": formset}
+    template_name = "create_weekly_step2.html"
+    return render(request, template_name, context)
+
+
+@login_required
+def create_weekly_step1(request, semester):
+    my_title = "Create Weekly Assignment"
+    qs = Student.objects.filter(teacher_email=request.user.email)
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "create_weekly_step1.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title, "semester": semester}
+    return render(request, template_name, context)
+
+@login_required
+def create_weekly_home(request):
+    semester_options = generate_semester_choices()
+    template_name = "create_weekly_home.html"
+    context = {"semesters": semester_options}
+    return render(request, template_name, context)
+
+@login_required
+def see_weekly_home(request):
+    my_title = "Student Weekly Assignment"
+
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, email=request.user.email)
+        return redirect(reverse("see_weekly_detail", args=[student.pk]))
+
+    qs = Student.objects.filter(teacher_email=request.user.email)
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "student_weekly_home.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title}
+    return render(request, template_name, context)
+
+@login_required
+def see_weekly_detail(request, student_pk):
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    assignments = StudentAssignment.objects.filter(student=student, status="Assigned")
+    template_name = "student_weekly_detail.html"
+    context = {"object": student, "assignments": assignments}
+    return render(request, template_name, context)
+
+
 @login_required
 @api_view(['GET'])
 def api_curriculum_list(request):
@@ -987,25 +1146,25 @@ class ShowStudents(View):
         return render(self.request, template_name=self.template_name, context={'students': students})
 
 
-class StudentAssignmentView(View):
-    template_name = "student-assignments.html"
-
-    def get(self, request, id):
-        student = get_object_or_404(Student, id=id)
-
-        try:
-            exempt_assignment = ExemptAssignment.objects.get(student=student)
-        except Exception as e:
-            exempt_assignment = None
-            assignments = Assignment.objects.filter(curriculum=student.curriculum)
-
-        if exempt_assignment:
-            exempt_assignment_ids = [x.id for x in exempt_assignment.assignments.all()]
-            assignments = Assignment.objects.filter(curriculum=student.curriculum).exclude(
-                id__in=exempt_assignment_ids).order_by("id")
-
-        return render(request, template_name=self.template_name,
-                      context={"student": student, "assignments": assignments})
+#class StudentAssignmentView(View):
+#    template_name = "student-assignments.html"
+#
+#    def get(self, request, id):
+#        student = get_object_or_404(Student, id=id)
+#
+#        try:
+#            exempt_assignment = ExemptAssignment.objects.get(student=student)
+#        except Exception as e:
+#            exempt_assignment = None
+#            assignments = Assignment.objects.filter(curriculum=student.curriculum)
+#
+#        if exempt_assignment:
+#            exempt_assignment_ids = [x.id for x in exempt_assignment.assignments.all()]
+#            assignments = Assignment.objects.filter(curriculum=student.curriculum).exclude(
+#                id__in=exempt_assignment_ids).order_by("id")
+#
+#        return render(request, template_name=self.template_name,
+#                      context={"student": student, "assignments": assignments})
 
 @login_required
 def roster_list_view(request):

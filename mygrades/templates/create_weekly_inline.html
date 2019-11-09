@@ -26,7 +26,7 @@
         Secondary Phone: {{object.additional_phone_number}}<br/>
       </div>
 
-      <a href='{% url "create_weekly_action object.student.pk curriculum.pk {{ object.get_edit_url }}' > Edit {{object.first_name}}
+      <a href='{{ object.get_edit_url }}' > Edit {{object.first_name}}
 
         {{object.last_name}}'s Information</a>
 
