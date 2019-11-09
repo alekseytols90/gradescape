@@ -1,4 +1,4 @@
-from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook
+from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook, StudentAssignment, Teacher
 import django_filters
 
 
@@ -19,6 +19,18 @@ GRADELEVEL = [
         ("12", "12"),
     ]
 
+class TeacherFilter(django_filters.FilterSet):
+    
+    first_name = django_filters.CharFilter(
+        lookup_expr="icontains", label="First Name Contains(Complete Name Not Required)"
+    )
+    last_name = django_filters.CharFilter(
+        lookup_expr="icontains", label="Last Name Contains(Complete Name Not Required)"
+    )
+   
+    class Meta:
+        model = Teacher
+        fields = {}
 
 class StudentFilter(django_filters.FilterSet):
     epicenter_id = django_filters.CharFilter(
@@ -113,8 +125,8 @@ class StandardFilter(django_filters.FilterSet):
         lookup_expr="icontains", label="Subject")
     grade_level = django_filters.CharFilter(
         lookup_expr="icontains", label="Grade Level" )
-    # name = django_filters.CharFilter(
-    #     lookup_expr="icontains", label="Number Contains")
+    standard_code = django_filters.CharFilter(
+        lookup_expr="icontains", label="Name Contains")
     objective_description = django_filters.CharFilter(
         lookup_expr="icontains", label="Objective Description Contains The Words")
 
@@ -139,6 +151,18 @@ class AssignmentFilter(django_filters.FilterSet):
 
     class Meta:
         model = Assignment
+        fields = {}
+
+
+class StudentAssignmentFilter(django_filters.FilterSet):
+    
+    assignment = django_filters.CharFilter(
+        lookup_expr="icontains", label="Assignment Name")
+    status = django_filters.CharFilter(
+        lookup_expr="icontains", label="Assignment Status")
+    
+    class Meta:
+        model = StudentAssignment
         fields = {}
 
 

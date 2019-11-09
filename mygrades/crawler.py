@@ -85,7 +85,7 @@ def get_epiclive_data():
 
                     count += 1
             response['status_code'] = '100'
-            response['message'] = "Records pulled successfully"
+            response['message'] = "Records Pulled Successfully"
             response['site'] = "Epic Live Attendance"
             current_date = seven_days()
             response['date_start'] = current_date[0]
@@ -93,7 +93,7 @@ def get_epiclive_data():
 
         else:
             response = {'status_code': '204',
-                        'message': 'record not found',
+                        'message': 'Record Not Found',
                         'site': 'Epic Live'}
 
         return response
@@ -147,7 +147,7 @@ def get_dream_box_data():
                                        'lesson_completed': rec[8].text.strip()}
             count += 1
         response['status_code'] = '100'
-        response['message'] = "Records pulled successfully"
+        response['message'] = "Records Pulled Successfully"
         response['site'] = "Dreambox"
         current_date = seven_days()
         response['date_start'] = current_date[0]
@@ -229,10 +229,10 @@ def get_reading_eggs_data():
     get_difference(egg_press_this_year, egg_press_last_7_days)
 
     response['status_code'] = '100'
-    response['message'] = " Records  pulled successfully"
+    response['message'] = " Records  Pulled Successfully"
     if not response['data']:
         response['status_code'] = '204',
-        response['message'] = 'data could not be pulled'
+        response['message'] = 'Data Could Not Be Pulled'
     response['site'] = "Reading Eggs"
     current_date = seven_days()
     response['date_start'] = current_date[0]
@@ -336,7 +336,7 @@ def get_my_on_data():
         EC.visibility_of_element_located((By.NAME, "password"))
     )
     elem = driver.find_element_by_name('password')
-    elem.send_keys('Principal!')
+    elem.send_keys('NSURocks!')
     wait.until(
         EC.element_to_be_clickable((By.XPATH, "//span[text()='Next']")))
 

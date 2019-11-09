@@ -160,6 +160,7 @@ class Student(models.Model):
     grade = models.CharField(max_length=20, choices=GRADELEVEL, null=False)
     curriculum = models.ForeignKey('curriculum', null=True, blank=True, on_delete=models.SET_NULL)
     teacher_email = models.CharField(max_length=75, null=False)
+    birthdate = models.CharField(max_length=30, null=True)
 
     def get_absolute_url(self):
         return f"/students/{self.epicenter_id}"
@@ -299,7 +300,7 @@ class Standard(models.Model):
         return f"/standard/{self.pk}/edit"
 
     def __str__(self):
-        return "%s %s" % (self.strand_code, self.pk)
+        return "%s %s %s" % (self.standard_code, self.subject, self.pk)
 
 
 class Assignment(models.Model):
