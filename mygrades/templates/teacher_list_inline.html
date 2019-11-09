@@ -9,17 +9,17 @@
       
       <h5 class = 'card-title'>  {{object.id}}:
 
-        {{object.firstname}} {{object.lastname}} </h5> 
-      <div class = 'card-text'> eMail: <a href = "mailto:{{object.email}}">{{object.email}}</a><br/></div>
+        {{object.first_name}} {{object.last_name}} </h5> 
+      <div class = 'card-text'> eMail: <a href = "mailto:{{object.email}}">{{object.email}}</a>
 
         
-      </div>
-
-      <a href='{{ object.get_edit_url }}' > Edit {{object.firstname}}
-
-        {{object.lastname}}'s Information</a>
-
       
+
+      <a href='{{ object.get_edit_url }}' > Edit {{object.first_name}}
+
+        {{object.last_name}}'s Information</a>
+
+      </div>
 
       <!-- <a href='{{ enrollment.get_edit_url }}' > Edit
         {{object.first_name}} {{object.last_name}}'s Course Schedule</a> -->
