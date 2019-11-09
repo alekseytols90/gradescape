@@ -854,7 +854,7 @@ def enroll_student_step2(request, semester, student_pk):
 @login_required
 def enroll_student_step1(request):
     qs = Student.objects.filter(teacher_email=request.user.email)
-    #student_filter = StudentFilter(request.GET, queryset=qs)
+    student_filter = StudentFilter(request.GET, queryset=qs)
     p = Paginator(student_filter.qs, 10)
     page = request.GET.get('page',1)
     object_list = p.get_page(page)
