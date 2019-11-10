@@ -19,13 +19,13 @@
             </a>
             <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 
-                <a class="nav-link" href="/api/crawler/Dreambox">Dreambox Minutes Worked</a>
-                <a class="nav-link" href="/api/crawler/Epic Live Attendance">Epic Live Attendance</a>
-                <a class="nav-link" href="/api/crawler/Compass">Compass Progress</a>
-                <a class="nav-link" href="/api/crawler/Reading Eggs">Reading Eggs Lessons Complete</a>
+                <a class="nav-link disabled" href="/api/crawler/Dreambox">Dreambox Minutes Worked</a>
+                <a class="nav-link disabled" href="/api/crawler/Epic Live Attendance">Epic Live Attendance</a>
+                <a class="nav-link disabled" href="/api/crawler/Compass">Compass Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/Reading Eggs">Reading Eggs Lessons Complete</a>
                 <a class="nav-link disabled" href="/api/crawler/">Reading EggsPress Lessons Complete</a>
                 <a class="nav-link disabled" href="/api/crawler/">Math Seeds Lessons Complete</a>
-                <a class="nav-link" href="/api/crawler/MyON">MyON Minutes Read</a>
+                <a class="nav-link disabled" href="/api/crawler/MyON">MyON Minutes Read</a>
                 <a class="nav-link disabled" href="/api/crawler/">MyON Number of Books Read</a>
                 
                 <a class="nav-link disabled" href="/api/crawler/">SuccessMaker Math Minutes Worked</a>
@@ -73,8 +73,9 @@
           <a class="dropdown-item" href="/students-setup">Set Up a Student</a>
           <a class="dropdown-item" href="/students">View or Change Your Student's Information</a>
           <a class="dropdown-item" href="/curriculum-schedule">View or Change the Curriculum Listed in a Student Gradebook</a>
-          <a class="dropdown-item" href="{% url "see_weekly_home" %}">View Your Student's Weekly Assignment List</a>
+           <a class="dropdown-item" href="{% url "see_weekly_home" %}">View Your Student's Weekly Assignment List</a>
           <a class="nav-link" href="{% url "create_weekly_home" %}">Send Next Week's Assignments to Student Screen</a>
+           
            
            <a class="nav-link disabled" href="late-assignment/">See Late Assignments</a>
            <a class="nav-link disabled" href="progress/">Create a Current Progress Report</a>
@@ -154,7 +155,9 @@
           <a class="nav-link disabled" href="/send-pacing-guide">See My Progress Report</a>
           <a class="nav-link disabled" href="/send-pacing-guide">See My Attendance Report</a>
            
+          
            <a class="nav-link" href="{% url "see_weekly_home" %}">This Week's Assignments</a>
+      
       
            <a class="nav-link disabled" href="plp">Late Assignments</a>
 
