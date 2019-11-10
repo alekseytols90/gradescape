@@ -622,6 +622,11 @@ class StatusChangeForm(forms.Form):
     
     def save(self):
         assignment = self.cleaned_data['assignment']
-        assignment.status = self.cleaned_data['new_status']
+        new_status = self.cleaned_data['new_status']
+
+        assignment.status = new_status 
+        if new_status != 'Not Assigned':
+            assignment.shown_in_weekly = True 
+
         assignment.save()
 

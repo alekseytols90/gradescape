@@ -245,6 +245,8 @@ class Enrollment(models.Model):
         return f"/enrollment/{self.pk}/edit"
 
     def __str__(self):
+        if self.curriculum:
+            return "%s -> %s" % (self.student, self.curriculum)
         return "%s %s" % (self.student, self.pk)
 
 
@@ -345,6 +347,9 @@ class StudentAssignment(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, null=True) #TODO: remove null=True
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     status = models.CharField(max_length=30, choices=STATUS, null=False)
+    shown_in_weekly = models.BooleanField(default=False)
+
+    # not used yet
     active = models.BooleanField(default=False)
     late = models.BooleanField(default=0)
     registered_datetime = models.DateTimeField(auto_now=True)
