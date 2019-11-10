@@ -13,7 +13,8 @@
  
   <a class="nav-link" href="/logout/">&nbsp;Log Out</a>
  
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                Pull Last Week's Progress
             </a>
             <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -35,8 +36,11 @@
                 <a class="nav-link disabled" href="/api/crawler/">Apex Progress</a>
                 <a class="nav-link disabled" href="/api/crawler/">Exact Path Progress</a>
                 <a class="nav-link disabled" href="/api/crawler/">ACT Method Test Prep Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Study Island Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Homework Help Attendance</a>
+                <a class="nav-link disabled" href="/api/crawler/">IXL Progress</a>
             </div>
-
+</li>
     
 
 
@@ -47,10 +51,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
          
-           <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List on the Student's Screen</a>
+           <a class="nav-link" href="{% url "create_weekly_home" %}">Send Next Week's Assignments to Student Screen</a>
            <a class="nav-link disabled" href="late-assignment/">See Late Assignments</a>
       
-           <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
+           
 
         </div>
 </li>
@@ -68,14 +72,14 @@
           <a class="dropdown-item" href="/roster">See Your Roster</a>
           <a class="dropdown-item" href="/students-setup">Set Up a Student</a>
           <a class="dropdown-item" href="/students">View or Change Your Student's Information</a>
-          <a class="dropdown-item" href="/curriculum-schedule">View or Change Your Student's Curriculum</a>
+          <a class="dropdown-item" href="/curriculum-schedule">View or Change the Curriculum Listed in a Student Gradebook</a>
           <a class="dropdown-item" href="{% url "see_weekly_home" %}">View Your Student's Weekly Assignment List</a>
-          <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List on Student's Screen</a>
-           <!-- <a class="dropdown-item" href="/enroll-student/">Enroll a Student in a Course</a> -->
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Send Next Week's Assignments to Student Screen</a>
+           
            <a class="nav-link disabled" href="late-assignment/">See Late Assignments</a>
-           <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
-           <a class="nav-link disabled" href="report-card/">Create a Report Card</a>
-           <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
+           <a class="nav-link disabled" href="progress/">Create a Current Progress Report</a>
+           <a class="nav-link disabled" href="report-card/">Create a Final Report Card</a>
+           
 
         </div>
       </li>
@@ -85,10 +89,10 @@
           Curriculum
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/curriculum">View or Edit Available Curriculum</a>
+          <a class="dropdown-item" href="/curriculum">View or Edit Available Curriculum for Gradebook</a>
           <a class="dropdown-item" href="/curriculum-create">Create a Custom Curriculum</a>
           <a class="dropdown-item" href="/curriculum-assignments">See the Assignments in a Curriculum</a>
-          <a class="dropdown-item" href="/assignment-create/">Add an Assignment to a Curriculum</a>
+        
         
         </div>
       </li>
@@ -98,7 +102,7 @@
           Standards
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/standard">View or Edit Standards</a>
+          <a class="dropdown-item" href="/standard">View all Standards</a>
           
 
         
@@ -110,9 +114,9 @@
           Assignments
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/assignment">View or Edit Available Assignments</a>
+          <a class="dropdown-item" href="/assignment">View Available Assignments</a>
           <a class="dropdown-item" href="/assignment-create">Create a Custom Assignment</a>
-          <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Send a Weekly Assignment List to Student Screen</a>
         
         </div>
       </li>
@@ -123,9 +127,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="nav-link" href="/grades">View or Edit Gradebook</a>
-          <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List on Student's Screen</a>
-           <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
-           <a class="nav-link disabled" href="report-card/">Create a Report Card</a>
+          
+           <a class="nav-link disabled" href="progress/">Create a Current Progress Report</a>
+           <a class="nav-link disabled" href="report-card/">Create a Final Report Card</a>
         
         </div>
       </li>
@@ -135,7 +139,7 @@
     Enrollment
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/enroll-student">Add a Curriculum to a Student Gradebook</a>
+          <a class="dropdown-item" href="/enroll-student">Add a Curriculum to  Student Gradebook</a>
         
         </div>
       </li>
@@ -147,10 +151,9 @@
  
   
         
-          <a class="nav-link disabled" href="/send-pacing-guide">See My Most Recent Progress Report</a>
-           {% comment %}
-           <a class="nav-link disabled" href="late-assignment/">This Week's Assignments</a>
-           {% endcomment %}
+          <a class="nav-link disabled" href="/send-pacing-guide">See My Progress Report</a>
+          <a class="nav-link disabled" href="/send-pacing-guide">See My Attendance Report</a>
+           
            <a class="nav-link" href="{% url "see_weekly_home" %}">This Week's Assignments</a>
       
            <a class="nav-link disabled" href="plp">Late Assignments</a>
@@ -200,8 +203,8 @@
         </div>
       </li>
 
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                Pull Last Week's Progress
             </a>
             <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -223,8 +226,11 @@
                 <a class="nav-link disabled" href="/api/crawler/">Apex Progress</a>
                 <a class="nav-link disabled" href="/api/crawler/">Exact Path Progress</a>
                 <a class="nav-link disabled" href="/api/crawler/">ACT Method Test Prep Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Study Island Progress</a>
+                <a class="nav-link disabled" href="/api/crawler/">Homework Help Attendance</a>
+                <a class="nav-link disabled" href="/api/crawler/">IXL Progress</a>
             </div>
-
+</li>
     
 
 
@@ -235,10 +241,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
          
-          <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List on the Student's Screen</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Send Next Week's Assignments to Student Screen</a>
           <a class="nav-link disabled" href="late-assignment/">See Late Assignments</a>
       
-          <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
+          
 
         </div>
 
@@ -257,15 +263,15 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/roster">See Your Roster</a>
           <a class="dropdown-item" href="/students-setup">Set Up a Student</a>
-          <a class="dropdown-item" href="/students">View or Change Your Student's Information</a>
-          <a class="dropdown-item" href="{% url "see_weekly_home" %}">View Your Student's Weekly Assignment</a>
-          <a class="dropdown-item" href="/curriculum-schedule">View or Change Your Student's Curriculum</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on the Student's Screen</a>
-           <!-- <a class="dropdown-item" href="/enroll-student/">Enroll a Student in a Course</a> -->
-           <a class="nav-link disabled" href="late-assignment/">Pull a Late Assignment Report</a>
-           <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
-           <a class="nav-link disabled" href="report-card/">Create a Report Card</a>
-           <a class="nav-link disabled" href="plp">Personalized Learning Plan</a>
+          <a class="dropdown-item" href="/students">View or Change Your Student's Contact Information</a>
+          <a class="dropdown-item" href="{% url "see_weekly_home" %}">View a Student's Current Weekly Assignment List</a>
+          <a class="dropdown-item" href="/curriculum-schedule">View or Change the Curriculum Listed in a Student Gradebook</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Send Next Week's Assignments to Student Screen</a>
+          
+           <a class="nav-link disabled" href="late-assignment/">See Late Assignments</a>
+           <a class="nav-link disabled" href="progress/">Create a Current Progress Report</a>
+           <a class="nav-link disabled" href="report-card/">Create a Final Report Card</a>
+           
 
         </div>
       </li>
@@ -302,7 +308,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/assignment">View or Edit Available Assignments</a>
           <a class="dropdown-item" href="/assignment-create">Create a Custom Assignment</a>
-          <a class="nav-link" href="{% url "create_weekly_home" %}">Create a Weekly Assignment List on the Student's Screen</a>
+          <a class="nav-link" href="{% url "create_weekly_home" %}">Send Next Week's Assignments to Student Screen</a>
         
         </div>
       </li>
@@ -313,9 +319,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="nav-link disabled" href="/grades">View or Edit Gradebook</a>
-                    <a class="nav-link disabled" href="/send-pacing-guide">Create a Weekly Assignment List on the Student's Screen</a>
-           <a class="nav-link disabled" href="progress/">Create a Progress Report</a>
-           <a class="nav-link disabled" href="report-card/">Create a Report Card</a>
+                    
+           <a class="nav-link disabled" href="progress/">Create a Current Progress Report</a>
+           <a class="nav-link disabled" href="report-card/">Create a Final Report Card</a>
         
         </div>
       </li>
@@ -326,7 +332,7 @@
        Enrollment
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/enroll-student">Add a Curriculum to a Student Gradebook</a>
+          <a class="dropdown-item" href="/enroll-student">Add a Curriculum to Student Gradebook</a>
         
         </div>
       </li>

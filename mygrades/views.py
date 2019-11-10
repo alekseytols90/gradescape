@@ -105,7 +105,7 @@ def teacher_upload(request):
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
     if len(header_clean) != 11:
-        messages.error(request, "Make sure header consists of 5 elements. %s" % prompt['order'])
+        messages.error(request, "Make sure header consists of 5 items. %s" % prompt['order'])
         return render(request, template)
 
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
@@ -149,7 +149,7 @@ def user_logout(request):
     # form =  LoginForm(request)
     username = ""
     password = ""
-    return HttpResponse("<a href='/login'>Log Back In</>")
+    return HttpResponse("<a href='/login'>Log In</>")
 
 
 # connect scrapyd service
@@ -164,10 +164,9 @@ def send_pacing_guide(request):
         first_name = form.cleaned_data["student"].first_name
         last_name = form.cleaned_data["student"].last_name
 
-        subject, from_email, to = 'Your Assignments For This Week', 'tynercreeksoftware@gmail.com', [
+        subject, from_email, to = 'Your Assignments For This Week', 'yourepiconline@gmail.com', [
             form.cleaned_data["student"].email, form.cleaned_data["student"].additional_email]
-        text_content = 'Your Most Updated Epic Live Schedule.  You may need to open this in a different browser if ' \
-                       'you do not see it here. '
+        text_content = 'Your most updated list of weekly assignments.  You may need to open this in a different browser if you do not see it here. '
         html_content = render_to_string('mail_pacing_guide.html', context=form.cleaned_data)
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
@@ -176,7 +175,7 @@ def send_pacing_guide(request):
     else:
         form = SendPacingGuideForm(request=request)
     form = SendPacingGuideForm(request=request)
-    my_title = "Send a Student His or Her Assignments for This Week"
+    my_title = "E-mail Student Weekly Assignment List"
     template_name = "send_pacing_guide_form.html"
     context = {"title": my_title, "form": form, 'data': request.POST}
     return render(request, template_name, context)
@@ -366,7 +365,7 @@ def standard_upload(request):
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
     if len(header_clean) != 11:
-        messages.error(request, "Make sure header consists of 11 elements. %s" % prompt['order'])
+        messages.error(request, "Make sure table consists of 11 columns. %s" % prompt['order'])
         return render(request, template)
 
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
@@ -416,7 +415,7 @@ def curriculum_upload(request):
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
     if len(header_clean) != 3:
-        messages.error(request, "Make sure header consists of 3 elements. %s" % prompt['order'])
+        messages.error(request, "Make sure table consists of 3 columns. %s" % prompt['order'])
         return render(request, template)
 
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
@@ -438,7 +437,7 @@ def curriculum_upload(request):
 def assignment_upload(request):
     template = "assignment_upload.html"
     prompt = {
-        'order': "The columns should be (without parentheses) as follows: Grade, Curriculum (name in Curriculum model), Subject, Standard (standard_code in Standard model), Description, Name"
+        'order': "The columns should be : Grade, Curriculum Name, Subject, Standard Code, Description, Name"
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -459,7 +458,7 @@ def assignment_upload(request):
     header = data_set.splitlines()[0]
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
     if len(header_clean) < 6:
-        messages.error(request, "Make sure header consists of at least 6 elements. %s" % prompt['order'])
+        messages.error(request, "Make sure table consists of 6 columns. %s" % prompt['order'])
         return render(request, template)
 
     dict_reader = csv.DictReader(data_set.splitlines(), delimiter=",", quotechar='"', dialect=csv.excel_tab)
@@ -504,7 +503,7 @@ def assignment_upload(request):
 def student_upload(request):
     template = "student_upload.html"
     prompt = {
-        'order': "The columns should be: First Name, Last Name, Primary email, Second email (not required), Primary phone, Second phone (not required), Grade, Epicenter ID, Birthdate, Your eMail Address that You Submitted on the Order Form" 
+        'order': "The columns should be: First Name, Last Name, Primary email, Second email (not required), Primary phone, Second phone (not required), Grade, Epicenter ID, Birthdate, and Teacher eMail Address." 
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -558,14 +557,14 @@ def student_setup_view(request):
         emailto = [request.user.email]
         send_mail(
             "Student Setup Confirmation",
-            "You successfully registered {0} {1} in your Gradebook system.\nHere is what was received: \nEpicenter "
+            "You successfully registered {0} {1} in your online system.\nHere is what was received: \nEpicenter "
             "ID: {2} \neMail: {3} \nPhone: {5} \nAlternate eMail: {4} \nAlternate Phone: {6} \nStudent is Enrolled in "
-            "Grade: {7}\nThe next step is to enroll the student in curriculums for grade tracking.".format(
+            "Grade: {7}\nThe next step is to add some curriculums for grade tracking and pacing guides.".format(
                 form.cleaned_data["first_name"], form.cleaned_data["last_name"], form.cleaned_data["epicenter_id"],
                 form.cleaned_data["email"], form.cleaned_data["additional_email"], form.cleaned_data["phone_number"],
                 form.cleaned_data["additional_phone_number"], form.cleaned_data["grade"],
             ),
-            "tynercreeksoftware@gmail.com",
+            "yourepiconline@gmail.com",
             emailto,
             fail_silently=True,
         )
@@ -675,7 +674,7 @@ def curriculum_create_view(request):
 
 @login_required
 def curriculum_list_view(request):
-    my_title = "Curriculum Choices - Missing One?  Send an e-mail to tynercreeksoftware@gmail.com to add it!"
+    my_title = "Curriculum Choices - Missing One? Look on Your Home Page!"
     qs = Curriculum.objects.all()
     curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
     template_name = "curriculum_list_view.html"
@@ -721,7 +720,7 @@ def standard_create_view(request):
 
 @login_required
 def standard_list_view(request):
-    my_title = "Standards - Spot a mistake or missing one? Send a message to tynercreeksoftware@gmail.com!"
+    my_title = "Standards - Spot a mistake or missing one? Look on your Home page to contact us!"
     qs = Standard.objects.all()
     standard_filter = StandardFilter(request.GET, queryset=qs)
     template_name = "standard_list_view.html"
@@ -786,7 +785,7 @@ def student_assignment_list_view(request,sid,cid):
 
 @login_required
 def assignment_list_view(request):
-    my_title = "Assignments - Missing One?  Create a Custom Assignment"
+    my_title = "Assignments - Missing One?  Look on your Home page to contact us!"
     qs = Assignment.objects.all()
     assignment_filter = AssignmentFilter(request.GET, queryset=qs)
     template_name = "assignment_list_view.html"
@@ -836,8 +835,8 @@ def enroll_student_step2(request, semester, student_pk):
 
         if form.is_valid():
             form.save()
-            messages.info(request, "Successfuly enrolled %s for %s" % (student, form.instance.curriculum))
-            messages.info(request, mark_safe("Weights are distributed for subject %s, do not forget to edit weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
+            messages.info(request, "You successfuly added %s to %s's gradebook!" % (form.instance.curriculum, student))
+            messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
 
             if "enroll_stay" in request.POST:
                 # reinit the form with student and semester
@@ -891,7 +890,7 @@ def weight_edit_view(request, semester, student_pk, subject):
         formset = WFSet(request.POST, queryset=qs)
         if formset.is_valid():
             formset.save()
-            messages.info(request, "Successfuly set the weights!")
+            messages.info(request, "You successfuly set the weights for that student and subject!")
 
     template_name = "weight_form.html"
     context = {"formset": formset, "student":student, "semester":semester, "subject":subject}
@@ -921,7 +920,8 @@ def create_weekly_step2(request, semester, student_pk):
             for form in formset.forms:
                 form.save()
 
-            messages.success(request, "All assignments have been sent sucessfuly.")
+            messages.success(request, "All assignments marked assigned are now on the student screen.")
+
             return redirect('/')
 
 
@@ -1000,7 +1000,7 @@ def create_weekly_step2(request, semester, student_pk):
                 'assignment': form.initial['assignment'],
                 'new_status': form.initial['new_status']}
             form.save()
-        messages.success(request, "All assignments have been sent sucessfuly.")
+        messages.success(request, "All assignments marked as assigned are now showing on the student screen. You may always re-generate a new list.")
         return redirect('/')
 
     context = {"formset": formset}
@@ -1010,7 +1010,7 @@ def create_weekly_step2(request, semester, student_pk):
 
 @login_required
 def create_weekly_step1(request, semester):
-    my_title = "Create Weekly Assignment"
+    my_title = "Send Weekly Assignment List to Student Screen"
     qs = Student.objects.filter(teacher_email=request.user.email)
     student_filter = StudentFilter(request.GET, queryset=qs)
 
@@ -1031,7 +1031,7 @@ def create_weekly_home(request):
 
 @login_required
 def see_weekly_home(request):
-    my_title = "Student Weekly Assignment"
+    my_title = "This Week's Assignments"
 
     if request.user.groups.filter(name="Student").count() > 0: # student is viewing
         student = get_object_or_404(Student, email=request.user.email)
@@ -1124,7 +1124,7 @@ def grades_delete_view(request, epicenter_id):
 
 @login_required
 def student_curriculum_schedule(request):
-    my_title = "Student Curriculum Enrollment"
+    my_title = "Add a Curriculum to Student Gradebook"
     qs = Student.objects.filter(teacher_email=request.user.email)
     student_filter = StudentFilter(request.GET, queryset=qs)
     #curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
@@ -1140,7 +1140,7 @@ def student_curriculum_schedule(request):
 
 @login_required
 def student_curriculum_schedule_detail(request, id):
-    my_title = "Student Curriculum Enrollment Detail"
+    my_title = "Student Curriculum Details"
     student = get_object_or_404(Student, pk=id)
     curriculum_filter = CurriculumFilter(request.GET, queryset=student.student_enrollment)
     active_weights = get_active_sems(student)
