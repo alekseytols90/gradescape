@@ -902,8 +902,15 @@ def weeks_between(start_date, end_date):
     return weeks.count()
 
 @login_required
-def create_weekly_step2(request, semester, student_pk):
+def create_weekly_step2(request, semester):
     preview = request.GET.get("preview","true")
+    qs = Student.objects.filter(teacher_email=request.user.email)
+
+    # single student
+    if "student_pk" in request.GET:
+        qs = qs.filter(pk=int(request.GET.get("student_pk")))
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
 
     # make status changes when submitted
     if request.method == "POST":
@@ -925,62 +932,55 @@ def create_weekly_step2(request, semester, student_pk):
 
             return redirect('/')
 
-
     data = []
-    if student_pk == 0: #all
-        for student in Student.objects.filter(teacher_email=request.user.email):
-            ordered = []
-            assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned', shown_in_weekly=False)
+    for student in student_filter.qs: 
+        ordered = []
+        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned', shown_in_weekly=False)
 
-            # group by curriculum
-            curriculum_pks = list(assignments.values_list('assignment__curriculum',flat=True).distinct())
-            for cp in curriculum_pks:
-                cur_assignments = assignments.filter(assignment__curriculum__pk=cp)
-                enrollment = Enrollment.objects.get(academic_semester=semester, student=student, curriculum__pk=cp)
+        # group by curriculum
+        curriculum_pks = list(assignments.values_list('assignment__curriculum',flat=True).distinct())
+        for cp in curriculum_pks:
+            cur_assignments = assignments.filter(assignment__curriculum__pk=cp)
+            enrollment = Enrollment.objects.get(academic_semester=semester, student=student, curriculum__pk=cp)
 
-                # pick by formulation, examples:
-                # Rules:
-                #   - if exact, then assign that much
-                #   - if remainder then assign + 1
+            # pick by formulation, examples:
+            # Rules:
+            #   - if exact, then assign that much
+            #   - if remainder then assign + 1
 
-                # Examples:
-                # assignment count / weeks left
-                #  4/4 -> 1
-                #  8/4 -> 2
-                # 12/4 -> 3
-                #  5/4 -> 2
-                #  6/4 -> 2
-                #  7/4 -> 2
-                #  8/4 -> 2
-                #  9/4 -> 3
-                # 10/4 -> 3
-                # 11/4 -> 3
-                # 12/4 -> 3
-                #  0/4 -> 0
+            # Examples:
+            # assignment count / weeks left
+            #  4/4 -> 1
+            #  8/4 -> 2
+            # 12/4 -> 3
+            #  5/4 -> 2
+            #  6/4 -> 2
+            #  7/4 -> 2
+            #  8/4 -> 2
+            #  9/4 -> 3
+            # 10/4 -> 3
+            # 11/4 -> 3
+            # 12/4 -> 3
+            #  0/4 -> 0
 
-                sem_end = enrollment.semesterend
-                weeks_left = weeks_between(timezone.now(), sem_end)
-                if weeks_left == 0: # prevent division by 0
-                    weeks_left = 1 
-                assignments_count = cur_assignments.count()
+            sem_end = enrollment.semesterend
+            weeks_left = weeks_between(timezone.now(), sem_end)
+            if weeks_left == 0: # prevent division by 0
+                weeks_left = 1 
+            assignments_count = cur_assignments.count()
 
-                # only comment in for debugging purposes
-                # print("curriculum: %s semesterend: %s" % (str(Curriculum.objects.get(pk=cp)), str(sem_end)))
-                # print("assigments:%d weeksleft:%d\n" % (assignments_count, weeks_left))
+            # only comment in for debugging purposes
+            # print("curriculum: %s semesterend: %s" % (str(Curriculum.objects.get(pk=cp)), str(sem_end)))
+            # print("assigments:%d weeksleft:%d\n" % (assignments_count, weeks_left))
 
-                exact_result = assignments_count // weeks_left
-                real_result = assignments_count / weeks_left
-                if real_result > exact_result:
-                    exact_result += 1
+            exact_result = assignments_count // weeks_left
+            real_result = assignments_count / weeks_left
+            if real_result > exact_result:
+                exact_result += 1
 
-                ordered += assignments.filter(assignment__curriculum__pk=cp)[:exact_result]
+            ordered += assignments.filter(assignment__curriculum__pk=cp)[:exact_result]
 
-            data.append({"student":student, "assignments":ordered})
-    else:
-        # same as above but with single instance (preview necessary)
-        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
-        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester)
-        data.append({"student":student, "assignments":assignments})
+        data.append({"student":student, "assignments":ordered})
         
     # generate form
     initial = []
