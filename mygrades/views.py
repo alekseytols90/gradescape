@@ -164,7 +164,7 @@ def send_pacing_guide(request):
         first_name = form.cleaned_data["student"].first_name
         last_name = form.cleaned_data["student"].last_name
 
-        subject, from_email, to = 'Your Assignments For This Week', 'youronlineepic@gmail.com', [
+        subject, from_email, to = 'Your Assignments For This Week', 'yourepiconline@gmail.com', [
             form.cleaned_data["student"].email, form.cleaned_data["student"].additional_email]
         text_content = 'Your most updated list of weekly assignments.  You may need to open this in a different browser if you do not see it here. '
         html_content = render_to_string('mail_pacing_guide.html', context=form.cleaned_data)
@@ -564,7 +564,7 @@ def student_setup_view(request):
                 form.cleaned_data["email"], form.cleaned_data["additional_email"], form.cleaned_data["phone_number"],
                 form.cleaned_data["additional_phone_number"], form.cleaned_data["grade"],
             ),
-            "youronlineepic@gmail.com",
+            "yourepiconline@gmail.com",
             emailto,
             fail_silently=True,
         )
