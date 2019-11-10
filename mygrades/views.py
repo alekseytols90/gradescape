@@ -1040,8 +1040,13 @@ def see_weekly_detail(request, student_pk):
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
 
     assignments = StudentAssignment.objects.filter(student=student, status="Assigned")
+
+    data = [] 
+    for asm in assignments:
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
+
     template_name = "student_weekly_detail.html"
-    context = {"object": student, "assignments": assignments}
+    context = {"object": student, "assignments": data}
     return render(request, template_name, context)
 
 
