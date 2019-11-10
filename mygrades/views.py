@@ -983,13 +983,16 @@ def create_weekly_step2(request, semester, student_pk):
         
     # generate form
     initial = []
+    students = []
     for change in data:
+        if len(change["assignments"]) == 0:
+            continue
+        students.append({"pk":change["student"].pk, "name":change["student"].get_full_name()})
         for assignment in change["assignments"]:
             initial.append({
                 'assignment':assignment,
                 'new_status':'Assigned', 
-                'assignment_description': assignment.assignment.name +"<br/><small>" + assignment.assignment.description + "</small>",
-                'student_name': change["student"].get_full_name()})
+                'assignment_description': "<b>" + assignment.assignment.curriculum.name + "</b><br/>" + assignment.assignment.name +"<br/><small>" + assignment.assignment.description + "</small>"})
     StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
     formset = StatusChangeFormset(request.POST or None, initial=initial)
 
@@ -1003,7 +1006,7 @@ def create_weekly_step2(request, semester, student_pk):
         messages.success(request, "All assignments marked as assigned are now showing on the student screen. You may always re-generate a new list.")
         return redirect('/')
 
-    context = {"formset": formset}
+    context = {"formset": formset, "students":students}
     template_name = "create_weekly_step2.html"
     return render(request, template_name, context)
 

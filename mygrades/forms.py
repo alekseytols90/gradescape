@@ -611,7 +611,6 @@ class BaseWFSet(BaseModelFormSet):
 
 class StatusChangeForm(forms.Form):
     assignment = forms.ModelChoiceField(queryset=StudentAssignment.objects.all())
-    student_name = forms.CharField(widget=PlainTextWidget, required=False, label="Student Name")
     assignment_description = forms.CharField(widget=PlainTextWidget, required=False, label="Assignment")
     new_status = forms.ChoiceField(choices=StudentAssignment.STATUS)
 
