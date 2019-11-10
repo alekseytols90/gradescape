@@ -88,7 +88,7 @@ urlpatterns = [
     path("weight/<str:semester>/<int:student_pk>/<str:subject>/", weight_edit_view, name='weight_edit_view'),
     path("create-weekly-assignment/", create_weekly_home, name="create_weekly_home"),
     path("create-weekly-assignment/<str:semester>/", create_weekly_step1, name="create_weekly_step1"),
-    path("create-weekly-assignment/<str:semester>/<int:student_pk>/", create_weekly_step2, name="create_weekly_step2"),
+    path("create-weekly-assignment/<str:semester>/create/", create_weekly_step2, name="create_weekly_step2"),
     path("see-weekly-assignment/", see_weekly_home, name="see_weekly_home"),
     path("see-weekly-assignment/<int:student_pk>/", see_weekly_detail, name="see_weekly_detail"),
     path("standard-create/", standard_create_view),
