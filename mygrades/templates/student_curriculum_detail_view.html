@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Enrollment Deletion
+            </div>
+            <div class="modal-body">
+                WARNING: You are about to delete all assignments for this curriculum for this student. Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <h3 align="center"> Scroll Down to View All or Use the Filter Options </h3>
 <form method="get">
     {{ filter.form.as_p }}
@@ -32,23 +51,20 @@ Adjust the weights of curriculum for these subjects for this student only:<br/>
           {% for enrollment in object_list %}
 
               <class = 'card-title'>
-                {{enrollment.curriculum.subject}}-
-                {{enrollment.curriculum.name}}<br/>Grade Level Assigned:
+                <b>{{enrollment.curriculum.subject}}-
+                {{enrollment.curriculum.name}}</b><br/>Grade Level Assigned:
                 {{enrollment.curriculum.grade_level}}<br/> Recorded: 
-                {{enrollment.curriculum.recorded_from}}<br/> Tracked Using:
-                {{enrollment.curriculum.tracking}}</a><br/>
+                {{enrollment.recorded_from}}<br/> Tracked Using:
+                {{enrollment.tracking}}</a><br/>
                 Required:
-                {{enrollment.curriculum.required}}</a><br/>
-                Weight: {{object.weight}}<br/>
+                {{enrollment.required}}</a><br/>
+                {% comment %}Weight: {{object.weight}}<br/>{% endcomment %}
                 Ending Date for the Semester or Year (Depending on Curriculum): {{enrollment.curriculum.semesterend}}<br/>
-                <a href="{% url "student-assignment-list-view" enrollment.student.pk enrollment.curriculum.pk %}">View/Edit student's assigments on this course</a>
-                <br/><br/>
-
+                <a href="{% url "student-assignment-list-view" enrollment.student.pk enrollment.curriculum.pk %}">View/Edit student's assigments on this course</a><br/><br/>
   
-              <a href='{{ enrollment.get_delete_url }}'>Remove {{enrollment.curriculum.name}} From
-                {{student.first_name}}
-              {{student.last_name}}'s Pacing </a>
-
+               <a href="#" data-href='{% url 'delete_enrollment' enrollment.pk %}', data-toggle="modal" data-target="#confirm-delete">Remove {{enrollment.curriculum.name}} From
+                {{student.get_full_name}}'s Pacing </a>
+              <br/><br/>
               <p></p>
 
               {% empty %}
@@ -84,6 +100,12 @@ Adjust the weights of curriculum for these subjects for this student only:<br/>
         {% endif %}
     </span>
 </div>
+
+<script>
+    $('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    });
+</script>
 
 {% endblock %}
 

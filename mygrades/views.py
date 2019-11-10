@@ -873,6 +873,13 @@ def enroll_student_step1(request):
     return render(request, template_name, context)
 
 @login_required
+def enroll_delete(request, enrollment_pk):
+    enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
+    enrollment.delete()
+    messages.success(request, "Deleted enrollment %s and all its assignments successfuly." % (enrollment,))
+    return redirect(reverse("curriculum-schedule-detail", args=[enrollment.student.pk]))
+
+@login_required
 def weight_edit_view(request, semester, student_pk, subject):
     enrollment_instances = []
     student = get_object_or_404(Student,pk=student_pk)
@@ -903,8 +910,17 @@ def create_weekly_step2(request, semester, student_pk):
         StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
         formset = StatusChangeFormset(request.POST)
         if formset.is_valid():
+            #hide current assignments from weekly
+            sa = StudentAssignment.objects.filter(student__teacher_email=request.user.email, enrollment__academic_semester=semester)
+            if student_pk == 0: #all
+                sa.update(shown_in_weekly=False)
+            else:
+                sa.filter(student__pk=student_pk).update(shown_in_weekly=False);
+
+            # make status changes, also marks 'shown'
             for form in formset.forms:
                 form.save()
+
             messages.success(request, "All assignments have been sent sucessfuly.")
             return redirect('/')
 
@@ -913,7 +929,7 @@ def create_weekly_step2(request, semester, student_pk):
     if student_pk == 0: #all
         for student in Student.objects.filter(teacher_email=request.user.email):
             ordered = []
-            assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned')
+            assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned', shown_in_weekly=False)
 
             # group by curriculum
             curriculum_pks = list(assignments.values_list('assignment__curriculum',flat=True).distinct())
@@ -1039,7 +1055,7 @@ def see_weekly_detail(request, student_pk):
     else:
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
 
-    assignments = StudentAssignment.objects.filter(student=student, status="Assigned")
+    assignments = StudentAssignment.objects.filter(student=student, shown_in_weekly=True)
 
     data = [] 
     for asm in assignments:
