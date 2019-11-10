@@ -6,7 +6,10 @@
 #status_form ul {list-style:none}
 </style>
 <div class="container mt-3">
-    <form method="post" id="status_form">
+    {% if not students %}
+    No assignments found.<br/>
+    {% else %}
+        <form method="post" id="status_form">
         {{ formset.management_form }}
         {% csrf_token %}
             <!-- group by student then cur -->
@@ -40,8 +43,8 @@
                 <br/>
             {% endfor %}
         <input type="submit" value="Send Lists To Student Screens"/>
-
-
+        </form>
+    {% endif %}
 
 </div>
 {% endblock %}
