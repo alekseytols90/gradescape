@@ -1,4 +1,4 @@
-from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook, StudentAssignment, Teacher
+from mygrades.models import Student, Curriculum, Assignment, Standard, GradeBook, StudentAssignment, Teacher, Enrollment
 import django_filters
 
 
@@ -50,6 +50,25 @@ class StudentFilter(django_filters.FilterSet):
         model = Student
         fields = {}
 
+class EnrollmentFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(
+        lookup_expr="icontains", label="Title",
+        field_name="curriculum__name",
+    )
+    subject = django_filters.CharFilter(
+        lookup_expr="icontains", label="Subject",
+        field_name="curriculum__subject",
+    )
+    #grade_level = django_filters.CharFilter(
+    #    lookup_expr="icontains", label="Grade Level"
+    #)
+    recorded_from = django_filters.CharFilter(
+        lookup_expr="icontains", label="Manual or Automatic?"
+    )
+
+    class Meta:
+        model = Enrollment
+        fields = {}
 
 class CurriculumFilter(django_filters.FilterSet):
 

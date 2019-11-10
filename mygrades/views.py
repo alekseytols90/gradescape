@@ -39,6 +39,7 @@ from mygrades.crawler import *
 from mygrades.filters import (
     StudentFilter,
     CurriculumFilter,
+    EnrollmentFilter,
     AssignmentFilter,
     StandardFilter,
     GradeBookFilter,
@@ -1145,7 +1146,7 @@ def student_curriculum_schedule(request):
 def student_curriculum_schedule_detail(request, id):
     my_title = "Student Curriculum Details"
     student = get_object_or_404(Student, pk=id)
-    curriculum_filter = CurriculumFilter(request.GET, queryset=student.student_enrollment)
+    curriculum_filter = EnrollmentFilter(request.GET, queryset=student.student_enrollment)
     active_weights = get_active_sems(student)
     template_name = "student_curriculum_detail_view.html"
     context = {"student": student, "active_weights": active_weights, "object_list": curriculum_filter.qs, "filter": curriculum_filter, "title": my_title}
