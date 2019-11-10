@@ -4,21 +4,26 @@
 <h3 align="center"> {{ object.get_full_name }}'s Weekly Assignment List </h3>
 <br/>
 
+{% regroup assignments|dictsort:"cur_pk" by cur_pk as as_list %}
+
+{% for cur in as_list %}
 <table class="table table-striped table-bordered">
     <thead>
-        <th>Current Assignments</th>
+        <th>{{ cur.list.0.curriculum }}</th>
     </thead>
     <tbody>
-        {% for assignment in assignments %}
+        {% for item in cur.list %}
         <tr>
             <td>
-                {{ assignment.assignment.name }}<br/>
-                <small>{{ assignment.assignment.description }}</small>
+                {{ item.title }}<br/>
+                <small>{{ item.detail }}</small>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<br/><br/>
+{% endfor %}
 
 {% endblock %}
 
