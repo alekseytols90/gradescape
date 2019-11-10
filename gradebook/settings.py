@@ -100,10 +100,10 @@ WSGI_APPLICATION = 'gradebook.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gradenoscrape',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'NAME': os.environ.get('DB_NAME', 'gradenoscrape'),
+        'USER': os.environ.get('DB_USER', 'admin'),
+        'PASSWORD': os.environ.get('DB_PASSWORD','admin'),
+        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
         'PORT': '5432',
     }
 }
