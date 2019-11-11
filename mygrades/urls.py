@@ -58,9 +58,11 @@ from mygrades.views import (
     crawler,
     login_help,
     api_curriculum_list,
+    tutorials_page_view,
 )
 
 urlpatterns = [
+    path("tutorials/", tutorials_page_view),
     path("login-help/", login_help),
     path("assignment-upload/", assignment_upload, name="assignment_upload"),
     path("curriculum-upload/", curriculum_upload, name="curriculum_upload"),
