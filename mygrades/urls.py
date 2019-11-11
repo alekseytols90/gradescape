@@ -59,6 +59,7 @@ from mygrades.views import (
     login_help,
     api_curriculum_list,
     tutorials_page_view,
+    home_page_view,
 )
 
 urlpatterns = [
@@ -72,7 +73,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', user_login),
     path('logout/', user_logout),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
+    path('', home_page_view),
+    #url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
     # path("api/crawl/", crawl),
     path("students/", student_list_view),
     path("students/<int:epicenter_id>/edit/", student_update_view),
