@@ -918,7 +918,7 @@ def create_weekly_step2(request, semester):
         formset = StatusChangeFormset(request.POST)
         if formset.is_valid():
             #hide current assignments from weekly
-            sa = StudentAssignment.objects.filter(student__teacher_email=request.user.email, enrollment__academic_semester=semester, student__in=student_filter.qs)
+            sa = StudentAssignment.objects.filter(student__teacher_email=request.user.email, student__in=student_filter.qs)
             sa.update(shown_in_weekly=False)
 
             # make status changes, also marks 'shown'
