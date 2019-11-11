@@ -624,7 +624,7 @@ class StatusChangeForm(forms.Form):
         new_status = self.cleaned_data['new_status']
 
         assignment.status = new_status 
-        if new_status != 'Not Assigned':
+        if not new_status in ['Not Assigned', 'Exempt']:
             assignment.shown_in_weekly = True 
 
         assignment.save()

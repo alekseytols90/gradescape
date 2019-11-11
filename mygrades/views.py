@@ -977,7 +977,7 @@ def create_weekly_step2(request, semester):
 
             ordered += assignments.filter(assignment__curriculum__pk=cp)[:exact_result]
 
-        data.append({"student":student, "assignments":ordered})
+        data.append({"student":student, "assignments":ordered, "curriculums":Curriculum.objects.filter(pk__in=curriculum_pks)})
         
     # generate form
     initial = []
@@ -985,12 +985,14 @@ def create_weekly_step2(request, semester):
     for change in data:
         if len(change["assignments"]) == 0:
             continue
-        students.append({"pk":change["student"].pk, "name":change["student"].get_full_name()})
+
+        students.append({"pk":change["student"].pk, "name":change["student"].get_full_name(), "curriculums":change["curriculums"]})
+        
         for assignment in change["assignments"]:
             initial.append({
                 'assignment':assignment,
                 'new_status':'Assigned', 
-                'assignment_description': "<b>" + assignment.assignment.curriculum.name + "</b><br/>" + assignment.assignment.name +"<br/><small>" + assignment.assignment.description + "</small>"})
+                'assignment_description': assignment.assignment.name +"<br/><small>" + assignment.assignment.description + "</small>"})
     StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
     formset = StatusChangeFormset(request.POST or None, initial=initial)
 
@@ -1073,7 +1075,7 @@ def api_curriculum_list(request):
     subject = request.GET.get('subject','')
     grade_level = request.GET.get('grade_level','')
     results = []
-    for cur in Curriculum.objects.filter(subject=subject,grade_level=grade_level):
+    for cur in Curriculum.objects.filter(subject=subject,grade_level__in=[grade_level, 'All']).order_by('grade_level'):
         results.append({"id":cur.pk,"name":str(cur)})
     return Response({"results":results})
 
