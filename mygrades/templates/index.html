@@ -1,7 +1,8 @@
-
+<body bgcolor="pink">
 {% extends "base.html" %}
-
+<body bgcolor="pink">
 {% block head_title %}
+<body bgcolor="pink">
 <center>
   {% now "F" as todays_month %}
     {% if todays_month == "January" %}
@@ -71,11 +72,14 @@
 {% if user.is_authenticated%}
  {% ifequal user.groups.all.0.name "Teacher" %}
 
-<body>
+<body bgcolor="pink">
 <h2>Grades and MORE</h2>
+<h3>Hello {{user.first_name}}!</h3>
+<p></p>
+<h2>In case you haven't heard it today, you are an amazing teacher!</h2>
 
 <p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
-NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.</p>
+NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.  SSSSHHHHH, it's our little secret!</p>
 <p>
 <!-- Help a friend by sending them the form to get their own website:  <a href="https://forms.gle/d9Q1ADBKi2Q5D2Bo7">https://forms.gle/d9Q1ADBKi2Q5D2Bo7</a><br/></p>
 <p>
@@ -97,7 +101,7 @@ Payment may be submitted via PayPal to:  larryandshellie@yahoo.com</p> -->
 {% ifequal user.groups.all.0.name "Owner" %}
 
 
-<h3>Hello {{user.get_username}}!</h3>
+<h3>Hello {{user.first_name}}!</h3>
 <p></p>
 <h2>You are logged in as an Owner.</h2>
 
@@ -109,7 +113,8 @@ Payment may be submitted via PayPal to:  larryandshellie@yahoo.com</p> -->
 
 
 
-<h3>Hello {{user.get_username}}!</h3>
+<h3>Hello {{user.first_name}}!</h3>
+<p>Your Teacher's Name: {{student.teacher_email}}
 <h4>The Epic School Calendar:</h4>
 <p><iframe src="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></p>
 

@@ -74,6 +74,19 @@ from mygrades.models import (
     Teacher,
     
 )
+
+@login_required
+def home_page_view(request):
+    if request.user.groups.filter(name="Student").count() > 0:
+        student = get_object_or_404(Student, email=request.user.email)
+        #teacher = get_object_or_404(Teacher, teacher_email=student.email)
+    else:
+        return render(request, "index.html")
+    template_name = "index.html"
+    context = {"object": student}
+    return render(request, template_name, context)
+
+    
 def tutorials_page_view(request):
     my_title = "How To Videos"
     context = {"title": my_title}
