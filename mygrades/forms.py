@@ -572,11 +572,15 @@ class TeacherModelForm(forms.ModelForm):
             "first_name",
             "last_name",
             "email",
+            "zoom",
+            "syllabus",
         ]
         labels = {
             "first_name": "Teacher's First Name - Capitalize First Letter ONLY",
             "last_name": "Teacher's Last Name - Capitalize First Letter ONLY",
             "email": "Teacher e-Mail",
+            "zoom": "Zoom Link",
+            "syllabus":"Syllabus Link",
         }
 
         def __init__(self, *args, **kwargs):
