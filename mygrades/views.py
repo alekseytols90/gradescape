@@ -74,13 +74,18 @@ from mygrades.models import (
     Teacher,
     
 )
+def tutorials_page_view(request):
+    my_title = "How To Videos"
+    context = {"title": my_title}
+    return render(request, "tutorials.html", {})
+
 
 @login_required
-def login_help(response):
-    # my_title = "Login and Website Help"
+def login_help(request):
+    my_title = "Login and Website Help"
     # template_name = "login_help.html"
-    # context = {"title": my_title}
-    return render(response, "login_help.html",{})
+    context = {"title": my_title}
+    return render(request, "login_help.html",{})
 
   
 @login_required

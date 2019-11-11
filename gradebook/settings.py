@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'gradeapi',
-    # 'embed_video',
+    'embed_video',
     'mygrades',
     'django_extensions',
     'rest_framework',

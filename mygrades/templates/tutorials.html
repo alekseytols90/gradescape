@@ -1,0 +1,88 @@
+<!-- #epiclive heroku -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <a> <img src="https://static.wixstatic.com/media/c52e63_481cf760c9ec40fe9445cbc15043ae42~mv2_d_2705_1274_s_2.jpg" height="70px"</a>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <h1 style="text-align:center">{{title}}</h1>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+  <div class="container">
+
+<p class="p-5">
+    <div class='row'>
+        <div class='col-md-6'>
+            <div class = 'col-md-12'>
+
+
+{% load embed_video_tags %}
+{% video item.video 'small' %}
+<body>
+
+
+  <h3 font=24>Set Up a Student (Have More Than One?  We'll Handle That For You!)</h3></a>
+  <p></p>
+
+{% video "https://www.youtube.com/watch?v=qz07OH7-hck&feature=youtu.be" as my_video %}
+    {% video my_video 'small' %}
+{% endvideo %}
+<p></p>
+
+
+
+
+  <h3 font=24>Add Assignments to a Student Gradebook</h3></a>
+  <p></p>
+
+{% video "https://www.youtube.com/watch?v=xShsfCncfhs&feature=youtu.be" as my_video %}
+    {% video my_video 'small' %}
+{% endvideo %}
+<p></p>
+
+<body>
+
+
+
+    <div class='col-md-6'>
+        <div class = 'col-md-12'>
+<h3 font=24>Customize Pacing Guides for EACH Student</h3>
+<p></p>
+
+
+{% video "https://www.youtube.com/watch?v=xShsfCncfhs&feature=youtu.be" as my_video %}
+    {% video my_video 'small' %}
+{% endvideo %}
+<p></p>
+
+
+<h3 font=24>Easily Search and See OAS Standards</h3>
+<p></p>
+
+{% video "https://www.youtube.com/watch?v=r_5vwv_ilzo&feature=youtu.be" as my_video %}
+    {% video my_video 'small' %}
+{% endvideo %}
+<p></p>
+
+
+</div>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+    $( function() {
+        $( "#datepicker" ).datepicker();
+        $( "#id_attendance_date" ).datepicker();
+        $( "#id_date_of_birth" ).datepicker();
+    } );
+</script>
+
