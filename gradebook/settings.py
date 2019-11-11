@@ -94,8 +94,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'gradebook.wsgi.application'
 
 
-Database
-https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+#Database
+#https:/home/ubuntu/gradenoscrape/gradebook/settings.py
 
 DATABASES = {
     'default': {
