@@ -436,6 +436,8 @@ class Teacher(models.Model):
     first_name = models.CharField(max_length=75, null=False)
     last_name = models.CharField(max_length=75, null=False)
     email = models.CharField(max_length=75, null=False)
+    zoom = models.CharField(max_length=75, null=True)
+    syllabus = models.CharField(max_length=75, null=True)
 
     class Meta:
         unique_together = ("first_name", "last_name", "email")

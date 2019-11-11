@@ -57,6 +57,7 @@ from mygrades.views import (
     roster_list_view,
     crawler,
     login_help,
+    api_curriculum_list,
 )
 
 urlpatterns = [
