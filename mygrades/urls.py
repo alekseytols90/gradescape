@@ -56,10 +56,11 @@ from mygrades.views import (
     teacher_list_view,
     roster_list_view,
     crawler,
-    api_curriculum_list
+    login_help,
 )
 
 urlpatterns = [
+    path("login-help/", login_help),
     path("assignment-upload/", assignment_upload, name="assignment_upload"),
     path("curriculum-upload/", curriculum_upload, name="curriculum_upload"),
     path("standard-upload/", standard_upload, name="standard_upload"),

@@ -76,9 +76,14 @@ from mygrades.models import (
     
 )
 
+@login_required
+def login_help(response):
+    # my_title = "Login and Website Help"
+    # template_name = "login_help.html"
+    # context = {"title": my_title}
+    return render(response, "login_help.html",{})
 
-
-
+  
 @login_required
 def teacher_upload(request):
     template = "teacher_upload.html"
