@@ -851,7 +851,7 @@ def enroll_student_step2(request, semester, student_pk):
     # restrict curriculum range for safety, defaults to none if not set during form initialization
     subject = request.POST.get('subject','')
     cqs = Curriculum.objects.filter(
-        grade_level=request.POST.get('grade_level',''),
+        grade_level__in=[request.POST.get('grade_level',''), 'All'],
         subject=subject)
 
     if request.method == "POST":
