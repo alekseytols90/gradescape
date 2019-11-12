@@ -1,4 +1,5 @@
 import os
+import re
 import time
 import requests
 import selenium
@@ -320,13 +321,28 @@ def get_my_on_data():
     elem = driver.find_element_by_xpath('//*[@id="react-server-root"]/div/div[2]/div[1]/a[1]')
     elem.click()
     driver.implicitly_wait(30)
+
     try:
         wait.until(
             EC.presence_of_element_located((By.ID, "identifierId"))
         )
+
+        # force google to english regardless of server location
+        # check for url has hl=en if not, replace hl=[a-z]{,2} to hl=en in url, refresh page and wait until again (just once)
+        if 'hl=en' not in driver.current_url:
+            if "hl=" in driver.current_url: # replace if exists
+                new_url = re.sub(r'hl=[a-z]+', 'hl=en', driver.current_url) 
+            else:
+                new_url = driver.current_url + "&hl=en"
+
+            driver.get(new_url)
+            wait.until(
+                EC.presence_of_element_located((By.ID, "identifierId"))
+            )
+
     except selenium.common.exceptions.TimeoutException:
         print('enter here')
-        pass
+
     elem = driver.find_element_by_xpath('//*[@id="identifierId"]')
     elem.send_keys("charlotte.wood@epiccharterschools.org")
     elem = driver.find_element_by_xpath('//*[@id="identifierNext"]/span/span')
@@ -336,7 +352,7 @@ def get_my_on_data():
         EC.visibility_of_element_located((By.NAME, "password"))
     )
     elem = driver.find_element_by_name('password')
-    elem.send_keys('NSURocks!')
+    elem.send_keys('Principal1234!')
     wait.until(
         EC.element_to_be_clickable((By.XPATH, "//span[text()='Next']")))
 
