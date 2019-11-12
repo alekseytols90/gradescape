@@ -369,18 +369,17 @@ def get_my_on_data():
 
     wait.until(
         EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/main/div[1]/div/div[1]/select')))
-    select = driver.find_element_by_xpath(
-        '/html/body/div[2]/main/div[1]/div/div[1]/select/option[text()=\'Time spent reading\']')
+
+    time.sleep(3)
+    select = driver.find_element_by_xpath('/html/body/div[2]/main/div[1]/div/div[1]/select/option[text()=\'Time spent reading\']')
     select.click()
     time.sleep(5)
     wait.until(
         EC.presence_of_element_located((By.XPATH, '//*[@id="student-table"]/div[6]/div[2]/table/tbody'))
     )
-    # this doesn't always work since div 6 might be on 8, that might be some crawler protection
-    #elem = driver.find_element(By.XPATH,
-    #                           '//*[@id="student-table"]/div[6]/div[2]/table/tbody')
 
-    elem = driver.find_element(By.XPATH, '//*[@id="student-table"]/div[not(contains(@style,"display: none;"))]/div[2]/table/tbody')
+    # beware this doesn't always work if 'Time spent reading' selection above fails 
+    elem = driver.find_element(By.XPATH, '//*[@id="student-table"]/div[6]/div[2]/table/tbody')
 
     time.sleep(5)
     tml = elem.get_attribute('innerHTML')
