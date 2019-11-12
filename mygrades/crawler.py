@@ -376,8 +376,12 @@ def get_my_on_data():
     wait.until(
         EC.presence_of_element_located((By.XPATH, '//*[@id="student-table"]/div[6]/div[2]/table/tbody'))
     )
-    elem = driver.find_element(By.XPATH,
-                               '//*[@id="student-table"]/div[6]/div[2]/table/tbody')
+    # this doesn't always work since div 6 might be on 8, that might be some crawler protection
+    #elem = driver.find_element(By.XPATH,
+    #                           '//*[@id="student-table"]/div[6]/div[2]/table/tbody')
+
+    elem = driver.find_element(By.XPATH, '//*[@id="student-table"]/div[not(contains(@style,"display: none;"))]/div[2]/table/tbody')
+
     time.sleep(5)
     tml = elem.get_attribute('innerHTML')
     soup = BeautifulSoup(tml, 'html.parser')
