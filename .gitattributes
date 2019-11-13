@@ -1,0 +1,9 @@
+* text=auto
+*.py text
+*.html text
+*.js text
+*.css text
+*.txt text
+*.json text
+*.md text
+Procfile text
