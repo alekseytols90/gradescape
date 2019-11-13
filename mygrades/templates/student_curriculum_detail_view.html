@@ -61,7 +61,7 @@ Adjust the weights of curriculum for these subjects for this student only:<br/>
                 {% comment %}Weight: {{object.weight}}<br/>{% endcomment %}
                 Ending Date for the Semester or Year (Depending on Curriculum): {{enrollment.curriculum.semesterend}}<br/>
                 <a href="{% url "student-assignment-list-view" enrollment.student.pk enrollment.curriculum.pk %}">View/Edit student's assigments on this course</a><br/><br/>
-  
+               <a href="{% url 'edit_enrollment' enrollment.pk %}">Edit this enrollment</a><br/>
                <a href="#" data-href='{% url 'delete_enrollment' enrollment.pk %}', data-toggle="modal" data-target="#confirm-delete">Remove {{enrollment.curriculum.name}} From
                 {{student.get_full_name}}'s Pacing </a>
               <br/><br/>

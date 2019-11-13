@@ -258,7 +258,6 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        instance = kwargs.pop("instance", None)
         student_pk = kwargs.pop("student_pk",None)
         cqs = kwargs.pop("curriculum_qs",None)
         super(CurriculumEnrollmentForm, self).__init__(*args, **kwargs)
@@ -266,10 +265,15 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         self.fields["student"].queryset = qs.order_by("last_name")
         self.fields["student"].widget = forms.HiddenInput()
         self.fields["academic_semester"].widget = forms.HiddenInput() 
-        self.fields["curriculum"].queryset = Curriculum.objects.none()
 
-        if cqs: # early range restriction on submitted grade_level and subject
-            self.fields["curriculum"].queryset = cqs
+        if not self.instance.pk:
+            self.fields["curriculum"].queryset = Curriculum.objects.none()
+            if cqs: # early range restriction on submitted grade_level and subject
+                self.fields["curriculum"].queryset = cqs
+        else: # support editing
+            self.fields["student"].queryset = Student.objects.filter(pk=self.instance.student.pk)
+            self.fields["curriculum"].queryset = Curriculum.objects.filter(pk=self.instance.curriculum.pk)
+            self.fields["curriculum"].widget = forms.HiddenInput() 
 
     def clean_semesterend(self):
         sem = self.cleaned_data['semesterend']
@@ -289,16 +293,17 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         cur = cleaned_data['curriculum']
         semester = cleaned_data['academic_semester']
         student = cleaned_data['student']
-        subject = cleaned_data['subject']
+        subject = cur.subject
 
-        core_enrollment = Enrollment.objects.filter(student=student, academic_semester=semester, curriculum__subject=subject, level="Core")
+        if not self.instance.pk:
+            core_enrollment = Enrollment.objects.filter(student=student, academic_semester=semester, curriculum__subject=subject, level="Core")
 
-        if cleaned_data['level'] == "Core":
-            if core_enrollment.count() > 0:
-                self.add_error(None, "A core enrollment already exist for subject \"%s\"." % subject)
-        else: #supplemental
-            if core_enrollment.count() == 0:
-                self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+            if cleaned_data['level'] == "Core":
+                if core_enrollment.count() > 0:
+                    self.add_error(None, "A core enrollment already exist for subject \"%s\"." % subject)
+            else: #supplemental
+                if core_enrollment.count() == 0:
+                    self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
 
         recorded_from = cleaned_data['recorded_from']
         username = cleaned_data['username']
@@ -321,6 +326,20 @@ class CurriculumEnrollmentForm(forms.ModelForm):
             sa.save()
 
         return m
+
+class CurriculumEnrollmentUpdateForm(CurriculumEnrollmentForm):
+    def __init__(self, *args, **kwargs):
+        super(CurriculumEnrollmentUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['subject'].widget = forms.HiddenInput()
+        self.fields['grade_level'].widget = forms.HiddenInput()
+        self.fields['level'].widget = forms.HiddenInput()
+
+    def save(self):
+        m = super(CurriculumEnrollmentForm, self).save(commit=True)
+        return m
+
+    def clean_level(self):
+        return self.instance.level
 
 # to know which sems/subjects are editable for weight
 # Example:

@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ValidationError
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
@@ -28,6 +29,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.views.generic.edit import UpdateView
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from scrapyd_api import ScrapydAPI
@@ -49,6 +51,7 @@ from mygrades.filters import (
 )
 from mygrades.forms import (
     CurriculumEnrollmentForm,
+    CurriculumEnrollmentUpdateForm,
     StudentModelForm,
     AssignmentCreateForm,
     StandardSetupForm,
@@ -895,6 +898,17 @@ def enroll_student_step1(request):
         return redirect(reverse("enroll_student_step2", args=[semester, student_pk]))
 
     return render(request, template_name, context)
+
+
+class EnrollmentUpdate(SuccessMessageMixin, UpdateView):
+    model = Enrollment
+    form_class = CurriculumEnrollmentUpdateForm
+    template_name = "enroll_student_view_step2.html"
+    success_message = "Enrollment successfully updated!"
+
+    def get_success_url(self):
+        return reverse("edit_enrollment", args=[self.kwargs['pk']])
+
 
 @login_required
 def enroll_delete(request, enrollment_pk):

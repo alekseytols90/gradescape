@@ -8,8 +8,15 @@ table tr {padding-top:10px;}
 .errorlist {color:#f00;}
 </style>
 <h3 align="center">Enrollment</h3>
+{% if form.instance.pk %}
+<b>Student:</b> {{ form.instance.student.first_name }} {{ form.instance.student.last_name }}<br/>
+<b>Academic Year and Semester:</b> {{ form.instance.academic_semester }}<br/>
+<b>Curriculum:</b> {{ form.instance.curriculum.name }}<br/>
+<b>Level:</b> {{ form.instance.level }}<br/>
+{% else %}
 <b>Student:</b> {{ student.first_name }} {{ student.last_name }}<br/>
 <b>Academic Year and Semester:</b> {{ semester }}<br/>
+{% endif %}
 <br/>
 <form method="POST" name="enroll_form">
     {% csrf_token %}
@@ -17,8 +24,12 @@ table tr {padding-top:10px;}
     {{ form.as_table }}
     </table>
     <br/>
+    {% if form.instance.pk %}
+    <input class="btn btn-primary" type="submit" name="enroll" value="Update">
+    {% else %}
     <input class="btn btn-primary" type="submit" name="enroll" value="Enroll">
     <input class="btn btn-primary" type="submit" name="enroll_stay" value="Enroll and Add Another Curriculum">
+    {% endif %}
 </form>
 <br/>
 
