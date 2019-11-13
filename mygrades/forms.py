@@ -313,7 +313,7 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         # distribute weight
         student = self.cleaned_data['student']
         academic_semester = self.cleaned_data['academic_semester']
-        distribute_weights_for_sem(student, academic_semester)
+        distribute_weights_for_sem(student, academic_semester, self.instance.curriculum.subject)
 
         # copy assignments
         for item in self.instance.curriculum.curriculum_assignment.all():
@@ -343,21 +343,21 @@ def get_active_sems(student):
 
 # make sure total weight is 100
 # this should be called whenever enroll/withdraw happens
-def distribute_weights_for_sem(student, sem):
-    for subject in Curriculum.SUBJECT:
-        enr_set = Enrollment.objects.filter(academic_semester=sem, student=student, curriculum__subject=subject[0])
-        count = enr_set.count()
-        if count > 0:
-            average = 100 // count
+def distribute_weights_for_sem(student, sem, subject):
+    enr_set = Enrollment.objects.filter(academic_semester=sem, student=student, curriculum__subject=subject)
+    count = enr_set.count()
 
-            for enr in enr_set:
-                enr.weight = average
-                enr.save()
+    if count > 0:
+        average = 100 // count
 
-            if average*count < 100:
-                remaining = 100 - average*count
-                enr.weight += remaining
-                enr.save()
+        for enr in enr_set:
+            enr.weight = average
+            enr.save()
+
+        if average*count < 100:
+            remaining = 100 - average*count
+            enr.weight += remaining
+            enr.save()
 
 class StandardSetupForm(forms.ModelForm):
     strand_description = forms.CharField(required=False)

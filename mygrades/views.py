@@ -62,6 +62,7 @@ from mygrades.forms import (
     StatusChangeForm,
     generate_semester_choices,
     get_active_sems,
+    distribute_weights_for_sem,
 )
 from mygrades.models import (
     Student,
@@ -898,9 +899,14 @@ def enroll_student_step1(request):
 @login_required
 def enroll_delete(request, enrollment_pk):
     enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
+    student = enrollment.student
+    sem = enrollment.academic_semester
+    subject = enrollment.curriculum.subject
     enrollment.delete()
-    messages.success(request, "Deleted enrollment %s and all its assignments successfuly." % (enrollment,))
-    return redirect(reverse("curriculum-schedule-detail", args=[enrollment.student.pk]))
+    distribute_weights_for_sem(student, sem, subject)
+    messages.success(request, "Deleted enrollment %s and all its assignments successfuly. " % (enrollment,))
+    messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[sem, student.pk, subject]),)))
+    return redirect(reverse("curriculum-schedule-detail", args=[student.pk]))
 
 @login_required
 def weight_edit_view(request, semester, student_pk, subject):
