@@ -916,6 +916,11 @@ def enroll_delete(request, enrollment_pk):
     student = enrollment.student
     sem = enrollment.academic_semester
     subject = enrollment.curriculum.subject
+
+    if enrollment.level == "Core" and Enrollment.objects.filter(student=student, academic_semester=sem, curriculum__subject=subject).count() > 1:
+       messages.error(request,mark_safe("Hey, wait Teacher, %s is %s's CORE curriculum. It is setting her pace. If you want delete it, first choose another CORE on this page first for subject %s." % (enrollment.curriculum.name,student.get_full_name(), subject)))
+       return redirect(reverse("curriculum-schedule-detail", args=[student.pk]))
+
     enrollment.delete()
     distribute_weights_for_sem(student, sem, subject)
     messages.success(request, "Deleted enrollment %s and all its assignments successfuly. " % (enrollment,))

@@ -4,6 +4,7 @@ from django.forms import BaseModelFormSet
 from django.utils.safestring import mark_safe
 from django.db.models import Count, F
 from django.contrib.admin import widgets
+from django.urls import reverse
 from django.utils import timezone
 
 from mygrades.models import (
@@ -304,6 +305,9 @@ class CurriculumEnrollmentForm(forms.ModelForm):
             else: #supplemental
                 if core_enrollment.count() == 0:
                     self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+        else:
+            if self.initial["level"] == "Core" and cleaned_data["level"] == "Supplemental":
+                self.add_error(None, mark_safe("Hey, wait Teacher, %s is %s's CORE curriculum. It is setting her pace. If you want to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
 
         recorded_from = cleaned_data['recorded_from']
         username = cleaned_data['username']
@@ -332,14 +336,16 @@ class CurriculumEnrollmentUpdateForm(CurriculumEnrollmentForm):
         super(CurriculumEnrollmentUpdateForm, self).__init__(*args, **kwargs)
         self.fields['subject'].widget = forms.HiddenInput()
         self.fields['grade_level'].widget = forms.HiddenInput()
-        self.fields['level'].widget = forms.HiddenInput()
 
     def save(self):
+        # update the new core
+        if self.initial["level"] == "Supplemental" and self.cleaned_data["level"] == "Core":
+            core_enrollment = Enrollment.objects.filter(student=self.instance.student, academic_semester=self.instance.academic_semester, curriculum__subject=self.instance.curriculum.subject, level="Core")
+            core_enrollment.update(level="Supplemental")
+
         m = super(CurriculumEnrollmentForm, self).save(commit=True)
         return m
 
-    def clean_level(self):
-        return self.instance.level
 
 # to know which sems/subjects are editable for weight
 # Example:
