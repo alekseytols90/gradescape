@@ -19,6 +19,7 @@ import dj_database_url
 
 from .email_info import *
 #for gmail
+EMAIL_BACKEND = EMAIL_BACKEND
 EMAIL_USE_TLS = EMAIL_USE_TLS
 EMAIL_HOST = EMAIL_HOST
 EMAIL_HOST_USER = EMAIL_HOST_USER

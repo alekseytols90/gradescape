@@ -1041,7 +1041,7 @@ def create_weekly_step2(request, semester):
             for form in formset.forms:
                 form.save()
 
-            messages.success(request, "All assignments marked assigned are now on the student screen.")
+            messages.success(request, "All assignments are updated on the student screen.")
 
             return redirect('/')
 
@@ -1155,6 +1155,42 @@ def create_weekly_home(request):
     return render(request, template_name, context)
 
 @login_required
+def see_late_home(request):
+    my_title = "Late Assignments"
+
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, email=request.user.email)
+        return redirect(reverse("see_late_detail", args=[student.pk]))
+
+    qs = Student.objects.filter(teacher_email=request.user.email)
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "student_weekly_home.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title, "late_view": True}
+    return render(request, template_name, context)
+
+@login_required
+def see_late_detail(request, student_pk):
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    assignments = StudentAssignment.objects.filter(student=student, status='Incomplete') 
+
+    data = [] 
+    for asm in assignments:
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
+
+    template_name = "student_weekly_detail.html"
+    context = {"object": student, "assignments": data, "late_view": True}
+    return render(request, template_name, context)
+
+@login_required
 def see_weekly_home(request):
     my_title = "This Week's Assignments"
 
@@ -1189,6 +1225,47 @@ def see_weekly_detail(request, student_pk):
     template_name = "student_weekly_detail.html"
     context = {"object": student, "assignments": data}
     return render(request, template_name, context)
+
+@login_required
+def send_weekly_email(request, student_pk):
+    student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
+
+    data = [] 
+    for asm in assignments:
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
+
+    subject, from_email, to = "%s's Assignments for This Week" % student.get_full_name(), 'yourepiconline@gmail.com', [
+    student.email, student.additional_email]
+    text_content = 'Your most updated list of weekly assignments.  You may need to open this in a different browser if you do not see it here. '
+    html_content = render_to_string('mail_weekly_assignments.html', context={'assignments':data, 'student':student})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    messages.success(request, "Weekly assignments are sent to %s!" % student.get_full_name())
+    return redirect(reverse("see_weekly_detail", args=[student.pk]))
+
+
+@login_required
+def send_late_email(request, student_pk):
+    student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    assignments = StudentAssignment.objects.filter(student=student, status='Incomplete') 
+
+    data = [] 
+    for asm in assignments:
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
+
+    subject, from_email, to = "%s's Late Assignments As Of: %s" % (student.get_full_name(),timezone.now().date()), 'yourepiconline@gmail.com', [
+    student.email, student.additional_email]
+    text_content = 'Your most updated list of late assignments.  You may need to open this in a different browser if you do not see it here. '
+    html_content = render_to_string('mail_late_assignments.html', context={'assignments':data, 'student':student})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    messages.success(request, "Late assignments are sent to %s!" % student.get_full_name())
+    return redirect(reverse("see_late_detail", args=[student.pk]))
 
 
 @login_required
