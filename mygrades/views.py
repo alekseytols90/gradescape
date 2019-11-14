@@ -965,9 +965,9 @@ def create_weekly_step2(request, semester):
         StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
         formset = StatusChangeFormset(request.POST)
         if formset.is_valid():
-            #hide current assignments from weekly
-            sa = StudentAssignment.objects.filter(student__teacher_email=request.user.email, student__in=student_filter.qs)
-            sa.update(shown_in_weekly=False)
+            # #hide current assignments from weekly
+            # sa = StudentAssignment.objects.filter(student__teacher_email=request.user.email, student__in=student_filter.qs)
+            # sa.update(shown_in_weekly=False)
 
             # make status changes, also marks 'shown'
             for form in formset.forms:
@@ -980,52 +980,58 @@ def create_weekly_step2(request, semester):
     data = []
     for student in student_filter.qs: 
         ordered = []
-        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned', shown_in_weekly=False)
+        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned') #, shown_in_weekly=False)
 
         # group by curriculum
         curriculum_pks = list(assignments.values_list('assignment__curriculum',flat=True).distinct())
-        for cp in curriculum_pks:
-            cur_assignments = assignments.filter(assignment__curriculum__pk=cp)
-            enrollment = Enrollment.objects.get(academic_semester=semester, student=student, curriculum__pk=cp)
+        curriculums = Curriculum.objects.filter(pk__in=curriculum_pks) 
+        for cur in curriculums:
+            cur_assignments = assignments.filter(assignment__curriculum=cur)
+            enrollment = Enrollment.objects.get(academic_semester=semester, student=student, curriculum=cur)
+            if enrollment.tracking == "Repeating Weekly":
+                weekly_assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status="Assigned", assignment__curriculum=cur) 
+                ordered += weekly_assignments
+                cur.repeating = True # mark for presentation
+            elif enrollment.tracking == "From Pacing List":
+                # pick by formulation, examples:
+                # Rules:
+                #   - if exact, then assign that much
+                #   - if remainder then assign + 1
 
-            # pick by formulation, examples:
-            # Rules:
-            #   - if exact, then assign that much
-            #   - if remainder then assign + 1
+                # Examples:
+                # assignment count / weeks left
+                #  4/4 -> 1
+                #  8/4 -> 2
+                # 12/4 -> 3
+                #  5/4 -> 2
+                #  6/4 -> 2
+                #  7/4 -> 2
+                #  8/4 -> 2
+                #  9/4 -> 3
+                # 10/4 -> 3
+                # 11/4 -> 3
+                # 12/4 -> 3
+                #  0/4 -> 0
 
-            # Examples:
-            # assignment count / weeks left
-            #  4/4 -> 1
-            #  8/4 -> 2
-            # 12/4 -> 3
-            #  5/4 -> 2
-            #  6/4 -> 2
-            #  7/4 -> 2
-            #  8/4 -> 2
-            #  9/4 -> 3
-            # 10/4 -> 3
-            # 11/4 -> 3
-            # 12/4 -> 3
-            #  0/4 -> 0
+                sem_end = enrollment.semesterend
+                weeks_left = weeks_between(timezone.now(), sem_end)
+                if weeks_left == 0: # prevent division by 0
+                    weeks_left = 1 
+                assignments_count = cur_assignments.count()
 
-            sem_end = enrollment.semesterend
-            weeks_left = weeks_between(timezone.now(), sem_end)
-            if weeks_left == 0: # prevent division by 0
-                weeks_left = 1 
-            assignments_count = cur_assignments.count()
+                # only comment in for debugging purposes
+                # print("curriculum: %s semesterend: %s" % (str(cur), str(sem_end)))
+                # print("assigments:%d weeksleft:%d\n" % (assignments_count, weeks_left))
 
-            # only comment in for debugging purposes
-            # print("curriculum: %s semesterend: %s" % (str(Curriculum.objects.get(pk=cp)), str(sem_end)))
-            # print("assigments:%d weeksleft:%d\n" % (assignments_count, weeks_left))
+                exact_result = assignments_count // weeks_left
+                real_result = assignments_count / weeks_left
+                if real_result > exact_result:
+                    exact_result += 1
 
-            exact_result = assignments_count // weeks_left
-            real_result = assignments_count / weeks_left
-            if real_result > exact_result:
-                exact_result += 1
+                ordered += assignments.filter(assignment__curriculum=cur)[:exact_result]
+                ordered += StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status="Assigned", assignment__curriculum=cur) 
 
-            ordered += assignments.filter(assignment__curriculum__pk=cp)[:exact_result]
-
-        data.append({"student":student, "assignments":ordered, "curriculums":Curriculum.objects.filter(pk__in=curriculum_pks)})
+        data.append({"student":student, "assignments":ordered, "curriculums":curriculums})
         
     # generate form
     initial = []
@@ -1106,7 +1112,7 @@ def see_weekly_detail(request, student_pk):
     else:
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
 
-    assignments = StudentAssignment.objects.filter(student=student, shown_in_weekly=True)
+    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
 
     data = [] 
     for asm in assignments:

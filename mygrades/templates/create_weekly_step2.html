@@ -20,10 +20,11 @@
                 <p class="card-text">
                 
                     {% for cur  in student.curriculums %}
-                        <h6>{{ cur.name }}</h6>
+                    <h6>{{ cur.name }}{% if cur.repeating %}&nbsp;&nbsp;&nbsp;<small>(Repeating Weekly)</small>{% endif %}</h6>
+
                         <table class="table table-striped table-bordered">
                         <thead>
-                        <tr><th>Assignment</th><th>New Status</th></tr>
+                            <tr><th>Assignment</th><th>Status</th><th>New Status</th></tr>
                         </thead>
                         <tbody>
                         {% for form in formset.forms %}

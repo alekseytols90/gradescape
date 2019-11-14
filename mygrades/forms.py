@@ -641,11 +641,15 @@ class BaseWFSet(BaseModelFormSet):
 class StatusChangeForm(forms.Form):
     assignment = forms.ModelChoiceField(queryset=StudentAssignment.objects.all())
     assignment_description = forms.CharField(widget=PlainTextWidget, required=False, label="Assignment")
+    status = forms.CharField(widget=PlainTextWidget, required=False, label="Status")
     new_status = forms.ChoiceField(choices=StudentAssignment.STATUS)
 
     def __init__(self, *args, **kwargs):
         super(StatusChangeForm, self).__init__(*args, **kwargs)
         self.fields['assignment'].widget = forms.HiddenInput()
+
+        if "assignment" in self.initial:
+            self.fields['status'].initial = "".join([x[0] for x in self.initial['assignment'].status.split(" ")])
 
     
     def save(self):
@@ -653,8 +657,8 @@ class StatusChangeForm(forms.Form):
         new_status = self.cleaned_data['new_status']
 
         assignment.status = new_status 
-        if not new_status in ['Not Assigned', 'Exempt']:
-            assignment.shown_in_weekly = True 
+        #if not new_status in ['Not Assigned', 'Exempt']:
+        #    assignment.shown_in_weekly = True 
 
         assignment.save()
 
