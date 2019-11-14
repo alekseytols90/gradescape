@@ -16,6 +16,7 @@ from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.core.validators import URLValidator
 from django.db import IntegrityError
+from django.db.models import Q
 from django.forms import formset_factory
 from django.forms import inlineformset_factory
 from django.forms import modelformset_factory
@@ -966,7 +967,7 @@ class EnrollmentUpdate(SuccessMessageMixin, UpdateView):
     success_message = "Enrollment successfully updated!"
 
     def get_success_url(self):
-        return reverse("edit_enrollment", args=[self.kwargs['pk']])
+        return reverse("curriculum-schedule-detail", args=[self.object.student.pk])
 
 
 @login_required
@@ -1039,7 +1040,7 @@ def create_weekly_step2(request, semester):
     data = []
     for student in student_filter.qs: 
         ordered = []
-        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned') #, shown_in_weekly=False)
+        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester).filter(Q(status='Not Assigned')|Q(status='Assigned',enrollment__tracking='Repeating Weekly')) #, shown_in_weekly=False)
 
         # group by curriculum
         curriculum_pks = list(assignments.values_list('assignment__curriculum',flat=True).distinct())
