@@ -10,8 +10,11 @@
       
       <h5 class = 'card-title'> Title:  {{object.name}} </h5> 
 
-      <div class = 'card-text'> Standard: {% for objs_standard in object.standard.all %}
-              {{objs_standard.standard_code}}, {% endfor %}<br/>
+      <div class = 'card-text'>
+          Standard(s): {% if object.standard.all %}{% for objs_standard in object.standard.all %}
+          {{objs_standard.standard_code}}{% if not forloop.last %}, {% endif %}{% endfor %}{% else %}-{% endif %}<br/>
+          Standard Grade Level(s): {% if object.standard.all %}{% for objs_standard in object.standard.all %}
+          {{objs_standard.grade_level}}{% if not forloop.last %}, {% endif %}{% endfor %}{% else %}-{% endif %}<br/>
       	Curriculum: {{object.curriculum.name}}<br/>
         
         
