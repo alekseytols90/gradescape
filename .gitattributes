@@ -6,4 +6,5 @@
 *.txt text
 *.json text
 *.md text
+.gitignore
 Procfile text

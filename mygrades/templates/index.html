@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <body bgcolor="pink">
 {% extends "base.html" %}
 <body bgcolor="pink">
@@ -6,68 +7,68 @@
 <center>
   {% now "F" as todays_month %}
     {% if todays_month == "January" %}
-      {% load staticfiles %} <img src="{% static 'images/january.jpg' %}" width= "30px" />
+      <img src="{% static 'images/january.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "February" %}
-      {% load staticfiles %} <img src="{% static 'images/february.jpg' %}" width= "30px" />
+      <img src="{% static 'images/february.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "March" %}
-      {% load staticfiles %} <img src="{% static 'images/march.jpg' %}" width= "30px" />
+      <img src="{% static 'images/march.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "April" %}
-      {% load staticfiles %} <img src="{% static 'images/april.jpg' %}" width= "30px" />
+      <img src="{% static 'images/april.jpg' %}" width= "30px" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "May" %}
-      {% load staticfiles %} <img src="{% static 'images/may.jpg' %}" width= "30px" />
+      <img src="{% static 'images/may.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "June" %}
-      {% load staticfiles %} <img src="{% static 'images/june.jpg' %}" width= "30px" />
+      <img src="{% static 'images/june.jpg' %}" width= "30px" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "July" %}
-      {% load staticfiles %} <img src="{% static 'images/july.jpg' %}" width= "30px" />
+      <img src="{% static 'images/july.jpg' %}" width= "30px" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "August" %}
-      {% load staticfiles %} <img src="{% static 'images/august.jpg' %}" width= "30px" />
+      <img src="{% static 'images/august.jpg' %}" width= "30px" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "September" %}
-      {% load staticfiles %} <img src="{% static 'images/september.jpg' %}" width= "30px" />
+      <img src="{% static 'images/september.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "October" %}
-      {% load staticfiles %} <center><img src="{% static 'images/october.jpg' %}" /></center>
+      <center><img src="{% static 'images/october.jpg' %}" /></center>
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "November" %}
-      {% load staticfiles %} <img src="{% static 'images/november.jpg' %}" />
+      <img src="{% static 'images/november.jpg' %}" />
       {% endif %}
 
 
         {% now "F" as todays_month %}
   {% if todays_month == "December" %}
-      {% load staticfiles %} <img src="{% static 'images/december.jpg' %}"/>
+      <img src="{% static 'images/december.jpg' %}"/>
       {% endif %}
 {% if user.is_authenticated%}
  {% ifequal user.groups.all.0.name "Teacher" %}
@@ -93,7 +94,7 @@ Payment may be submitted via PayPal to:  larryandshellie@yahoo.com</p> -->
 
 <p>Do you need a student added? <a href="/students-setup/">Click here.</a></p>
 
-<center>{% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
+<center><img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
 <div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a></center></div>
 
 {% endifequal %}
