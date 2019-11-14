@@ -341,13 +341,14 @@ class StudentAssignment(models.Model):
         ("Assigned", "Assigned"),
         ("Incomplete", "Incomplete"),
         ("Exempt", "Exempt"),
+        ("Complete", "Complete"),
     ]
 
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, null=True) #TODO: remove null=True
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     status = models.CharField(max_length=30, choices=STATUS, null=False)
-    shown_in_weekly = models.BooleanField(default=False)
+    shown_in_weekly = models.BooleanField(default=False)  #TODO: remove, not in use
 
     # not used yet
     active = models.BooleanField(default=False)

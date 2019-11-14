@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ValidationError
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
@@ -28,6 +29,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.views.generic.edit import UpdateView
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from scrapyd_api import ScrapydAPI
@@ -49,6 +51,7 @@ from mygrades.filters import (
 )
 from mygrades.forms import (
     CurriculumEnrollmentForm,
+    CurriculumEnrollmentUpdateForm,
     StudentModelForm,
     AssignmentCreateForm,
     StandardSetupForm,
@@ -896,12 +899,28 @@ def enroll_student_step1(request):
 
     return render(request, template_name, context)
 
+
+class EnrollmentUpdate(SuccessMessageMixin, UpdateView):
+    model = Enrollment
+    form_class = CurriculumEnrollmentUpdateForm
+    template_name = "enroll_student_view_step2.html"
+    success_message = "Enrollment successfully updated!"
+
+    def get_success_url(self):
+        return reverse("edit_enrollment", args=[self.kwargs['pk']])
+
+
 @login_required
 def enroll_delete(request, enrollment_pk):
     enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
     student = enrollment.student
     sem = enrollment.academic_semester
     subject = enrollment.curriculum.subject
+
+    if enrollment.level == "Core" and Enrollment.objects.filter(student=student, academic_semester=sem, curriculum__subject=subject).count() > 1:
+       messages.error(request,mark_safe("Hey, wait Teacher, %s is %s's CORE curriculum. It is setting her pace. If you want delete it, first choose another CORE on this page first for subject %s." % (enrollment.curriculum.name,student.get_full_name(), subject)))
+       return redirect(reverse("curriculum-schedule-detail", args=[student.pk]))
+
     enrollment.delete()
     distribute_weights_for_sem(student, sem, subject)
     messages.success(request, "Deleted enrollment %s and all its assignments successfuly. " % (enrollment,))
@@ -946,9 +965,9 @@ def create_weekly_step2(request, semester):
         StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
         formset = StatusChangeFormset(request.POST)
         if formset.is_valid():
-            #hide current assignments from weekly
-            sa = StudentAssignment.objects.filter(student__teacher_email=request.user.email, student__in=student_filter.qs)
-            sa.update(shown_in_weekly=False)
+            # #hide current assignments from weekly
+            # sa = StudentAssignment.objects.filter(student__teacher_email=request.user.email, student__in=student_filter.qs)
+            # sa.update(shown_in_weekly=False)
 
             # make status changes, also marks 'shown'
             for form in formset.forms:
@@ -961,52 +980,58 @@ def create_weekly_step2(request, semester):
     data = []
     for student in student_filter.qs: 
         ordered = []
-        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned', shown_in_weekly=False)
+        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status='Not Assigned') #, shown_in_weekly=False)
 
         # group by curriculum
         curriculum_pks = list(assignments.values_list('assignment__curriculum',flat=True).distinct())
-        for cp in curriculum_pks:
-            cur_assignments = assignments.filter(assignment__curriculum__pk=cp)
-            enrollment = Enrollment.objects.get(academic_semester=semester, student=student, curriculum__pk=cp)
+        curriculums = Curriculum.objects.filter(pk__in=curriculum_pks) 
+        for cur in curriculums:
+            cur_assignments = assignments.filter(assignment__curriculum=cur)
+            enrollment = Enrollment.objects.get(academic_semester=semester, student=student, curriculum=cur)
+            if enrollment.tracking == "Repeating Weekly":
+                weekly_assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status="Assigned", assignment__curriculum=cur) 
+                ordered += weekly_assignments
+                cur.repeating = True # mark for presentation
+            elif enrollment.tracking == "From Pacing List":
+                # pick by formulation, examples:
+                # Rules:
+                #   - if exact, then assign that much
+                #   - if remainder then assign + 1
 
-            # pick by formulation, examples:
-            # Rules:
-            #   - if exact, then assign that much
-            #   - if remainder then assign + 1
+                # Examples:
+                # assignment count / weeks left
+                #  4/4 -> 1
+                #  8/4 -> 2
+                # 12/4 -> 3
+                #  5/4 -> 2
+                #  6/4 -> 2
+                #  7/4 -> 2
+                #  8/4 -> 2
+                #  9/4 -> 3
+                # 10/4 -> 3
+                # 11/4 -> 3
+                # 12/4 -> 3
+                #  0/4 -> 0
 
-            # Examples:
-            # assignment count / weeks left
-            #  4/4 -> 1
-            #  8/4 -> 2
-            # 12/4 -> 3
-            #  5/4 -> 2
-            #  6/4 -> 2
-            #  7/4 -> 2
-            #  8/4 -> 2
-            #  9/4 -> 3
-            # 10/4 -> 3
-            # 11/4 -> 3
-            # 12/4 -> 3
-            #  0/4 -> 0
+                sem_end = enrollment.semesterend
+                weeks_left = weeks_between(timezone.now(), sem_end)
+                if weeks_left == 0: # prevent division by 0
+                    weeks_left = 1 
+                assignments_count = cur_assignments.count()
 
-            sem_end = enrollment.semesterend
-            weeks_left = weeks_between(timezone.now(), sem_end)
-            if weeks_left == 0: # prevent division by 0
-                weeks_left = 1 
-            assignments_count = cur_assignments.count()
+                # only comment in for debugging purposes
+                # print("curriculum: %s semesterend: %s" % (str(cur), str(sem_end)))
+                # print("assigments:%d weeksleft:%d\n" % (assignments_count, weeks_left))
 
-            # only comment in for debugging purposes
-            # print("curriculum: %s semesterend: %s" % (str(Curriculum.objects.get(pk=cp)), str(sem_end)))
-            # print("assigments:%d weeksleft:%d\n" % (assignments_count, weeks_left))
+                exact_result = assignments_count // weeks_left
+                real_result = assignments_count / weeks_left
+                if real_result > exact_result:
+                    exact_result += 1
 
-            exact_result = assignments_count // weeks_left
-            real_result = assignments_count / weeks_left
-            if real_result > exact_result:
-                exact_result += 1
+                ordered += assignments.filter(assignment__curriculum=cur)[:exact_result]
+                ordered += StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester,status="Assigned", assignment__curriculum=cur) 
 
-            ordered += assignments.filter(assignment__curriculum__pk=cp)[:exact_result]
-
-        data.append({"student":student, "assignments":ordered, "curriculums":Curriculum.objects.filter(pk__in=curriculum_pks)})
+        data.append({"student":student, "assignments":ordered, "curriculums":curriculums})
         
     # generate form
     initial = []
@@ -1087,7 +1112,7 @@ def see_weekly_detail(request, student_pk):
     else:
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
 
-    assignments = StudentAssignment.objects.filter(student=student, shown_in_weekly=True)
+    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
 
     data = [] 
     for asm in assignments:

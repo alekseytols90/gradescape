@@ -4,6 +4,7 @@ from django.forms import BaseModelFormSet
 from django.utils.safestring import mark_safe
 from django.db.models import Count, F
 from django.contrib.admin import widgets
+from django.urls import reverse
 from django.utils import timezone
 
 from mygrades.models import (
@@ -258,7 +259,6 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        instance = kwargs.pop("instance", None)
         student_pk = kwargs.pop("student_pk",None)
         cqs = kwargs.pop("curriculum_qs",None)
         super(CurriculumEnrollmentForm, self).__init__(*args, **kwargs)
@@ -266,10 +266,15 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         self.fields["student"].queryset = qs.order_by("last_name")
         self.fields["student"].widget = forms.HiddenInput()
         self.fields["academic_semester"].widget = forms.HiddenInput() 
-        self.fields["curriculum"].queryset = Curriculum.objects.none()
 
-        if cqs: # early range restriction on submitted grade_level and subject
-            self.fields["curriculum"].queryset = cqs
+        if not self.instance.pk:
+            self.fields["curriculum"].queryset = Curriculum.objects.none()
+            if cqs: # early range restriction on submitted grade_level and subject
+                self.fields["curriculum"].queryset = cqs
+        else: # support editing
+            self.fields["student"].queryset = Student.objects.filter(pk=self.instance.student.pk)
+            self.fields["curriculum"].queryset = Curriculum.objects.filter(pk=self.instance.curriculum.pk)
+            self.fields["curriculum"].widget = forms.HiddenInput() 
 
     def clean_semesterend(self):
         sem = self.cleaned_data['semesterend']
@@ -289,16 +294,20 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         cur = cleaned_data['curriculum']
         semester = cleaned_data['academic_semester']
         student = cleaned_data['student']
-        subject = cleaned_data['subject']
+        subject = cur.subject
 
-        core_enrollment = Enrollment.objects.filter(student=student, academic_semester=semester, curriculum__subject=subject, level="Core")
+        if not self.instance.pk:
+            core_enrollment = Enrollment.objects.filter(student=student, academic_semester=semester, curriculum__subject=subject, level="Core")
 
-        if cleaned_data['level'] == "Core":
-            if core_enrollment.count() > 0:
-                self.add_error(None, "A core enrollment already exist for subject \"%s\"." % subject)
-        else: #supplemental
-            if core_enrollment.count() == 0:
-                self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+            if cleaned_data['level'] == "Core":
+                if core_enrollment.count() > 0:
+                    self.add_error(None, "A core enrollment already exist for subject \"%s\"." % subject)
+            else: #supplemental
+                if core_enrollment.count() == 0:
+                    self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+        else:
+            if self.initial["level"] == "Core" and cleaned_data["level"] == "Supplemental":
+                self.add_error(None, mark_safe("Hey, wait Teacher, %s is %s's CORE curriculum. It is setting her pace. If you want to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
 
         recorded_from = cleaned_data['recorded_from']
         username = cleaned_data['username']
@@ -321,6 +330,22 @@ class CurriculumEnrollmentForm(forms.ModelForm):
             sa.save()
 
         return m
+
+class CurriculumEnrollmentUpdateForm(CurriculumEnrollmentForm):
+    def __init__(self, *args, **kwargs):
+        super(CurriculumEnrollmentUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['subject'].widget = forms.HiddenInput()
+        self.fields['grade_level'].widget = forms.HiddenInput()
+
+    def save(self):
+        # update the new core
+        if self.initial["level"] == "Supplemental" and self.cleaned_data["level"] == "Core":
+            core_enrollment = Enrollment.objects.filter(student=self.instance.student, academic_semester=self.instance.academic_semester, curriculum__subject=self.instance.curriculum.subject, level="Core")
+            core_enrollment.update(level="Supplemental")
+
+        m = super(CurriculumEnrollmentForm, self).save(commit=True)
+        return m
+
 
 # to know which sems/subjects are editable for weight
 # Example:
@@ -616,11 +641,15 @@ class BaseWFSet(BaseModelFormSet):
 class StatusChangeForm(forms.Form):
     assignment = forms.ModelChoiceField(queryset=StudentAssignment.objects.all())
     assignment_description = forms.CharField(widget=PlainTextWidget, required=False, label="Assignment")
+    status = forms.CharField(widget=PlainTextWidget, required=False, label="Status")
     new_status = forms.ChoiceField(choices=StudentAssignment.STATUS)
 
     def __init__(self, *args, **kwargs):
         super(StatusChangeForm, self).__init__(*args, **kwargs)
         self.fields['assignment'].widget = forms.HiddenInput()
+
+        if "assignment" in self.initial:
+            self.fields['status'].initial = "".join([x[0] for x in self.initial['assignment'].status.split(" ")])
 
     
     def save(self):
@@ -628,8 +657,8 @@ class StatusChangeForm(forms.Form):
         new_status = self.cleaned_data['new_status']
 
         assignment.status = new_status 
-        if not new_status in ['Not Assigned', 'Exempt']:
-            assignment.shown_in_weekly = True 
+        #if not new_status in ['Not Assigned', 'Exempt']:
+        #    assignment.shown_in_weekly = True 
 
         assignment.save()
 
