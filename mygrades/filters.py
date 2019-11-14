@@ -157,11 +157,13 @@ class StandardFilter(django_filters.FilterSet):
 class AssignmentFilter(django_filters.FilterSet):
    
     standard = django_filters.CharFilter(
-        lookup_expr="icontains", label="Standard")
-    # curriculum = django_filters.CharFilter(
-        # lookup_expr="icontains", label="Curriculum")
+        lookup_expr="icontains", field_name="standard__standard_code",label="Standard Code")
+    grade_level = django_filters.CharFilter(
+        lookup_expr="exact", field_name="standard__grade_level", label="Standard Grade Level")
+    curriculum = django_filters.CharFilter(
+        lookup_expr="icontains", field_name="curriculum__name", label="Curriculum Title")
     name = django_filters.CharFilter(
-        lookup_expr="icontains", label="Title")
+        lookup_expr="icontains", label="Assignment Title")
     # tracking = django_filters.CharFilter(
         # lookup_expr="icontains", label="Grading Method")
 
