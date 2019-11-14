@@ -6,21 +6,6 @@
   <div class='card-body'>
 
     
-      
-      <h5 class = 'card-title'>{{object.name}}</h5>
-     
-      <div class = 'card-text'>  Grade: {{object.grade_level}} Subject: {{object.subject}}<br/>
-
-
-        <a href="{{object.get_absolute_url}}">See Assignments in this Curriculum</a><br/>
-       
-       {% ifequal user.groups.all.0.name "Owner" %} 
-        <a href='{{ object.get_edit_url }}' > Edit Information for: 
-        {{object.name}}</a>
-        {% endifequal %}
-
-<!--         <h4>Assignments In This Curriculum:</h4>
-      </div>
 
       
 {% for assignment in object.curriculum_assignment.all %}
@@ -40,10 +25,10 @@
 
               {% empty %}
 
-              <h5>Assignments coming soon!</h5>
+              <h5>Assignments coming soon!<br/> <a href="https://forms.gle/jxvTSYqiTvE75dp27" target="_blank">Request one here.</a></h5>
 
 
-                {% endfor %} -->
+                {% endfor %}
 
 
 

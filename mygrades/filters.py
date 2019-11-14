@@ -155,10 +155,7 @@ class StandardFilter(django_filters.FilterSet):
 
 
 class AssignmentFilter(django_filters.FilterSet):
-    GRADEMETHOD = [
-        ("Manual", "Manual"),
-        ("Automatic", "Automatic"),
-        ]
+   
     standard = django_filters.CharFilter(
         lookup_expr="icontains", label="Standard")
     curriculum = django_filters.CharFilter(

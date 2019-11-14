@@ -496,19 +496,7 @@ class RecordGradeForm(forms.ModelForm):
 
 
 class AssignmentCreateForm(forms.ModelForm):
-    #STATUS = [
-    #    ("Not Assigned", "Not Assigned"),
-    #    ("Assigned", "Assigned"),
-    #    ("Incomplete", "Incomplete"),
-    #    ("Exempt", "Exempt"),
-    #]
-
-    TYPE = [
-        ("Repeating Weekly", "Repeating Weekly"),
-        ("From Pacing List", "From Pacing List"),
-    ]
-
-    #status = forms.ChoiceField(choices=STATUS, widget=forms.RadioSelect, label="What is the status of this assignment?")
+    standard = forms.ModelMultipleChoiceField(queryset=Standard.objects.all())
 
     class Meta:
         model = Assignment
@@ -518,18 +506,15 @@ class AssignmentCreateForm(forms.ModelForm):
             "description",
             "standard",
             "curriculum",
-            #"status",
-            "type_of",
+            
         ]
 
         labels = {
             "name": "Title",
             "description": "Instructions or Link",
             "standard": "OAS Standard Number",
-            "curriculum": "In Which Curriculum Will This Assignment Be Included? Hold Control to DESELECT or Select "
-                          "Multiple Curriculum.",
-            #"status": "What is the status of this assignment?",
-            "type_of": "What type of assignment is this?",
+            "curriculum": "In Which Curriculum Will This Assignment Be Included?",
+
         }
 
         def __init__(self, *args, **kwargs):

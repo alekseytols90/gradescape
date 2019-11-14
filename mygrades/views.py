@@ -84,14 +84,13 @@ from mygrades.models import (
 def home_page_view(request):
     if request.user.groups.filter(name="Student").count() > 0:
         student = get_object_or_404(Student, email=request.user.email)
-        #teacher = get_object_or_404(Teacher, teacher_email=student.email)
+        teacher =Teacher.objects.get(email=student.teacher_email)
     else:
         return render(request, "index.html")
     template_name = "index.html"
     context = {"object": student}
     return render(request, template_name, context)
 
-    
 def tutorials_page_view(request):
     my_title = "How To Videos"
     context = {"title": my_title}
@@ -104,6 +103,56 @@ def login_help(request):
     # template_name = "login_help.html"
     context = {"title": my_title}
     return render(request, "login_help.html",{})
+
+    # def home(response):
+    # return render(response, "main/home.html", {})
+
+
+@login_required
+def user_upload(request):
+    template = "user_upload.html"
+    prompt = {
+        'order': "The columns should be: First Name, Last Name, eMail Address, Password, Group, Staff?, Active?, Superuser?, Date Joined, Last Login."
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, "Only CSV files may be uploaded.")
+        return render(request, template)
+
+    data_set = ""
+    try:
+        data_set = csv_file.read().decode("UTF8")
+    except Exception as e:
+        csv_file.seek(0)
+        data_set = csv_file.read().decode("ISO-8859-1") 
+
+    io_string = io.StringIO(data_set)
+
+    # header count check
+    header = next(io_string)
+    header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
+    if len(header_clean) != 5:
+        messages.error(request, "Make sure table consists of 10 columns. %s" % prompt['order'])
+        return render(request, template)
+
+    for column in csv.reader(io_string, delimiter=',', quotechar='"'):
+        _, created = Teacher.objects.update_or_create(
+            first_name=clear_field(column[0]),
+            last_name=clear_field(column[1]),
+            email=clear_field(column[2]),
+            password=clear_field(column[3]),
+            groups=clear_field(column[4]),
+            # is_staff=clear_field(column[5]),
+            # is_active=clear_field(column[6]),
+            # is_superuser=clear_field(column[7]),
+            # date_joined=clear_field(column[8]),
+            # last_login=clear_field(column[9]),
+        )
+
+    return redirect("/")
 
   
 @login_required
@@ -649,6 +698,16 @@ def teacher_update_view(request, id):
         return redirect("/teachers")
     template_name = "form.html"
     context = {"title": f"Update Information for: {obj.firstname}", "form": form}
+    return render(request, template_name, context)
+
+@login_required
+def curriculum_assignments_included_view(request, id):
+    #qs = Assignment.objects.all()
+    obj = get_object_or_404(Curriculum, id=id)
+    #curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
+    template_name = "curriculum_assignments_included_view.html"
+    context = {"title": f"Assignments in {obj.name}"}
+    # context = {"title": my_title}
     return render(request, template_name, context)
 
 

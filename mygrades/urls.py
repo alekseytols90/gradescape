@@ -61,6 +61,7 @@ from mygrades.views import (
     api_curriculum_list,
     tutorials_page_view,
     home_page_view,
+    curriculum_assignments_included_view,
 )
 
 urlpatterns = [

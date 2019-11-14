@@ -1,110 +1,134 @@
+
 {% extends "base.html" %}
-{% load staticfiles %}
-<body bgcolor="pink">
-<body bgcolor="pink">
 {% block head_title %}
-<body bgcolor="pink">
 <center>
+
+ 
+
   {% now "F" as todays_month %}
     {% if todays_month == "January" %}
-      <img src="{% static 'images/january.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/january.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "February" %}
-      <img src="{% static 'images/february.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/february.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "March" %}
-      <img src="{% static 'images/march.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/march.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "April" %}
-      <img src="{% static 'images/april.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/april.jpg' %}" width= "30px" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "May" %}
-      <img src="{% static 'images/may.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/may.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "June" %}
-      <img src="{% static 'images/june.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/june.jpg' %}" width= "30px" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "July" %}
-      <img src="{% static 'images/july.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/july.jpg' %}" width= "30px" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "August" %}
-      <img src="{% static 'images/august.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/august.jpg' %}" width= "30px" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "September" %}
-      <img src="{% static 'images/september.jpg' %}" width= "30px" />
+      {% load staticfiles %} <img src="{% static 'images/september.jpg' %}" width= "30px" />
       {% endif %}
 
 {% now "F" as todays_month %}
     {% if todays_month == "October" %}
-      <center><img src="{% static 'images/october.jpg' %}" /></center>
+      {% load staticfiles %} <center><img src="{% static 'images/october.jpg' %}" />
       {% endif %}
 
 
 {% now "F" as todays_month %}
     {% if todays_month == "November" %}
-      <img src="{% static 'images/november.jpg' %}" />
+      {% load staticfiles %} <img src="{% static 'images/november.jpg' %}" />
       {% endif %}
 
 
         {% now "F" as todays_month %}
   {% if todays_month == "December" %}
-      <img src="{% static 'images/december.jpg' %}"/>
+      {% load staticfiles %} <img src="{% static 'images/december.jpg' %}"/></center>
       {% endif %}
 {% if user.is_authenticated%}
  {% ifequal user.groups.all.0.name "Teacher" %}
 
-<body bgcolor="pink">
-<h2>Grades and MORE</h2>
+
+<center><h2>Grades and MORE</h2>
 <h3>Hello {{user.first_name}}!</h3>
 <p></p>
 <h2>In case you haven't heard it today, you are an amazing teacher!</h2>
 
 <p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
 NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.  SSSSHHHHH, it's our little secret!</p>
-<p>
-<!-- Help a friend by sending them the form to get their own website:  <a href="https://forms.gle/d9Q1ADBKi2Q5D2Bo7">https://forms.gle/d9Q1ADBKi2Q5D2Bo7</a><br/></p>
-<p>
-Your next payment is due on:<br/>
-
-Payment may be submitted via PayPal to:  larryandshellie@yahoo.com</p> -->
 
 <p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8">Complete this form.</a></p>
 
 <p>Do you need a curriculum added?  <a href="https://forms.gle/yXymhDWikZcJz4Vv7">Complete this form.</a></p>
 
+<p>Do you need an assignment added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27">Complete this form.</a></p>
+
 <p>Do you need a student added? <a href="/students-setup/">Click here.</a></p>
 
-<center><img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
+{% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
 <div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a></center></div>
 
 {% endifequal %}
 
+{% ifequal user.groups.all.0.name "Trial" %}
+
+
+<center><h3>Hello!</h3>
+<p></p>
+<h2>You are logged into the Free Version.</h2></center><div align="left"><p>
+This gives you access to all OAS Standards in an easy search model. </p>
+<p>You also have unlimited access to standards correlated assignments from which you can create pacing guides.<br/>
+Why upgrade?</p>
+<ul>
+<li>Automatically pull progress from most all websites that you use into one place.</li>
+<li>Your students are imported into your website for you</li>
+<li>Your families have their own personal log in</li>
+<li>Send next week's assignment list directly to the student screen with a CLICK.  The system figures out how many assignments are needed to stay on pace to complete by the ending date that YOU SET.</li>
+<li>System automatically determines the number of gradable assignments for you!</li>
+<li>View Standards Completion Maps for students.</li>
+<li>Send custom alerts to specific students</li>
+<li>E-mail next week's assignments to students with a CLICK.</li>
+<li>ALL Student logins are on one, clickable screen.</li>
+<li>Assign supplemental assignments to students based on performance level WITH A CLICK!</li>
+</ul>
+</div>
+<p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSct7aNnvS59MtMQ3ndIMhpGY1s5ebgLEguTglw9CIgeVmN3nA/viewform?embedded=true" width="640" height="2243" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe></p>
+
+
+{% endifequal %}
+
+
 {% ifequal user.groups.all.0.name "Owner" %}
 
-
+<center>
 <h3>Hello {{user.first_name}}!</h3>
 <p></p>
-<h2>You are logged in as an Owner.</h2>
+<h2>You are logged in as an Owner.</h2></center>
 
 {% endifequal %}
 
@@ -113,19 +137,40 @@ Payment may be submitted via PayPal to:  larryandshellie@yahoo.com</p> -->
 <p></p>
 
 
-
+</center>
 <h3>Hello {{user.first_name}}!</h3>
-<p>Your Teacher's Name: {{student.teacher_email}}
-<h4>The Epic School Calendar:</h4>
+<p>Your Teacher's eMail: <a href = "mailto:{{object.teacher_email}}">{{object.teacher_email}}</a><br/>
+  Your Teacher's first name: {{object.first_name}} 
+  {% now "d m" as today %}
+ 
+      {% if object.birthdate == today %}
+   
+<h1>Happy Birthday {{user.first_name}}!</h1>
+{% load embed_video_tags %}
+{% video "https://www.youtube.com/watch?v=jlmd6gHHw28" as my_video %}
+    {% video my_video 'small' %}
+{% endvideo %}
+
+{% endif %}
+
+
+
+   
+
+
+</p>
+
 <p><iframe src="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></p>
 
 <p><a href="https://epiccharterschools.org/student-parent-handbook">View The Epic Student and Parent Handbook</a></p>
 
 <p><a href="{{user.student.teacher_syllabus}}">View Your Teacher's Classroom Syllabus</a></p>
 <p><a href="https://epiccharterschools.org/learning-fund">What is the Learning Fund?</>
-<p><a href="mailto:{{user.student.teacher_email}}">eMail Your Teacher</a></p>
+<p> <a href = "mailto:{{object.teacher_email}}">eMail Your Teacher</a></p>
 
 <p><a href="{{user.student.teacher.zoom_link}}">Zoom With Your Teacher</a></p>
+
+<p><a href="https://epiccharterschools.org/records-request">Request Records from Epic:  Transcript, Driver's Permit Letter, Report Card, ANYTHING</a></p>
 
 <h3>Attendance Policy:</h3>
 <p>Because of our unique structure, there is no daily roll call. Gradable assignments are the Epic attendance record. Epic measures 100% attendance as 40 gradable assignments each nine weeks. It is important for families to understand that at the end of each of the four quarters, students must have an attendance of at least 76% to remain enrolled. One way to picture the relationship between gradable assignments and attendance could be described using the subject of Math. One gradable Math assignment at Epic might represent five days of work in a traditional brick and mortar classroom. All students with less than 76% attendance will be withdrawn at the end of each quarter. </p>
@@ -135,12 +180,12 @@ Payment may be submitted via PayPal to:  larryandshellie@yahoo.com</p> -->
   <p>Gradable Assignments (Attendance Points) are determined by your teacher.  You will know exactly what you need to complete on your Weekly Assignment List to receive credit for each assignment.  There are five possible Gradable Assignments (Attendance Points) each week.</p>
 
   <p><a href="mailto:support@epiccharterschools.org">Contact technical support.</a></p>
-
+</center>
 {% endifequal %}
 
 {% else %}
-<h1>
-<a href="/login">Please log in here.</a></h1>
+<center><h1>
+<a href="/login">Please log in here.</a></h1></center>
 {% endif %}
 {% endblock %}
 
