@@ -158,12 +158,12 @@ class AssignmentFilter(django_filters.FilterSet):
    
     standard = django_filters.CharFilter(
         lookup_expr="icontains", label="Standard")
-    curriculum = django_filters.CharFilter(
-        lookup_expr="icontains", label="Curriculum")
+    # curriculum = django_filters.CharFilter(
+        # lookup_expr="icontains", label="Curriculum")
     name = django_filters.CharFilter(
         lookup_expr="icontains", label="Title")
-    tracking = django_filters.CharFilter(
-        lookup_expr="icontains", label="Grading Method")
+    # tracking = django_filters.CharFilter(
+        # lookup_expr="icontains", label="Grading Method")
 
     class Meta:
         model = Assignment
