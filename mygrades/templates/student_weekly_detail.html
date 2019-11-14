@@ -1,10 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 align="center"> {{ object.get_full_name }}'s Weekly Assignment List </h3>
+<h3 align="center">
+{% if not late_view %}
+{{ object.get_full_name }}'s Weekly Assignment List
+{% else %}
+{{ object.get_full_name }}'s Late Assignment List
+{% endif %}
+</h3>
 <br/>
 
 {% regroup assignments|dictsort:"cur_pk" by cur_pk as as_list %}
+
+{% if not assignments %}
+No {% if late_view %}late{% else %}weekly{% endif %} assignments.
+{% endif %}
+
+{% ifequal request.user.groups.all.0.name "Teacher" %}
+{% if as_list and late_view %}
+<a class="btn btn-primary btn-lg" href="{% url "send_late_email" student_pk=object.pk %}" role="button">EMail Late Assignments</a><br/><br/>
+{% endif %}
+{% if as_list and not late_view %}
+<a class="btn btn-primary btn-lg" href="{% url "send_weekly_email" student_pk=object.pk %}" role="button">EMail This Week’s Assignments</a><br/><br/>
+{% endif %}
+{% endifequal %}
 
 {% for cur in as_list %}
 <table class="table table-striped table-bordered">

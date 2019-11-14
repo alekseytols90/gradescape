@@ -1,4 +1,4 @@
 <tr>
-    <td>{{ object.epicenter_id }}</td><td>{{ object.first_name }}</td><td>{{ object.last_name }}</td><td><small>{{ object.email }}</small></td><td><a href='{% url "see_weekly_detail" object.pk %}'>View</a></td>
+    <td>{{ object.epicenter_id }}</td><td>{{ object.first_name }}</td><td>{{ object.last_name }}</td><td><small>{{ object.email }}</small></td><td><a href='{% if not late_view %}{% url "see_weekly_detail" object.pk %}{% else %}{% url "see_late_detail" object.pk %}{% endif %}'>View</a></td>
 </tr>
 
