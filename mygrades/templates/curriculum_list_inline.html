@@ -12,7 +12,7 @@
       <div class = 'card-text'>  Grade: {{object.grade_level}} Subject: {{object.subject}}<br/>
 
 
-        <a href="{{object.get_absolute_url}}">See Assignments in this Curriculum</a><br/>
+          <a href="{% url "curriculum-detail" object.pk %}">See Assignments in this Curriculum</a><br/>
        
        {% ifequal user.groups.all.0.name "Owner" %} 
         <a href='{{ object.get_edit_url }}' > Edit Information for: 
