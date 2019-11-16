@@ -1162,7 +1162,11 @@ def see_late_home(request):
         student = get_object_or_404(Student, email=request.user.email)
         return redirect(reverse("see_late_detail", args=[student.pk]))
 
-    qs = Student.objects.filter(teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = Student.objects.all()
+    else:
+        qs = Student.objects.filter(teacher_email=request.user.email)
+
     student_filter = StudentFilter(request.GET, queryset=qs)
 
     p = Paginator(student_filter.qs, 10)
@@ -1177,6 +1181,8 @@ def see_late_home(request):
 def see_late_detail(request, student_pk):
     if request.user.groups.filter(name="Student").count() > 0: # student is viewing
         student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    elif request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
     else:
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
 
@@ -1198,7 +1204,11 @@ def see_weekly_home(request):
         student = get_object_or_404(Student, email=request.user.email)
         return redirect(reverse("see_weekly_detail", args=[student.pk]))
 
-    qs = Student.objects.filter(teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = Student.objects.all()
+    else:
+        qs = Student.objects.filter(teacher_email=request.user.email)
+
     student_filter = StudentFilter(request.GET, queryset=qs)
 
     p = Paginator(student_filter.qs, 10)
@@ -1213,6 +1223,8 @@ def see_weekly_home(request):
 def see_weekly_detail(request, student_pk):
     if request.user.groups.filter(name="Student").count() > 0: # student is viewing
         student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    elif request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
     else:
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
 
@@ -1228,7 +1240,11 @@ def see_weekly_detail(request, student_pk):
 
 @login_required
 def send_weekly_email(request, student_pk):
-    student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
     assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
 
     data = [] 
@@ -1249,7 +1265,11 @@ def send_weekly_email(request, student_pk):
 
 @login_required
 def send_late_email(request, student_pk):
-    student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
     assignments = StudentAssignment.objects.filter(student=student, status='Incomplete') 
 
     data = [] 
