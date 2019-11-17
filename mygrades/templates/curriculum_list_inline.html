@@ -17,6 +17,8 @@
        {% ifequal user.groups.all.0.name "Owner" %} 
         <a href='{{ object.get_edit_url }}' > Edit Information for: 
         {{object.name}}</a>
+        <a href='{{ object.get_delete_url }}' > Delete Curriculum: 
+        {{object.name}}</a>
         {% endifequal %}
 
 <!--         <h4>Assignments In This Curriculum:</h4>

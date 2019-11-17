@@ -196,7 +196,7 @@ class StudentModelForm(forms.ModelForm):
             "phone_number",
             "additional_phone_number",
             "grade",
-            # "date_of_birth",
+            "birthdate",
             "teacher_email",
 
         ]
@@ -209,7 +209,7 @@ class StudentModelForm(forms.ModelForm):
             "phone_number": "Phone Number",
             "additional_phone_number": "Second Phone Number - May Be Left Blank",
             "grade": "Student Enrollment Grade - Change this each year for previous students.",
-            # "date_of_birth": "Date of Birth",
+            "birthdate": "Date of Birth (Happy Birthday shows on Student's screen)",
             "teacher_email": "Teacher's eMail - MUST be the email that you supplied when you purchased your site.  ALL LOWERCASE.  Any mis-spelling will hide your students from you.",
         }
 
@@ -501,8 +501,9 @@ class RecordGradeForm(forms.ModelForm):
 
 
 class AssignmentCreateForm(forms.ModelForm):
-    standard = forms.ModelMultipleChoiceField(queryset=Standard.objects.all())
-
+    standard = forms.ModelMultipleChoiceField(queryset=Standard.objects.all(), required=False)
+    description = forms.CharField(required=False)
+    
     class Meta:
         model = Assignment
 

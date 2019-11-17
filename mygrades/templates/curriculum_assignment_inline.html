@@ -21,17 +21,18 @@
                 <br/>
                 Instructions or Link: {{assignment.description}}<br/>
           
-            Pacing Method Used: {{assignment.type_of}}<br/>
+            {% ifequal user.groups.all.0.name "Owner" %}
   
               <a href='{{ object.get_delete_url }}'>Remove {{object.name}}
               
                 {{object.curriculum.title}} </a>
+                {% endifequal %}
                 
               <p></p>
 
               {% empty %}
 
-              <p><strong>This curriclum contains no assignments. <a href='/assignment-create/'>Set up an assignment?</a></strong></p>
+              <p><strong>Assignments are coming soon! <a href="https://forms.gle/jxvTSYqiTvE75dp27">Request an assignment here.</a></p>
 
 
                 {% endfor %}
