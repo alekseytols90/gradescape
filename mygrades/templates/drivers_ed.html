@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<h3>Driver's Education</h3>
+
+<p>
+There is a "parent taught" online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
+
+<p>In the event that there are no funds available, here is another, zero-credit option: <a href="https://driversed.com/"target="_blank">Online Driver's Education</a></p>
+
+<p>Before you can obtain a driver's permit, for either option, you will need to <a href="https://www.ok.gov/dps/documents/parent_taught.pdf" target="_blank">complete this parent affidavit.</a></p>
+
+<p>E-mail the completed affidavit to <a href="mailto:parent@dps.ok.gov">parent@dps.ok.gov</a> and they will stamp it.  You must take this stamped affidavit with you to take the written test.</p>
+
+{% load staticfiles %} <img src="{% static 'images/driversed.jpg' %}"/>
+{% endblock %}

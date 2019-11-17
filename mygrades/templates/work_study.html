@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}<h5>Work Study Credit  - 9th through 12th Grade Only</h5>
+
+<p>
+You are eligible to earn a full credit, each school year, if you have a job or volunteer at a business.  This work takes the place of one elective each semester on your schedule.  The work can be anything from babysitting to mowing yards, or even working at Sonic.  </p>
+
+<p>If you have a job or are helping at home, you can earn high school credit.</p>
+
+<p>To earn credit, you must first <a href = "mailto:{{object.teacher_email}}">let me know </a>that you are doing this so that I may request your schedule be adjusted.</p>
+
+<p>You will provide the following documentation FOR EACH SEMESTER THAT YOU RECEIVE 1/2 CREDIT:</p>
+<ol>
+<li>Log 60 hours per semester.  You can set up a log in Google docs and share it with your teacher. This can be copies of pay stubs that show hours worked or even a log of time that is signed by a supervisor.  Get this to your teacher. <a href="https://docs.google.com/document/d/1mmaNhHQSjgzUBfsD9IRj89C6mswVo3caNz9uEwvBKnI/edit"target = "_blank">Sample Log.</a></li>
+
+<li>Submit the following three documents one time each school year:</li>
+<ul>
+<li>Create both a resume and cover letter. Just one per year, not one each semester.<br/>  <a href="https://www.youthcentral.vic.gov.au/jobs-and-careers/applying-for-a-job/what-is-a-cover-letter/sample-cover-letters/cover-letter-no-work-experience" target="_blank">Help With Resumes and Cover Letters for High School Students</a></li>
+
+<li>Complete a research paper covering careers of interest including educational requirements and salary ranges. Just one per year, not one each semester.  Follow these <a href="https://docs.google.com/document/d/1Er3ziEBVf-NU5qJGIULz8ILrDkTTekKhQbrLBQfI8EE/edit" target="_blank">Career Research Paper Directions</li>
+
+<li>Write a Reflective Essay over the work study/volunteer/internship you did this semester. <a href="https://career.vt.edu/experience/Internships/reflect.html" target="_blank">Use this guide.</a></li>
+</ul></ol>
+
+<h5>Internship (Volunteer) - 9th through 12th Grade Only</h5>
+
+<p>You are eligible to earn a full credit, each school year, if you have a job or volunteer at a business.  This work takes the place of one elective each semester on your schedule.  The work can be anything from babysitting to mowing yards, or even working at Sonic.  </p>
+
+<p>If you are performing duties or volunteering anywhere in your community, you can earn high school credit. Some ideas for these opportunities are:</p>
+<ul>
+<li>Intern at an Epic Blended Learning Center (OKC or Tulsa)</li>
+<li>Intern with the Epic Communications Team (Virtual and/or OKC)</li>
+<li>Volunteer at your church</li>
+<li>Volunteer at a local food pantry</li>
+<li>Volunteer at a local library</li>
+<li>Volunteer at a local animal shelter or zoo</li>
+<li>Volunteer at a local YMCA</li>
+<li>Volunteer at a local nursing home</li>
+<li>Volunteer at a local museum</li>
+</ul>
+<p>To earn credit, you must first <a href = "mailto:{{object.teacher_email}}">let me know </a>that you are interested so that I may request your schedule be adjusted.</p>
+
+<p>You will provide the following documentation FOR EACH SEMESTER THAT YOU RECEIVE 1/2 CREDIT:</p>
+
+1. Log 60 hours per semester <a href = "https://drive.google.com/file/d/1QDFu5aghLnOXzGHotqy_Ov10AqhwsWyT/view">on this sheet.</a>
+
+
+{% load staticfiles %} <img src="{% static 'images/workstudy.jpg' %}"/>
+
+{% endblock %}
