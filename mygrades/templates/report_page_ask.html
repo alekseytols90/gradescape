@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load filter_tags %}
+
+{% block content %}
+
+<h5>Data to be reviewed</h5>
+Week selected: {{ quarter }}/{{ week }}/{{ semester }}<br/>
+Academic Semester: {{ academic_semester }}<br/>
+<br/>
+<form method="post">
+    {% csrf_token %}
+    <textarea name="data_json" style="display:none;">{{ json|safe }}</textarea>
+    <input type="hidden" name="academic_semester" value="{{ academic_semester }}">
+    <input type="hidden" name="week" value="{{ week }}">
+    <input type="hidden" name="quarter" value="{{ quarter }}">
+    <input type="hidden" name="semester" value="{{ semester }}">
+    <table class="table table-sm">
+    <thead>
+        <th>Data</th>
+        <th>Issue</th>
+        <th>Resolution</th>
+    </thead>
+    <tbody>
+    {% for k,v in ask_for.data.items %}
+    <tr>
+        <td>
+        {{ ask_for.site }} | {{v.first_name}} | {{v.last_name}}
+        {% if v.previous %}| {{v.previous}}{% endif %}
+        {% if v.current %}| {{v.current}}{% endif %}
+        {% if v.epic_id %}| {{v.epic_id}}{% endif %}
+        {% if v.attendance %}| {{v.attendance}}{% endif %}
+        {% if v.class_title %}| {{v.class_title}}{% endif %}
+        {% if v.date %}| {{v.date}}{% endif %}
+        {% if v.quiz_score %}| {{v.quiz_score}}{% endif %}
+        {% if v.attendance %}| {{v.attendance}}{% endif %}
+        {% if v.average_score %}| {{v.average_score}}{% endif %}
+        {% if v.score  %}| {{v.score}}{% endif %}
+        {% if v.completion %}| {{v.completion}}{% endif %}
+        {% if v.total_time%}| {{v.total_time}}{% endif %}
+        {% if v.lesson_completed %}| {{v.lesson_completed}}{% endif %}
+        </td>
+        <td>
+            <small>
+            {% if v.ask_for.code == "students" %}
+            More than one students found.
+            {% elif v.ask_for.code == "gradebook_exists" %}
+            You already have data in that semester and week.
+            {% endif %}
+            </small>
+        </td>
+        <td>
+            {% if v.ask_for.code == "students" %}
+            <select class="form-control" name="resolve_studentchoice_{{ ask_for.site }}_{{ k }}">
+              <option value="-1">-----</option>
+              {% for student in v.ask_for.choices %}
+              <option value="{{ student.eid }}">{{ student.full_name }} (eid: {{ student.eid }})</option>
+              {% endfor %}
+            </select>
+            {% elif v.ask_for.code == "gradebook_exists" %}
+            <input type="radio" name="resolve_overwrite_{{ ask_for.site }}_{{ k }}" value="-1" checked>----<br>
+            <input type="radio" name="resolve_overwrite_{{ ask_for.site }}_{{ k }}" value="ignore">Ignore<br>
+            <input type="radio" name="resolve_overwrite_{{ ask_for.site }}_{{ k }}" value="write">Overwrite 
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+<div style="text-align:right;">
+<a class="btn btn-info" href="/grades/" role="button">Skip</a>&nbsp;&nbsp;
+<button type="submit" class="btn btn-success">Submit</button>
+</div>
+</form>
+
+{% endblock %}
+
