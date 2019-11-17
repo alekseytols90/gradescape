@@ -82,6 +82,73 @@ from mygrades.models import (
     
 )
 
+# @login_required
+# def curriculum_list_view(request):
+#     #student = get_object_or_404(Student, pk=student_pk)
+#     #semester_options = generate_semester_choices()
+#     # if not semester in semester_options:
+#     #     raise Http404
+
+#     form = CurriculumViewForm()
+
+#     # restrict curriculum range for safety, defaults to none if not set during form initialization
+#     subject = request.POST.get('subject','')
+#     cqs = Curriculum.objects.filter(
+#         grade_level=request.POST.get('grade_level',''),
+#         subject=subject)
+
+#     # if request.method == "POST":
+#     #     form = CurriculumViewForm(request.POST, curriculum_qs=cqs)
+
+#         # if form.is_valid():
+#         #     form.save()
+#         #     messages.info(request, "You successfuly added %s to %s's gradebook!" % (form.instance.curriculum, student))
+#         #     messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
+
+#         #     if "enroll_stay" in request.POST:
+#         #         # reinit the form with student and semester
+#         #         form = CurriculumEnrollmentForm(student_pk=student_pk, initial={"student":student,"academic_semester":semester})
+#         #     else:
+#         #         return redirect(reverse("enroll_student_step1"))
+
+#     template_name = "curriculum_list_view_step1.html"
+#     context = {"form": form} 
+#     return render(request, template_name, context)
+
+def okpromise(request):
+    return render(request, "okpromise.html")
+
+def sat(request):
+    return render(request, "sat.html")
+
+def honors(request):
+    return render(request, "honors.html")
+
+def drivers_ed(request):
+    return render(request, "drivers_ed.html")
+
+def work_study(request):
+    return render(request, "work_study.html")
+
+def act_and_college(request):
+    return render(request, "act_and_college.html")
+
+def career_planning(request):
+    return render(request, "career_planning.html")
+
+def concurrent_enrollment(request):
+    return render(request, "concurrent_enrollment.html")
+
+def prom_graduation(request):
+    return render(request, "prom_graduation.html")
+
+def military(request):
+    return render(request, "military.html")
+
+def vo_tech(request):
+    return render(request, "vo_tech.html")
+
+
 @login_required
 def home_page_view(request):
     if request.user.groups.filter(name="Student").count() > 0:
@@ -196,7 +263,7 @@ def teacher_upload(request):
             zoom=clear_field(column[4])
         )
 
-    return redirect("/teachers")
+    return redirect("/")
 
 
 @csrf_exempt
@@ -699,7 +766,7 @@ def assignment_upload(request):
             return render(request, template)
         counter += 1
 
-    return redirect("/assignment")
+    return redirect("/")
 
 @login_required
 def student_upload(request):
@@ -745,7 +812,7 @@ def student_upload(request):
             teacher_email=clear_field(column[9]),
         )
 
-    return redirect("/students")
+    return redirect("/")
 
 
 @login_required
@@ -916,7 +983,7 @@ def curriculum_update_view(request, id):
 
 
 @staff_member_required
-def curriculum_delete_view(request, epicenter_id):
+def curriculum_delete_view(request, id):
     obj = get_object_or_404(Curriculum, id=id)
     template_name = "curriculum_delete_view.html"
     if request.method == "POST":
@@ -1539,5 +1606,14 @@ def roster_list_view(request):
     qs = Student.objects.all()
     student_filter = StudentFilter(request.GET, queryset=qs)
     template_name = "roster_list_view.html"
+    context = {"object_list": student_filter, "title": my_title}
+    return render(request, template_name, context)
+
+@login_required
+def email_all_families_view(request):
+    my_title = "Your Family eMails"
+    qs = Student.objects.all()
+    student_filter = StudentFilter(request.GET, queryset=qs)
+    template_name = "email_all_families_view.html"
     context = {"object_list": student_filter, "title": my_title}
     return render(request, template_name, context)
