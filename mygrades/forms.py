@@ -235,12 +235,13 @@ CURRICULUMGRADE_EMPTY = [('','---------')] + Curriculum.CURRICULUMGRADE
 class CurriculumEnrollmentForm(forms.ModelForm):
     subject = forms.ChoiceField(choices=SUBJECT_EMPTY, required=False) # js filter purposes, value not used
     grade_level = forms.ChoiceField(choices=CURRICULUMGRADE_EMPTY, required=False) # js filter purposes, value not used 
+    is_min_required = forms.BooleanField(required=False, label="Is minimum required?", help_text="Is there a minimum number of lessons or minutes required each week?") # whether to collect required field, also note that help_texts doesn't work on Meta for extra fields
 
     class Meta:
         model = Enrollment
-
+        
         #weight is not in the form
-        fields = ["student","academic_semester","subject","grade_level","curriculum","tracking","required","semesterend","level","gradassign","recorded_from", "username","password","loginurl"] 
+        fields = ["student","academic_semester","subject","grade_level","curriculum","tracking","is_min_required", "required","semesterend","level","gradassign","recorded_from", "username","password","loginurl"] 
 
         help_texts = {
             "required": "Number of Minutes or Lessons Required Each Week",
@@ -315,6 +316,10 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         loginurl = cleaned_data['loginurl']
         if recorded_from == 'Automatic' and not (username and password and loginurl):
             self.add_error(None, "You must enter username/password/loginurl when recording is set to automatic.")
+        is_min_required = cleaned_data['is_min_required']
+        required = cleaned_data['required']
+        if is_min_required and required == None: 
+            self.add_error(None, "You must enter a value in required if this enrollment requires minimum number of minutes/attendance/lessons/reads.")
 
     def save(self):
         m = super(CurriculumEnrollmentForm, self).save(commit=True)

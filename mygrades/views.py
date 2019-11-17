@@ -1,4 +1,5 @@
 import csv
+import json
 import io
 from datetime import datetime, timedelta
 from dateutil import rrule
@@ -333,8 +334,69 @@ def crawl(request):
             return JsonResponse({'status': status})
 
 
+# actual crawl happens on the GET request
+# POST recaptures data from a hidden field then starts saving, hesitations are marked by the function
+# if anything marked, then resolution template shows up (report_page_ask.html) with less data and choices
+# possible resolutions: duplicate students (choose a student), week data exists (confirm overwrite)
 @login_required
 def crawler(request, site_name=None):
+    if request.method == 'POST':
+        print('site name => ', site_name)
+
+        # reuse data
+        response = json.loads(request.POST.get('data_json'))
+
+        # if any resolutions are made, apply them here 
+        resolutions = list(filter(lambda x: x.startswith('resolve_'), request.POST.keys()))
+        for res in resolutions:
+            value = request.POST.get(res)
+            x, code, site, key = res.split('_')
+            if value == '-1':
+                continue
+            if site != 'all': #else: have to update data position according the order
+                if code == 'studentchoice':
+                    response['data'][key].update({'epicenter_id': value})
+                    del response['data'][key]['ask_for']
+                elif code == 'overwrite':
+                    response['data'][key].update({'gradebook_action': value})
+                    del response['data'][key]['ask_for']
+
+        ask_for = {}
+        if site_name == 'all':
+            data_list = []
+            for resp in response['data']:
+                review_list = save_grade(request, resp, resp['site'])
+                if review_list:
+                    data_list.append(review_list)
+            ask_for.update({"site":"all", "data": data_list})
+        else:
+            review_list = save_grade(request, response, site_name)
+            if review_list:
+                ask_for.update({"site":site_name, "data": review_list})
+    
+        # this template triggers when only one of the following cases occur for the remaining data:
+        # - there are more than one student found, needs a choice
+        # - week is already has data, needs confirmation
+        if ask_for:
+            template_name = "report_page_ask.html"
+            messages.info(request, "While we've written the gradebooks for what we could, following student grades has to be resolved in order to continue saving them.")
+
+            # template is responsible for making an exact POST request with change suggestions
+            context = {"ask_for":ask_for}
+
+            #context.update({"data": response['data']}) 
+            context.update({"site": response['site']}) 
+
+            #context.update({"json": request.POST.get('data_json')}) 
+            context.update({"json": json.dumps(ask_for)}) 
+            context.update({"week": request.POST.get('week')}) 
+            context.update({"quarter": request.POST.get('quarter')}) 
+            context.update({"semester": request.POST.get('semester')}) 
+            context.update({"academic_semester": request.POST.get('academic_semester')}) 
+            return render(request, template_name, context)
+
+        return redirect('/grades')
+
     template_name = "report_page.html"
     if site_name == 'Dreambox':
         response = get_dream_box_data()
@@ -344,7 +406,6 @@ def crawler(request, site_name=None):
         response = get_reading_eggs_data()
     elif site_name == 'Compass':
         response = get_learning_wood_data()
-        print('response => \n', response)
     elif site_name == 'MyON':
         response = get_my_on_data()
     elif site_name == 'all':
@@ -352,15 +413,9 @@ def crawler(request, site_name=None):
     else:
         response = {"status_code": "204", 'message': "Site not handled, Invalid URL"}
 
-    if request.method == 'POST':
-        print('site name => ', site_name)
-        if site_name == 'all':
-            for resp in response['data']:
-                save_grade(request, resp, resp['site'])
-        else:
-            save_grade(request, response, site_name)
-        # return redirect('/grades')
-
+    # pass data to next request, no need to crawl again
+    response.update({"json": json.dumps(response,default=str)})
+    response.update({'semester_options': generate_semester_choices()})
     return render(request, template_name, response)
 
 
@@ -373,47 +428,116 @@ def get_registrar(response):
 
 
 def save_grade(request, response, site_name):
+    form_data = request.POST
+
     registered = []
     if site_name == 'Epic Live Attendance':
         registrar = get_registrar(response)
+
+    review_list = {}
     for key, value in response['data'].items():
         try:
-            student = Student.objects.filter(first_name__exact=value['first_name']).filter(
-                last_name__exact=value['last_name'])[0]
+            sem = form_data["academic_semester"]
+            students_in_sem = list(Enrollment.objects.filter(academic_semester=sem).values_list('student',flat=True).distinct())
+
+            students = Student.objects.filter(
+                first_name__exact=value['first_name'],
+                last_name__exact=value['last_name'],
+                pk__in = students_in_sem)
+
+            student = None
+            if students.count() == 1:
+                student = students[0]
+            elif students.count() > 1:
+                if 'epicenter_id' in value:
+                    students = students.filter(epicenter_id=value['epicenter_id'])
+                    if students.count() == 0:
+                        raise IndexError
+                    student = students[0]
+                else:
+                    value.update({"ask_for":{"code":"students", "choices":[{"full_name": x.get_full_name(), 'eid': x.epicenter_id} for x in students]}})
+                    review_list.update({key:value})
+                    continue
+            elif students.count() == 0:
+                raise IndexError
+
             curriculum_name = site_name.replace('Attendance', '').lower().replace(' ', '')
+
             print(curriculum_name)
-            student_enrollment = Enrollment.objects.filter(student=student)
-            # student_curriculum_id = student_enrollment.values_list('curriculum_id', flat=True)[0]
-            curriculum = Curriculum.objects.filter(name__icontains=curriculum_name)[0]
-            print(curriculum)
-            # curriculum = Curriculum.objects.filter(id=student_curriculum_id)[0]
-            if student_enrollment:
-                print(student)
-                if curriculum:
-                    form_data = request.POST
-                    if site_name == 'Epic Live Attendance':
-                        epic_id = value['epic_id']
-                        grade = registrar[epic_id] if registrar[epic_id] else 0
-                    elif site_name == 'Compass':
-                        grade = value['score']
-                    elif site_name == 'MyON':
-                        grade = value['previous']
-                    elif site_name == 'Reading Eggs':
-                        grade = value['attendance']
+            print(student)
+
+            enrollments = Enrollment.objects.filter(academic_semester=sem,student=student,curriculum__name__icontains=curriculum_name)
+
+            if 'grade_level' in value:
+                enrollments = enrollments.filter(curriculum__grade_level=value['grade_level'])
+
+            if 'subject' in value:
+                subject = value['subject']
+                if subject in ['LANGUAGE', 'READING']:
+                    subject = 'ELA'
+                else:
+                    subject = subject.title()
+
+                enrollments = enrollments.filter(curriculum__subject=subject)
+
+            if student and enrollments.count() > 0: 
+                student_enrollment = enrollments[0]
+
+                if site_name == 'Epic Live Attendance':
+                    epic_id = value['epic_id']
+                    grade = registrar[epic_id] if registrar[epic_id] else 0
+                elif site_name == 'Compass':
+                    grade = value['score']
+                elif site_name == 'MyON':
+                    grade = value['previous']
+                elif site_name == 'Reading Eggs':
+                    grade = value['attendance']
+                else:
+                    grade = value['lesson_completed']
+                if student not in registered:
+                    required = student_enrollment.required
+                    if required:
+                        if grade > required:
+                            grade = required
+                        grade = (grade/required)*100
+
+                    curriculum = student_enrollment.curriculum 
+                    gradebook = GradeBook.objects.filter(student=student,
+                                             curriculum=curriculum,
+                                             quarter=form_data['quarter'][0],
+                                             week=form_data['week'],
+                                             semester=form_data['semester'],
+                                             )
+
+                    if gradebook.count() > 0:
+                        if "gradebook_action" in value:
+                            if value["gradebook_action"] == "write":
+                                gradebook = gradebook[0]
+                                gradebook.grade = grade
+                                gradebook.save()
+                            elif value["gradebook_action"] == "ignore":
+                                continue
+                        else:
+                            value.update({"ask_for":{"code":"gradebook_exists"}})
+                            review_list.update({key:value})
+                            continue
                     else:
-                        grade = value['lesson_completed']
-                    if student not in registered:
-                        GradeBook.objects.create(student=student,
+                        gradebook = GradeBook(student=student,
                                                  curriculum=curriculum,
                                                  quarter=form_data['quarter'][0],
                                                  week=form_data['week'],
                                                  semester=form_data['semester'],
-                                                 grade=grade)
-                        if site_name == 'Epic Live Attendance':
-                            registered.append(student)
+                                                 grade=grade
+                                                 )
+                        gradebook.save()
+
+                    if site_name == 'Epic Live Attendance':
+                        registered.append(student)
         except IndexError:
             print('no such student')
             pass
+
+    return review_list
 
 
 @login_required

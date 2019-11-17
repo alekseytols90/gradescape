@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
+from django.conf import settings
 
 options = Options()
 options.headless = False
@@ -109,6 +110,7 @@ def get_dream_box_data():
 
     a = "".join(a.split('-'))
     b = "".join(b.split('-'))
+    #https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd2019110td20191109&timeframeId=custom&by=week
     request_url = "https://insight.dreambox.com/district/19207/classroom/1850338?schoolId=47805&teacherId=12317771" \
                   "&breadcrumbs=d,sc,t,c&pane=overview&order=asc&sort=first_name&timeframe=fd" + a + "td" + b + \
                   "&timeframeId=custom&by=week "
@@ -210,6 +212,7 @@ def get_reading_eggs_data():
         EC.presence_of_element_located((By.ID, "sidebar"))
     )
 
+    # https://app.readingeggs.com/v1/teacher#/reading/reporting/teacher/4807656/reading-eggs/assessment-scores?dateRange=named-period%3Alast-7-days/html/body/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div[3]/div[2]/div/div/div/table/tbody
     egg_last_7_days = get_data("https://app.readingeggs.com/v1/teacher#/reading/reporting/teacher/4807656/reading-eggs" \
                                "/assessment-scores?dateRange=named-period%3Alast-7-days",
                                '/html/body/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div[3]/div[2]/div/div/div/table/tbody')
@@ -244,6 +247,10 @@ def get_reading_eggs_data():
 
 
 def get_learning_wood_data():
+    if settings.CRAWLER_USE_FAKE_DATA:
+        from gradebook.crawler_sample_data import Compass
+        return Compass
+
     login_url = "https://www.thelearningodyssey.com"
     driver = webdriver.Firefox(executable_path=path, options=options)
     wait = WebDriverWait(driver, 30)
@@ -259,6 +266,14 @@ def get_learning_wood_data():
     elem = driver.find_element_by_id("cmdLoginButton")
     elem.click()
     time.sleep(5.0)
+
+    # provide visibility to non-popup window by hiding the other (do not close since it breaks the session)
+    window_before = driver.window_handles[0]
+    window_after = driver.window_handles[1]
+    driver.switch_to_window(window_after)
+    driver.set_window_size(0, 0)
+    driver.switch_to_window(window_before)
+
     session_id = driver.get_cookie('SessionID')['value']
     dashboard_url = 'https://www.thelearningodyssey.com/InstructorAdmin/Dashboard.aspx?SessionID={}'.format(session_id)
     driver.get(dashboard_url)
@@ -284,13 +299,14 @@ def get_learning_wood_data():
         title_text = driver.find_element_by_id('titleSubstitution').text
         for i in range(1, len(completions)):
             name = names[i - 1].get_attribute('innerHTML')
+            full_title_split = title_text.split('-')[1].replace(' GRADE ', '').replace('Semester ','').split(' ')
             response['data'][count] = {'first_name': name.split(",")[1].split()[0],
                                        'last_name': name.split(",")[0],
                                        "score": int(scores[i * 2].get_attribute('innerHTML').replace("%", '').replace('--', '0').replace('-', '')),
                                        'completion': int(completions[i].get_attribute('innerHTML').replace("%", '').replace('-', '0')),
-                                       'title': title_text.split('-')[1].replace(' GRADE ', '').replace('Semester ',
-                                                                                                        '').split(' ')[
-                                           -1]
+                                       'title': full_title_split[-1],
+                                       'subject': full_title_split[1],
+                                       'grade_level': full_title_split[0],
                                        }
 
             count = count + 1
@@ -309,8 +325,13 @@ def get_learning_wood_data():
 
 
 def get_my_on_data():
+    if settings.CRAWLER_USE_FAKE_DATA:
+        from gradebook.crawler_sample_data import MyONMinutesRead
+        return MyONMinutesRead
+
     driver = webdriver.Firefox(executable_path=path, options=options)
     wait = WebDriverWait(driver, 30)
+    # https://clever.com/oauth/authorize?channel=clever&client_id=4c63c1cf623dce82caac&confirmed=true&redirect_uri=https%3A%2F%2Fclever.com%2Fin%2Fauth_callback&response_type=code&state=11cdc4173b1aecbbfb0adbb9a51fa44c6d42a0e52f53408c64532313295efc31&district_id=520a6793a9dd788a46000fdc
     login_url = "https://clever.com/oauth/authorize?channel=clever&client_id" \
                 "=4c63c1cf623dce82caac&confirmed=true" \
                 "&redirect_uri=https%3A%2F%2Fclever.com%2Fin%2Fauth_callback&response_type=code&state" \

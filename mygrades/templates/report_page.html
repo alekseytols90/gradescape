@@ -187,6 +187,37 @@
             {% endfor %}
             </tbody>
         </table>
+        {% elif site == "Compass"%}
+
+        <table class="table table-hover table-responsive">
+            <thead class="the-box dark full">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Score</th>
+                <th>Completion</th>
+                <th>Title</th>
+                <th>Subject</th>
+                <th>Grade Level</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, val in data.items %}
+            <tr>
+                <td>{{key| add:1}}</td>
+                <td>{{val.first_name}}</td>
+                <td>{{val.last_name}}</td>
+                <td>{{val.score}}</td>
+                <td>{{val.completion}}</td>
+                <td>{{val.title}}</td>
+                <td>{{val.subject}}</td>
+                <td>{{val.grade_level}}</td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
         {% elif site == "MyON" %}
         <table class="table table-hover table-responsive">
@@ -313,6 +344,15 @@
             <div class="modal-body">
                 <form method="post">
                     {% csrf_token %}
+                    <textarea name="data_json" style="display:none;">{{ json|safe }}</textarea>
+                    <div class="form-group">
+                        <label>Academic Semester</label>
+                        <select class="form-control" name="academic_semester">
+                            {% for option in semester_options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label>Week</label>
                         <select class="form-control" name="week">

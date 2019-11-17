@@ -36,6 +36,15 @@ table tr {padding-top:10px;}
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
 $(document).ready(function() {
+    function update_min_required() {
+        var is_min_required = $('#id_is_min_required').is(":checked"); 
+        if (is_min_required) {
+            $("#id_required").closest('tr').show();
+        } else { 
+            $("#id_required").val("");
+            $("#id_required").closest('tr').hide();
+        }
+    }
     function update_recorded_from() {
         var rf_val = $("#id_recorded_from").val();
         if (rf_val.toLowerCase() == "automatic") {
@@ -92,6 +101,7 @@ $(document).ready(function() {
     $("#id_grade_level").change(function() {
         update_curriculum_choices();
     });
+    $("#id_is_min_required").change(function() { update_min_required(); });
     $("#id_recorded_from").change(function() { update_recorded_from(); });
 
     if ( $("#id_curriculum li").length > 1) {
@@ -101,6 +111,7 @@ $(document).ready(function() {
     }
 
     $("#id_semesterend").datepicker();
+    update_min_required();
     update_recorded_from();
 });
 </script>

@@ -57,8 +57,7 @@ Adjust the weights of curriculum for these subjects for this student only:<br/>
                 {{enrollment.level}}<br/> Recorded: 
                 {{enrollment.recorded_from}}<br/> Tracked Using:
                 {{enrollment.tracking}}</a><br/>
-                Required:
-                {{enrollment.required}}</a><br/>
+                Required: {% if enrollment.required %}{{enrollment.required}}{% else %}-{% endif %}</a><br/>
                 {% comment %}Weight: {{object.weight}}<br/>{% endcomment %}
                 Ending Date for the Semester or Year (Depending on Curriculum): {{enrollment.curriculum.semesterend}}<br/>
                 <a href="{% url "student-assignment-list-view" enrollment.student.pk enrollment.curriculum.pk %}">View/Edit student's assigments on this course</a><br/><br/>

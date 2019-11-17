@@ -35,8 +35,8 @@ class Curriculum(models.Model):
 
     ]
     CURRICULUMGRADE = [
-        ("P", "Pre-K"),
-        ("K", "Kinder"),
+        ("PK", "Pre-K"),
+        ("K", "K"),
         ("1", "1"),
         ("2", "2"),
         ("3", "3"),
@@ -45,10 +45,6 @@ class Curriculum(models.Model):
         ("6", "6"),
         ("7", "7"),
         ("8", "8"),
-        ("9", "9"),
-        ("10", "10"),
-        ("11", "11"),
-        ("12", "12"),
         ("All", "All"),
         ("High School", "High School"),
     ]
@@ -132,8 +128,8 @@ class ScrapyItem(models.Model):
 
 class Student(models.Model):
     GRADELEVEL = [
-        ("P", "Pre-K"),
-        ("K", "Kinder"),
+        ("PK", "Pre-K"),
+        ("K", "K"),
         ("1", "1"),
         ("2", "2"),
         ("3", "3"),
@@ -142,10 +138,7 @@ class Student(models.Model):
         ("6", "6"),
         ("7", "7"),
         ("8", "8"),
-        ("9", "9"),
-        ("10", "10"),
-        ("11", "11"),
-        ("12", "12"),
+        ("High School", "High School"),
     ]
 
     epicenter_id = models.CharField(
@@ -220,7 +213,7 @@ class Enrollment(models.Model):
 
     academic_semester = models.CharField(max_length=16)
     tracking = models.CharField(max_length=50, choices=TRACKING)
-    required = models.CharField(max_length=20, blank=True)
+    required = models.PositiveIntegerField(null=True, blank=True)
     semesterend = models.DateTimeField()
     weight = models.IntegerField(null=True, blank=True)
     level = models.CharField(max_length=20, choices=LEVEL)
@@ -253,7 +246,7 @@ class Enrollment(models.Model):
 class Standard(models.Model):
     GRADELEVEL = [
         ("PK", "Pre-K"),
-        ("K", "Kindergarten"),
+        ("K", "K"),
         ("1", "1"),
         ("2", "2"),
         ("3", "3"),
@@ -262,15 +255,7 @@ class Standard(models.Model):
         ("6", "6"),
         ("7", "7"),
         ("8", "8"),
-        ("PA", "PA"),
-        ("HS", "HS"),
-        ("9", "9"),
-        ("A1", "A1"),
-        ("10", "10"),
-        ("A2", "A2"),
-        ("11", "11"),
-        ("G", "G"),
-        ("12", "12"),
+        ("High School", "High School"),
     ]
     SUBJECT = [
         ("Math", "Math"),
