@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
 <center>
 	{% load staticfiles %} <img src="{% static 'images/compass.jpg' %}" width= "50px" />
 	<p><a href="www.thelearningodyssey.com">Compass</a><br/>
@@ -76,6 +81,7 @@ Example: mw30350@epiccharterschools.org<br/>
 Password: Your Google Password<br/>
 YOU MUST LOGIN WITH GOOGLE</p>
 {% load staticfiles %} <img src="{% static 'images/mathseeds.jpg' %}" width= "50px" />
-<p><a href="www.mathseeds.com">Math Seeds Workbook</a><br/>
+<p><a href="www.mathseeds.com">Math Seeds</a><br/>
 Username = Teacher Will Set<br/>
 Password: Teacher Will Set</p></center>
+{% endblock %}

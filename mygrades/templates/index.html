@@ -2,9 +2,6 @@
 {% extends "base.html" %}
 {% block head_title %}
 <center>
-
- 
-
   {% now "F" as todays_month %}
     {% if todays_month == "January" %}
       {% load staticfiles %} <img src="{% static 'images/january.jpg' %}" width= "30px" />
@@ -139,27 +136,13 @@ Why upgrade?</p>
 
 </center>
 <h3>Hello {{user.first_name}}!</h3>
-<p>Your Teacher's eMail: <a href = "mailto:{{object.teacher_email}}">{{object.teacher_email}}</a><br/>
-  Your Teacher's first name: {{object.first_name}} 
-  {% now "d m" as today %}
- 
-      {% if object.birthdate == today %}
-   
-<h1>Happy Birthday {{user.first_name}}!</h1>
-{% load embed_video_tags %}
-{% video "https://www.youtube.com/watch?v=jlmd6gHHw28" as my_video %}
-    {% video my_video 'small' %}
-{% endvideo %}
 
-{% endif %}
-
-
-
-   
-
-
+  Your Teacher Is: {{teacher.first_name}} {{teacher.last_name}}
 </p>
+<p>Your Teacher's eMail: <a href = "mailto:{{object.teacher_email}}">{{teacher.email}}</a><br/>
+  
 
+<h4>The Epic School Calendar:</h4>
 <p><iframe src="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></p>
 
 <p><a href="https://epiccharterschools.org/student-parent-handbook">View The Epic Student and Parent Handbook</a></p>

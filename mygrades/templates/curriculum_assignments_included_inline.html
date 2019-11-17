@@ -19,7 +19,12 @@
                 <br/>
                 Instructions or Link: {{assignment.description}}<br/>
           
-          
+           {% ifequal user.groups.all.0.name "Owner" %}
+  
+              <a href='{{ object.get_delete_url }}'>Remove {{object.name}}
+              
+             </a>
+                {% endifequal %}
                 
               <p></p>
 
