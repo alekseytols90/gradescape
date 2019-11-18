@@ -54,6 +54,7 @@ from mygrades.filters import (
 from mygrades.forms import (
     CurriculumEnrollmentForm,
     CurriculumEnrollmentUpdateForm,
+    CurriculumViewForm,
     StudentModelForm,
     AssignmentCreateForm,
     StandardSetupForm,
@@ -950,6 +951,7 @@ def curriculum_create_view(request):
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
 
+
 @login_required
 def curriculum_detail_view(request, id):
     my_title = "Curriculum Details"
@@ -959,14 +961,13 @@ def curriculum_detail_view(request, id):
     context = {"object_list": assignment_filter, "title": my_title}
     return render(request, template_name, context)
 
+
 @login_required
 def curriculum_list_view(request):
     my_title = "Curriculum Choices - Missing One? Look on Your Home Page!"
-    qs = Curriculum.objects.all()
-    curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
+    form =  CurriculumViewForm()
     template_name = "curriculum_list_view.html"
-    context = {"object_list": curriculum_filter, "title": my_title}
-    # context = {"title": my_title}
+    context = {"title": my_title, "form":form}
     return render(request, template_name, context)
 
 

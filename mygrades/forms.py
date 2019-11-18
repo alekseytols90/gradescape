@@ -232,6 +232,10 @@ class StudentModelForm(forms.ModelForm):
 SUBJECT_EMPTY = [('','---------')] + Curriculum.SUBJECT
 CURRICULUMGRADE_EMPTY = [('','---------')] + Curriculum.CURRICULUMGRADE
 
+class CurriculumViewForm(forms.Form):
+    subject = forms.ChoiceField(choices=SUBJECT_EMPTY, required=False) # js filter purposes, value not used
+    grade_level = forms.ChoiceField(choices=CURRICULUMGRADE_EMPTY, required=False) # js filter purposes, value not used
+
 class CurriculumEnrollmentForm(forms.ModelForm):
     subject = forms.ChoiceField(choices=SUBJECT_EMPTY, required=False) # js filter purposes, value not used
     grade_level = forms.ChoiceField(choices=CURRICULUMGRADE_EMPTY, required=False) # js filter purposes, value not used 
