@@ -1752,7 +1752,7 @@ def grades_delete_view(request, epicenter_id):
 
 @login_required
 def student_curriculum_schedule(request):
-    my_title = "Add a Curriculum to Student Gradebook"
+    my_title = "Add a Curriculum to Student Pacing"
     qs = Student.objects.filter(teacher_email=request.user.email)
     student_filter = StudentFilter(request.GET, queryset=qs)
     #curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
