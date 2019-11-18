@@ -9,7 +9,8 @@ from uuid import uuid4
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group, User
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ValidationError
 from django.core.mail import EmailMultiAlternatives
@@ -178,11 +179,11 @@ def login_help(request):
     # return render(response, "main/home.html", {})
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def user_upload(request):
     template = "user_upload.html"
     prompt = {
-        'order': "The columns should be: First Name, Last Name, eMail Address, Password, Group, Staff?, Active?, Superuser?, Date Joined, Last Login."
+        'order': "The columns should be: Username, First Name, Last Name, eMail Address, Password, Group, Staff?, Active?, Superuser?"
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -204,23 +205,39 @@ def user_upload(request):
     # header count check
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
-    if len(header_clean) != 5:
-        messages.error(request, "Make sure table consists of 10 columns. %s" % prompt['order'])
+    if len(header_clean) != 9:
+        messages.error(request, "Make sure table consists of 9 columns. %s" % prompt['order'])
         return render(request, template)
 
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
-        _, created = Teacher.objects.update_or_create(
-            first_name=clear_field(column[0]),
-            last_name=clear_field(column[1]),
-            email=clear_field(column[2]),
-            password=clear_field(column[3]),
-            groups=clear_field(column[4]),
-            # is_staff=clear_field(column[5]),
-            # is_active=clear_field(column[6]),
-            # is_superuser=clear_field(column[7]),
-            # date_joined=clear_field(column[8]),
-            # last_login=clear_field(column[9]),
-        )
+        username=clear_field(column[0])
+        first_name=clear_field(column[1])
+        last_name=clear_field(column[2])
+        email=clear_field(column[3])
+        password=clear_field(column[4])
+        group=clear_field(column[5])
+        is_staff=clear_field(column[6]).lower()
+        is_active=clear_field(column[7]).lower()
+        is_superuser=clear_field(column[8]).lower()
+
+        if User.objects.filter(email=email).count() > 0:
+            user = User.objects.get(email=email)
+            user.set_password(password)
+            user.username = username
+            user.save()
+        else:
+            user = User.objects.create_user(username, email, password)
+
+        user.is_superuser = True if is_superuser == "yes" else False
+        user.is_active = True if is_active == "yes" else False
+        user.is_staff = True if is_staff == "yes" else False
+        user.first_name = first_name
+        user.last_name = last_name 
+        user.save()
+
+        if group:
+            group = Group.objects.get(name__icontains=group)
+            group.user_set.add(user)
 
     return redirect("/")
 
@@ -251,7 +268,7 @@ def teacher_upload(request):
     # header count check
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
-    if len(header_clean) != 11:
+    if len(header_clean) != 5:
         messages.error(request, "Make sure header consists of 5 items. %s" % prompt['order'])
         return render(request, template)
 
