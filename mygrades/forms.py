@@ -90,7 +90,7 @@ TRACKING = [
 
 ]
 
-def generate_semester_choices():
+def generate_semester_choices(for_choice_field=False):
     """ Generate options for per semester for the current academic year and the next
 
         1- get current year
@@ -123,6 +123,13 @@ def generate_semester_choices():
     options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "B"))
     options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "A"))
     options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "B"))
+
+    if for_choice_field:
+        choices = []
+        for option in options:
+            choices.append((option,option))
+        return choices
+
     return options
 
 
