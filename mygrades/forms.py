@@ -254,6 +254,18 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         #weight is not in the form
         fields = ["student","academic_semester","subject","grade_level","curriculum","tracking","is_min_required", "required","semesterend","level","gradassign","recorded_from", "username","password","loginurl"] 
 
+        labels = {
+            "required": "Minimum",
+            "semesterend": "Completion Date",
+            "level": "Level",
+            "recorded_from": "Progress",
+            "tracking": "Pacing Method",
+            "gradassign": "Gradable Assignments",
+            "username": "Username",
+            "password": "Passowrd",
+            "loginurl": "YOUR Website",
+        }
+
         help_texts = {
             "required": "Number of Minutes or Lessons Required Each Week",
             "semesterend": "By What Date Should This Curriculum Be Finished?",
