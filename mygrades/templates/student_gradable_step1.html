@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<b>Student:</b> {{ object.get_full_name }}<br/>
+{# <b>Student:</b> {{ object.get_full_name }}<br/> #}
 <br/>
 Choose an academic semester, and week below: <br/>
 <br/>
-<form method="post">
+<form method="post"> {# action="?{{ filter.form.data.urlencode|safe }}">#}
 {% csrf_token %}
 <table class="table table-sm">
 <tbody>

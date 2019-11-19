@@ -59,7 +59,7 @@
         <a class="dropdown-item" href="{% url "see_weekly_home" %}">View Your Student's Weekly Assignment List</a>
         <a class="dropdown-item" href="/curriculum-schedule">View or Change the Curriculum Listed in a Student Pacing</a>
         <a class="dropdown-item" href="{% url "see_late_home" %}">See Late Assignments</a>
-           <a class="dropdown-item" href="{% url "process_gradable" %}">Total the Gradable Assignments Earned for a Student</a>
+           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            
 
         </div>
@@ -127,7 +127,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/grades">View or Edit Gradebook</a>
-          <a class="dropdown-item" href="{% url "process_gradable" %}">Total the Gradable Assignments Earned for a Student</a>
+          <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Student's Attendance Report</a>
+          <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            <a class="nav-link disabled" href="progress/">Create a Current Progress Report</a>
            <a class="nav-link disabled" href="report-card/">Create a Final Report Card</a>
         
@@ -181,7 +182,7 @@
   <a class="nav-link" href="/login-help/">&nbsp;Find Your Logins</a>
         
           <a class="nav-link disabled" href="/send-pacing-guide">See My Progress Report</a>
-          <a class="nav-link disabled" href="/send-pacing-guide">See My Attendance Report</a>
+          <a class="nav-link" href="{% url "see_attendance_home" %}">See My Attendance Report</a>
            
           
            <a class="dropdown-item" href="{% url "see_weekly_home" %}">This Week's Assignments</a>
@@ -320,7 +321,7 @@
         <a class="dropdown-item" href="{% url "see_weekly_home" %}">View Your Student's Weekly Assignment List</a>
         <a class="dropdown-item" href="/curriculum-schedule">View or Change the Curriculum Listed in a Student Pacing</a>
         <a class="dropdown-item" href="{% url "see_late_home" %}">See Late Assignments</a>
-           <a class="dropdown-item" href="{% url "process_gradable" %}">Total the Gradable Assignments Earned for a Student</a>
+           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            
 
         </div>
@@ -388,7 +389,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/grades">View or Edit Gradebook</a>
-          <a class="dropdown-item" href="{% url "process_gradable" %}">Total the Gradable Assignments Earned for a Student</a>
+          <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Student's Attendance Report</a>
+          <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            <a class="nav-link disabled" href="progress/">Create a Current Progress Report</a>
            <a class="nav-link disabled" href="report-card/">Create a Final Report Card</a>
         
@@ -496,7 +498,7 @@
         <a class="nav-link disabled" href="{% url "see_weekly_home" %}">View Your Student's Weekly Assignment List (Must Upgrade)</a>
         <a class="nav-link disabled" href="/curriculum-schedule">View or Change the Curriculum Listed in a Student Pacing (Must Upgrade)</a>
         <a class="nav-link disabled" href="{% url "see_late_home" %}">See Late Assignments (Must Upgrade)</a>
-           <a class="nav-link disabled" href="{% url "process_gradable" %}">Total the Gradable Assignments Earned for a Student (Must Upgrade)</a>
+        <a class="nav-link" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            
 
         </div>
@@ -563,10 +565,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="nav-link disabled" href="/grades">View or Edit Gradebook (Must Upgrade)</a>
-          <a class="nav-link disabled" href="{% url "process_gradable" %}">Total the Gradable Assignments Earned for a Student (Must Upgrade)</a>
+          <a class="nav-link" href="{% url "see_attendance_home" %}">View a Student's Attendance Report</a>
+          <a class="nav-link" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            <a class="nav-link disabled" href="progress/">Create a Current Progress Report (Must Upgrade)</a>
            <a class="nav-link disabled" href="report-card/">Create a Final Report Card (Must Upgrade)</a>
-        
         </div>
       </li>
 

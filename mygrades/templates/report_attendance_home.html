@@ -2,13 +2,6 @@
 
 {% block content %}
 <h3 align="center"> Scroll Down to View All or Use the Filter Options </h3>
-<br/>
-<center>
-    <a class="btn btn-primary btn-lg" href="{% url "process_gradable_step1" %}?{{ filter.form.data.urlencode }}" role="button">Preview a Gradable Curriculum List for All Students Listed Below</a><br/><br/>
-    {#<a class="btn btn-primary btn-lg" href="{% url "create_weekly_step2" semester=semester %}?{{ filter.form.data.urlencode }}&preview=false" role="button">Skip Your Preview and Update All Student Screens Listed Below With New Assignments</a><br/><br/>#}
-    <h3>OR</h3><br/>
-</center>
-<h4 align="center">Preview a Gradable Curriculum List for ONE STUDENT ONLY By Filtering Here</h4>
 <form method="get">
     {{ filter.form.as_p }}
     <button type="submit">Search</button>
@@ -27,9 +20,7 @@
 <thead>
 <tbody>
 {% for object in object_list %}
-
-{% include 'student_gradable_inline.html'%}
-
+{% include 'report_attendance_inline.html'%}
 {% endfor %}
 </tbody>
 </table>

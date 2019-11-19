@@ -503,7 +503,7 @@ class StudentGradeBookReport(models.Model):
         ("report-card-quarter", "report-card-quarter"),
     ]
     json = models.TextField()
-    created = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     report_type = models.CharField(choices=REPORT_TYPE,max_length=32)
     student = models.ForeignKey(

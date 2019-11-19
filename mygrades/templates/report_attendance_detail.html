@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 align="center">
+{{ object.get_full_name }}'s Attendance Report
+</h3>
+<br/>
+
+{% if not reports %}
+No attendance report yet.
+{% endif %}
+
+{% for rep in reports %}
+<table class="table table-sm table-bordered text-center">
+    <thead>
+        <tr>
+            <th colspan="2">
+                {{ object.get_full_name }}’s Attendance Report {{ rep.created|date:"F d, Y" }}<br/>
+                {{ rep.academic_semester }}, Quarter {{ rep.quarter }}, Week {{ rep.week }}
+            </th>
+        </tr>
+        <tr>
+            <th width="50%">Curriculum</th> 
+            <th width="50%">Earned?</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% with rep.data.details as details %}
+        <tr><td colspan="2"><b>Gradable Assignment #1</b></td></tr>
+        {% for item in details.1 %}
+        <tr><td>{{ item.name }}</td><td>{% if item.complete %}Yes{% else %}No{% endif %}</td></tr>
+        {% endfor %}
+        {% if not details.1 %}
+        <tr><td>-</td><td>-</td></tr>
+        {% endif %}
+        <tr><td colspan="2"><b>Gradable Assignment #2</b></td></tr>
+        {% for item in details.2 %}
+        <tr><td>{{ item.name }}</td><td>{% if item.complete %}Yes{% else %}No{% endif %}</td></tr>
+        {% endfor %}
+        {% if not details.2 %}
+        <tr><td>-</td><td>-</td></tr>
+        {% endif %}
+        <tr><td colspan="2"><b>Gradable Assignment #3</b></td></tr>
+        {% for item in details.3 %}
+        <tr><td>{{ item.name }}</td><td>{% if item.complete %}Yes{% else %}No{% endif %}</td></tr>
+        {% endfor %}
+        {% if not details.3 %}
+        <tr><td>-</td><td>-</td></tr>
+        {% endif %}
+        <tr><td colspan="2"><b>Gradable Assignment #4</b></td></tr>
+        {% for item in details.4 %}
+        <tr><td>{{ item.name }}</td><td>{% if item.complete %}Yes{% else %}No{% endif %}</td></tr>
+        {% endfor %}
+        {% if not details.4 %}
+        <tr><td>-</td><td>-</td></tr>
+        {% endif %}
+        <tr><td colspan="2"><b>Gradable Assignment #5</b></td></tr>
+        {% for item in details.5 %}
+        <tr><td>{{ item.name }}</td><td>{% if item.complete %}Yes{% else %}No{% endif %}</td></tr>
+        {% endfor %}
+        {% if not details.5 %}
+        <tr><td>-</td><td>-</td></tr>
+        {% endif %}
+        {% endwith %}
+        <tr><td><b>Total Gradable Assignments Earned</b><td>{{ rep.data.total }}</td></tr>
+    </tbody>
+</table>
+<br/><br/>
+{% endfor %}
+
+{% endblock %}
+
+
