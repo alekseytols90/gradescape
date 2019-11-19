@@ -106,7 +106,7 @@ urlpatterns = [
     path("student-upload/", student_upload, name="student_upload"),
     path("teacher-upload/", teacher_upload, name="teacher_upload"),
     path("user-upload/", user_upload, name="user_upload"),
-    path('admin/', admin.site.urls),
+    path('myadminscreen/', admin.site.urls),
     path('login/', user_login),
     path('logout/', user_logout),
     path('', home_page_view),
