@@ -745,99 +745,109 @@ class EnrollmentGradable(forms.Form):
 
 
 
+from itertools import groupby
+
+def funk(item):
+    return item.cleaned_data['enrollment'].student.pk
+
 class EGBaseFormSet(BaseFormSet):
     def __init__(self, *args, **kwargs):
         self.week_data = kwargs.pop("week_data",None)
         super(EGBaseFormSet, self).__init__(*args, **kwargs)
 
-    def save(self):
-        stats = {}
 
+    def save(self):
+        self.alert_email_sent = False
+        academic_semester = self.week_data['asem']
         sem = self.week_data['sem']
         week = self.week_data['week']
         quarter = self.week_data['quarter']
 
-        for x in range(1,6):
-            stats.update({str(x):{"val":0,"count":0}})
+        self.forms.sort(key=funk)
+        groups = groupby(self.forms, funk)
+        student_forms = [[key, [item for item in data]] for (key, data) in groups]
 
-        for form in self.forms:
-            enr = form.cleaned_data['enrollment']
-            gradassign = enr.gradassign
-            status = form.cleaned_data['status']
-            if status == "Complete":
-                stats[gradassign]["val"] += 1
-            stats[gradassign]["count"] += 1
+        for form_group in student_forms:
+            student = Student.objects.get(pk=form_group[0])
+            stats = {}
+            for x in range(1,6):
+                stats.update({str(x):{"val":0,"count":0}})
 
-            # save individual curriculum attendance 
-            attendance = Attendance.objects.filter(student=enr.student,enrollment=enr,week=week,semester=sem,quarter=quarter)
-            attended = status == "Complete"
-            if attendance.count() > 0:
-                attendance = attendance[0]
-                attendance.complete = attended 
+            for form in form_group[1]:
+                enr = form.cleaned_data['enrollment']
+                gradassign = enr.gradassign
+                status = form.cleaned_data['status']
+                if status == "Complete":
+                    stats[gradassign]["val"] += 1
+                stats[gradassign]["count"] += 1
+
+                # save individual curriculum attendance 
+                attendance = Attendance.objects.filter(student=enr.student,enrollment=enr,week=week,semester=sem,quarter=quarter)
+                attended = status == "Complete"
+                if attendance.count() > 0:
+                    attendance = attendance[0]
+                    attendance.complete = attended 
+                else:
+                    attendance = Attendance(student=enr.student,enrollment=enr,week=week,semester=sem,quarter=quarter, complete=attended)
+                attendance.save()
+
+            total_points = 0
+            for x in range(1,6):
+                stat = stats[str(x)]
+                if stat["count"] != 0:
+                    if stat["val"] == stat["count"]:
+                        total_points += 1
+
+            # Gradable curriculum should exists, so we can note the total gradassign earned for the week.
+            # It's advised to have a different model in future to store gradable assignment stats..
+            curriculum, created = Curriculum.objects.get_or_create(name='Gradable Assignments', subject='Other', grade_level='All')
+
+            gradebook = GradeBook.objects.filter(student=student,
+                                     curriculum=curriculum,
+                                     quarter=quarter,
+                                     week=week,
+                                     semester=sem)
+            if gradebook.count() > 0:
+                gradebook = gradebook[0]
+                gradebook.grade = total_points
+                gradebook.save()
             else:
-                attendance = Attendance(student=enr.student,enrollment=enr,week=week,semester=sem,quarter=quarter, complete=attended)
-            attendance.save()
+                gradebook = GradeBook(student=student,
+                                     curriculum=curriculum,
+                                     quarter=quarter,
+                                     week=week,
+                                     semester=sem,
+                                     grade=total_points)
+                gradebook.save()
 
-        self.total_points = 0
-        for x in range(1,6):
-            stat = stats[str(x)]
-            if stat["count"] != 0:
-                if stat["val"] == stat["count"]:
-                    self.total_points += 1
+            # freeze report
+            save_report(academic_semester, student, semester=sem,week=week,quarter=quarter, report_type="gradassign")  
 
-        # Gradable curriculum should exists, so we can note the total gradassign earned for the week.
-        # It's advised to have a different model in future to store gradable assignment stats..
-        curriculum, created = Curriculum.objects.get_or_create(name='Gradable Assignments', subject='Other', grade_level='All')
+            # alert to both student and teacher if 2 consequent weeks with ZERO gradable assignments
+            if gradebook.grade == 0 and gradebook.week != '1': 
+                prev_week = GradeBook.objects.filter(student=student,
+                                     curriculum=curriculum,
+                                     quarter=quarter,
+                                     week=str(int(week)-1),
+                                     semester=sem)
 
-        gradebook = GradeBook.objects.filter(student=enr.student,
-                                 curriculum=curriculum,
-                                 quarter=quarter,
-                                 week=week,
-                                 semester=sem)
-        if gradebook.count() > 0:
-            gradebook = gradebook[0]
-            gradebook.grade = self.total_points
-            gradebook.save()
-        else:
-            gradebook = GradeBook(student=enr.student,
-                                 curriculum=curriculum,
-                                 quarter=quarter,
-                                 week=week,
-                                 semester=sem,
-                                 grade=self.total_points)
-            gradebook.save()
+                if prev_week.count() > 0 and prev_week[0].grade == 0:
+                    subject, from_email, to = "%s's Risk of Truancy" % (student.get_full_name(),), 'yourepiconline@gmail.com', [
+                    student.email, student.additional_email]
+                    text_content ='You have not completed a gradable assignment in 2 weeks.  You are at risk of truancy and need to contact your teacher at: ' + student.teacher_email
+                    html_content = "You have not completed a gradable assignment in 2 weeks.  You are at risk of truancy and need to contact your teacher at: <a href=\"mailto:%s\">%s</a>" % (student.teacher_email,student.teacher_email)
+                    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+                    msg.attach_alternative(html_content, "text/html")
+                    msg.send()
 
-        # freeze report
-        save_report(enr.academic_semester, enr.student, semester=sem,week=week,quarter=quarter, report_type="gradassign")  
+                    to =  [student.teacher_email]
+                    text_content = "%s has not completed a gradable assignment in two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family." % (student.get_full_name(), text_content,)
+                    html_content = "%s has not completed a gradable assignment in two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family." % (student.get_full_name(), html_content,)
+                    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+                    msg.attach_alternative(html_content, "text/html")
+                    msg.send()
 
-        # alert to both student and teacher if 2 consequent weeks with ZERO gradable assignments
-        self.alert_email_sent = False
-        if gradebook.grade == 0 and gradebook.week != '1': 
-            prev_week = GradeBook.objects.filter(student=enr.student,
-                                 curriculum=curriculum,
-                                 quarter=quarter,
-                                 week=str(int(week)-1),
-                                 semester=sem)
-
-            if prev_week.count() > 0 and prev_week[0].grade == 0:
-                student = enr.student
-
-                subject, from_email, to = "%s's Risk of Truancy" % (student.get_full_name(),), 'yourepiconline@gmail.com', [
-                student.email, student.additional_email]
-                text_content ='You have not completed a gradable assignment in 2 weeks.  You are at risk of truancy and need to contact your teacher at: ' + student.teacher_email
-                html_content = "You have not completed a gradable assignment in 2 weeks.  You are at risk of truancy and need to contact your teacher at: <a href=\"mailto:%s\">%s</a>" % (student.teacher_email,student.teacher_email)
-                msg = EmailMultiAlternatives(subject, text_content, from_email, to)
-                msg.attach_alternative(html_content, "text/html")
-                msg.send()
-
-                to =  [student.teacher_email]
-                text_content = "%s has not completed a gradable assignment in two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family." % (student.get_full_name(), text_content,)
-                html_content = "%s has not completed a gradable assignment in two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family." % (student.get_full_name(), html_content,)
-                msg = EmailMultiAlternatives(subject, text_content, from_email, to)
-                msg.attach_alternative(html_content, "text/html")
-                msg.send()
-
-                self.alert_email_sent = True
+                    self.alert_email_sent = True
 
 
 def save_report(academic_semester, student, semester=None, week=None, quarter=None, report_type=""): 
@@ -862,7 +872,6 @@ def save_report(academic_semester, student, semester=None, week=None, quarter=No
         if report.count() > 0:
             report = report[0]
             report.json = json.dumps(data)
-            report.updated = timezone.now()
         else:
             report = StudentGradeBookReport(json=data, report_type="gradassign", student=student,semester=semester,week=week,quarter=quarter, academic_semester=academic_semester)
 

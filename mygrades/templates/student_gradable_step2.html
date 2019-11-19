@@ -5,20 +5,22 @@
 .errorlist {color:#f00;}
 #status_form ul {list-style:none}
 </style>
-<b>Student:</b> {{ student.get_full_name }}<br/>
 <b>Academic Semester:</b> {{ asem }}</br>
 <b>Target Semester/Week/Quater:</b> {{ sem }}/{{ week }}/{{ quarter }}</br>
 <br/>
 {% if not formset.forms %}
 No graddable assignments found.
 {% else %}
-Set the completion status of each curriculum below for the week: <br/>
+Set the completion status of curriculums for each below for the week: <br/>
 <br/>
 <form method="post" id="status_form">
 {{ formset.management_form }}
 {% csrf_token %}
+{% for student in students %}
+<br/>
 <div class="card" style="width: 100%;">
   <div class="card-body">
+      <h5 class="card-title"><b>Student:</b>{{ student.name }} (eid: {{ student.eid }})</h5>
     <p class="card-text">
         <table class="table table-striped table-bordered">
         <thead>
@@ -26,6 +28,7 @@ Set the completion status of each curriculum below for the week: <br/>
         </thead>
         <tbody>
         {% for form in formset.forms %}
+            {% if form.initial.enrollment.student.pk == student.pk %} 
             <tr> 
                 {% for field in form.visible_fields %}
                 <td {% if field.name == "desc" %}width="300"{% endif %}>
@@ -39,6 +42,7 @@ Set the completion status of each curriculum below for the week: <br/>
                     </td>
                 {% endfor %}
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
         </table>
@@ -46,7 +50,8 @@ Set the completion status of each curriculum below for the week: <br/>
   </div>
 </div>
 <br/>
-<input type="submit" value="Calculate and Save Gradable Assigments Score"/>
+{% endfor %}
+<input type="submit" value="Send to Student Screen">
 </form>
 {% endif %}
 
