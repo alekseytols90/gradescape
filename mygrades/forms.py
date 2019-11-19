@@ -262,7 +262,7 @@ class CurriculumEnrollmentForm(forms.ModelForm):
             "tracking": "Pacing Method",
             "gradassign": "Gradable Assignments",
             "username": "Username",
-            "password": "Passowrd",
+            "password": "Password",
             "loginurl": "YOUR Website",
         }
 
