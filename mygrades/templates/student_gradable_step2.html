@@ -9,6 +9,9 @@
 <b>Academic Semester:</b> {{ asem }}</br>
 <b>Target Semester/Week/Quater:</b> {{ sem }}/{{ week }}/{{ quarter }}</br>
 <br/>
+{% if not formset.forms %}
+No graddable assignments found.
+{% else %}
 Set the completion status of each curriculum below for the week: <br/>
 <br/>
 <form method="post" id="status_form">
@@ -45,6 +48,7 @@ Set the completion status of each curriculum below for the week: <br/>
 <br/>
 <input type="submit" value="Calculate and Save Gradable Assigments Score"/>
 </form>
+{% endif %}
 
 {% endblock %}
 

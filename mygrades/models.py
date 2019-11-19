@@ -354,6 +354,50 @@ class StudentAssignment(models.Model):
         return "%s -> %s" % (str(self.student), self.assignment.name)
 
 
+class Attendance(models.Model):
+    WEEK = [
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+        ("6", "6"),
+        ("7", "7"),
+        ("8", "8"),
+        ("9", "9"),
+        ("10", "10"),
+        ("11", "11"),
+        ("12", "12"),
+        ("13", "13"),
+        ("14", "14"),
+        ("15", "15"),
+        ("16", "16"),
+        ("17", "17"),
+        ("18", "18"),
+    ]
+
+    QUARTER = [
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+    ]
+    SEMESTER = [
+        ("1", "1"),
+        ("2", "2"),
+    ]
+    student = models.ForeignKey(
+        Student, on_delete=models.CASCADE, related_name="attendance_student"
+    )
+    enrollment = models.ForeignKey(
+        Enrollment, on_delete=models.CASCADE, related_name="enrollment_attendance",
+    )
+    quarter = models.CharField(max_length=1, choices=QUARTER, null=False)
+    week = models.CharField(max_length=2, choices=WEEK, null=False)
+    semester = models.CharField(max_length=1, choices=SEMESTER, null=False)
+    complete = models.BooleanField(default=False)  
+
+
 class GradeBook(models.Model):
     WEEK = [
         ("1", "1"),
@@ -450,3 +494,23 @@ class ExemptAssignment(models.Model):
 
     def __str__(self):
         return "# {} - {}".format(self.pk, self.student)
+
+
+class StudentGradeBookReport(models.Model):
+    REPORT_TYPE = [
+        ("gradassign", "gradassign"),
+        ("progress-weekly", "progress-weekly"),
+        ("report-card-quarter", "report-card-quarter"),
+    ]
+    json = models.TextField()
+    created = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True)
+    report_type = models.CharField(choices=REPORT_TYPE,max_length=32)
+    student = models.ForeignKey(
+        Student, on_delete=models.CASCADE, related_name="student_gradebookreport"
+    )
+    academic_semester = models.CharField(max_length=16)
+    quarter = models.CharField(max_length=1,blank=True)
+    week = models.CharField(max_length=2,blank=True)
+    semester = models.CharField(max_length=1,blank=True)
+

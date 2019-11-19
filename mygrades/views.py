@@ -70,6 +70,9 @@ from mygrades.forms import (
     generate_semester_choices,
     get_active_sems,
     distribute_weights_for_sem,
+    GradableFormStep1,
+    EnrollmentGradable,
+    EGBaseFormSet,
 )
 from mygrades.models import (
     Student,
@@ -1508,149 +1511,6 @@ def process_gradable_home(request):
     context = {"object_list": object_list, "filter": student_filter, "title": title}
     return render(request, template_name, context)
 
-from django import forms
-from .forms import generate_semester_choices
-
-class GradableFormStep1(forms.Form):
-    WEEK = [
-        ("1", "1"),
-        ("2", "2"),
-        ("3", "3"),
-        ("4", "4"),
-        ("5", "5"),
-        ("6", "6"),
-        ("7", "7"),
-        ("8", "8"),
-        ("9", "9"),
-        ("10", "10"),
-        ("11", "11"),
-        ("12", "12"),
-        ("13", "13"),
-        ("14", "14"),
-        ("15", "15"),
-        ("16", "16"),
-        ("17", "17"),
-        ("18", "18"),
-    ]
-
-    QUARTER = [
-        ("1", "1"),
-        ("2", "2"),
-        ("3", "3"),
-        ("4", "4"),
-    ]
-
-    SEMESTER = [
-        ("1", "1"),
-        ("2", "2"),
-    ]
-    quarter = forms.ChoiceField(choices=QUARTER)
-    week = forms.ChoiceField(choices=WEEK)
-    semester = forms.ChoiceField(choices=SEMESTER)
-    academic_semester = forms.ChoiceField()
-
-    def __init__(self, *args, **kwargs):
-        super(GradableFormStep1, self).__init__(*args, **kwargs)
-        self.fields['academic_semester'].choices = generate_semester_choices(for_choice_field=True)
-
-
-from .forms import PlainTextWidget
-class EnrollmentGradable(forms.Form):
-    desc = forms.CharField(widget=PlainTextWidget, required=False, label="Curriculum", disabled=True) #disabled needed to prevent clean/wipe
-    gradassign = forms.CharField(widget=PlainTextWidget, required=False, label="GradAssign", disabled=True) #disabled needed to prevent clean/wipe
-    enrollment = forms.ModelChoiceField(queryset=Enrollment.objects.all())
-    STATUS = [
-        ("Incomplete","Incomplete"),
-        ("Complete","Complete")
-    ]
-    status = forms.ChoiceField(choices=STATUS, widget=forms.RadioSelect)
-
-    def __init__(self, *args, **kwargs):
-        super(EnrollmentGradable, self).__init__(*args, **kwargs)
-        self.fields['enrollment'].widget = forms.HiddenInput()
-        if "enrollment" in self.initial:
-            self.fields['desc'].initial = self.initial['enrollment'].curriculum.name
-            self.fields['gradassign'].initial = self.initial['enrollment'].gradassign
-
-
-
-from django.forms import BaseFormSet
-class EGBaseFormSet(BaseFormSet):
-    def __init__(self, *args, **kwargs):
-        self.week_data = kwargs.pop("week_data",None)
-        super(EGBaseFormSet, self).__init__(*args, **kwargs)
-
-    def save(self):
-        stats = {}
-        for x in range(1,6):
-            stats.update({str(x):{"val":0,"count":0}})
-
-        for form in self.forms:
-            enr = form.cleaned_data['enrollment']
-            gradassign = enr.gradassign
-            status = form.cleaned_data['status']
-            if status == "Complete":
-                stats[gradassign]["val"] += 1
-            stats[gradassign]["count"] += 1
-
-        self.total_points = 0
-        for x in range(1,6):
-            stat = stats[str(x)]
-            if stat["count"] != 0:
-                if stat["val"] == stat["count"]:
-                    self.total_points += 1
-
-        # Gradable curriculum should exists, so we can note the total gradassign earned for the week.
-        # It's advised to have a different model in future to store gradable assignment stats..
-        curriculum, created = Curriculum.objects.get_or_create(name='Gradable Assignments', subject='Other', grade_level='All')
-
-        gradebook = GradeBook.objects.filter(student=enr.student,
-                                 curriculum=curriculum,
-                                 quarter=self.week_data['quarter'],
-                                 week=self.week_data['week'],
-                                 semester=self.week_data['sem'])
-        if gradebook.count() > 0:
-            gradebook = gradebook[0]
-            gradebook.grade = self.total_points
-            gradebook.save()
-        else:
-            gradebook = GradeBook(student=enr.student,
-                                 curriculum=curriculum,
-                                 quarter=self.week_data['quarter'],
-                                 week=self.week_data['week'],
-                                 semester=self.week_data['sem'],
-                                 grade=self.total_points)
-            gradebook.save()
-
-
-        # alert to both student and teacher if 2 consequent weeks with ZERO gradable assignments
-        if gradebook.grade == 0 and gradebook.week != '1': 
-            prev_week = GradeBook.objects.filter(student=enr.student,
-                                 curriculum=curriculum,
-                                 quarter=self.week_data['quarter'],
-                                 week=str(int(self.week_data['week'])-1),
-                                 semester=self.week_data['sem'])
-
-            if prev_week.count() > 0 and prev_week[0].grade == 0:
-                student = enr.student
-
-                subject, from_email, to = "%s's Risk of Truancy" % (student.get_full_name(),), 'yourepiconline@gmail.com', [
-                student.email, student.additional_email]
-                text_content ='You have not completed a gradable assignment in 2 weeks.  You are at risk of truancy and need to contact your teacher at: ' + student.teacher_email
-                html_content = "You have not completed a gradable assignment in 2 weeks.  You are at risk of truancy and need to contact your teacher at: <a href=\"mailto:%s\">%s</a>" % (student.teacher_email,student.teacher_email)
-                msg = EmailMultiAlternatives(subject, text_content, from_email, to)
-                msg.attach_alternative(html_content, "text/html")
-                msg.send()
-
-                to =  [student.teacher_email]
-                text_content = "%s has not completed a gradable assignment in two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family." % (student.get_full_name(), text_content,)
-                html_content = "%s has not completed a gradable assignment in two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family." % (student.get_full_name(), html_content,)
-                msg = EmailMultiAlternatives(subject, text_content, from_email, to)
-                msg.attach_alternative(html_content, "text/html")
-                msg.send()
-
-                self.alert_email_sent = True
-
 
 @login_required
 def process_gradable_step1(request, student_pk):
@@ -1686,7 +1546,8 @@ def process_gradable_step2(request,student_pk,asem,quarter,week,sem):
         if formset.is_valid():
             formset.save()
             messages.success(request, "Successfuly saved GA grade (%d) to %s's gradebook for academic semester %s and week: %s/%s/%s" % (formset.total_points, student.get_full_name(), asem, quarter, week, sem))
-            messages.warning(request, "Alert email sent for risk of truancy.")
+            if formset.alert_email_sent:
+                messages.warning(request, "Alert email sent for risk of truancy.")
             return redirect(reverse('process_gradable'))
 
     template_name = "student_gradable_step2.html"

@@ -13,7 +13,9 @@ from mygrades.models import (
     ExemptAssignment,
     User,
     Teacher,
-    GradeBook)
+    GradeBook,
+    StudentGradeBookReport,
+    Attendance)
 
 @admin.register(Enrollment)
 class EnrollmentAdmin(admin.ModelAdmin):
@@ -22,11 +24,8 @@ class EnrollmentAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_filter = (
-        "epicenter_id",
-        "last_name",
-    )
     raw_id_fields = ['curriculum']
+    search_fields = ['last_name','first_name']
 
 
 @admin.register(Curriculum)
@@ -90,4 +89,17 @@ class GradeBookAdmin(admin.ModelAdmin):
         "week",
     )
 
+@admin.register(Attendance)
+class AttendanceAdmin(admin.ModelAdmin):
+    raw_id_fields = ['student','enrollment']
+    list_display = ("student","enrollment", "enr_gradassign", "quarter","week","semester", "complete")
+
+    def enr_gradassign(self, obj):
+        return obj.enrollment.gradassign
+
+@admin.register(StudentGradeBookReport)
+class StudentReportAdmin(admin.ModelAdmin):
+    raw_id_fields = ['student']
+    list_display = ("student","created","updated", "report_type", "academic_semester", "quarter", "week", "semester")
+    list_filter = ("report_type",)
 
