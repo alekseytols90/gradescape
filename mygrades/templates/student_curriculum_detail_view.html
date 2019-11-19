@@ -60,7 +60,7 @@ Adjust the weights of curriculum for these subjects for this student only:<br/>
             Subject Weight: {{enrollment.weight}}<br/>
             Student Should Finish These Assignments On or Before: <strong>{{enrollment.semesterend}}</strong>
             <div></div>
-            <a href="{% url "student-assignment-list-view" enrollment.student.pk enrollment.curriculum.pk %}">View/Edit student's assigments on this course</a>
+            <a href="{% url "student-assignment-list-view" enrollment.student.pk enrollment.curriculum.pk %}">View/Edit student's assignments on this course</a>
 <div></div>
             <a href="{% url 'edit_enrollment' enrollment.pk %}">Edit this enrollment</a>
 
