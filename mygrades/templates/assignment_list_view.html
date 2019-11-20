@@ -8,7 +8,9 @@
 </form>
 
 <br/>
+{% if limited %}
 <h5>Showing the first 50 results</h5>
+{% endif %}
 
 {% for object in object_list %}
 {% include 'assignment_list_inline.html'%}
