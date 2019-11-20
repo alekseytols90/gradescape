@@ -948,7 +948,7 @@ def curriculum_detail_view(request, id):
     qs = Assignment.objects.filter(curriculum__pk=id)
     assignment_filter = AssignmentFilter(request.GET, queryset=qs)
     template_name = "assignment_list_view.html"
-    context = {"object_list": assignment_filter, "title": my_title}
+    context = {"object_list": assignment_filter.qs,"filter":assignment_filter, "title": my_title}
     return render(request, template_name, context)
 
 
