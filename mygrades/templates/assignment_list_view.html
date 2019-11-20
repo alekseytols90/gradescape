@@ -3,20 +3,15 @@
 {% block content %}
 <h3 align="center"> Scroll Down to View All or Filter </h3>
 <form method="get">
-    {{ object_list.form.as_p }}
+    {{ filter.form.as_p }}
     <button type="submit">Search</button>
 </form>
 
+<br/>
+<h5>Showing the first 50 results</h5>
 
-
-{% for object in object_list.qs%}
-
-
-
+{% for object in object_list %}
 {% include 'assignment_list_inline.html'%}
-
-       
-
 {% endfor %}
 <!-- 
 <form action="https://www.epicliveservices.com/admin/logout/">
