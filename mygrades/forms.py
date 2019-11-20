@@ -873,7 +873,7 @@ def save_report(academic_semester, student, semester=None, week=None, quarter=No
             report = report[0]
             report.json = json.dumps(data)
         else:
-            report = StudentGradeBookReport(json=data, report_type="gradassign", student=student,semester=semester,week=week,quarter=quarter, academic_semester=academic_semester)
+            report = StudentGradeBookReport(json=json.dumps(data), report_type="gradassign", student=student,semester=semester,week=week,quarter=quarter, academic_semester=academic_semester)
 
         report.save()
         #TODO: render at student screen

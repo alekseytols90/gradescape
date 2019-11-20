@@ -1593,7 +1593,12 @@ def process_gradable_step2(request,asem,quarter,week,sem):
     data = []
     for student in student_filter.qs:
         enrollments = Enrollment.objects.filter(student=student, academic_semester=asem).order_by("gradassign")
-        data.append({"student":student, "enrollments":enrollments})
+        ga1 = enrollments.filter(gradassign=1).values_list('pk',flat=True)
+        ga2 = enrollments.filter(gradassign=2).values_list('pk',flat=True)
+        ga3 = enrollments.filter(gradassign=3).values_list('pk',flat=True)
+        ga4 = enrollments.filter(gradassign=4).values_list('pk',flat=True)
+        ga5 = enrollments.filter(gradassign=5).values_list('pk',flat=True)
+        data.append({"student":student, "enrollments":enrollments, "groups":[ga1,ga2,ga3,ga4,ga5]})
 
     #generate form
     initial = []
@@ -1602,7 +1607,7 @@ def process_gradable_step2(request,asem,quarter,week,sem):
         if len(change["enrollments"]) == 0:
             continue
 
-        students.append({"pk":change["student"].pk, "eid": change["student"].epicenter_id, "name":change["student"].get_full_name()})
+        students.append({"pk":change["student"].pk, "eid": change["student"].epicenter_id, "name":change["student"].get_full_name(),"groups":change["groups"]})
 
         for enr in change["enrollments"]:
             initial.append({"enrollment": enr})
