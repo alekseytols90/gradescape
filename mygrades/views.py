@@ -88,38 +88,7 @@ from mygrades.models import (
     
 )
 
-# @login_required
-# def curriculum_list_view(request):
-#     #student = get_object_or_404(Student, pk=student_pk)
-#     #semester_options = generate_semester_choices()
-#     # if not semester in semester_options:
-#     #     raise Http404
 
-#     form = CurriculumViewForm()
-
-#     # restrict curriculum range for safety, defaults to none if not set during form initialization
-#     subject = request.POST.get('subject','')
-#     cqs = Curriculum.objects.filter(
-#         grade_level=request.POST.get('grade_level',''),
-#         subject=subject)
-
-#     # if request.method == "POST":
-#     #     form = CurriculumViewForm(request.POST, curriculum_qs=cqs)
-
-#         # if form.is_valid():
-#         #     form.save()
-#         #     messages.info(request, "You successfuly added %s to %s's gradebook!" % (form.instance.curriculum, student))
-#         #     messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
-
-#         #     if "enroll_stay" in request.POST:
-#         #         # reinit the form with student and semester
-#         #         form = CurriculumEnrollmentForm(student_pk=student_pk, initial={"student":student,"academic_semester":semester})
-#         #     else:
-#         #         return redirect(reverse("enroll_student_step1"))
-
-#     template_name = "curriculum_list_view_step1.html"
-#     context = {"form": form} 
-#     return render(request, template_name, context)
 
 def okpromise(request):
     return render(request, "okpromise.html")
@@ -816,7 +785,7 @@ def student_upload(request):
     # header count check
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
-    if len(header_clean) != 9:
+    if len(header_clean) != 10:
         messages.error(request, "Make sure header consists of 9 elements. %s" % prompt['order'])
         return render(request, template)
 
