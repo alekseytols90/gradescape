@@ -1,0 +1,8 @@
+<div class='col-80 col-md-100 mb-1 mx-auto'>
+    <strong>{{object.get_full_name}}'s Progress Report</strong><p></p>
+
+    {% with report as rep %}
+    {% include "report_progress_render_inner.html" %}
+    {% endwith %}
+
+</div>

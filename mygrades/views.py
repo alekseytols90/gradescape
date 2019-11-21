@@ -1168,7 +1168,10 @@ class EnrollmentUpdate(SuccessMessageMixin, UpdateView):
 
 @login_required
 def enroll_delete(request, enrollment_pk):
-    enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        enrollment = get_object_or_404(Enrollment,pk=enrollment_pk) 
+    else:
+        enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
     student = enrollment.student
     sem = enrollment.academic_semester
     subject = enrollment.curriculum.subject
@@ -1443,7 +1446,7 @@ def report_progress_demo(request, student_pk, asem, quarter, sem):
     created = timezone.now()
     updated = timezone.now()
     reports = [{"created":created,"updated":updated, "data":report_demo, "quarter":quarter, "semester":sem, "academic_semester":asem}]
-    start_week = (int(quarter)-1)*9+1
+    start_week = (int(quarter)-1)*9+1 #TODO: move to the report data
     context = {"reports": reports, "object":student, "weeks": range(start_week,start_week+9)} 
     return render(request, template_name, context)
 
@@ -1610,7 +1613,7 @@ def see_progress_detail(request, student_pk):
         rep.data = json.loads(rep.json)
 
     template_name = "report_see_progress_detail.html"
-    start_week = (int(reports[0].quarter)-1)*9+1  #TODO: move to the report
+    start_week = (int(reports[0].quarter)-1)*9+1  #TODO: move to the report data
     context = {"object": student, "reports": reports, "weeks": range(start_week,start_week+9)}
     return render(request, template_name, context)
 
@@ -1663,6 +1666,29 @@ def send_late_email(request, student_pk):
 
     messages.success(request, "Late assignments are sent to %s!" % student.get_full_name())
     return redirect(reverse("see_late_detail", args=[student.pk]))
+
+@login_required
+def send_progress_email(request, report_pk):
+    report = get_object_or_404(StudentGradeBookReport, pk=report_pk)
+    report.data = json.loads(report.json)
+    student_pk = report.student.pk
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    subject, from_email, to = "%s's Progress Report As Of: %s" % (student.get_full_name(),report.updated), 'yourepiconline@gmail.com', [
+    student.email, student.additional_email]
+    text_content = 'Your most updated progress report. You may need to open this in a different browser if you do not see it here. '
+    start_week = (int(report.quarter)-1)*9+1  #TODO: move to the report data
+    html_content = render_to_string('mail_report_progress.html', context={'report':report, 'object':student,"weeks": range(start_week,start_week+9)})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    messages.success(request, "Progress report sent for %s!" % student.get_full_name())
+    return redirect(reverse("see_progress_home"))
 
 @login_required
 def process_gradable_home(request):
@@ -1812,7 +1838,10 @@ def grades_delete_view(request, epicenter_id):
 @login_required
 def student_curriculum_schedule(request):
     my_title = "Add a Curriculum to Student Pacing"
-    qs = Student.objects.filter(teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = Student.objects.all()
+    else:
+        qs = Student.objects.filter(teacher_email=request.user.email)
     student_filter = StudentFilter(request.GET, queryset=qs)
     #curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
 
