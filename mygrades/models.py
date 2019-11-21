@@ -515,3 +515,6 @@ class StudentGradeBookReport(models.Model):
     week = models.CharField(max_length=2,blank=True)
     semester = models.CharField(max_length=1,blank=True)
 
+    #TODO: recommended to replace this with every json.loads call in views and 'rep.json' related templates with 'rep.get_json'
+    #def get_json(self):
+    #    return json.loads(self.report.data)
