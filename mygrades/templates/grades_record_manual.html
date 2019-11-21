@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 align="center">{% if edit %}Edit{%else%}Create{%endif%} a Gradebook Record</h3>
+{% if ask_overwrite %}
+There is already date saved in the gradebook for this week? Do you want to overwrite it?<br/>
+<div class="text-center">
+<button id="yes_btn" type="button" class="btn btn-danger">Yes</button>&nbsp;&nbsp;&nbsp;
+<button id="no_btn" type="button" class="btn btn-primary">No</button>
+</div>
+<br/><br/>
+{% endif %}
+<b>Student:</b> {% if form.instance.student %}{{ form.instance.student.get_full_name }}{% else %}{{ form.initial.student.get_full_name }}{% endif %}<br/>
+<b>Academic Semester:</b> {{ form.initial.academic_semester }}<br/>
+<b>Curriculum:</b>{% if form.instance.curriculum %}{{ form.instance.curriculum.name }}{% else %}{{ form.initial.curriculum.name }}{% endif %}<br/><br/>
+<form id="gb_form" method='POST' {% if ask_overwrite %}style="display:none;"{% endif%}>
+{% csrf_token %}
+{{ form.as_p }}
+<button type='submit'>Save</button>
+</form>
+<script>
+$(document).ready(function() {
+    $("#yes_btn").click(function(e) {
+        $("#gb_form").attr("action","?overwrite=1");
+        $("#gb_form").submit();
+    });
+    $("#no_btn").click(function(e) {
+        window.location.href = "/";
+    });
+});
+</script>
+
+{% endblock %}

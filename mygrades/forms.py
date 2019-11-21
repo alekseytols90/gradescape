@@ -460,6 +460,79 @@ class StandardSetupForm(forms.ModelForm):
         request = kwargs.pop("request", None)
         super(StandardSetupForm, self).__init__(*args, **kwargs)
 
+class RecordGradeManualForm(forms.ModelForm):
+    WEEK = [
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+        ("6", "6"),
+        ("7", "7"),
+        ("8", "8"),
+        ("9", "9"),
+        ("10", "10"),
+        ("11", "11"),
+        ("12", "12"),
+        ("13", "13"),
+        ("14", "14"),
+        ("15", "15"),
+        ("16", "16"),
+        ("17", "17"),
+        ("18", "18"),
+    ]
+
+    QUARTER = [
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+    ]
+
+    SEMESTER = [
+        ("1", "1"),
+        ("2", "2"),
+    ]
+
+    class Meta:
+        model = GradeBook
+
+        fields = [
+            "student",
+            "curriculum",
+            "academic_semester",
+            "complete",
+            "required",
+            "quarter",
+            "week",
+            "grade",
+            "semester",
+        ]
+
+        labels = {
+            "student": "Student",
+            "curriculum": "Curriculum",
+            "enrollment": "Enrollment",
+            "complete": "Number of Lessons or Minutes Completed",
+            "required": "Number of Lessons or Minutes Required",
+            "quarter": "Quarter",
+            "week": "Week",
+            "grade": "Grade",
+            "semester": "Semester",
+        }
+
+        widgets = {
+            'student': forms.HiddenInput(),
+            'curriculum': forms.HiddenInput(),
+            'academic_semester': forms.HiddenInput(),
+        }
+
+        # def __init__(self, *args, **kwargs):
+            # super(RecordGradeManualForm, self).__init__(*args, **kwargs)
+            # self.fields['student'].widget = forms.HiddenInput()
+            # self.fields['curriculum'].widget = forms.HiddenInput()
+            # self.fields['academic_semester'].widget = forms.HiddenInput()
+
 
 class RecordGradeForm(forms.ModelForm):
     WEEK = [

@@ -60,6 +60,7 @@ Adjust the weights of curriculum for these subjects for this student only:<br/>
             Subject Weight: {{enrollment.weight}}<br/>
             Student Should Finish These Assignments On or Before: <strong>{{enrollment.semesterend}}</strong>
             <div></div>
+            <a href="{% url "grades-record-manual" enrollment_pk=enrollment.pk %}">Record Manually Entered Grades</a><br/>
             <a href="{% url "student-assignment-list-view" enrollment.student.pk enrollment.curriculum.pk %}">View/Edit student's assignments on this course</a>
 <div></div>
             <a href="{% url 'edit_enrollment' enrollment.pk %}">Edit this enrollment</a>
@@ -68,6 +69,7 @@ Adjust the weights of curriculum for these subjects for this student only:<br/>
             <a href="#" data-href='{% url 'delete_enrollment' enrollment.pk %}', data-toggle="modal" data-target="#confirm-delete">Remove {{enrollment.curriculum.name}} From
            {{student.get_full_name}}'s Pacing </a>
           </div>
+          <br/>
          
 
          {% empty %}

@@ -52,6 +52,8 @@ from mygrades.views import (
     assignment_update_view,
     assignment_delete_view,
     student_assignment_list_view,
+    grades_record_manual, #new view, keep
+    grades_record_manual_edit, #new view, keep
     grades_record_view,
     grades_list_view,
     grades_update_view,
@@ -176,11 +178,13 @@ urlpatterns = [
     #path("assignment/student-assignment/<int:id>/", StudentAssignmentView.as_view()),
     path("student-assignment/<int:sid>/<int:cid>/", student_assignment_list_view, name="student-assignment-list-view"),
     path("send-pacing-guide/", send_pacing_guide),
+    path("grades-record-manual/<int:enrollment_pk>/", grades_record_manual, name="grades-record-manual"), #new view, keep
+    path("grades-record-manual-edit/<int:gradebook_pk>/", grades_record_manual_edit, name="grades-record-manual-edit"), #new view, keep
     path("grades-record/", grades_record_view),
     path("grades/", grades_list_view),
     path("grades-update/", grades_list_view),
     path("grades/<int:id>/delete/", grades_delete_view),
-    path("grades/<int:id>/edit/", grades_update_view),
+    path("grades/<int:id>/edit/", grades_update_view, name="grades-update-view"),
     url(r'^api/crawl/', crawl, name='crawl'),
     path("teachers/", teacher_list_view),
     path("teachers/<int:id>/edit/", teacher_update_view),

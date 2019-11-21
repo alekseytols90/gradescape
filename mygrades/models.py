@@ -455,7 +455,7 @@ class GradeBook(models.Model):
         return f"/grades/{self.pk}/delete"
 
     def get_edit_url(self):
-        return f"/grades/{self.pk}/edit"
+        return f"/grades-record-manual-edit/{self.pk}/"
 
     def __str__(self):
         return "%s %s" % (self.pk, self.grade)
