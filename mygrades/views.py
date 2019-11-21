@@ -1763,7 +1763,7 @@ def process_gradable_step2(request,asem,quarter,week,sem):
         for enr in change["enrollments"]:
             initial.append({"enrollment": enr})
 
-    week_data = {"asem":asem,"quarter":quarter, "week":week, "sem":sem, "student":student}
+    week_data = {"asem":asem,"quarter":quarter, "week":week, "sem":sem} #, "student":student}
 
     GradableFormset = formset_factory(EnrollmentGradable, extra=0, can_delete=False, formset=EGBaseFormSet)
     formset = GradableFormset(request.POST or None, initial=initial, week_data=week_data)
@@ -1820,7 +1820,7 @@ def grades_record_manual(request, enrollment_pk):
             for key,value in form.cleaned_data.items():
                 setattr(instance,key,value)
             instance.save()
-            return redirect(reverse("grades-record-manual-edit", args=[instance.pk]))
+            return redirect("/grades")
 
     template_name = "grades_record_manual.html"
     context = {"form": form, "title": my_title, "ask_overwrite":ask_overwrite}
@@ -1839,7 +1839,7 @@ def grades_record_manual_edit(request, gradebook_pk):
     if form.is_valid():
         form.cleaned_data['student'] = gradebook.student # ensure for security
         m = form.save()
-        return redirect(reverse("grades-record-manual-edit", args=[m.pk]))
+        return redirect("/grades")
     template_name = "grades_record_manual.html"
     context = {"form": form, "title": my_title, "edit":True}
     return render(request, template_name, context)
