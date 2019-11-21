@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 align="center">
+{{ object.get_full_name }}'s Progress Report
+</h3>
+<br/>
+
+{% if not reports %}
+No progress report yet.
+{% endif %}
+
+{% for rep in reports %}
+{% include "report_progress_render_inner.html" %}
+<br/><br/>
+{% endfor %}
+
+<script>
+$(document).ready(function() {
+    $('.col-8').removeClass('mx-auto col-8').addClass('col-12');  //quickly expand main template here, otherwise don't know the impact of changing base.html
+});
+</script>
+
+{% endblock %}
+
+
