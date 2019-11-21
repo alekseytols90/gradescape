@@ -262,7 +262,7 @@ class CurriculumEnrollmentForm(forms.ModelForm):
 
         labels = {
             "required": "Minimum",
-            "semesterend": "Completion Date",
+            "semesterend": "Completion Date (Don't forget to advance this date for breaks and vacations.)",
             "level": "Level",
             "recorded_from": "Progress",
             "tracking": "Pacing Method",
@@ -273,8 +273,8 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         }
 
         help_texts = {
-            "required": "Number of Minutes or Lessons Required Each Week",
-            "semesterend": "By What Date Should This Curriculum Be Finished?",
+            "required": "Number of Minutes, Classes or Lessons Required Each Week",
+            "semesterend": "By What Date Should This Curriculum Be Finished (Don't forget to back up for vacations)?",
             "level": "Is this CORE (determines pace) or Supplemental?",
             "recorded_from": "Will you manually enter this progress or will the system retrieve data automatically?",
             "tracking": "Will These Assignments Come from a Pacing Guide or Repeat Each Week?",
