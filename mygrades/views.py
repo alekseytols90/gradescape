@@ -1168,7 +1168,10 @@ class EnrollmentUpdate(SuccessMessageMixin, UpdateView):
 
 @login_required
 def enroll_delete(request, enrollment_pk):
-    enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        enrollment = get_object_or_404(Enrollment,pk=enrollment_pk) 
+    else:
+        enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
     student = enrollment.student
     sem = enrollment.academic_semester
     subject = enrollment.curriculum.subject
@@ -1835,7 +1838,10 @@ def grades_delete_view(request, epicenter_id):
 @login_required
 def student_curriculum_schedule(request):
     my_title = "Add a Curriculum to Student Pacing"
-    qs = Student.objects.filter(teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = Student.objects.all()
+    else:
+        qs = Student.objects.filter(teacher_email=request.user.email)
     student_filter = StudentFilter(request.GET, queryset=qs)
     #curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
 
