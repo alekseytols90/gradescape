@@ -437,6 +437,7 @@ class GradeBook(models.Model):
     curriculum = models.ForeignKey(
         Curriculum, on_delete=models.CASCADE, related_name="curriculum_grade",
     )
+    academic_semester = models.CharField(max_length=16)
     complete = models.CharField(max_length=20, null=False, default='true')
     required = models.CharField(max_length=20, null=False, default='true')
     quarter = models.CharField(max_length=1, choices=QUARTER, null=False)

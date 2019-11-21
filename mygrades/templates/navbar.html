@@ -27,7 +27,7 @@
                 <a class="nav-link disabled" href="/api/crawler/Reading Eggs">Reading Eggs Lessons Complete</a>
                 <a class="nav-link disabled" href="/api/crawler/">Reading EggsPress Lessons Complete</a>
                 <a class="nav-link disabled" href="/api/crawler/">Math Seeds Lessons Complete</a>
-                <a class="nav-link disabled" href="/api/crawler/MyON">MyON Minutes Read</a>
+                <a class="nav-link" href="/api/crawler/MyON">MyON Minutes Read</a>
                 <a class="nav-link disabled" href="/api/crawler/">MyON Number of Books Read</a>
                 
                 <a class="nav-link disabled" href="/api/crawler/">SuccessMaker Math Minutes Worked</a>
@@ -128,8 +128,9 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/grades">View or Edit Gradebook</a>
           <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Student's Attendance Report</a>
+          <a class="dropdown-item" href="{% url "see_progress_home" %}">View a Student's Progress Report</a>
           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
-           <a class="nav-link disabled" href="progress/">Create a Current Progress Report</a>
+          <a class="nav-link" href="{% url "report_progress_home" %}">Create a Current Progress Report</a>
            <a class="nav-link disabled" href="report-card/">Create a Final Report Card</a>
         
         </div>

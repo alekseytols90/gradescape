@@ -1,0 +1,92 @@
+<table class="table table-sm table-bordered text-center" style="font-size:12px;">
+    <thead>
+        <tr>
+            <th colspan="19">
+                {{ object.get_full_name }}’s Progress Report {{ rep.created|date:"F d, Y" }}<br/>
+                {{ rep.academic_semester }}, Quarter {{ rep.quarter }}
+            </th>
+        </tr>
+        <tr>
+            <th style="min-width: 200px;">
+                Curriculum
+            </th>
+            {% for week in weeks %}
+            <th colspan="2">
+                Week {{ week }}
+            </th>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td></td>
+            {% for week in weeks %}
+            <th>
+                Comp.
+            </th>
+            <th>
+                Grade
+            </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for ga in rep.data.grades %}
+        <tr><td colspan="20"><b>Gradable Assignment #{{ forloop.counter }}</b></td></tr>
+        {% for cur in ga.curs %} {# ga 1 #}
+        <tr>
+            <td>{{ cur.name }}</td>
+            {% for n in cur.data %}
+            <td>{{ n.current }}</td>
+            <td>{{ n.grade }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        {% endfor %}
+
+        {% with rep.data.overall.Math as subject_data %}
+        <tr>
+            <td><b>Math Overall</b></td>
+            {% for item in subject_data %}
+            <td></td>
+            <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endwith %}
+        {% with rep.data.overall.ELA as subject_data %}
+        <tr>
+            <td><b>ELA Overall</b></td>
+            {% for item in subject_data %}
+            <td></td>
+            <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endwith %}
+        {% with rep.data.overall.Science as subject_data %}
+        <tr>
+            <td><b>Science Overall</b></td>
+            {% for item in subject_data %}
+            <td></td>
+            <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endwith %}
+        {% with rep.data.overall.History as subject_data %}
+        <tr>
+            <td><b>History Overall</b></td>
+            {% for item in subject_data %}
+            <td></td>
+            <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endwith %}
+        {% with rep.data.overall.GA as subject_data %}
+        <tr>
+            <td><b>Gradable Assignments</b></td>
+            {% for item in subject_data %}
+            <td></td>
+            <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endwith %}
+
+    </tbody>
+</table>

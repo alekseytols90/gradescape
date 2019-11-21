@@ -87,7 +87,6 @@ $(document).ready(function() {
         var val = $(this).val();
         var parent_td = $(this).closest('td');
         $.each(parent_td.find("input[value="+ val +"]"), function(index, value) {
-            console.log("set " + index);
             $(value).prop("checked", true);
         });
     });
