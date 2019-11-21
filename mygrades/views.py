@@ -61,6 +61,7 @@ from mygrades.forms import (
     StandardSetupForm,
     StudentAssignmentForm,
     CustomCurriculumSetUpForm,
+    RecordGradeManualForm,
     RecordGradeForm,
     SendPacingGuideForm,
     TeacherModelForm,
@@ -1788,6 +1789,60 @@ def api_curriculum_list(request):
     for cur in Curriculum.objects.filter(subject=subject,grade_level__in=[grade_level, 'All']).order_by('grade_level'):
         results.append({"id":cur.pk,"name":str(cur)})
     return Response({"results":results})
+
+@login_required
+def grades_record_manual(request, enrollment_pk):
+    my_title = "Record Grades Manually"
+    enrollment = get_object_or_404(Enrollment,pk=enrollment_pk)
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=enrollment.student.pk)
+    else:
+        student = get_object_or_404(Student, pk=enrollment.student.pk, teacher_email=request.user.email)
+
+    initial = {"student":student, "curriculum":enrollment.curriculum, "academic_semester":enrollment.academic_semester}
+
+    form = RecordGradeManualForm(request.POST or None, initial=initial)
+    if form.is_valid():
+        form.cleaned_data['student'] = student # ensure for security
+        m = form.save()
+        return redirect(reverse("grades-record-manual-edit", args=[m.pk]))
+
+    #overwrite if ?overwrite=1 is given
+    ask_overwrite = False
+    if form.errors and 'already exists' in form.errors['__all__'][0]:
+        form.cleaned_data['student'] = student # ensure for security
+        ask_overwrite = True
+        if request.GET.get('overwrite','') == '1':
+            data_copy = form.cleaned_data.copy()
+            del data_copy['grade']  # delete whatever will be modified
+            instance = GradeBook.objects.get(**data_copy)
+            for key,value in form.cleaned_data.items():
+                setattr(instance,key,value)
+            instance.save()
+            return redirect(reverse("grades-record-manual-edit", args=[instance.pk]))
+
+    template_name = "grades_record_manual.html"
+    context = {"form": form, "title": my_title, "ask_overwrite":ask_overwrite}
+    return render(request, template_name, context)
+
+@login_required
+def grades_record_manual_edit(request, gradebook_pk):
+    my_title = "Record Grades Manually / Edit"
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        gradebook = get_object_or_404(GradeBook, pk=gradebook_pk)
+    else:
+        gradebook = get_object_or_404(GradeBook, pk=gradebook_pk, student__teacher_email=request.user.email)
+
+    form = RecordGradeManualForm(request.POST or None, instance=gradebook)
+    if form.is_valid():
+        form.cleaned_data['student'] = gradebook.student # ensure for security
+        m = form.save()
+        return redirect(reverse("grades-record-manual-edit", args=[m.pk]))
+    template_name = "grades_record_manual.html"
+    context = {"form": form, "title": my_title, "edit":True}
+    return render(request, template_name, context)
 
 
 @login_required
