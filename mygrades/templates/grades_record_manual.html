@@ -42,7 +42,8 @@ $(document).ready(function() {
         if (!grade && required != "x") {
             required = parseInt(required);
             complete = parseInt(complete);
-            $("#id_grade").val(Math.round((complete/required)*100));
+            var result = Math.max(Math.min(Math.round((complete/required)*100),100),0);
+            $("#id_grade").val(result);
         }
     });
 });
