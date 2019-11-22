@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 align="center">
+{{ object.get_full_name }}'s Report Card
+</h3>
+<br/>
+
+{% if not reports %}
+No report card yet.
+{% endif %}
+
+{% for rep in reports %}
+{% include "report_card_render_inner.html" %}
+{% if user.groups.all.0.name == "Teacher" or user.groups.all.0.name == "Owner" %}
+<div class="text-right">
+<a class="btn btn-primary btn-sm" href="{% url "send_card_email" report_pk=rep.pk %}" role="button">EMail Report Card to Family</a><br/><br/>
+</div>
+{% endif %}
+<br/><br/>
+{% endfor %}
+
+{% endblock %}
+
+
