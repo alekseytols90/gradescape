@@ -1943,9 +1943,9 @@ def process_gradable_step2(request,asem,quarter,week,sem):
     if request.method == 'POST':
         if formset.is_valid():
             formset.save() 
-            messages.success(request, "Successfuly saved GA grade for given students for academic semester %s and week: %s/%s/%s" % (asem, quarter, week, sem))
+            messages.success(request, "Successfuly saved the total gradable assignments for given students for academic year %s and semester, quarter and week: %s/%s/%s" % (asem, quarter, week, sem))
             if formset.alert_email_sent:
-                messages.warning(request, "Alert email sent to some of students for risk of truancy.")
+                messages.warning(request, "Be aware that an email was sent to students that have not completed a gradable assignment in two weeks or longer notifying them they are at risk of truancy.")
             return redirect(reverse('process_gradable'))
 
     template_name = "student_gradable_step2.html"
