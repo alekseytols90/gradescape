@@ -5,12 +5,12 @@
         <th scope="col">Student</th>
         <th scope="col">Curriculum</th>
         <th scope="col">Required</th>
+        <th scope="col">Complete</th>
+        <th scope="col">Grade</th>
         <th scope="col">A.Sem.</th>
         <th scope="col">Quarter</th>
         <th scope="col">Week</th>
         <th scope="col">Semester</th>
-        <th scope="col">Complete</th>
-        <th scope="col">Grade</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
@@ -20,13 +20,13 @@
         <th scope="col">{{object.student.epicenter_id}}</th>
         <th scope="col">{{object.student.get_full_name}}</th>
         <th scope="col">{{object.curriculum.name}}</th>
-        <th scope="col">{{object.required}}</th>
+        <th scope="col">{{object.get_required}}</th>
+        <th scope="col">{{object.complete}}</th>
+        <th scope="col">{{object.grade}}</th>
         <th scope="col">{{object.academic_semester}}</th>
         <th scope="col">{{object.quarter}}</th>
         <th scope="col">{{object.week}}</th>
         <th scope="col">{{object.semester}}</th>
-        <th scope="col">{{object.complete}}</th>
-        <th scope="col">{{object.grade}}</th>
         <th scope="col"><a href="{{ object.get_edit_url }}" class="card-link">edit</a></th>
     </tr>
     {% endfor %}
