@@ -437,6 +437,7 @@ class GradeBook(models.Model):
     curriculum = models.ForeignKey(
         Curriculum, on_delete=models.CASCADE, related_name="curriculum_grade",
     )
+    academic_semester = models.CharField(max_length=16)
     complete = models.CharField(max_length=20, null=False, default='true')
     required = models.CharField(max_length=20, null=False, default='true')
     quarter = models.CharField(max_length=1, choices=QUARTER, null=False)
@@ -514,3 +515,6 @@ class StudentGradeBookReport(models.Model):
     week = models.CharField(max_length=2,blank=True)
     semester = models.CharField(max_length=1,blank=True)
 
+    #TODO: recommended to replace this with every json.loads call in views and 'rep.json' related templates with 'rep.get_json'
+    #def get_json(self):
+    #    return json.loads(self.report.data)

@@ -1,0 +1,22 @@
+{% extends "base_noheader.html" %}
+
+{% block content %}
+
+{% comment %}
+<h3 align="center">
+{{ object.get_full_name }}'s Progress Report
+</h3>
+<br/>
+{% endcomment %}
+
+{% if not reports %}
+No progress report yet.
+{% endif %}
+
+{% for rep in reports %}
+
+{% include "report_progress_render_inner.html" %}
+
+<br/><br/>
+{% endfor %}
+{% endblock %}

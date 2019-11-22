@@ -88,6 +88,7 @@ class GradeBookAdmin(admin.ModelAdmin):
     list_filter = (
         "week",
     )
+    raw_id_fields = ['student', 'curriculum']
 
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):

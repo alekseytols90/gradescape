@@ -73,6 +73,10 @@ from mygrades.forms import (
     GradableFormStep1,
     EnrollmentGradable,
     EGBaseFormSet,
+    QuarterForm,
+    ReportProgressForm,
+    gen_rep_data_progress_weekly,
+    gen_overall_data_progress_weekly,
 )
 from mygrades.models import (
     Student,
@@ -562,6 +566,7 @@ def save_grade(request, response, site_name):
                     curriculum = student_enrollment.curriculum 
                     gradebook = GradeBook.objects.filter(student=student,
                                              curriculum=curriculum,
+                                             academic_semester=sem,
                                              quarter=form_data['quarter'][0],
                                              week=form_data['week'],
                                              semester=form_data['semester'],
@@ -582,6 +587,7 @@ def save_grade(request, response, site_name):
                     else:
                         gradebook = GradeBook(student=student,
                                                  curriculum=curriculum,
+                                                 academic_semester=sem,
                                                  quarter=form_data['quarter'][0],
                                                  week=form_data['week'],
                                                  semester=form_data['semester'],
@@ -948,7 +954,7 @@ def curriculum_detail_view(request, id):
     qs = Assignment.objects.filter(curriculum__pk=id)
     assignment_filter = AssignmentFilter(request.GET, queryset=qs)
     template_name = "assignment_list_view.html"
-    context = {"object_list": assignment_filter, "title": my_title}
+    context = {"object_list": assignment_filter.qs,"filter":assignment_filter, "title": my_title} 
     return render(request, template_name, context)
 
 
@@ -1067,7 +1073,7 @@ def assignment_list_view(request):
     qs = Assignment.objects.all()
     assignment_filter = AssignmentFilter(request.GET, queryset=qs)
     template_name = "assignment_list_view.html"
-    context = {"object_list": assignment_filter, "title": my_title}
+    context = {"object_list": assignment_filter.qs[:50],"filter": assignment_filter, "title": my_title, "limited":True}
     return render(request, template_name, context)
 
 
@@ -1162,7 +1168,10 @@ class EnrollmentUpdate(SuccessMessageMixin, UpdateView):
 
 @login_required
 def enroll_delete(request, enrollment_pk):
-    enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        enrollment = get_object_or_404(Enrollment,pk=enrollment_pk) 
+    else:
+        enrollment = get_object_or_404(Enrollment,pk=enrollment_pk, student__teacher_email=request.user.email)
     student = enrollment.student
     sem = enrollment.academic_semester
     subject = enrollment.curriculum.subject
@@ -1219,7 +1228,6 @@ def create_weekly_step2(request, semester):
             # sa = StudentAssignment.objects.filter(student__teacher_email=request.user.email, student__in=student_filter.qs)
             # sa.update(shown_in_weekly=False)
 
-            # make status changes, also marks 'shown'
             for form in formset.forms:
                 form.save()
 
@@ -1335,6 +1343,113 @@ def create_weekly_home(request):
     template_name = "create_weekly_home.html"
     context = {"semesters": semester_options}
     return render(request, template_name, context)
+
+@login_required
+def report_progress_step2(request, asem):
+    title = "Send Progress Report to Student Screen"
+
+    qs = Student.objects.filter(teacher_email=request.user.email)
+
+    # single student
+    if "student_pk" in request.GET:
+        qs = qs.filter(pk=int(request.GET.get("student_pk")))
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    if request.method == 'POST':
+        form = QuarterForm(request.POST,initial={"academic_semester":asem})
+        if form.is_valid():
+            quarter = form.cleaned_data['quarter']
+            sem = form.cleaned_data['semester']
+            asem = form.cleaned_data['academic_semester']
+            query_params = "?"
+            if student_filter.form.data:
+                query_params += student_filter.form.data.urlencode() #includes student_pk which is not part of the filter, magically, perhaps because django assigns form.data to anything comes from the request
+            return redirect(reverse("report_progress_step3", args=[asem, quarter, sem])+query_params)
+    else:
+        form = QuarterForm(initial={"academic_semester":asem})
+
+    template_name = "student_gradable_step1.html"
+    context = {"title": title, "form": form, "filter":student_filter}
+    return render(request, template_name, context)
+
+@login_required
+def report_progress_step3(request, asem, quarter, sem):
+    preview = request.GET.get("preview","true")
+    qs = Student.objects.filter(teacher_email=request.user.email)
+
+    # single student
+    if "student_pk" in request.GET:
+        qs = qs.filter(pk=int(request.GET.get("student_pk")))
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    # write reports when submitted
+    if request.method == "POST":
+        ReportProgressFormset = formset_factory(ReportProgressForm, extra=0, can_delete=False)
+        formset = ReportProgressFormset(request.POST)
+        if formset.is_valid():
+            for form in formset.forms:
+                form.save(asem=asem,quarter=quarter,semester=sem)
+
+            messages.success(request, "All reports are sent to the student screen.")
+            return redirect('/')
+
+    data = []
+    for student in student_filter.qs: 
+        #overall_preview = gen_overall_data_progress_weekly(asem, student, sem, quarter)
+        data.append({"student":student})  #overall_preview
+        
+    # generate form
+    initial = []
+    for change in data:
+        initial.append({
+            'student': change['student'],
+            'student_desc': change['student'].get_full_name(),
+            #'overall': change['overall_preview']
+        })
+
+    ReportProgressFormset = formset_factory(ReportProgressForm, extra=0, can_delete=False)
+    formset = ReportProgressFormset(request.POST or None, initial=initial)
+
+    context = {"formset": formset, 'asem':asem,'sem':sem,'quarter':quarter} #"students":students}
+    template_name = "report_progress_step3.html"
+    return render(request, template_name, context)
+
+
+@login_required
+def report_progress_step1(request, asem):
+    my_title = "Send Progress Report to Student Screen"
+    qs = Student.objects.filter(teacher_email=request.user.email)
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "report_progress_step1.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title, "semester": asem}
+    return render(request, template_name, context)
+
+@login_required
+def report_progress_home(request):
+    semester_options = generate_semester_choices()
+    template_name = "report_progress_home.html"
+    context = {"semesters": semester_options}
+    return render(request, template_name, context)
+
+@login_required
+def report_progress_demo(request, student_pk, asem, quarter, sem):
+    template_name = "report_progress_render.html"
+    student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    report_demo = gen_rep_data_progress_weekly(asem, student, sem, quarter)
+    created = timezone.now()
+    updated = timezone.now()
+    reports = [{"created":created,"updated":updated, "data":report_demo, "quarter":quarter, "semester":sem, "academic_semester":asem}]
+    start_week = (int(quarter)-1)*9+1 #TODO: move to the report data
+    context = {"reports": reports, "object":student, "weeks": range(start_week,start_week+9)} 
+    return render(request, template_name, context)
+
 
 @login_required
 def see_late_home(request):
@@ -1461,6 +1576,49 @@ def see_attendance_detail(request, student_pk):
     return render(request, template_name, context)
 
 @login_required
+def see_progress_home(request):
+    my_title = "Progress Report"
+
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, email=request.user.email)
+        return redirect(reverse("see_progress_detail", args=[student.pk]))
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = Student.objects.all()
+    else:
+        qs = Student.objects.filter(teacher_email=request.user.email)
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "report_see_progress_home.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title}
+    return render(request, template_name, context)
+
+@login_required
+def see_progress_detail(request, student_pk):
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    elif request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    reports = StudentGradeBookReport.objects.filter(student=student, report_type="progress-weekly").order_by('-updated')[:1]
+
+    for rep in reports:
+        rep.data = json.loads(rep.json)
+
+    template_name = "report_see_progress_detail.html"
+    start_week = (int(reports[0].quarter)-1)*9+1  #TODO: move to the report data
+    context = {"object": student, "reports": reports, "weeks": range(start_week,start_week+9)}
+    return render(request, template_name, context)
+
+
+@login_required
 def send_weekly_email(request, student_pk):
     if request.user.groups.filter(name="Owner").count() > 0:
         student = get_object_or_404(Student, pk=student_pk)
@@ -1510,6 +1668,29 @@ def send_late_email(request, student_pk):
     return redirect(reverse("see_late_detail", args=[student.pk]))
 
 @login_required
+def send_progress_email(request, report_pk):
+    report = get_object_or_404(StudentGradeBookReport, pk=report_pk)
+    report.data = json.loads(report.json)
+    student_pk = report.student.pk
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    subject, from_email, to = "%s's Progress Report As Of: %s" % (student.get_full_name(),report.updated), 'yourepiconline@gmail.com', [
+    student.email, student.additional_email]
+    text_content = 'Your most updated progress report. You may need to open this in a different browser if you do not see it here. '
+    start_week = (int(report.quarter)-1)*9+1  #TODO: move to the report data
+    html_content = render_to_string('mail_report_progress.html', context={'report':report, 'object':student,"weeks": range(start_week,start_week+9)})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    messages.success(request, "Progress report sent for %s!" % student.get_full_name())
+    return redirect(reverse("see_progress_home"))
+
+@login_required
 def process_gradable_home(request):
     template_name = "student_gradable_home.html"
     title = "Send Attendance (Gradable Assignment) Report to Student Screen"
@@ -1541,11 +1722,11 @@ def process_gradable_step1(request):
             asem = form.cleaned_data['academic_semester']
             query_params = "?"
             if student_filter.form.data:
-                query_params += student_filter.form.data.urlencode() #includes student_pk not part of the filter, magically, perhaps because django assigns form.data to anything comes from the request
+                query_params += student_filter.form.data.urlencode() #includes student_pk which is not part of the filter, magically, perhaps because django assigns form.data to anything comes from the request
             return redirect(reverse("process_gradable_step2", args=[asem, quarter, week, sem])+query_params)
-        return HttpResponse('not implemented')
+    else:
+        form = GradableFormStep1()
 
-    form = GradableFormStep1()
     template_name = "student_gradable_step1.html"
     context = {"title": title, "form": form, "filter":student_filter}
     return render(request, template_name, context)
@@ -1562,7 +1743,12 @@ def process_gradable_step2(request,asem,quarter,week,sem):
     data = []
     for student in student_filter.qs:
         enrollments = Enrollment.objects.filter(student=student, academic_semester=asem).order_by("gradassign")
-        data.append({"student":student, "enrollments":enrollments})
+        ga1 = enrollments.filter(gradassign=1).values_list('pk',flat=True)
+        ga2 = enrollments.filter(gradassign=2).values_list('pk',flat=True)
+        ga3 = enrollments.filter(gradassign=3).values_list('pk',flat=True)
+        ga4 = enrollments.filter(gradassign=4).values_list('pk',flat=True)
+        ga5 = enrollments.filter(gradassign=5).values_list('pk',flat=True)
+        data.append({"student":student, "enrollments":enrollments, "groups":[ga1,ga2,ga3,ga4,ga5]})
 
     #generate form
     initial = []
@@ -1571,7 +1757,7 @@ def process_gradable_step2(request,asem,quarter,week,sem):
         if len(change["enrollments"]) == 0:
             continue
 
-        students.append({"pk":change["student"].pk, "eid": change["student"].epicenter_id, "name":change["student"].get_full_name()})
+        students.append({"pk":change["student"].pk, "eid": change["student"].epicenter_id, "name":change["student"].get_full_name(),"groups":change["groups"]})
 
         for enr in change["enrollments"]:
             initial.append({"enrollment": enr})
@@ -1652,7 +1838,10 @@ def grades_delete_view(request, epicenter_id):
 @login_required
 def student_curriculum_schedule(request):
     my_title = "Add a Curriculum to Student Pacing"
-    qs = Student.objects.filter(teacher_email=request.user.email)
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = Student.objects.all()
+    else:
+        qs = Student.objects.filter(teacher_email=request.user.email)
     student_filter = StudentFilter(request.GET, queryset=qs)
     #curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
 

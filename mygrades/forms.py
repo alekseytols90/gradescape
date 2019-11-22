@@ -658,6 +658,20 @@ class BaseWFSet(BaseModelFormSet):
         if total != 100:
             raise forms.ValidationError("Total weight must be 100.")
 
+class ReportProgressForm(forms.Form):
+    student = forms.ModelChoiceField(queryset=Student.objects.all())
+    student_desc = forms.CharField(widget=PlainTextWidget, required=False, label="Student Name")
+
+    def __init__(self, *args, **kwargs):
+        super(ReportProgressForm, self).__init__(*args, **kwargs)
+        self.fields['student'].widget = forms.HiddenInput()
+
+    def save(self, asem=None, quarter=None, semester=None):
+        if not asem or not quarter or not semester:
+            raise Exception("make sure to provide all required parameters to save the report")
+        save_report(asem, self.cleaned_data['student'], semester=semester, quarter=quarter, report_type="progress-weekly")
+
+
 class StatusChangeForm(forms.Form):
     assignment = forms.ModelChoiceField(queryset=StudentAssignment.objects.all())
     assignment_description = forms.CharField(widget=PlainTextWidget, required=False, label="Assignment")
@@ -681,6 +695,26 @@ class StatusChangeForm(forms.Form):
         #    assignment.shown_in_weekly = True 
 
         assignment.save()
+
+class QuarterForm(forms.Form):
+    QUARTER = [
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+    ]
+
+    SEMESTER = [
+        ("1", "1"),
+        ("2", "2"),
+    ]
+    quarter = forms.ChoiceField(choices=QUARTER)
+    semester = forms.ChoiceField(choices=SEMESTER)
+    academic_semester = forms.CharField()
+
+    def __init__(self, *args, **kwargs):
+        super(QuarterForm, self).__init__(*args, **kwargs)
+        self.fields['academic_semester'].widget = forms.HiddenInput()
 
 
 class GradableFormStep1(forms.Form):
@@ -804,6 +838,7 @@ class EGBaseFormSet(BaseFormSet):
 
             gradebook = GradeBook.objects.filter(student=student,
                                      curriculum=curriculum,
+                                     academic_semester=academic_semester,
                                      quarter=quarter,
                                      week=week,
                                      semester=sem)
@@ -814,6 +849,7 @@ class EGBaseFormSet(BaseFormSet):
             else:
                 gradebook = GradeBook(student=student,
                                      curriculum=curriculum,
+                                     academic_semester=academic_semester,
                                      quarter=quarter,
                                      week=week,
                                      semester=sem,
@@ -850,12 +886,12 @@ class EGBaseFormSet(BaseFormSet):
                     self.alert_email_sent = True
 
 
-def save_report(academic_semester, student, semester=None, week=None, quarter=None, report_type=""): 
+def save_report(academic_semester, student, semester="", week="", quarter="", report_type=""): 
     if report_type=="gradassign":
         if not week:
             raise Exception("Week is needed for gradassign report type")
         curriculum, created = Curriculum.objects.get_or_create(name='Gradable Assignments', subject='Other', grade_level='All')
-        gradebook = GradeBook.objects.filter(student=student, curriculum=curriculum, quarter=quarter, week=week, semester=semester)
+        gradebook = GradeBook.objects.filter(student=student, curriculum=curriculum, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
         attendances = Attendance.objects.filter(student=student,semester=semester,week=week,quarter=quarter,enrollment__academic_semester=academic_semester).order_by('enrollment__gradassign')
 
         if gradebook.count() == 0 or attendances.count() == 0:
@@ -868,17 +904,86 @@ def save_report(academic_semester, student, semester=None, week=None, quarter=No
             data["details"][attendance.enrollment.gradassign].append({"name": attendance.enrollment.curriculum.name,"complete":attendance.complete})
             data.update({"total":total_points})
 
-        report = StudentGradeBookReport.objects.filter(report_type="gradassign",student=student,semester=semester,week=week,quarter=quarter, academic_semester=academic_semester)
-        if report.count() > 0:
-            report = report[0]
-            report.json = json.dumps(data)
-        else:
-            report = StudentGradeBookReport(json=data, report_type="gradassign", student=student,semester=semester,week=week,quarter=quarter, academic_semester=academic_semester)
 
-        report.save()
-        #TODO: render at student screen
+        final_data = data
+    elif report_type == "progress-weekly":
+        final_data = gen_rep_data_progress_weekly(academic_semester, student, semester, quarter)
     else:
         raise Exception("Unrecognized report type. Can not generate.")
 
 
+    report = StudentGradeBookReport.objects.filter(report_type=report_type,student=student,semester=semester,week=week,quarter=quarter, academic_semester=academic_semester)
+    if report.count() > 0:
+        report = report[0]
+        report.json = json.dumps(final_data)
+    else:
+        report = StudentGradeBookReport(json=json.dumps(final_data), report_type=report_type, student=student,semester=semester,week=week,quarter=quarter, academic_semester=academic_semester)
 
+    report.save()
+
+
+def gen_overall_data_progress_weekly(academic_semester, student, semester, quarter):
+    start_week = (int(quarter)-1)*9 + 1
+
+    #summary per week
+    overall = {'Math':[],'ELA':[],'Science':[],'Other':[],'History':[], 'GA':[]}
+    for subject in ['Math','ELA','Science','Other','History']:
+        enrollments = Enrollment.objects.filter(student=student, academic_semester=academic_semester, curriculum__subject=subject)
+        for week in range(start_week,start_week+9): #for each week (1-9)
+            gradebook = GradeBook.objects.filter(student=student, curriculum__pk__in=enrollments.values_list('curriculum',flat=True), quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
+            if gradebook.count() == 0:
+                overall[subject].append('')
+                continue
+
+            total = 0
+            for enr in enrollments:
+                gradebook = GradeBook.objects.filter(student=student, curriculum=enr.curriculum, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
+                if gradebook.count() == 1:
+                    gradebook = gradebook[0]
+                    total += round(gradebook.grade * (enr.weight/100))
+            overall[subject].append(total)
+
+    ga_cur, created = Curriculum.objects.get_or_create(name='Gradable Assignments', subject='Other', grade_level='All')
+    for week in range(start_week,start_week+9): #for each week (1-9)
+        gradebook = GradeBook.objects.filter(student=student, curriculum=ga_cur, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
+        if gradebook.count() == 0:
+            overall['GA'].append('')
+            continue
+
+        total = 0
+        gradebook = GradeBook.objects.filter(student=student, curriculum=ga_cur, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
+        if gradebook.count() == 1:
+            gradebook = gradebook[0]
+            total += gradebook.grade
+        overall['GA'].append(total)
+
+    return overall
+
+def gen_rep_data_progress_weekly(academic_semester, student, semester, quarter): 
+    start_week = (int(quarter)-1)*9 + 1
+    enrollments = Enrollment.objects.filter(student=student, academic_semester=academic_semester)
+    ga1 = enrollments.filter(gradassign=1)
+    ga2 = enrollments.filter(gradassign=2)
+    ga3 = enrollments.filter(gradassign=3)
+    ga4 = enrollments.filter(gradassign=4)
+    ga5 = enrollments.filter(gradassign=5)
+    data = [{'raw':ga1,'curs':[]},{'raw':ga2,'curs':[]},{'raw':ga3,'curs':[]},{'raw':ga4,'curs':[]},{'raw':ga5,'curs':[]}]
+    for item in data:  # for each GA
+        for enr in item['raw']:  #for each enrollment under group
+            cur = enr.curriculum
+            cur_info = {"name":cur.name, "data":[]}
+            for week in range(start_week,start_week+9): #for each week in the quarter e.g. q3 should have weeks 19-27
+                gradebook = GradeBook.objects.filter(student=student, curriculum=cur, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
+                if gradebook.count() == 1:
+                    gradebook = gradebook[0]
+                    cur_info['data'].append({'grade':gradebook.grade, 'current':''}) # to test the render   'current':100
+                else:
+                    cur_info['data'].append({'grade':'', 'current':''})
+            item['curs'].append(cur_info)
+
+    overall = gen_overall_data_progress_weekly(academic_semester, student, semester, quarter)
+
+    for item in data:
+        del item['raw']
+
+    return {'grades':data,'overall':overall}
