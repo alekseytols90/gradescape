@@ -1854,7 +1854,7 @@ def send_card_email(request, report_pk):
 
     subject, from_email, to = "%s's Report Card" % (student.get_full_name(),), 'yourepiconline@gmail.com', [
     student.email, student.additional_email]
-    text_content = 'Your most updated report card. You may need to open this in a different browser if you do not see it here. '
+    text_content = 'Your most recent report card. You may need to open this in a different browser if you do not see it here. '
     html_content = render_to_string('mail_report_card.html', context={'report':report, 'object':student})
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
