@@ -128,9 +128,10 @@
           <a class="dropdown-item" href="/grades">View or Edit Gradebook</a>
           <a class="dropdown-item" href="/curriculum-schedule">Manually Record Grades</a>
           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
-          <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Student's Attendance Report</a>
+          
           <a class="dropdown-item" href="{% url "report_progress_home" %}">Send a Current Progress Report to Student Screen</a>
            <a class="dropdown-item" href="{% url "report_card_home" %}">Send a Final Report Card to Student Screen</a>
+           <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Copy of a Student's Attendance Report</a>
           <a class="dropdown-item" href="{% url "see_progress_home" %}">View a Copy of a Student's Progress Report</a>
           <a class="dropdown-item" href="{% url "see_card_home" %}">View a Copy of a Student's Report Card</a>
           
@@ -397,9 +398,10 @@
           <a class="dropdown-item" href="/grades">View or Edit Gradebook</a>
           <a class="dropdown-item" href="/curriculum-schedule">Manually Record Grades</a>
           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
-          <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Student's Attendance Report</a>
+          
           <a class="dropdown-item" href="{% url "report_progress_home" %}">Send a Current Progress Report to Student Screen</a>
            <a class="dropdown-item" href="{% url "report_card_home" %}">Send a Final Report Card to Student Screen</a>
+           <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Copy of a Student's Attendance Report</a>
           <a class="dropdown-item" href="{% url "see_progress_home" %}">View a Copy of a Student's Progress Report</a>
           <a class="dropdown-item" href="{% url "see_card_home" %}">View a Copy of a Student's Report Card</a>
           
@@ -576,10 +578,14 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="nav-link disabled" href="/grades">View or Edit Gradebook (Bronze)</a>
-          <a class="nav-link disabled" href="{% url "see_attendance_home" %}">View a Student's Attendance Report (Bronze)</a>
+          
           <a class="nav-link disabled" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen (Bronze)</a>
+          
            <a class="nav-link disabled" href="progress/">Create a Current Progress Report (Bronze)</a>
            <a class="nav-link disabled" href="report-card/">Create a Final Report Card (Bronze)</a>
+           <a class="nav-link disabled" href="{% url "see_attendance_home" %}">View a Copy of a Student's Attendance Report (Bronze)</a>
+          <a class="nav-link disabled" href="{% url "see_progress_home" %}">View a Copy of a Student's Progress Report (Bronze)</a>
+          <a class="nav-link disabled" href="{% url "see_card_home" %}">View a Copy of a Student's Report Card (Bronze)</a>
         </div>
       </li>
 
@@ -709,6 +715,9 @@
           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            <a class="dropdown-item" href="progress/">Create a Current Progress Report</a>
            <a class="dropdown-item" href="report-card/">Create a Final Report Card</a>
+           <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Copy of a Student's Attendance Report</a>
+          <a class="dropdown-item" href="{% url "see_progress_home" %}">View a Copy of a Student's Progress Report</a>
+          <a class="dropdown-item" href="{% url "see_card_home" %}">View a Copy of a Student's Report Card</a>
         </div>     </li>   
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -811,6 +820,9 @@
           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            <a class="dropdown-item" href="progress/">Create a Current Progress Report</a>
            <a class="dropdown-item" href="report-card/">Create a Final Report Card</a>
+           <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Copy of a Student's Attendance Report</a>
+          <a class="dropdown-item" href="{% url "see_progress_home" %}">View a Copy of a Student's Progress Report</a>
+          <a class="dropdown-item" href="{% url "see_card_home" %}">View a Copy of a Student's Report Card</a>
         </div>     </li>   
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -914,6 +926,9 @@
           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            <a class="dropdown-item" href="progress/">Create a Current Progress Report</a>
            <a class="dropdown-item" href="report-card/">Create a Final Report Card</a>
+           <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Copy of a Student's Attendance Report</a>
+          <a class="dropdown-item" href="{% url "see_progress_home" %}">View a Copy of a Student's Progress Report</a>
+          <a class="dropdown-item" href="{% url "see_card_home" %}">View a Copy of a Student's Report Card</a>
         </div>     </li>   
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
