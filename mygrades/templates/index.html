@@ -67,10 +67,9 @@
   {% if todays_month == "December" %}
       {% load staticfiles %} <img src="{% static 'images/december.jpg' %}"/></center>
       {% endif %}
+
 {% if user.is_authenticated%}
  {% ifequal user.groups.all.0.name "Teacher" %}
-
-
 <center><h2>Grades and MORE</h2>
 <h3>Hello {{user.first_name}}!</h3>
 <p></p>
@@ -172,11 +171,85 @@ What is the Upgraded version?</p>
 </center>
 {% endifequal %}
 
+
+{% if user.is_authenticated%}
+ {% ifequal user.groups.all.0.name "Gold" %}
+<center><h2>Grades and MORE</h2>
+<h3>Hello {{user.first_name}}!</h3>
+<p></p>
+<h2>Thank you for being a Gold Member.  We want you to know we appreciate your commitment to education as well as your continued business.</h2>
+
+<p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
+NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.  SSSSHHHHH, it's our little secret!</p>
+
+<p>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb">Take it for a spin with this tutorial!</a>  As a Gold level customer, please call us directly and we can walk you through anything:  405-578-5701.</p>
+
+<p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8">Complete this form.</a></p>
+
+<p>Have you created a curriculum and need it added? Maybe a list of projects? <a href="https://forms.gle/yXymhDWikZcJz4Vv7">Complete this form.</a></p>
+
+<p>Have you created an assignment for a CURRENT curriculum and need it added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27">Complete this form.</a></p>
+
+<p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/">Click here.</a></p>
+
+{% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
+<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a><br/>As a GOLD level customer, you may also call us directly at 405-578-5701 whenever you need assistance.</center></div>
+
+{% endifequal %}
+
+
+{% if user.is_authenticated%}
+
+ {% ifequal user.groups.all.0.name "Silver" %}
+<center><h2>Grades and MORE</h2>
+<h3>Hello {{user.first_name}}!</h3>
+<p></p>
+<h2>Thank you for being a Silver Level Member.  We want you to know we appreciate your commitment to education here at Tyner Creek.</h2>
+
+<p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
+NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.  SSSSHHHHH, it's our little secret!</p>
+
+<p>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb">Take it for a spin with this tutorial!</a></p>
+
+<p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8">Complete this form.</a></p>
+
+<p>Have you created a curriculum and need it added? Maybe a list of projects? <a href="https://forms.gle/yXymhDWikZcJz4Vv7">Complete this form.</a></p>
+
+<p>Have you created an assignment for a CURRENT curriculum and need it added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27">Complete this form.</a></p>
+
+<p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/">Click here.</a></p>
+
+{% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
+<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a></center></div>
+
+{% endifequal %}
+
+
+
+{% if user.is_authenticated%}
+ {% ifequal user.groups.all.0.name "Bronze" %}
+<center><h2>Grades and MORE</h2>
+<h3>Hello {{user.first_name}}!</h3>
+<p></p>
+
+
+<p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
+NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information</p>
+
+{% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
+<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a></center></div>
+
+{% endifequal %}
+
 {% else %}
 <center><h1>
 <a href="/login">Please log in here.</a></h1></center>
 {% endif %}
 {% endblock %}
+
+
+
+
 
 
 <!-- {{ title }} -->
