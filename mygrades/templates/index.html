@@ -172,7 +172,7 @@ What is the Upgraded version?</p>
 {% endifequal %}
 
 
-{% if user.is_authenticated%}
+
  {% ifequal user.groups.all.0.name "Gold" %}
 <center><h2>Grades and MORE</h2>
 <h3>Hello {{user.first_name}}!</h3>
@@ -198,7 +198,7 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 {% endifequal %}
 
 
-{% if user.is_authenticated%}
+
 
  {% ifequal user.groups.all.0.name "Silver" %}
 <center><h2>Grades and MORE</h2>
@@ -211,11 +211,7 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 
 <p>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb">Take it for a spin with this tutorial!</a></p>
 
-<p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8">Complete this form.</a></p>
 
-<p>Have you created a curriculum and need it added? Maybe a list of projects? <a href="https://forms.gle/yXymhDWikZcJz4Vv7">Complete this form.</a></p>
-
-<p>Have you created an assignment for a CURRENT curriculum and need it added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27">Complete this form.</a></p>
 
 <p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/">Click here.</a></p>
 
@@ -226,7 +222,7 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 
 
 
-{% if user.is_authenticated%}
+
  {% ifequal user.groups.all.0.name "Bronze" %}
 <center><h2>Grades and MORE</h2>
 <h3>Hello {{user.first_name}}!</h3>
