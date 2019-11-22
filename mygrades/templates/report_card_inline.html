@@ -1,0 +1,4 @@
+<tr>
+    <td>{{ object.epicenter_id }}</td><td>{{ object.first_name }}</td><td>{{ object.last_name }}</td><td><small>{{ object.email }}</small></td><td><a href='{% url "report_card_step2" asem=semester %}?student_pk={{ object.pk }}' >Preview</a></td>
+</tr>
+

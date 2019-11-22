@@ -460,6 +460,97 @@ class StandardSetupForm(forms.ModelForm):
         request = kwargs.pop("request", None)
         super(StandardSetupForm, self).__init__(*args, **kwargs)
 
+class RecordGradeManualForm(forms.ModelForm):
+    WEEK = [
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+        ("6", "6"),
+        ("7", "7"),
+        ("8", "8"),
+        ("9", "9"),
+        ("10", "10"),
+        ("11", "11"),
+        ("12", "12"),
+        ("13", "13"),
+        ("14", "14"),
+        ("15", "15"),
+        ("16", "16"),
+        ("17", "17"),
+        ("18", "18"),
+        ("19", "19"),
+        ("20", "20"),
+        ("21", "21"),
+        ("22", "22"),
+        ("23", "23"),
+        ("24", "24"),
+        ("25", "25"),
+        ("26", "26"),
+        ("27", "27"),
+        ("28", "28"),
+        ("29", "29"),
+        ("30", "30"),
+        ("31", "31"),
+        ("32", "32"),
+        ("33", "33"),
+        ("34", "34"),
+        ("35", "35"),
+        ("36", "36"),
+    ]
+
+    QUARTER = [
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+    ]
+
+    SEMESTER = [
+        ("1", "1"),
+        ("2", "2"),
+    ]
+
+    class Meta:
+        model = GradeBook
+
+        fields = [
+            "student",
+            "curriculum",
+            "academic_semester",
+            "complete",
+            "required",
+            "quarter",
+            "week",
+            "grade",
+            "semester",
+        ]
+
+        labels = {
+            "student": "Student",
+            "curriculum": "Curriculum",
+            "enrollment": "Enrollment",
+            "complete": "Number of Lessons or Minutes Completed",
+            "required": "Number of Lessons or Minutes Required",
+            "quarter": "Quarter",
+            "week": "Week",
+            "grade": "Grade",
+            "semester": "Semester",
+        }
+
+        widgets = {
+            'student': forms.HiddenInput(),
+            'curriculum': forms.HiddenInput(),
+            'academic_semester': forms.HiddenInput(),
+        }
+
+        # def __init__(self, *args, **kwargs):
+            # super(RecordGradeManualForm, self).__init__(*args, **kwargs)
+            # self.fields['student'].widget = forms.HiddenInput()
+            # self.fields['curriculum'].widget = forms.HiddenInput()
+            # self.fields['academic_semester'].widget = forms.HiddenInput()
+
 
 class RecordGradeForm(forms.ModelForm):
     WEEK = [
@@ -481,6 +572,24 @@ class RecordGradeForm(forms.ModelForm):
         ("16", "16"),
         ("17", "17"),
         ("18", "18"),
+        ("19", "19"),
+        ("20", "20"),
+        ("21", "21"),
+        ("22", "22"),
+        ("23", "23"),
+        ("24", "24"),
+        ("25", "25"),
+        ("26", "26"),
+        ("27", "27"),
+        ("28", "28"),
+        ("29", "29"),
+        ("30", "30"),
+        ("31", "31"),
+        ("32", "32"),
+        ("33", "33"),
+        ("34", "34"),
+        ("35", "35"),
+        ("36", "36"),
     ]
 
     QUARTER = [
@@ -671,6 +780,19 @@ class ReportProgressForm(forms.Form):
             raise Exception("make sure to provide all required parameters to save the report")
         save_report(asem, self.cleaned_data['student'], semester=semester, quarter=quarter, report_type="progress-weekly")
 
+class ReportCardForm(forms.Form):
+    student = forms.ModelChoiceField(queryset=Student.objects.all())
+    student_desc = forms.CharField(widget=PlainTextWidget, required=False, label="Student Name")
+
+    def __init__(self, *args, **kwargs):
+        super(ReportCardForm, self).__init__(*args, **kwargs)
+        self.fields['student'].widget = forms.HiddenInput()
+
+    def save(self, asem=None, quarter=None, semester=None):
+        if not asem or not quarter or not semester:
+            raise Exception("make sure to provide all required parameters to save the report")
+        save_report(asem, self.cleaned_data['student'], semester=semester, quarter=quarter, report_type="report-card-quarter")
+
 
 class StatusChangeForm(forms.Form):
     assignment = forms.ModelChoiceField(queryset=StudentAssignment.objects.all())
@@ -708,8 +830,8 @@ class QuarterForm(forms.Form):
         ("1", "1"),
         ("2", "2"),
     ]
-    quarter = forms.ChoiceField(choices=QUARTER)
     semester = forms.ChoiceField(choices=SEMESTER)
+    quarter = forms.ChoiceField(choices=QUARTER)
     academic_semester = forms.CharField()
 
     def __init__(self, *args, **kwargs):
@@ -737,6 +859,24 @@ class GradableFormStep1(forms.Form):
         ("16", "16"),
         ("17", "17"),
         ("18", "18"),
+        ("19", "19"),
+        ("20", "20"),
+        ("21", "21"),
+        ("22", "22"),
+        ("23", "23"),
+        ("24", "24"),
+        ("25", "25"),
+        ("26", "26"),
+        ("27", "27"),
+        ("28", "28"),
+        ("29", "29"),
+        ("30", "30"),
+        ("31", "31"),
+        ("32", "32"),
+        ("33", "33"),
+        ("34", "34"),
+        ("35", "35"),
+        ("36", "36"),
     ]
 
     QUARTER = [
@@ -750,9 +890,9 @@ class GradableFormStep1(forms.Form):
         ("1", "1"),
         ("2", "2"),
     ]
+    semester = forms.ChoiceField(choices=SEMESTER)
     quarter = forms.ChoiceField(choices=QUARTER)
     week = forms.ChoiceField(choices=WEEK)
-    semester = forms.ChoiceField(choices=SEMESTER)
     academic_semester = forms.ChoiceField()
 
     def __init__(self, *args, **kwargs):
@@ -908,6 +1048,8 @@ def save_report(academic_semester, student, semester="", week="", quarter="", re
         final_data = data
     elif report_type == "progress-weekly":
         final_data = gen_rep_data_progress_weekly(academic_semester, student, semester, quarter)
+    elif report_type == "report-card-quarter":
+        final_data = gen_quarter_overall_average(academic_semester, student, semester, quarter)
     else:
         raise Exception("Unrecognized report type. Can not generate.")
 
@@ -921,6 +1063,24 @@ def save_report(academic_semester, student, semester="", week="", quarter="", re
 
     report.save()
 
+def gen_quarter_overall_average(academic_semester, student, semester, quarter):
+    overall = gen_overall_data_progress_weekly(academic_semester, student, semester, quarter)
+    totals = {}
+
+    for key,val in overall.items():
+        if key not in totals:
+            totals.update({key:0})
+        for grade in val:
+            if grade == '':
+                grade = 0
+            totals[key] = totals[key] + int(grade)
+
+    for k,v in totals.items():
+        if k == "GA":
+            continue
+        totals[k] = round(totals[k]/9)
+
+    return totals
 
 def gen_overall_data_progress_weekly(academic_semester, student, semester, quarter):
     start_week = (int(quarter)-1)*9 + 1
@@ -929,7 +1089,7 @@ def gen_overall_data_progress_weekly(academic_semester, student, semester, quart
     overall = {'Math':[],'ELA':[],'Science':[],'Other':[],'History':[], 'GA':[]}
     for subject in ['Math','ELA','Science','Other','History']:
         enrollments = Enrollment.objects.filter(student=student, academic_semester=academic_semester, curriculum__subject=subject)
-        for week in range(start_week,start_week+9): #for each week (1-9)
+        for week in range(start_week,start_week+9): #for each week e.g (10-18)
             gradebook = GradeBook.objects.filter(student=student, curriculum__pk__in=enrollments.values_list('curriculum',flat=True), quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
             if gradebook.count() == 0:
                 overall[subject].append('')
@@ -944,7 +1104,7 @@ def gen_overall_data_progress_weekly(academic_semester, student, semester, quart
             overall[subject].append(total)
 
     ga_cur, created = Curriculum.objects.get_or_create(name='Gradable Assignments', subject='Other', grade_level='All')
-    for week in range(start_week,start_week+9): #for each week (1-9)
+    for week in range(start_week,start_week+9):
         gradebook = GradeBook.objects.filter(student=student, curriculum=ga_cur, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
         if gradebook.count() == 0:
             overall['GA'].append('')

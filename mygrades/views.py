@@ -61,6 +61,7 @@ from mygrades.forms import (
     StandardSetupForm,
     StudentAssignmentForm,
     CustomCurriculumSetUpForm,
+    RecordGradeManualForm,
     RecordGradeForm,
     SendPacingGuideForm,
     TeacherModelForm,
@@ -75,8 +76,10 @@ from mygrades.forms import (
     EGBaseFormSet,
     QuarterForm,
     ReportProgressForm,
+    ReportCardForm,
     gen_rep_data_progress_weekly,
     gen_overall_data_progress_weekly,
+    gen_quarter_overall_average,
 )
 from mygrades.models import (
     Student,
@@ -1452,6 +1455,112 @@ def report_progress_demo(request, student_pk, asem, quarter, sem):
 
 
 @login_required
+def report_card_step2(request, asem):
+    title = "Send Progress Report to Student Screen"
+
+    qs = Student.objects.filter(teacher_email=request.user.email)
+
+    # single student
+    if "student_pk" in request.GET:
+        qs = qs.filter(pk=int(request.GET.get("student_pk")))
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    if request.method == 'POST':
+        form = QuarterForm(request.POST,initial={"academic_semester":asem})
+        if form.is_valid():
+            quarter = form.cleaned_data['quarter']
+            sem = form.cleaned_data['semester']
+            asem = form.cleaned_data['academic_semester']
+            query_params = "?"
+            if student_filter.form.data:
+                query_params += student_filter.form.data.urlencode() #includes student_pk which is not part of the filter, magically, perhaps because django assigns form.data to anything comes from the request
+            return redirect(reverse("report_card_step3", args=[asem, quarter, sem])+query_params)
+    else:
+        form = QuarterForm(initial={"academic_semester":asem})
+
+    template_name = "student_gradable_step1.html"
+    context = {"title": title, "form": form, "filter":student_filter}
+    return render(request, template_name, context)
+
+@login_required
+def report_card_step3(request, asem, quarter, sem):
+    preview = request.GET.get("preview","true")
+    qs = Student.objects.filter(teacher_email=request.user.email)
+
+    # single student
+    if "student_pk" in request.GET:
+        qs = qs.filter(pk=int(request.GET.get("student_pk")))
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    # write reports when submitted
+    if request.method == "POST":
+        ReportCardFormset = formset_factory(ReportCardForm, extra=0, can_delete=False)
+        formset = ReportCardFormset(request.POST)
+        if formset.is_valid():
+            for form in formset.forms:
+                form.save(asem=asem,quarter=quarter,semester=sem)
+
+            messages.success(request, "All reports are sent to the student screen.")
+            return redirect('/')
+
+    data = []
+    for student in student_filter.qs: 
+        #overall_preview = gen_overall_data_card_weekly(asem, student, sem, quarter)
+        data.append({"student":student})  #overall_preview
+        
+    # generate form
+    initial = []
+    for change in data:
+        initial.append({
+            'student': change['student'],
+            'student_desc': change['student'].get_full_name(),
+            #'overall': change['overall_preview']
+        })
+
+    ReportProgressFormset = formset_factory(ReportProgressForm, extra=0, can_delete=False)
+    formset = ReportProgressFormset(request.POST or None, initial=initial)
+
+    context = {"formset": formset, 'asem':asem,'sem':sem,'quarter':quarter} #"students":students}
+    template_name = "report_card_step3.html"
+    return render(request, template_name, context)
+
+
+@login_required
+def report_card_step1(request, asem):
+    my_title = "Send Report Card to Student Screen"
+    qs = Student.objects.filter(teacher_email=request.user.email)
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "report_card_step1.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title, "semester": asem}
+    return render(request, template_name, context)
+
+@login_required
+def report_card_home(request):
+    semester_options = generate_semester_choices()
+    template_name = "report_card_home.html"
+    context = {"semesters": semester_options}
+    return render(request, template_name, context)
+
+@login_required
+def report_card_demo(request, student_pk, asem, quarter, sem):
+    template_name = "report_card_render.html"
+    student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    report_demo = gen_quarter_overall_average(asem, student, sem, quarter)
+    created = timezone.now()
+    updated = timezone.now()
+    reports = [{"created":created,"updated":updated, "data":report_demo, "quarter":quarter, "semester":sem, "academic_semester":asem}]
+    context = {"reports": reports, "object":student} 
+    return render(request, template_name, context)
+
+
+@login_required
 def see_late_home(request):
     my_title = "Late Assignments"
 
@@ -1617,6 +1726,48 @@ def see_progress_detail(request, student_pk):
     context = {"object": student, "reports": reports, "weeks": range(start_week,start_week+9)}
     return render(request, template_name, context)
 
+@login_required
+def see_card_home(request):
+    my_title = "Report Card"
+
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, email=request.user.email)
+        return redirect(reverse("see_card_detail", args=[student.pk]))
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = Student.objects.all()
+    else:
+        qs = Student.objects.filter(teacher_email=request.user.email)
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "report_see_card_home.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title}
+    return render(request, template_name, context)
+
+@login_required
+def see_card_detail(request, student_pk):
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    elif request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    reports = StudentGradeBookReport.objects.filter(student=student, report_type="report-card-quarter").order_by('-updated')[:1]
+
+    for rep in reports:
+        rep.data = json.loads(rep.json)
+
+    template_name = "report_see_card_detail.html"
+    context = {"object": student, "reports": reports}
+    return render(request, template_name, context)
+
+
 
 @login_required
 def send_weekly_email(request, student_pk):
@@ -1691,6 +1842,28 @@ def send_progress_email(request, report_pk):
     return redirect(reverse("see_progress_home"))
 
 @login_required
+def send_card_email(request, report_pk):
+    report = get_object_or_404(StudentGradeBookReport, pk=report_pk)
+    report.data = json.loads(report.json)
+    student_pk = report.student.pk
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    subject, from_email, to = "%s's Report Card" % (student.get_full_name(),), 'yourepiconline@gmail.com', [
+    student.email, student.additional_email]
+    text_content = 'Your most updated report card. You may need to open this in a different browser if you do not see it here. '
+    html_content = render_to_string('mail_report_card.html', context={'report':report, 'object':student})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    messages.success(request, "Report card sent for %s!" % student.get_full_name())
+    return redirect(reverse("see_card_home"))
+
+@login_required
 def process_gradable_home(request):
     template_name = "student_gradable_home.html"
     title = "Send Attendance (Gradable Assignment) Report to Student Screen"
@@ -1728,7 +1901,7 @@ def process_gradable_step1(request):
         form = GradableFormStep1()
 
     template_name = "student_gradable_step1.html"
-    context = {"title": title, "form": form, "filter":student_filter}
+    context = {"title": title, "form": form, "filter":student_filter, "week":True}
     return render(request, template_name, context)
 
 def process_gradable_step2(request,asem,quarter,week,sem):
@@ -1762,7 +1935,7 @@ def process_gradable_step2(request,asem,quarter,week,sem):
         for enr in change["enrollments"]:
             initial.append({"enrollment": enr})
 
-    week_data = {"asem":asem,"quarter":quarter, "week":week, "sem":sem, "student":student}
+    week_data = {"asem":asem,"quarter":quarter, "week":week, "sem":sem} #, "student":student}
 
     GradableFormset = formset_factory(EnrollmentGradable, extra=0, can_delete=False, formset=EGBaseFormSet)
     formset = GradableFormset(request.POST or None, initial=initial, week_data=week_data)
@@ -1788,6 +1961,60 @@ def api_curriculum_list(request):
     for cur in Curriculum.objects.filter(subject=subject,grade_level__in=[grade_level, 'All']).order_by('grade_level'):
         results.append({"id":cur.pk,"name":str(cur)})
     return Response({"results":results})
+
+@login_required
+def grades_record_manual(request, enrollment_pk):
+    my_title = "Record Grades Manually"
+    enrollment = get_object_or_404(Enrollment,pk=enrollment_pk)
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=enrollment.student.pk)
+    else:
+        student = get_object_or_404(Student, pk=enrollment.student.pk, teacher_email=request.user.email)
+
+    initial = {"student":student, "curriculum":enrollment.curriculum, "academic_semester":enrollment.academic_semester}
+
+    form = RecordGradeManualForm(request.POST or None, initial=initial)
+    if form.is_valid():
+        form.cleaned_data['student'] = student # ensure for security
+        m = form.save()
+        return redirect(reverse("grades-record-manual-edit", args=[m.pk]))
+
+    #overwrite if ?overwrite=1 is given
+    ask_overwrite = False
+    if form.errors and 'already exists' in form.errors['__all__'][0]:
+        form.cleaned_data['student'] = student # ensure for security
+        ask_overwrite = True
+        if request.GET.get('overwrite','') == '1':
+            data_copy = form.cleaned_data.copy()
+            del data_copy['grade']  # delete whatever will be modified
+            instance = GradeBook.objects.get(**data_copy)
+            for key,value in form.cleaned_data.items():
+                setattr(instance,key,value)
+            instance.save()
+            return redirect("/grades")
+
+    template_name = "grades_record_manual.html"
+    context = {"form": form, "title": my_title, "ask_overwrite":ask_overwrite}
+    return render(request, template_name, context)
+
+@login_required
+def grades_record_manual_edit(request, gradebook_pk):
+    my_title = "Record Grades Manually / Edit"
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        gradebook = get_object_or_404(GradeBook, pk=gradebook_pk)
+    else:
+        gradebook = get_object_or_404(GradeBook, pk=gradebook_pk, student__teacher_email=request.user.email)
+
+    form = RecordGradeManualForm(request.POST or None, instance=gradebook)
+    if form.is_valid():
+        form.cleaned_data['student'] = gradebook.student # ensure for security
+        m = form.save()
+        return redirect("/grades")
+    template_name = "grades_record_manual.html"
+    context = {"form": form, "title": my_title, "edit":True}
+    return render(request, template_name, context)
 
 
 @login_required

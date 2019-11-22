@@ -128,6 +128,7 @@
           <a class="dropdown-item" href="/grades">View or Edit Gradebook</a>
           <a class="dropdown-item" href="{% url "see_attendance_home" %}">View a Student's Attendance Report</a>
           <a class="dropdown-item" href="{% url "see_progress_home" %}">View a Student's Progress Report</a>
+          <a class="dropdown-item" href="{% url "see_card_home" %}">View a Student's Progress Card</a>
           <a class="dropdown-item" href="{% url "process_gradable" %}">Send Attendance (Gradable Assignment) Report to Student Screen</a>
            <a class="dropdown-item" href="{% url "report_progress_home" %}">Send a Current Progress Report to Student Screen</a>
            <a class="dropdown-item" href="{% url "report_card_home" %}">Send a Final Report Card to Student Screen</a>
@@ -181,7 +182,8 @@
  
   <a class="nav-link" href="/login-help/">&nbsp;Find Your Logins</a>
         
-          <a class="nav-link disabled" href="/send-pacing-guide">See My Progress Report</a>
+          <a class="nav-link" href="{% url "see_progress_home" %}">See My Progress Report</a>
+          <a class="nav-link" href="{% url "see_card_home" %}">See My Report Card</a>
           <a class="nav-link" href="{% url "see_attendance_home" %}">See My Attendance Report</a>
            
           
