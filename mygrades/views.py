@@ -1790,7 +1790,7 @@ def send_weekly_email(request, student_pk):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
-    messages.success(request, "Weekly assignments are sent to %s!" % student.get_full_name())
+    messages.success(request, "Weekly assignments were sent to %s!" % student.get_full_name())
     return redirect(reverse("see_weekly_detail", args=[student.pk]))
 
 
@@ -1815,7 +1815,7 @@ def send_late_email(request, student_pk):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
-    messages.success(request, "Late assignments are sent to %s!" % student.get_full_name())
+    messages.success(request, "Late assignments were sent to %s!" % student.get_full_name())
     return redirect(reverse("see_late_detail", args=[student.pk]))
 
 @login_required
