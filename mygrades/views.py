@@ -1905,7 +1905,7 @@ def process_gradable_step1(request):
     return render(request, template_name, context)
 
 def process_gradable_step2(request,asem,quarter,week,sem):
-    title = "Send Attendance (Gradable Assignment) Report / Mark Curriculums"
+    title = "Send Attendance (Gradable Assignment) Report"
 
     qs = Student.objects.filter(teacher_email=request.user.email)
     # single student
