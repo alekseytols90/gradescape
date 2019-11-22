@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br/>
+<center>
+    <a class="btn btn-primary btn-lg" href="{% url "report_card_step2" asem=semester %}?{{ filter.form.data.urlencode }}" role="button">Preview a Report Card List for All Students Listed Below</a><br/><br/>
+    <a class="btn btn-primary btn-lg" href="{% url "report_card_step2" asem=semester %}?{{ filter.form.data.urlencode }}&preview=false" role="button">Skip Your Preview and Update All Student Screens Listed Below With the Report Card</a><br/><br/>
+    <h3>OR</h3><br/>
+</center>
+<h4 align="center">Preview a Report Card for ONE STUDENT ONLY By Filtering Here</h4>
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+</form>
+<br/>
+
+<table class="table table-sm table-striped">
+<thead>
+<tr>
+  <th style="width: 7%">EID</th>
+  <th style="width: 20%">First</th>
+  <th style="width: 20%">Last</th>
+  <th style="width: 22%">Email</th>
+  <th></th>
+</tr>
+<thead>
+<tbody>
+{% for object in object_list %}
+
+{% include 'report_progress_inline.html'%}
+
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}">next</a>
+            <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<!-- 
+<form action="https://www.epicliveservices.com/admin/logout/">
+    <input type="submit" value="Logout of System Here" >
+</form> -->
+
+{% endblock %}
+
