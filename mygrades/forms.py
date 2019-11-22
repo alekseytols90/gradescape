@@ -480,6 +480,24 @@ class RecordGradeManualForm(forms.ModelForm):
         ("16", "16"),
         ("17", "17"),
         ("18", "18"),
+        ("19", "19"),
+        ("20", "20"),
+        ("21", "21"),
+        ("22", "22"),
+        ("23", "23"),
+        ("24", "24"),
+        ("25", "25"),
+        ("26", "26"),
+        ("27", "27"),
+        ("28", "28"),
+        ("29", "29"),
+        ("30", "30"),
+        ("31", "31"),
+        ("32", "32"),
+        ("33", "33"),
+        ("34", "34"),
+        ("35", "35"),
+        ("36", "36"),
     ]
 
     QUARTER = [
@@ -554,6 +572,24 @@ class RecordGradeForm(forms.ModelForm):
         ("16", "16"),
         ("17", "17"),
         ("18", "18"),
+        ("19", "19"),
+        ("20", "20"),
+        ("21", "21"),
+        ("22", "22"),
+        ("23", "23"),
+        ("24", "24"),
+        ("25", "25"),
+        ("26", "26"),
+        ("27", "27"),
+        ("28", "28"),
+        ("29", "29"),
+        ("30", "30"),
+        ("31", "31"),
+        ("32", "32"),
+        ("33", "33"),
+        ("34", "34"),
+        ("35", "35"),
+        ("36", "36"),
     ]
 
     QUARTER = [
@@ -781,8 +817,8 @@ class QuarterForm(forms.Form):
         ("1", "1"),
         ("2", "2"),
     ]
-    quarter = forms.ChoiceField(choices=QUARTER)
     semester = forms.ChoiceField(choices=SEMESTER)
+    quarter = forms.ChoiceField(choices=QUARTER)
     academic_semester = forms.CharField()
 
     def __init__(self, *args, **kwargs):
@@ -810,6 +846,24 @@ class GradableFormStep1(forms.Form):
         ("16", "16"),
         ("17", "17"),
         ("18", "18"),
+        ("19", "19"),
+        ("20", "20"),
+        ("21", "21"),
+        ("22", "22"),
+        ("23", "23"),
+        ("24", "24"),
+        ("25", "25"),
+        ("26", "26"),
+        ("27", "27"),
+        ("28", "28"),
+        ("29", "29"),
+        ("30", "30"),
+        ("31", "31"),
+        ("32", "32"),
+        ("33", "33"),
+        ("34", "34"),
+        ("35", "35"),
+        ("36", "36"),
     ]
 
     QUARTER = [
@@ -823,9 +877,9 @@ class GradableFormStep1(forms.Form):
         ("1", "1"),
         ("2", "2"),
     ]
+    semester = forms.ChoiceField(choices=SEMESTER)
     quarter = forms.ChoiceField(choices=QUARTER)
     week = forms.ChoiceField(choices=WEEK)
-    semester = forms.ChoiceField(choices=SEMESTER)
     academic_semester = forms.ChoiceField()
 
     def __init__(self, *args, **kwargs):
