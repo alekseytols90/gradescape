@@ -474,7 +474,7 @@ class GradeBook(models.Model):
         Curriculum, on_delete=models.CASCADE, related_name="curriculum_grade",
     )
     academic_semester = models.CharField(max_length=16)
-    complete = models.IntegerField(null=False) 
+    complete = models.IntegerField(null=True,blank=True) 
     #required = models.CharField(max_length=20, null=False, default='true')
     quarter = models.CharField(max_length=1, choices=QUARTER, null=False)
     week = models.CharField(max_length=2, choices=WEEK, null=False)

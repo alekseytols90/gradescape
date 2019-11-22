@@ -133,13 +133,14 @@ def vo_tech(request):
 
 @login_required
 def home_page_view(request):
+    teacher = None
     if request.user.groups.filter(name="Student").count() > 0:
         student = get_object_or_404(Student, email=request.user.email)
-        teacher =Teacher.objects.get(email=student.teacher_email)
+        teacher = Teacher.objects.get(email=student.teacher_email)
     else:
         return render(request, "index.html")
     template_name = "index.html"
-    context = {"object": student}
+    context = {"object": student, "teacher":teacher}
     return render(request, template_name, context)
 
 def tutorials_page_view(request):
@@ -2040,7 +2041,7 @@ def grades_record_view(request):
 @login_required
 def grades_list_view(request):
     my_title = "Gradebook"
-    qs = GradeBook.objects.all()
+    qs = GradeBook.objects.all().order_by('student','semester','quarter','week')
     gradebook_filter = GradeBookFilter(request.GET, queryset=qs)
     template_name = "gradebook_list_view.html"
     context = {"object_list": gradebook_filter, "title": my_title}
