@@ -54,6 +54,6 @@ $(document).ready(function() {
                 return parseInt(e.value) >= 28 && parseInt(e.value) <= 36; });
         }
     });
-    $("#id_semester").change();
+    if(!$("#id_semester").val()) { $("#id_semester").change(); }
 });
 

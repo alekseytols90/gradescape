@@ -16,8 +16,14 @@ There is already a grade saved in the gradebook for this week? Do you want to ov
 <b>Curriculum:</b>{% if form.instance.curriculum %}{{ form.instance.curriculum.name }}{% else %}{{ form.initial.curriculum.name }}{% endif %}<br/><br/>
 <form id="gb_form" method='POST' {% if ask_overwrite %}style="display:none;"{% endif%}>
 {% csrf_token %}
-{{ form.as_p }}
-<button type='submit'>Save</button>
+<table class="table table-sm table-striped">
+<tbody>
+{{ form.as_table }}
+</tbody>
+</table>
+<div class="text-right">
+<button class='btn btn-primary' type='submit'>Save</button>
+</div>
 </form>
 <script src="{% static "js/dynamic-date-fields.js" %}" type="text/javascript"></script>
 <script>
@@ -28,6 +34,16 @@ $(document).ready(function() {
     });
     $("#no_btn").click(function(e) {
         window.location.href = "/";
+    });
+    $("#id_complete").blur(function(e) {
+        var required = $("label[for=id_required_desc]").parent().parent().find('td').html();
+        var grade = $("#id_grade").val();
+        var complete = $(this).val();
+        if (!grade && required != "x") {
+            required = parseInt(required);
+            complete = parseInt(complete);
+            $("#id_grade").val(Math.round((complete/required)*100));
+        }
     });
 });
     

@@ -474,8 +474,8 @@ class GradeBook(models.Model):
         Curriculum, on_delete=models.CASCADE, related_name="curriculum_grade",
     )
     academic_semester = models.CharField(max_length=16)
-    complete = models.CharField(max_length=20, null=False, default='true')
-    required = models.CharField(max_length=20, null=False, default='true')
+    complete = models.IntegerField(null=False) 
+    #required = models.CharField(max_length=20, null=False, default='true')
     quarter = models.CharField(max_length=1, choices=QUARTER, null=False)
     week = models.CharField(max_length=2, choices=WEEK, null=False)
     grade = models.IntegerField(null=False)
@@ -492,6 +492,21 @@ class GradeBook(models.Model):
 
     def get_edit_url(self):
         return f"/grades-record-manual-edit/{self.pk}/"
+
+    def get_required(self):
+        enr = self.get_enrollment()
+        if enr:
+            return enr.required
+        return "n/a"
+
+    def get_enrollment(self):
+        asem = self.academic_semester
+        student = self.student
+        curriculum = self.curriculum
+        enr = Enrollment.objects.filter(academic_semester=asem, student=student, curriculum=curriculum)
+        if enr.count() == 1:
+            return enr[0] 
+        return None
 
     def __str__(self):
         return "%s %s" % (self.pk, self.grade)

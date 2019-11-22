@@ -561,6 +561,7 @@ def save_grade(request, response, site_name):
                     grade = value['lesson_completed']
                 if student not in registered:
                     required = student_enrollment.required
+                    complete = grade
                     if required:
                         if grade > required:
                             grade = required
@@ -580,6 +581,7 @@ def save_grade(request, response, site_name):
                             if value["gradebook_action"] == "write":
                                 gradebook = gradebook[0]
                                 gradebook.grade = grade
+                                gradebook.complete = complete
                                 gradebook.save()
                             elif value["gradebook_action"] == "ignore":
                                 continue
@@ -594,7 +596,8 @@ def save_grade(request, response, site_name):
                                                  quarter=form_data['quarter'][0],
                                                  week=form_data['week'],
                                                  semester=form_data['semester'],
-                                                 grade=grade
+                                                 grade=grade,
+                                                 complete=complete
                                                  )
                         gradebook.save()
 
@@ -1400,8 +1403,7 @@ def report_progress_step3(request, asem, quarter, sem):
 
     data = []
     for student in student_filter.qs: 
-        #overall_preview = gen_overall_data_progress_weekly(asem, student, sem, quarter)
-        data.append({"student":student})  #overall_preview
+        data.append({"student":student})
         
     # generate form
     initial = []
@@ -1409,7 +1411,6 @@ def report_progress_step3(request, asem, quarter, sem):
         initial.append({
             'student': change['student'],
             'student_desc': change['student'].get_full_name(),
-            #'overall': change['overall_preview']
         })
 
     ReportProgressFormset = formset_factory(ReportProgressForm, extra=0, can_delete=False)
@@ -1507,20 +1508,25 @@ def report_card_step3(request, asem, quarter, sem):
 
     data = []
     for student in student_filter.qs: 
-        #overall_preview = gen_overall_data_card_weekly(asem, student, sem, quarter)
-        data.append({"student":student})  #overall_preview
+        overall_preview = gen_quarter_overall_average(asem, student, sem, quarter)
+        data.append({"student":student, "overall_preview":overall_preview})
         
     # generate form
     initial = []
     for change in data:
+        overall_preview = change["overall_preview"]
         initial.append({
             'student': change['student'],
-            'student_desc': change['student'].get_full_name(),
-            #'overall': change['overall_preview']
+            'math_overall': overall_preview['Math'],
+            'ela_overall': overall_preview['ELA'],
+            'science_overall': overall_preview['Science'],
+            'history_overall': overall_preview['History'],
+            'other_overall': overall_preview['Other'],
+            'ga_overall': overall_preview['GA']
         })
 
-    ReportProgressFormset = formset_factory(ReportProgressForm, extra=0, can_delete=False)
-    formset = ReportProgressFormset(request.POST or None, initial=initial)
+    ReportCardFormset = formset_factory(ReportCardForm, extra=0, can_delete=False)
+    formset = ReportCardFormset(request.POST or None, initial=initial)
 
     context = {"formset": formset, 'asem':asem,'sem':sem,'quarter':quarter} #"students":students}
     template_name = "report_card_step3.html"
@@ -1974,11 +1980,11 @@ def grades_record_manual(request, enrollment_pk):
 
     initial = {"student":student, "curriculum":enrollment.curriculum, "academic_semester":enrollment.academic_semester}
 
-    form = RecordGradeManualForm(request.POST or None, initial=initial)
+    form = RecordGradeManualForm(request.POST or None, initial=initial, enrollment=enrollment)
     if form.is_valid():
         form.cleaned_data['student'] = student # ensure for security
         m = form.save()
-        return redirect(reverse("grades-record-manual-edit", args=[m.pk]))
+        return redirect("/grades")
 
     #overwrite if ?overwrite=1 is given
     ask_overwrite = False
@@ -1987,7 +1993,9 @@ def grades_record_manual(request, enrollment_pk):
         ask_overwrite = True
         if request.GET.get('overwrite','') == '1':
             data_copy = form.cleaned_data.copy()
+            del data_copy['required_desc']
             del data_copy['grade']  # delete whatever will be modified
+            del data_copy['complete']  # delete whatever will be modified
             instance = GradeBook.objects.get(**data_copy)
             for key,value in form.cleaned_data.items():
                 setattr(instance,key,value)
@@ -2007,7 +2015,7 @@ def grades_record_manual_edit(request, gradebook_pk):
     else:
         gradebook = get_object_or_404(GradeBook, pk=gradebook_pk, student__teacher_email=request.user.email)
 
-    form = RecordGradeManualForm(request.POST or None, instance=gradebook)
+    form = RecordGradeManualForm(request.POST or None, instance=gradebook, enrollment=gradebook.get_enrollment())
     if form.is_valid():
         form.cleaned_data['student'] = gradebook.student # ensure for security
         m = form.save()
