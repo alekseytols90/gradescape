@@ -30,7 +30,7 @@
     </thead>
     <tbody>
         {% for ga in rep.data.grades %}
-        <tr><td colspan="20"><b>Gradable Assignment #{{ forloop.counter }}</b></td></tr>
+        {# <tr><td colspan="20"><b>Gradable Assignment #{{ forloop.counter }}</b></td></tr> #}
         {% for cur in ga.curs %} {# ga 1 #}
         <tr>
             <td>{{ cur.name }}</td>
