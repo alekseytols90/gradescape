@@ -6,7 +6,7 @@
 #status_form ul {list-style:none}
 </style>
 <div class="container mt-3">
-    <h3 align="center">Quarterly Progress Report</h3>
+    <h3 align="center">Report Card</h3>
     <h5>{{ asem }} / Quarter {{ quarter }} / Semester {{ sem }}</h5>
     {% if not formset.forms %}
     No students found.<br/>
@@ -20,7 +20,7 @@
             <p class="card-text">
                 <table class="table table-striped table-bordered">
                     <thead>
-                        <tr><th>Student</th><th>Preview Progress Report</th></tr>
+                        <tr><th>Student</th><th>Preview Report Card</th></tr>
                     </thead>
                 <tbody>
                 {% for form in formset.forms %}
