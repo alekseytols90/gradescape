@@ -214,7 +214,7 @@ class StudentModelForm(forms.ModelForm):
 
         ]
         labels = {
-            "epicenter_id": "Epicenter ID (ONLY NUMBERS)",
+            "epicenter_id": "Student ID (ONLY NUMBERS)",
             "first_name": "Student's First Name - Capitalize First Letter ONLY",
             "last_name": "Student's Last Name - Capitalize First Letter ONLY",
             "email": "Student e-Mail",
@@ -252,7 +252,7 @@ class CurriculumViewForm(forms.Form):
 class CurriculumEnrollmentForm(forms.ModelForm):
     subject = forms.ChoiceField(choices=SUBJECT_EMPTY, required=False) # js filter purposes, value not used
     grade_level = forms.ChoiceField(choices=CURRICULUMGRADE_EMPTY, required=False) # js filter purposes, value not used 
-    is_min_required = forms.BooleanField(required=False, label="Is minimum required?", help_text="Is there a minimum number of lessons or minutes required each week?") # whether to collect required field, also note that help_texts doesn't work on Meta for extra fields
+    is_min_required = forms.BooleanField(required=False, label="Is there a minimum required?", help_text="Is there a minimum number of lessons or minutes required each week?") # whether to collect required field, also note that help_texts doesn't work on Meta for extra fields
 
     class Meta:
         model = Enrollment
@@ -309,14 +309,14 @@ class CurriculumEnrollmentForm(forms.ModelForm):
     def clean_semesterend(self):
         sem = self.cleaned_data['semesterend']
         if sem < timezone.now():
-            raise forms.ValidationError("Semester end must be set to a date in future.")
+            raise forms.ValidationError("Semester end must be a date in future.")
         return sem
 
     def clean_academic_semester(self):
         as_options = generate_semester_choices()
         asem = self.cleaned_data['academic_semester']
         if not asem in as_options:
-            raise forms.ValidationError("Academic semester must be in options: %s" % str(as_options))
+            raise forms.ValidationError("Academic semester must be one of these: %s" % str(as_options))
         return asem
 
     def clean(self):
@@ -331,24 +331,24 @@ class CurriculumEnrollmentForm(forms.ModelForm):
 
             if cleaned_data['level'] == "Core":
                 if core_enrollment.count() > 0:
-                    self.add_error(None, "A core enrollment already exist for subject \"%s\"." % subject)
+                    self.add_error(None, "A CORE enrollment already exist for subject \"%s\".  Only one CORE is allowed, as it determines the pacing of other curriculum." % subject)
             else: #supplemental
                 if core_enrollment.count() == 0:
                     self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
         else:
             if self.initial["level"] == "Core" and cleaned_data["level"] == "Supplemental":
-                self.add_error(None, mark_safe("Hey, wait Teacher, %s is %s's CORE curriculum. It is setting her pace. If you want to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
+                self.add_error(None, mark_safe("%s is %s's CORE curriculum. This sets the pacing of assignments. If you wish to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
 
         recorded_from = cleaned_data['recorded_from']
         username = cleaned_data['username']
         password = cleaned_data['password']
         loginurl = cleaned_data['loginurl']
         if recorded_from == 'Automatic' and not (username and password and loginurl):
-            self.add_error(None, "You must enter username/password/loginurl when recording is set to automatic.")
+            self.add_error(None, "You must enter a username, password and login url for automatically monitored curriculum.")
         is_min_required = cleaned_data['is_min_required']
         required = cleaned_data['required']
         if is_min_required and required == None: 
-            self.add_error(None, "You must enter a value in required if this enrollment requires minimum number of minutes/attendance/lessons/reads.")
+            self.add_error(None, "You must enter a value for the minimum amount of lessons, minutes, or number required because you checked the box to tell the system this enrollment has a minimum requirement.")
 
     def save(self):
         m = super(CurriculumEnrollmentForm, self).save(commit=True)
@@ -694,7 +694,7 @@ class SendPacingGuideForm(forms.ModelForm):
         fields = ["student"]
 
         labels = {
-            "student": "Send This Student His or Her Pacing Guide For The Week",
+            "student": "Send This Student a Weekly Assignment List",
         }
 
     def __init__(self, *args, **kwargs):
@@ -732,7 +732,7 @@ class TeacherModelForm(forms.ModelForm):
         labels = {
             "first_name": "Teacher's First Name - Capitalize First Letter ONLY",
             "last_name": "Teacher's Last Name - Capitalize First Letter ONLY",
-            "email": "Teacher e-Mail",
+            "email": "Teacher e-Mail - all lowercase",
             "zoom": "Zoom Link",
             "syllabus":"Syllabus Link",
         }
@@ -777,7 +777,7 @@ class ReportProgressForm(forms.Form):
 
     def save(self, asem=None, quarter=None, semester=None):
         if not asem or not quarter or not semester:
-            raise Exception("make sure to provide all required parameters to save the report")
+            raise Exception("Something was missing.")
         save_report(asem, self.cleaned_data['student'], semester=semester, quarter=quarter, report_type="progress-weekly")
 
 class ReportCardForm(forms.Form):
@@ -790,7 +790,7 @@ class ReportCardForm(forms.Form):
 
     def save(self, asem=None, quarter=None, semester=None):
         if not asem or not quarter or not semester:
-            raise Exception("make sure to provide all required parameters to save the report")
+            raise Exception("Something was missing.")
         save_report(asem, self.cleaned_data['student'], semester=semester, quarter=quarter, report_type="report-card-quarter")
 
 
@@ -902,7 +902,7 @@ class GradableFormStep1(forms.Form):
 
 class EnrollmentGradable(forms.Form):
     desc = forms.CharField(widget=PlainTextWidget, required=False, label="Curriculum", disabled=True) #disabled needed to prevent clean/wipe
-    gradassign = forms.CharField(widget=PlainTextWidget, required=False, label="GradAssign", disabled=True) #disabled needed to prevent clean/wipe
+    gradassign = forms.CharField(widget=PlainTextWidget, required=False, label="Gradable Assignment", disabled=True) #disabled needed to prevent clean/wipe
     enrollment = forms.ModelChoiceField(queryset=Enrollment.objects.all())
     STATUS = [
         ("Incomplete","Incomplete"),
@@ -1008,17 +1008,17 @@ class EGBaseFormSet(BaseFormSet):
                                      semester=sem)
 
                 if prev_week.count() > 0 and prev_week[0].grade == 0:
-                    subject, from_email, to = "%s's Risk of Truancy" % (student.get_full_name(),), 'yourepiconline@gmail.com', [
+                    subject, from_email, to = "%s's Gradable Assignments" % (student.get_full_name(),), 'yourepiconline@gmail.com', [
                     student.email, student.additional_email]
-                    text_content ='You have not completed a gradable assignment in 2 weeks.  You are at risk of truancy and need to contact your teacher at: ' + student.teacher_email
-                    html_content = "You have not completed a gradable assignment in 2 weeks.  You are at risk of truancy and need to contact your teacher at: <a href=\"mailto:%s\">%s</a>" % (student.teacher_email,student.teacher_email)
+                    text_content ='It has been more than two weeks since you have completed a gradable assignment.  You are at risk of truancy and should contact your teacher at: ' + student.teacher_email
+                    html_content = "It has been more than two weeks since you have completed a gradable assignment.  You are at risk of truancy and should contact your teacher at: <a href=\"mailto:%s\">%s</a>" % (student.teacher_email,student.teacher_email)
                     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
                     msg.attach_alternative(html_content, "text/html")
                     msg.send()
 
                     to =  [student.teacher_email]
-                    text_content = "%s has not completed a gradable assignment in two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family." % (student.get_full_name(), text_content,)
-                    html_content = "%s has not completed a gradable assignment in two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family." % (student.get_full_name(), html_content,)
+                    text_content = "%s has not completed a gradable assignment in more than two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family immediately." % (student.get_full_name(), text_content,)
+                    html_content = "%s has not completed a gradable assignment in more than two weeks.  The student received this message: \"%s\". If this is an error, please edit the gradebook and reach out to the family immediately." % (student.get_full_name(), html_content,)
                     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
                     msg.attach_alternative(html_content, "text/html")
                     msg.send()
@@ -1029,13 +1029,13 @@ class EGBaseFormSet(BaseFormSet):
 def save_report(academic_semester, student, semester="", week="", quarter="", report_type=""): 
     if report_type=="gradassign":
         if not week:
-            raise Exception("Week is needed for gradassign report type")
+            raise Exception("Week is needed for a Gradable Assignment Report")
         curriculum, created = Curriculum.objects.get_or_create(name='Gradable Assignments', subject='Other', grade_level='All')
         gradebook = GradeBook.objects.filter(student=student, curriculum=curriculum, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
         attendances = Attendance.objects.filter(student=student,semester=semester,week=week,quarter=quarter,enrollment__academic_semester=academic_semester).order_by('enrollment__gradassign')
 
         if gradebook.count() == 0 or attendances.count() == 0:
-            raise Exception("Not enought data to generate 'gradassign' report.")
+            raise Exception("Not enought data to generate a Gradable Assignment Report.")
 
         total_points = gradebook[0].grade
 
