@@ -5,11 +5,11 @@
 .errorlist {color:#f00;}
 #status_form ul {list-style:none}
 </style>
-<b>Academic Semester:</b> {{ asem }}</br>
-<b>Target Semester/Week/Quater:</b> {{ sem }}/{{ week }}/{{ quarter }}</br>
+<b>Academic Year:</b> {{ asem }}</br>
+<b>Semester-Week-Quarter:</b> {{ sem }} - {{ week }} - {{ quarter }}</br>
 <br/>
 {% if not formset.forms %}
-No graddable assignments found.
+No gradable assignments found.
 {% else %}
 Set the completion status of curriculums for each below for the week: <br/>
 <br/>
@@ -24,7 +24,7 @@ Set the completion status of curriculums for each below for the week: <br/>
     <p class="card-text">
         <table class="table table-striped table-bordered">
         <thead>
-            <tr><th>Curriculum(s)</th><th>GradAssign</th><th>Status</th></tr>
+            <tr><th>Curriculum(s)</th><th>Assignment</th><th>Status</th></tr>
         </thead>
         <tbody>
         {% for group in student.groups %}
