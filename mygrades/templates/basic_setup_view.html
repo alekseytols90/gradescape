@@ -11,12 +11,17 @@
 <p></p>
 
 <form method='POST' action='.'>  {% csrf_token %}
-  {{ form.as_p }}
-  <button type=submit 'submit'> Save </button>
+<table style="table table-sm">
+{{ form.as_table }}
+</table>
+<button type='submit'> Save </button>
 
-
-
-</form>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+$(document).ready(function() {
+    $("#id_birthdate").datepicker();
+});
+</script>
 
 {% comment %}
 <!-- <br/>
