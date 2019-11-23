@@ -333,12 +333,17 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         if not self.instance.pk:
             core_enrollment = Enrollment.objects.filter(student=student, academic_semester=semester, curriculum__subject=subject, level="Core")
 
-            if cleaned_data['level'] == "Core":
-                if core_enrollment.count() > 0:
-                    self.add_error(None, "A CORE enrollment already exist for subject \"%s\".  Only one CORE is allowed, as it determines the pacing of other curriculum." % subject)
-            else: #supplemental
-                if core_enrollment.count() == 0:
-                    self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+            if subject == 'Other':
+                if cleaned_data['level'] == "Supplemental":
+                    self.add_error(None, "Enrollments with subject \"Other\" must be always Core.")
+            else:
+                if cleaned_data['level'] == "Core":
+                    if core_enrollment.count() > 0:
+                        self.add_error(None, "A CORE enrollment already exist for subject \"%s\".  Only one CORE is allowed, as it determines the pacing of other curriculum." % subject)
+                else: #supplemental
+                    if core_enrollment.count() == 0:
+                        self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+
         else:
             if self.initial["level"] == "Core" and cleaned_data["level"] == "Supplemental":
                 self.add_error(None, mark_safe("%s is %s's CORE curriculum. This sets the pacing of assignments. If you wish to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
@@ -1135,7 +1140,6 @@ def gen_overall_data_progress_weekly(academic_semester, student, semester, quart
         overall.update({subject:[]})
 
         for week in range(start_week,start_week+9): #for each week e.g (10-18)
-            total = 0
             gbs = gradebooks.filter(curriculum=item.curriculum, week=week)
 
             if gbs.count() == 0:
@@ -1145,7 +1149,7 @@ def gen_overall_data_progress_weekly(academic_semester, student, semester, quart
             total = 0
             if gbs.count() == 1:
                 gb = gbs[0]
-                total += round(gb.grade * (enr.weight/100))
+                total += gb.grade  # no need to use weight since single course
             overall[subject].append(total)
 
 
