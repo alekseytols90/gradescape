@@ -21,7 +21,7 @@
         <th scope="col">{{object.student.get_full_name}}</th>
         <th scope="col">{{object.curriculum.name}}</th>
         <th scope="col">{{object.get_required}}</th>
-        <th scope="col">{{object.complete}}</th>
+        <th scope="col">{% if object.complete %}{{object.complete}}{% else %}-{% endif %}</th>
         <th scope="col">{{object.grade}}</th>
         <th scope="col">{{object.academic_semester}}</th>
         <th scope="col">{{object.quarter}}</th>

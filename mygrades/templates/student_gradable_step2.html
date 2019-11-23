@@ -91,7 +91,7 @@ $(document).ready(function() {
         });
     });
     $.each($("[name=status-td]"), function(index,value) {
-        $(value).find("ul").slice(1).hide();
+        $(value).find("ul").not('.errorlist').slice(1).hide();
     });
 });
 </script>

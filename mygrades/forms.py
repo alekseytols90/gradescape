@@ -516,7 +516,7 @@ class RecordGradeManualForm(forms.ModelForm):
         ("2", "2"),
     ]
 
-    required_desc = forms.CharField(widget=PlainTextWidget, disabled=True, label="Number of Lessons or Minutes Required")
+    required_desc = forms.CharField(widget=PlainTextWidget, required=False, disabled=True, label="Number of Lessons or Minutes Required")
 
     class Meta:
         model = GradeBook
@@ -539,7 +539,7 @@ class RecordGradeManualForm(forms.ModelForm):
             "curriculum": "Curriculum",
             "enrollment": "Enrollment",
             #"required": "Number of Lessons or Minutes Required",
-            "complete": "Number of Lessons or Minutes Completed",
+            "complete": "Percent Complete, Minutes Worked, or # Lessons Complete",
             "grade": "Grade",
             "quarter": "Quarter",
             "week": "Week",
@@ -790,12 +790,18 @@ class ReportCardForm(forms.Form):
     ela_overall = forms.IntegerField(label="ELA Overall")
     science_overall = forms.IntegerField(label="Science Overall")
     history_overall = forms.IntegerField(label="History Overall")
-    other_overall = forms.IntegerField(label="Other Overall")
     ga_overall = forms.IntegerField(label="Gradable Assignments")
 
     def __init__(self, *args, **kwargs):
         super(ReportCardForm, self).__init__(*args, **kwargs)
         self.fields['student'].widget = forms.HiddenInput()
+
+        self.extra_fields = list(filter(lambda x:x.startswith('other'), self.initial.keys()))
+        for field in self.extra_fields:
+            self.fields[field] = forms.IntegerField(label="%s Overall" % (field,))
+            self.fields[field].initial = self.initial[field]
+            self.fields[field].label = field.replace('other_','')
+
 
     def save(self, asem=None, quarter=None, semester=None):
         if not asem or not quarter or not semester:
@@ -805,9 +811,13 @@ class ReportCardForm(forms.Form):
             'Math': self.cleaned_data['math_overall'],
             'ELA': self.cleaned_data['ela_overall'],
             'Science': self.cleaned_data['science_overall'],
-            'Other': self.cleaned_data['other_overall'],
             'History': self.cleaned_data['history_overall'],
         }
+
+        for item in self.extra_fields:
+            cur_name = item.replace('other_','')
+            data.update({cur_name:self.cleaned_data[item]})
+
         save_report(asem, self.cleaned_data['student'], semester=semester, quarter=quarter, report_type="report-card-quarter", override_data=data)
 
 
@@ -1106,16 +1116,41 @@ def gen_quarter_overall_average(academic_semester, student, semester, quarter):
 
         if key == "GA":
             continue
+
         totals[key] = round(totals[key]/9)
 
     return totals
 
 def gen_overall_data_progress_weekly(academic_semester, student, semester, quarter):
     start_week = (int(quarter)-1)*9 + 1
+    overall = {'Math':[],'ELA':[],'Science':[],'History':[], 'GA':[]}
 
-    #summary per week
-    overall = {'Math':[],'ELA':[],'Science':[],'Other':[],'History':[], 'GA':[]}
-    for subject in ['Math','ELA','Science','Other','History']:
+    # handle subject 'other'
+    subject = "Other"
+    enrollments = Enrollment.objects.filter(student=student, academic_semester=academic_semester, curriculum__subject=subject)
+    gradebooks = GradeBook.objects.filter(student=student, curriculum__pk__in=enrollments.values_list('curriculum',flat=True), quarter=quarter, semester=semester, academic_semester=academic_semester)
+    for item in gradebooks:
+        subject = item.curriculum.name
+        enr = enrollments.filter(curriculum=item.curriculum)[0]
+        overall.update({subject:[]})
+
+        for week in range(start_week,start_week+9): #for each week e.g (10-18)
+            total = 0
+            gbs = gradebooks.filter(curriculum=item.curriculum, week=week)
+
+            if gbs.count() == 0:
+                overall[subject].append('')
+                continue
+
+            total = 0
+            if gbs.count() == 1:
+                gb = gbs[0]
+                total += round(gb.grade * (enr.weight/100))
+            overall[subject].append(total)
+
+
+    #summary for math,ela,science,history and ga 
+    for subject in ['Math','ELA','Science','History']:
         enrollments = Enrollment.objects.filter(student=student, academic_semester=academic_semester, curriculum__subject=subject)
         for week in range(start_week,start_week+9): #for each week e.g (10-18)
             gradebook = GradeBook.objects.filter(student=student, curriculum__pk__in=enrollments.values_list('curriculum',flat=True), quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
@@ -1131,6 +1166,11 @@ def gen_overall_data_progress_weekly(academic_semester, student, semester, quart
                     total += round(gradebook.grade * (enr.weight/100))
             overall[subject].append(total)
 
+
+    
+
+
+    # handle GA
     ga_cur, created = Curriculum.objects.get_or_create(name='Gradable Assignments', subject='Other', grade_level='All')
     for week in range(start_week,start_week+9):
         gradebook = GradeBook.objects.filter(student=student, curriculum=ga_cur, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
@@ -1164,7 +1204,7 @@ def gen_rep_data_progress_weekly(academic_semester, student, semester, quarter):
                 gradebook = GradeBook.objects.filter(student=student, curriculum=cur, quarter=quarter, week=week, semester=semester, academic_semester=academic_semester)
                 if gradebook.count() == 1:
                     gradebook = gradebook[0]
-                    cur_info['data'].append({'grade':gradebook.grade, 'current':''}) # to test the render   'current':100
+                    cur_info['data'].append({'grade':gradebook.grade, 'current':gradebook.complete}) # to test the render   'current':100
                 else:
                     cur_info['data'].append({'grade':'', 'current':''})
             item['curs'].append(cur_info)

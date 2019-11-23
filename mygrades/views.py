@@ -1496,16 +1496,6 @@ def report_card_step3(request, asem, quarter, sem):
 
     student_filter = StudentFilter(request.GET, queryset=qs)
 
-    # write reports when submitted
-    if request.method == "POST":
-        ReportCardFormset = formset_factory(ReportCardForm, extra=0, can_delete=False)
-        formset = ReportCardFormset(request.POST)
-        if formset.is_valid():
-            for form in formset.forms:
-                form.save(asem=asem,quarter=quarter,semester=sem)
-
-            messages.success(request, "All reports are sent to the student screen.")
-            return redirect('/')
 
     data = []
     for student in student_filter.qs: 
@@ -1516,15 +1506,29 @@ def report_card_step3(request, asem, quarter, sem):
     initial = []
     for change in data:
         overall_preview = change["overall_preview"]
-        initial.append({
+        data = {
             'student': change['student'],
             'math_overall': overall_preview['Math'],
             'ela_overall': overall_preview['ELA'],
             'science_overall': overall_preview['Science'],
             'history_overall': overall_preview['History'],
-            'other_overall': overall_preview['Other'],
             'ga_overall': overall_preview['GA']
-        })
+        }
+        others = filter(lambda x: x not in ['Math','ELA','Science','History','GA'], overall_preview.keys())
+        for key in others:
+            data.update({'other_'+key.replace(' ','-'): overall_preview[key]})
+        initial.append(data)
+
+    # write reports when submitted
+    if request.method == "POST":
+        ReportCardFormset = formset_factory(ReportCardForm, extra=0, can_delete=False)
+        formset = ReportCardFormset(request.POST, initial=initial)
+        if formset.is_valid():
+            for form in formset.forms:
+                form.save(asem=asem,quarter=quarter,semester=sem)
+
+            messages.success(request, "All reports are sent to the student screen.")
+            return redirect('/')
 
     ReportCardFormset = formset_factory(ReportCardForm, extra=0, can_delete=False)
     formset = ReportCardFormset(request.POST or None, initial=initial)
@@ -1989,7 +1993,7 @@ def grades_record_manual(request, enrollment_pk):
 
     #overwrite if ?overwrite=1 is given
     ask_overwrite = False
-    if form.errors and 'already exists' in form.errors['__all__'][0]:
+    if form.errors and '__all__' in form.errors and 'already exists' in form.errors['__all__'][0]:
         form.cleaned_data['student'] = student # ensure for security
         ask_overwrite = True
         if request.GET.get('overwrite','') == '1':

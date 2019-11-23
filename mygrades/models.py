@@ -495,7 +495,7 @@ class GradeBook(models.Model):
 
     def get_required(self):
         enr = self.get_enrollment()
-        if enr:
+        if enr and enr.required != None:
             return enr.required
         return "n/a"
 
