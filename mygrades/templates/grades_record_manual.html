@@ -33,7 +33,11 @@ $(document).ready(function() {
         $("#gb_form").submit();
     });
     $("#no_btn").click(function(e) {
+        {% if form.instance.pk %}
         window.location.href = "{% url "curriculum-schedule-detail" id=form.instance.student.pk %}";
+        {% else %}
+        window.location.href = "{% url "curriculum-schedule-detail" id=form.initial.student.pk %}";
+        {% endif %}
     });
     $("#id_complete").blur(function(e) {
         var required = $("label[for=id_required_desc]").parent().parent().find('td').html();
