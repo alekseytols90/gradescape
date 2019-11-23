@@ -26,7 +26,6 @@ SECRET_KEY = "asdkasdfasdfasdfasdfasdl;fja;sldjfl;asjdfl;asjdf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG','True').lower() == 'true' 
-DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -156,3 +155,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #CRAWLER_USE_FAKE_DATA = True
 CRAWLER_USE_FAKE_DATA = False
+
+DEBUG_PROPAGATE_EXCEPTIONS = False
+if not DEBUG:
+    DEBUG_PROPAGATE_EXCEPTIONS = True
+

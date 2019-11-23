@@ -35,7 +35,7 @@
         <tr>
             <td>{{ cur.name }}</td>
             {% for n in cur.data %}
-            <td>{{ n.current }}</td>
+            <td>{% if n.current %}{{ n.current }}{% endif %}</td>
             <td>{{ n.grade }}</td>
             {% endfor %}
         </tr>
