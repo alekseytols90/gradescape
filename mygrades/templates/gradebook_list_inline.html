@@ -7,7 +7,7 @@
         <th scope="col">Required</th>
         <th scope="col">Complete</th>
         <th scope="col">Grade</th>
-        <th scope="col">A.Sem.</th>
+        <th scope="col">Sem.</th>
         <th scope="col">Quarter</th>
         <th scope="col">Week</th>
         <th scope="col">Semester</th>
@@ -27,7 +27,7 @@
         <th scope="col">{{object.quarter}}</th>
         <th scope="col">{{object.week}}</th>
         <th scope="col">{{object.semester}}</th>
-        <th scope="col"><a href="{{ object.get_edit_url }}" class="card-link">edit</a></th>
+        <th scope="col"><a href="{{ object.get_edit_url }}" class="card-link">Edit</a><br/><a href="{{ object.get_delete_url }}" class="card-link">Delete</a></th>
     </tr>
     {% endfor %}
     </tbody>

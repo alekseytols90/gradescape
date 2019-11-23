@@ -799,10 +799,21 @@ def student_upload(request):
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
     if len(header_clean) != 10:
-        messages.error(request, "Make sure header consists of 9 elements. %s" % prompt['order'])
+        messages.error(request, "Make sure header consists of 10 elements. %s" % prompt['order'])
         return render(request, template)
 
+    count = 1
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
+        birthdate = clear_field(column[8])
+        if birthdate != "":
+            try:
+                birthdate = datetime.datetime.strptime(birthdate, "%m/%d/%Y").date()
+            except Exception:
+                birthdate = None
+                messages.warning(request, "Warning: row %d has a bad birthday format, so it's ignored during the upload." % count) 
+        else:
+            birthdate = None
+
         _, created = Student.objects.update_or_create(
             first_name=clear_field(column[0]),
             last_name=clear_field(column[1]),
@@ -812,9 +823,10 @@ def student_upload(request):
             additional_phone_number=clear_field(column[5]),
             grade=clear_field(column[6]),
             epicenter_id=clear_field(column[7]),
-            birthdate=clear_field(column[8]),
+            birthdate=birthdate,
             teacher_email=clear_field(column[9]),
         )
+        count += 1
 
     return redirect("/")
 
@@ -1183,7 +1195,7 @@ def enroll_delete(request, enrollment_pk):
     sem = enrollment.academic_semester
     subject = enrollment.curriculum.subject
 
-    if enrollment.level == "Core" and Enrollment.objects.filter(student=student, academic_semester=sem, curriculum__subject=subject).count() > 1:
+    if subject != 'Other' and enrollment.level == "Core" and Enrollment.objects.filter(student=student, academic_semester=sem, curriculum__subject=subject).count() > 1:
        messages.error(request,mark_safe("Hey, wait Teacher, %s is %s's CORE curriculum. It is setting her pace. If you want delete it, first choose another CORE on this page first for subject %s." % (enrollment.curriculum.name,student.get_full_name(), subject)))
        return redirect(reverse("curriculum-schedule-detail", args=[student.pk]))
 
@@ -2066,13 +2078,20 @@ def grades_update_view(request, id):
 
 
 @staff_member_required
-def grades_delete_view(request, epicenter_id):
-    obj = get_object_or_404(GradeBook, id=id)
+def grades_delete_view(request, id):
+    gradebook = get_object_or_404(GradeBook, id=id)
     template_name = "gradebook_delete_view.html"
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = gradebook.student
+    else:
+        student = get_object_or_404(Student, pk=gradebook.student.pk, teacher_email=request.user.email)
+
     if request.method == "POST":
-        obj.delete()
+        gradebook.delete()
         return redirect("/grades")
-    context = {"object": obj}
+
+    context = {"gradebook": gradebook, "student":student}
     return render(request, template_name, context)
 
 @login_required

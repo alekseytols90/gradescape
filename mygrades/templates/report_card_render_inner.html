@@ -1,4 +1,4 @@
-<table class="table table-sm table-bordered text-center">
+<table class="table table-sm table-bordered text-center" style="max-width:530px;margin: 0 auto">
     <thead>
         <tr>
             <th colspan="2">
@@ -7,10 +7,10 @@
             </th>
         </tr>
         <tr>
-            <th style="width: 100px;">
+            <th style="width: 50%;">
                 Subject/Class
             </th>
-            <th style="width: 100px;">
+            <th style="width: 50%;">
                 Overall Grade
             </th>
         </tr>
@@ -18,7 +18,7 @@
     <tbody>
         {% for subject,value in rep.data.items %}
         <tr>
-            <td><b>{{ subject }} Overall</b></td>
+            <td>{{ subject }} Overall</td>
             <td>{{ value }}</td>
         </tr>
         {% endfor %}
