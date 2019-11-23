@@ -815,16 +815,18 @@ def student_upload(request):
             birthdate = None
 
         _, created = Student.objects.update_or_create(
-            first_name=clear_field(column[0]),
-            last_name=clear_field(column[1]),
-            email=clear_field(column[2]),
-            additional_email=clear_field(column[3]),
-            phone_number=clear_field(column[4]),
-            additional_phone_number=clear_field(column[5]),
-            grade=clear_field(column[6]),
             epicenter_id=clear_field(column[7]),
-            birthdate=birthdate,
-            teacher_email=clear_field(column[9]),
+            defaults={
+                'first_name':clear_field(column[0]),
+                'last_name':clear_field(column[1]),
+                'email':clear_field(column[2]),
+                'additional_email':clear_field(column[3]),
+                'phone_number':clear_field(column[4]),
+                'additional_phone_number':clear_field(column[5]),
+                'grade':clear_field(column[6]),
+                'birthdate':birthdate,
+                'teacher_email':clear_field(column[9]),
+            }
         )
         count += 1
 
