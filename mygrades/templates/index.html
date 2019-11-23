@@ -63,11 +63,6 @@
       {% endif %}
 
 
-        {% now "F" as todays_month %}
-  {% if todays_month == "December" %}
-      {% load staticfiles %} <img src="{% static 'images/december.jpg' %}"/></center>
-      {% endif %}
-
 {% if user.is_authenticated%}
  {% ifequal user.groups.all.0.name "Teacher" %}
 <center><h2>Grades and MORE</h2>
@@ -78,18 +73,18 @@
 <p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
 NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.  SSSSHHHHH, it's our little secret!</p>
 
-<p>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb">Take it for a spin with this tutorial!</a></p>
+<h2>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Take it for a spin with this tutorial!</a></h2>
 
-<p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8">Complete this form.</a></p>
+<p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8"target = "_blank">Complete this form.</a></p>
 
-<p>Do you need a curriculum added?  <a href="https://forms.gle/yXymhDWikZcJz4Vv7">Complete this form.</a></p>
+<p>Do you need a curriculum added?  <a href="https://forms.gle/yXymhDWikZcJz4Vv7"target = "_blank">Complete this form.</a></p>
 
-<p>Do you need an assignment added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27">Complete this form.</a></p>
+<p>Do you need an assignment added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27"target = "_blank">Complete this form.</a></p>
 
-<p>Do you need a student added? <a href="/students-setup/">Click here.</a></p>
+<p>Do you need a student added? <a href="/students-setup/"target = "_blank">Click here.</a></p>
 
 {% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
-<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a></center></div>
+<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com"target = "_blank">simply send a message!</a></center></div>
 
 {% endifequal %}
 
@@ -114,8 +109,8 @@ What is the Upgraded version?</p>
 <li>E-mail late assignment reports to families with a CLICK.</li>
 <li>Add curriculum or assignments based on performance or grade level WITH A CLICK!</li>
 </ul>
-
-<p><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</a>
+<p>Why upgrade? This is what you can do.<a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Take it for a spin with this tutorial!</a></p>
+<h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
 </div>
 
 
@@ -136,13 +131,19 @@ What is the Upgraded version?</p>
 
 {% ifequal user.groups.all.0.name "Student" %}
 
+   {% now "n" as today %}
+    {% ifequal today object.birthdate.month %}
+      {% load staticfiles %} <img src="{% static 'images/birthday.jpg' %}" />
+      {% endifequal %}
 <p></p>
 
 
 </center>
 <h3>Hello {{user.first_name}}!</h3>
+Your birth month: {{object.birthdate.month}}
 
   Your Teacher Is: {{teacher.first_name}} {{teacher.last_name}}
+
 </p>
 <p>Your Teacher's eMail: <a href = "mailto:{{object.teacher_email}}">{{teacher.email}}</a><br/>
   
@@ -150,15 +151,15 @@ What is the Upgraded version?</p>
 <h4>The Epic School Calendar:</h4>
 <p><iframe src="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></p>
 
-<p><a href="https://epiccharterschools.org/student-parent-handbook">View The Epic Student and Parent Handbook</a></p>
+<p><a href="https://epiccharterschools.org/student-parent-handbook" target = "_blank">View The Epic Student and Parent Handbook</a></p>
 
-<p><a href="{{user.student.teacher_syllabus}}">View Your Teacher's Classroom Syllabus</a></p>
-<p><a href="https://epiccharterschools.org/learning-fund">What is the Learning Fund?</>
+<p><a href="{{teacher.syllabus}}"target = "_blank">View Your Teacher's Classroom Syllabus</a></p>
+<p><a href="https://epiccharterschools.org/learning-fund"target = "_blank">What is the Learning Fund?</>
 <p> <a href = "mailto:{{object.teacher_email}}">eMail Your Teacher</a></p>
 
-<p><a href="{{user.student.teacher.zoom_link}}">Zoom With Your Teacher</a></p>
+<p><a href="{{teacher.zoom}}" target = "_blank">Zoom With Your Teacher</a></p>
 
-<p><a href="https://epiccharterschools.org/records-request">Request Records from Epic:  Transcript, Driver's Permit Letter, Report Card, ANYTHING</a></p>
+<p><a href="https://epiccharterschools.org/records-request"target = "_blank">Request Records from Epic:  Transcript, Driver's Permit Letter, Report Card, ANYTHING</a></p>
 
 <h3>Attendance Policy:</h3>
 <p>Because of our unique structure, there is no daily roll call. Gradable assignments are the Epic attendance record. Epic measures 100% attendance as 40 gradable assignments each nine weeks. It is important for families to understand that at the end of each of the four quarters, students must have an attendance of at least 76% to remain enrolled. One way to picture the relationship between gradable assignments and attendance could be described using the subject of Math. One gradable Math assignment at Epic might represent five days of work in a traditional brick and mortar classroom. All students with less than 76% attendance will be withdrawn at the end of each quarter. </p>
@@ -182,15 +183,15 @@ What is the Upgraded version?</p>
 <p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
 NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.  SSSSHHHHH, it's our little secret!</p>
 
-<p>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb">Take it for a spin with this tutorial!</a>  As a Gold level customer, please call us directly and we can walk you through anything:  405-578-5701.</p>
+<h2>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Take it for a spin with this tutorial!</a>  As a Gold level customer, please call us directly and we can walk you through anything:  405-578-5701.</h2>
 
-<p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8">Complete this form.</a></p>
+<p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8"target = "_blank">Complete this form.</a></p>
 
-<p>Have you created a curriculum and need it added? Maybe a list of projects? <a href="https://forms.gle/yXymhDWikZcJz4Vv7">Complete this form.</a></p>
+<p>Have you created a curriculum and need it added? Maybe a list of projects? <a href="https://forms.gle/yXymhDWikZcJz4Vv7"target = "_blank">Complete this form.</a></p>
 
-<p>Have you created an assignment for a CURRENT curriculum and need it added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27">Complete this form.</a></p>
+<p>Have you created an assignment for a CURRENT curriculum and need it added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27"target = "_blank">Complete this form.</a></p>
 
-<p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/">Click here.</a></p>
+<p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/"target = "_blank">Click here.</a></p>
 
 {% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
 <div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a><br/>As a GOLD level customer, you may also call us directly at 405-578-5701 whenever you need assistance.</center></div>
@@ -209,11 +210,11 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 <p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
 NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.  SSSSHHHHH, it's our little secret!</p>
 
-<p>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb">Take it for a spin with this tutorial!</a></p>
+<h2>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Take it for a spin with this tutorial!</a></h2>
 
 
 
-<p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/">Click here.</a></p>
+<p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/"target = "_blank">Click here.</a></p>
 
 {% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
 <div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a></center></div>
@@ -228,6 +229,7 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 <h3>Hello {{user.first_name}}!</h3>
 <p></p>
 
+<h2>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Take it for a spin with this tutorial!</a></h2>
 
 <p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
 NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information</p>
