@@ -201,15 +201,10 @@ def user_upload(request):
         is_active=clear_field(column[7]).lower()
         is_superuser=clear_field(column[8]).lower()
 
-        if User.objects.filter(email=email).count() > 0:
-            if User.objects.filter(username=username).count() > 0: # rename existing user if username collides
-                duplicate_user = User.objects.get(username=username)
-                duplicate_user.username += "_" 
-                duplicate_user.save()
-                messages.warning(request, "Warning: user %s has been renamed to %s_ and remains in the system unless overridden by another row.")
-            user = User.objects.get(email=email)
+        if User.objects.filter(username=username).count() > 0:
+            user = User.objects.get(username=username)
             user.set_password(password)
-            user.username = username
+            user.email = email
             user.save()
         else:
             user = User.objects.create_user(username, email, password)
@@ -221,6 +216,7 @@ def user_upload(request):
         user.last_name = last_name 
         user.save()
 
+        user.groups.clear()
         if group:
             group = Group.objects.get(name__icontains=group)
             group.user_set.add(user)
