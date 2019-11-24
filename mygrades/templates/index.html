@@ -131,16 +131,21 @@ What is the Upgraded version?</p>
 
 {% ifequal user.groups.all.0.name "Student" %}
 
-   {% now "n" as today %}
-    {% ifequal today object.birthdate.month %}
-      {% load staticfiles %} <img src="{% static 'images/birthday.jpg' %}" />
-      {% endifequal %}
+
+      
+   
 <p></p>
 
 
-</center>
+{% load embed_video_tags %}
+{% video item.video 'small' %}
 <h3>Hello {{user.first_name}}!</h3>
-Your birth month: {{object.birthdate.month}}
+<p>{% now "n" as today %}
+    {% ifequal today object.birthdate.month|stringformat:"s" %}
+      {% load staticfiles %} <img src="{% static 'images/birthday.jpg' %}"/>
+      {% endifequal %}</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/I2sFUeC8v0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </center>
 
   Your Teacher Is: {{teacher.first_name}} {{teacher.last_name}}
 
