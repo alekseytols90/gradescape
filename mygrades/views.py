@@ -202,6 +202,11 @@ def user_upload(request):
         is_superuser=clear_field(column[8]).lower()
 
         if User.objects.filter(email=email).count() > 0:
+            if User.objects.filter(username=username).count() > 0: # rename existing user if username collides
+                duplicate_user = User.objects.get(username=username)
+                duplicate_user.username += "_" 
+                duplicate_user.save()
+                messages.warning(request, "Warning: user %s has been renamed to %s_ and remains in the system unless overridden by another row.")
             user = User.objects.get(email=email)
             user.set_password(password)
             user.username = username
