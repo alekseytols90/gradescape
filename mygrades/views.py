@@ -1773,7 +1773,11 @@ def see_progress_detail(request, student_pk):
         can_email = False
 
     template_name = "report_see_progress_detail.html"
-    start_week = (int(reports[0].quarter)-1)*9+1  #TODO: move to the report data
+
+    start_week = 1
+    if len(reports) > 1:
+        start_week = (int(reports[0].quarter)-1)*9+1  #TODO: move to the report data
+
     context = {"object": student, "reports": reports, "weeks": range(start_week,start_week+9), "can_email":can_email}
     return render(request, template_name, context)
 
