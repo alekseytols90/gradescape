@@ -143,8 +143,8 @@ What is the Upgraded version?</p>
 <p>{% now "n" as today %}
     {% ifequal today object.birthdate.month|stringformat:"s" %}
       {% load staticfiles %} <img src="{% static 'images/birthday.jpg' %}"/>
-      {% endifequal %}</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/I2sFUeC8v0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/I2sFUeC8v0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>{% endifequal %}
     </center>
 
   Your Teacher Is: {{teacher.first_name}} {{teacher.last_name}}
