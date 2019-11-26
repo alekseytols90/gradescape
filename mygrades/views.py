@@ -1323,10 +1323,14 @@ def create_weekly_step2(request, semester):
         students.append({"pk":change["student"].pk, "name":change["student"].get_full_name(), "curriculums":change["curriculums"]})
         
         for assignment in change["assignments"]:
+            standards = ",".join(assignment.assignment.standard.all().values_list("standard_code",flat=True))
+            if standards == "":
+                standards = "-"
+
             initial.append({
                 'assignment':assignment,
                 'new_status':'Assigned', 
-                'assignment_description': assignment.assignment.name +"<br/><small>" + assignment.assignment.description + "</small>"})
+                'assignment_description': assignment.assignment.name +"<br/><small>Standards: " + standards + "<br/>" + assignment.assignment.description + "</small>"})
     StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
     formset = StatusChangeFormset(request.POST or None, initial=initial)
 
@@ -1622,10 +1626,18 @@ def see_late_detail(request, student_pk):
 
     data = [] 
     for asm in assignments:
-        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
+        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
+        if standards == "":
+            standards = "-"
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
+
+    # everyone can email except the student
+    can_email = True
+    if request.user.groups.filter(name="Student").count() > 0:
+        can_email = False
 
     template_name = "student_weekly_detail.html"
-    context = {"object": student, "assignments": data, "late_view": True}
+    context = {"object": student, "assignments": data, "late_view": True, "can_email":can_email}
     return render(request, template_name, context)
 
 @login_required
@@ -1664,10 +1676,18 @@ def see_weekly_detail(request, student_pk):
 
     data = [] 
     for asm in assignments:
-        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
+        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
+        if standards == "":
+            standards = "-"
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
+
+    # everyone can email except the student
+    can_email = True
+    if request.user.groups.filter(name="Student").count() > 0:
+        can_email = False
 
     template_name = "student_weekly_detail.html"
-    context = {"object": student, "assignments": data}
+    context = {"object": student, "assignments": data, "can_email":can_email}
     return render(request, template_name, context)
 
 @login_required
@@ -1747,9 +1767,14 @@ def see_progress_detail(request, student_pk):
     for rep in reports:
         rep.data = json.loads(rep.json)
 
+    # everyone can email except the student
+    can_email = True
+    if request.user.groups.filter(name="Student").count() > 0:
+        can_email = False
+
     template_name = "report_see_progress_detail.html"
     start_week = (int(reports[0].quarter)-1)*9+1  #TODO: move to the report data
-    context = {"object": student, "reports": reports, "weeks": range(start_week,start_week+9)}
+    context = {"object": student, "reports": reports, "weeks": range(start_week,start_week+9), "can_email":can_email}
     return render(request, template_name, context)
 
 @login_required
@@ -1789,8 +1814,13 @@ def see_card_detail(request, student_pk):
     for rep in reports:
         rep.data = json.loads(rep.json)
 
+    # everyone can email except the student
+    can_email = True
+    if request.user.groups.filter(name="Student").count() > 0:
+        can_email = False
+
     template_name = "report_see_card_detail.html"
-    context = {"object": student, "reports": reports}
+    context = {"object": student, "reports": reports, "can_email":can_email}
     return render(request, template_name, context)
 
 
@@ -2060,7 +2090,11 @@ def grades_record_view(request):
 @login_required
 def grades_list_view(request):
     my_title = "Gradebook"
-    qs = GradeBook.objects.all().order_by('student','semester','quarter','week')
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = GradeBook.objects.all().order_by('student','semester','quarter','week')
+    else:
+        qs = GradeBook.objects.filter(student__teacher_email=request.user.email).order_by('student','semester','quarter','week')
+
     gradebook_filter = GradeBookFilter(request.GET, queryset=qs)
     template_name = "gradebook_list_view.html"
     context = {"object_list": gradebook_filter, "title": my_title}
