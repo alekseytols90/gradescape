@@ -12,7 +12,7 @@ No report card yet.
 
 {% for rep in reports %}
 {% include "report_card_render_inner.html" %}
-{% if user.groups.all.0.name == "Teacher" or user.groups.all.0.name == "Owner" %}
+{% if can_email %}
 <div class="text-center pt-2">
 <a class="btn btn-primary btn-sm" href="{% url "send_card_email" report_pk=rep.pk %}" role="button">EMail Report Card to Family</a><br/><br/>
 </div>

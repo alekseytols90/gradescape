@@ -16,7 +16,7 @@
 No {% if late_view %}late{% else %}weekly{% endif %} assignments.
 {% endif %}
 
-{% if request.user.groups.all.0.name == "Teacher" or request.user.groups.all.0.name == "Owner" %}
+{% if can_email %} 
 {% if as_list and late_view %}
 <a class="btn btn-primary btn-lg" href="{% url "send_late_email" student_pk=object.pk %}" role="button">EMail Late Assignments</a><br/><br/>
 {% endif %}
@@ -35,6 +35,7 @@ No {% if late_view %}late{% else %}weekly{% endif %} assignments.
         <tr>
             <td>
                 {{ item.title }}<br/>
+                <small>Standards: {{ item.standards }}</small><br/>
                 <small>{{ item.detail }}</small>
             </td>
         </tr>

@@ -12,7 +12,7 @@ No progress report yet.
 
 {% for rep in reports %}
 {% include "report_progress_render_inner.html" %}
-{% if user.groups.all.0.name == "Teacher" or user.groups.all.0.name == "Owner" %}
+{% if can_email %} 
 <div class="text-right">
 <a class="btn btn-primary btn-sm" href="{% url "send_progress_email" report_pk=rep.pk %}" role="button">EMail Progress Report to Family</a><br/><br/>
 </div>

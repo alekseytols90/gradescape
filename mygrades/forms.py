@@ -97,23 +97,19 @@ TRACKING = [
 ]
 
 def generate_semester_choices(for_choice_field=False):
-    """ Generate options for per semester for the current academic year and the next
+    """ Generate options for the current academic year and the next
 
         1- get current year
         2- if I'm before Jul 30 of c_year, base:  (c_year-1)-c_year    -> start by c_year-1
            if I'm after  Jul 30 of c_year, base: c_year-(c_year+1)    -> start by c_year
 
         Examples:
-        19-20 A
-        19-20 B
-        20-21 A
-        20-21 B
+        19-20
+        20-21
 
         Formulation:
-        start-(start+1)-A
-        start-(start+1)-B
-        (start+1)-(start+2)-A
-        (start+1)-(start+2)-B
+        start-(start+1)
+        (start+1)-(start+2)
     """
     now = timezone.now()
     current_year = now.year
@@ -125,10 +121,8 @@ def generate_semester_choices(for_choice_field=False):
         start = current_year - 1
 
     options = []
-    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "A"))
-    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "B"))
-    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "A"))
-    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "B"))
+    options.append("%s-%s" % (str(start)[2:],str(start+1)[2:]))
+    options.append("%s-%s" % (str(start+1)[2:],str(start+2)[2:]))
 
     if for_choice_field:
         choices = []
