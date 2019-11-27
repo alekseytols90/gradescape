@@ -459,7 +459,6 @@ class StandardSetupForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        instance = kwargs.pop("instance", None)
         request = kwargs.pop("request", None)
         super(StandardSetupForm, self).__init__(*args, **kwargs)
 

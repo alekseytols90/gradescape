@@ -13,6 +13,7 @@ from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ValidationError
+from django.core.exceptions import MultipleObjectsReturned
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
@@ -642,20 +643,30 @@ def standard_upload(request):
         messages.error(request, "Make sure table consists of 11 columns. %s" % prompt['order'])
         return render(request, template)
 
+    count = 1
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
-        _, created = Standard.objects.update_or_create(
-            grade_level=clear_field(column[0]),
-            standard_number=clear_field(column[1]),
-            standard_description=clear_field(column[2]),
-            strand_code=clear_field(column[3]),
-            strand=clear_field(column[4]),
-            strand_description=clear_field(column[5]),
-            objective_number=clear_field(column[6]),
-            objective_description=clear_field(column[7]),
-            standard_code=clear_field(column[8]),
-            PDF_link=clear_field(column[9]),
-            subject=clear_field(column[10])
-        )
+
+        try:
+            _, created = Standard.objects.update_or_create(
+                standard_code=clear_field(column[8]),
+                defaults = {
+                    'grade_level':clear_field(column[0]),
+                    'standard_number':clear_field(column[1]),
+                    'standard_description':clear_field(column[2]),
+                    'strand_code':clear_field(column[3]),
+                    'strand':clear_field(column[4]),
+                    'strand_description':clear_field(column[5]),
+                    'objective_number':clear_field(column[6]),
+                    'objective_description':clear_field(column[7]),
+                    'PDF_link':clear_field(column[9]),
+                    'subject':clear_field(column[10])
+                }
+            )
+        except MultipleObjectsReturned: 
+            messages.error(request, "skipped row %d (exists more than 1)" % count)
+            continue
+
+        count += 1
 
     return redirect("/standard")
 
@@ -1038,9 +1049,9 @@ def standard_list_view(request):
 def standard_update_view(request, id):
     obj = get_object_or_404(Standard, id=id)
     form = StandardSetupForm(request.POST or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        form = StandardSetupForm()
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
     template_name = "form.html"
     context = {"title": f"Change Information for: {obj.standard_code}", "form": form}
     return render(request, template_name, context)
