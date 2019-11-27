@@ -984,7 +984,7 @@ def curriculum_create_view(request):
 @login_required
 def curriculum_detail_view(request, id):
     my_title = "Curriculum Details"
-    qs = Assignment.objects.filter(curriculum__pk=id).order_by('-pk')
+    qs = Assignment.objects.filter(curriculum__pk=id).order_by('pk')
     assignment_filter = AssignmentFilter(request.GET, queryset=qs)
     template_name = "assignment_list_view.html"
     context = {"object_list": assignment_filter.qs,"filter":assignment_filter, "title": my_title} 
