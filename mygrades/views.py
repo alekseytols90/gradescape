@@ -2250,10 +2250,7 @@ def grades_delete_view(request, id):
 @login_required
 def student_curriculum_schedule(request):
     my_title = "Add a Curriculum to Student Pacing"
-    if request.user.groups.filter(name="Owner").count() > 0:
-        qs = Student.objects.all()
-    else:
-        qs = Student.objects.filter(teacher_email=request.user.email)
+    qs = Student.objects.filter(teacher_email=request.user.email)
     student_filter = StudentFilter(request.GET, queryset=qs)
     #curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
 
