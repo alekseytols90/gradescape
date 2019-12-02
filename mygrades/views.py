@@ -81,6 +81,7 @@ from mygrades.forms import (
     gen_rep_data_progress_weekly,
     gen_overall_data_progress_weekly,
     gen_quarter_overall_average,
+    CreateMessageForm,
 )
 from mygrades.models import (
     Student,
@@ -93,9 +94,48 @@ from mygrades.models import (
     GradeBook,
     ExemptAssignment,
     Teacher,
+    Message,
     
 )
 
+@login_required
+def standards_curriculum_map_view(request):
+    my_title = "Standards Scope for Curriculum"
+    qs = Curriculum.objects.all()
+    curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
+    thissubjectandgradelevelstandards = Standard.objects.filter(
+            grade_level='High School',
+            subject='Math',
+            standard_code__startswith='A1',
+        )
+    countofthissubjectandgradelevelstandards = thissubjectandgradelevelstandards.count()
+    #this does count only the number of standards in our database that match the filter attributes
+    for c in thissubjectandgradelevelstandards:
+        print(c.grade_level, c.subject, c.standard_code)
+    standard_count_in_database = Standard.objects.distinct().count()
+    #this is counting ALL of the standards, all subjects and all grade_levels 
+    count_in_these_assignments = standard.standard_code.distinct()
+    #this is what i want, and it's not working....i want the distinct count in the list that appears on the screen.
+    template_name = "standards_curriculum_map_view.html"
+    context = {"count_in_these_assignments": count_in_these_assignments,"countofthissubjectandgradelevelstandards": countofthissubjectandgradelevelstandards, "object_list": curriculum_filter.qs[:50],"filter": curriculum_filter, "title": my_title, "standard_count_in_database": standard_count_in_database, "thissubjectandgradelevelstandards":thissubjectandgradelevelstandards, "limited":True}
+    return render(request, template_name, context)
+
+@login_required
+def create_message(request):
+    #qs = Student.objects.filter(student.teacher_email=request.user.email)
+    form = CreateMessageForm(request.POST or None)
+    if form.is_valid():
+        student = form.cleaned_data["student"]
+        first_name = form.cleaned_data["student"].first_name
+        last_name = form.cleaned_data["student"].last_name
+        form.save()
+    else:
+        form = CreateMessageForm()
+    form = CreateMessageForm()
+    my_title = "Post a Message On a Student Screen"
+    template_name = "create_message.html"
+    context =  {"title":my_title, "form": form}
+    return render(request, template_name, context)
 
 
 def okpromise(request):
@@ -229,7 +269,7 @@ def user_upload(request):
 def teacher_upload(request):
     template = "teacher_upload.html"
     prompt = {
-        'order': "The columns should be: First Name, Last Name, eMail Address, Syllabus Link, Zoom Link."
+        'order': "The columns should be: First Name, Last Name, eMail Address, Syllabus Link, Zoom Link, Principal eMail, and Phone Number."
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -251,8 +291,8 @@ def teacher_upload(request):
     # header count check
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
-    if len(header_clean) != 5:
-        messages.error(request, "Make sure header consists of 5 items. %s" % prompt['order'])
+    if len(header_clean) != 7:
+        messages.error(request, "Make sure header consists of 7 items. %s" % prompt['order'])
         return render(request, template)
 
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
@@ -261,7 +301,9 @@ def teacher_upload(request):
             last_name=clear_field(column[1]),
             email=clear_field(column[2]),
             syllabus=clear_field(column[3]),
-            zoom=clear_field(column[4])
+            zoom=clear_field(column[4]),
+            principal_email=clear_field(column[5]),
+            phone = clear_field(column[6]),
         )
 
     return redirect("/")
@@ -788,7 +830,7 @@ def assignment_upload(request):
 def student_upload(request):
     template = "student_upload.html"
     prompt = {
-        'order': "The columns should be: First Name, Last Name, Primary email, Second email (not required), Primary phone, Second phone (not required), Grade, Epicenter ID, Birthdate, and Teacher eMail Address." 
+        'order': "The columns should be: First Name, Last Name, Primary email, Second email (not required), Primary phone, Second phone (not required), Grade, Epicenter ID, Birthdate, Teacher eMail Address, and Google Calendar." 
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -810,37 +852,24 @@ def student_upload(request):
     # header count check
     header = next(io_string)
     header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
-    if len(header_clean) != 10:
-        messages.error(request, "Make sure header consists of 10 elements. %s" % prompt['order'])
+    if len(header_clean) != 11:
+        messages.error(request, "Make sure header consists of 11 elements. %s" % prompt['order'])
         return render(request, template)
 
-    count = 1
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
-        birthdate = clear_field(column[8])
-        if birthdate != "":
-            try:
-                birthdate = datetime.datetime.strptime(birthdate, "%m/%d/%Y").date()
-            except Exception:
-                birthdate = None
-                messages.warning(request, "Warning: row %d has a bad birthday format, so it's ignored during the upload." % count) 
-        else:
-            birthdate = None
-
         _, created = Student.objects.update_or_create(
+            first_name=clear_field(column[0]),
+            last_name=clear_field(column[1]),
+            email=clear_field(column[2]),
+            additional_email=clear_field(column[3]),
+            phone_number=clear_field(column[4]),
+            additional_phone_number=clear_field(column[5]),
+            grade=clear_field(column[6]),
             epicenter_id=clear_field(column[7]),
-            defaults={
-                'first_name':clear_field(column[0]),
-                'last_name':clear_field(column[1]),
-                'email':clear_field(column[2]),
-                'additional_email':clear_field(column[3]),
-                'phone_number':clear_field(column[4]),
-                'additional_phone_number':clear_field(column[5]),
-                'grade':clear_field(column[6]),
-                'birthdate':birthdate,
-                'teacher_email':clear_field(column[9]),
-            }
+            birthdate=clear_field(column[8]),
+            teacher_email=clear_field(column[9]),
+            goog_calendar = clear_field(column[10]),
         )
-        count += 1
 
     return redirect("/")
 
@@ -863,7 +892,7 @@ def student_setup_view(request):
                 form.cleaned_data["email"], form.cleaned_data["additional_email"], form.cleaned_data["phone_number"],
                 form.cleaned_data["additional_phone_number"], form.cleaned_data["grade"],
             ),
-            "yourepiconline@gmail.com",
+            "yourschoolwebsitedonotreply@gmail.com",
             emailto,
             fail_silently=True,
         )
@@ -872,6 +901,78 @@ def student_setup_view(request):
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
 
+@login_required
+def see_plp_home(request):
+    my_title = "This Week's PLP's"
+
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, email=request.user.email)
+        return redirect(reverse("see_plp_detail", args=[student.pk]))
+
+    if request.user.groups.filter(name="Owner").count() > 0:
+        qs = Student.objects.all()
+    else:
+        qs = Student.objects.filter(teacher_email=request.user.email)
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "student_plp_home.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title}
+    return render(request, template_name, context)
+
+@login_required
+def see_plp_detail(request, student_pk):
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    elif request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    teacher = get_object_or_404(Teacher, email=request.user.email)
+    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
+
+    data = [] 
+    for asm in assignments:
+        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
+        if standards == "":
+            standards = "-"
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
+
+    template_name = "student_plp_detail.html"
+    context = {"object": student, "assignments": data, "teacher": teacher}
+    return render(request, template_name, context)
+
+@login_required
+def send_plp_email(request, student_pk):
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
+
+    data = [] 
+    for asm in assignments:
+        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
+        if standards == "":
+            standards = "-"
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
+    
+    teacher = get_object_or_404(Teacher, email=request.user.email)
+    subject, from_email, to = "%s's PLP for This Week" % student.get_full_name(), 'yourschoolwebsitedonotreply@gmail.com', [
+    teacher.principal_email]
+
+    text_content = 'A PLP for this week are below.  You may need to open this in a different browser if you do not see it here. '
+    html_content = render_to_string('mail_plp.html', context={'assignments':data, 'student':student})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    messages.success(request, "%s's PLP was sent to your principal's email!" % student.get_full_name())
+    return redirect(reverse("see_plp_detail", args=[student.pk]))
 
 def teacher_setup_view(request):
     my_title = "Setup a Teacher"
@@ -2225,7 +2326,7 @@ def roster_list_view(request):
 
 @login_required
 def email_all_families_view(request):
-    my_title = "Your Family eMails"
+    my_title = "Contact all Families"
     qs = Student.objects.all()
     student_filter = StudentFilter(request.GET, queryset=qs)
     template_name = "email_all_families_view.html"

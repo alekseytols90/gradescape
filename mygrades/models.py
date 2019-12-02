@@ -65,7 +65,7 @@ class Curriculum(models.Model):
              ("Supplemental", "Supplemental"),
              ]
 
-    name = models.CharField(max_length=50, null=False)
+    name = models.CharField(max_length=150, null=False)
     subject = models.CharField(max_length=30, choices=SUBJECT)
     grade_level = models.CharField(max_length=20, choices=CURRICULUMGRADE, null=False)
 
@@ -154,6 +154,7 @@ class Student(models.Model):
     curriculum = models.ForeignKey('curriculum', null=True, blank=True, on_delete=models.SET_NULL)
     teacher_email = models.CharField(max_length=75, null=False)
     birthdate = models.DateField(null=True,blank=True)
+    goog_calendar = models.CharField(max_length=200, null=True)
 
     def get_absolute_url(self):
         return f"/students/{self.epicenter_id}"
@@ -520,6 +521,8 @@ class Teacher(models.Model):
     email = models.CharField(max_length=75, null=False)
     zoom = models.CharField(max_length=75, null=True)
     syllabus = models.CharField(max_length=75, null=True)
+    principal_email = models.CharField(max_length=75, null=True)
+    phone = models.CharField(max_length=75, null=True)
 
     class Meta:
         unique_together = ("first_name", "last_name", "email")
@@ -542,7 +545,7 @@ class ExemptAssignment(models.Model):
         verbose_name_plural = "Exempt Assignments"
 
     student = models.ForeignKey('student', null=True, blank=True, on_delete=models.SET_NULL)
-    assignments = models.ManyToManyField('assignment', null=True, blank=True)
+    assignments = models.ManyToManyField('assignment', blank=True)
 
     def __str__(self):
         return "# {} - {}".format(self.pk, self.student)
@@ -569,3 +572,9 @@ class StudentGradeBookReport(models.Model):
     #TODO: recommended to replace this with every json.loads call in views and 'rep.json' related templates with 'rep.get_json'
     #def get_json(self):
     #    return json.loads(self.report.data)
+
+class Message(models.Model):
+    student = models.ForeignKey(
+        Student, on_delete=models.CASCADE, related_name="message_student"
+    )
+    message = models.CharField(max_length=1500,null=False)

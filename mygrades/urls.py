@@ -102,10 +102,17 @@ from mygrades.views import (
     prom_graduation,
     military,
     vo_tech,
-    email_all_families_view,
+    email_all_families_view,    
+    standards_curriculum_map_view,
+    send_plp_email,
+    see_plp_home,
+    see_plp_detail,
+    create_message,
 )
 
 urlpatterns = [
+    path("create-message/", create_message),
+    path("curriculum-map/", standards_curriculum_map_view),
     path("okpromise/",okpromise),
     path("sat/", sat),
     path("honors/",honors),
@@ -174,6 +181,11 @@ urlpatterns = [
     path("see-report-card/", see_card_home, name="see_card_home"),
     path("see-report-card/<int:student_pk>/", see_card_detail, name="see_card_detail"),
     path("send-weekly-assignment/<int:student_pk>/", send_weekly_email, name="send_weekly_email"),
+
+    path("send-plp/<int:student_pk>/", send_plp_email, name="send_plp_email"),
+
+    path("see-plp/", see_plp_home, name="see_plp_home"),
+    path("see-plp/<int:student_pk>/", see_plp_detail, name="see_plp_detail"),
     path("send-late-assignment/<int:student_pk>/", send_late_email, name="send_late_email"),
     path("send-progress/<int:report_pk>/", send_progress_email, name="send_progress_email"),
     path("send-card/<int:report_pk>/", send_card_email, name="send_card_email"),

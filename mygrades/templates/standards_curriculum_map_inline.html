@@ -1,0 +1,25 @@
+<h5 class = 'card-title'> Curriculum: {{object.name}} </h5>
+Total Standards In Database (this prints 35, and is correct):  
+
+{{standard_count_in_database}}<br/>
+
+Total Standards Available for This Assignment's Subject and GradeLevel containing "A1".  
+This prints 34 and is correct.:  
+
+{{countofthissubjectandgradelevelstandards}}<br/>
+
+Count in the following assignment list only (This prints nothing.):  
+{{ count_in_these_assignments }}<br/>
+
+These standards are NOT included in this curriculum:
+
+
+
+The assignments in this curriculum cover {{ percent }} of the standards for this grade level.<br/>
+{% for assignment in object.curriculum_assignment.all %}
+<class = 'card-title'>
+Title: {{assignment.name}}<br/>
+Standards Covered:{% for standard in assignment.standard.all %} {{standard.standard_code}},
+{% endfor %} 
+{% endfor %}
+

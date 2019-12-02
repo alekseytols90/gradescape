@@ -109,8 +109,7 @@ What is the Upgraded version?</p>
 <li>E-mail late assignment reports to families with a CLICK.</li>
 <li>Add curriculum or assignments based on performance or grade level WITH A CLICK!</li>
 </ul>
-<p><a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Why upgrade? See examples of what you can do here. (The options in this document are not available with no upgrade.  This is just to show you the possiblilities.)</a></p>
-
+<p>Why upgrade? This is what you can do.<a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Take it for a spin with this tutorial!</a></p>
 <h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
 </div>
 
@@ -145,25 +144,29 @@ What is the Upgraded version?</p>
     {% ifequal today object.birthdate.month|stringformat:"s" %}
       {% load staticfiles %} <img src="{% static 'images/birthday.jpg' %}"/>
       </p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/I2sFUeC8v0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>{% endifequal %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/I2sFUeC8v0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endifequal %}
     </center>
 
-  Your Teacher Is: {{teacher.first_name}} {{teacher.last_name}}
+  <p>Your Teacher Is: {{teacher.first_name}} {{teacher.last_name}}
 
 </p>
-<p>Your Teacher's eMail: <a href = "mailto:{{object.teacher_email}}">{{teacher.email}}</a><br/>
-  
+<p>Your Teacher's eMail: <a href = "mailto:{{teacher.teacher_email}}">{{teacher.email}}</a><p/>
 
-<h4>The Epic School Calendar:</h4>
-<p><iframe src="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></p>
+  <p>Your Teacher's Phone Number: {{teacher.phone}}<p/>
+
+  <p> <a href = "mailto:{{object.teacher_email}}">eMail Your Teacher</a></p>
+
+<p><a href="{{teacher.zoom}}" target = "_blank">Zoom With Your Teacher</a></p>
+ 
+ <p><iframe src="{{object.goog_calendar}}" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></a> 
+
 
 <p><a href="https://epiccharterschools.org/student-parent-handbook" target = "_blank">View The Epic Student and Parent Handbook</a></p>
 
 <p><a href="{{teacher.syllabus}}"target = "_blank">View Your Teacher's Classroom Syllabus</a></p>
 <p><a href="https://epiccharterschools.org/learning-fund"target = "_blank">What is the Learning Fund?</>
-<p> <a href = "mailto:{{object.teacher_email}}">eMail Your Teacher</a></p>
 
-<p><a href="{{teacher.zoom}}" target = "_blank">Zoom With Your Teacher</a></p>
 
 <p><a href="https://epiccharterschools.org/records-request"target = "_blank">Request Records from Epic:  Transcript, Driver's Permit Letter, Report Card, ANYTHING</a></p>
 
@@ -175,6 +178,10 @@ What is the Upgraded version?</p>
   <p>Gradable Assignments (Attendance Points) are determined by your teacher.  You will know exactly what you need to complete on your Weekly Assignment List to receive credit for each assignment.  There are five possible Gradable Assignments (Attendance Points) each week.</p>
 
   <p><a href="mailto:support@epiccharterschools.org">Contact technical support.</a></p>
+
+  <h4>The Epic School Calendar:</h4>
+<p><iframe src="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></p>
+
 </center>
 {% endifequal %}
 
@@ -197,7 +204,7 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 
 <p>Have you created an assignment for a CURRENT curriculum and need it added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27"target = "_blank">Complete this form.</a></p>
 
-<p>Do you need a student added? That's EXACTLY why we're here! <a href="/students-setup/"target = "_blank">Click here.</a></p>
+<p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/"target = "_blank">Click here.</a></p>
 
 {% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
 <div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a><br/>As a GOLD level customer, you may also call us directly at 405-578-5701 whenever you need assistance.</center></div>

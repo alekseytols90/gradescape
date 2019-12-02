@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 align="center">
+
+{{ object.get_full_name }}'s PLP
+
+
+</h3>
+<br/>
+
+{% regroup assignments|dictsort:"cur_pk" by cur_pk as as_list %}
+
+{% if not assignments %}
+No assignments.
+{% endif %}
+
+{% if request.user.groups.all.0.name == "Teacher" or request.user.groups.all.0.name == "Owner" %}
+
+<a class="btn btn-primary btn-lg" href="{% url "send_plp_email" student_pk=object.pk %}" role="button">EMail PLP to Principal</a><br/><br/>
+{% endif %}
+
+<h3>Teacher: {{teacher.first_name}} {{teacher.last_name}}
+
+{% for cur in as_list %}
+<table class="table table-striped table-bordered">
+    <thead>
+        <th>{{ cur.list.0.curriculum }}</th>
+    </thead>
+    <tbody>
+        {% for item in cur.list %}
+        <tr>
+            <td>
+                {{ item.title }}<br/>
+                <small>Standards: {{ item.standards }}</small><br/>
+                <small>{{ item.detail }}</small>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br/><br/>
+{% endfor %}
+
+{% endblock %}
+
+
