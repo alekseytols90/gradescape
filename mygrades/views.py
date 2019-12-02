@@ -8,7 +8,7 @@ from uuid import uuid4
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.messages.views import SuccessMessageMixin
@@ -335,9 +335,7 @@ def user_login(request):
 
 
 def user_logout(request):
-    # form =  LoginForm(request)
-    username = ""
-    password = ""
+    logout(request)
     return HttpResponse("<a href='/login'>Log In</>")
 
 
@@ -1254,7 +1252,8 @@ def enroll_student_step2(request, semester, student_pk):
         if form.is_valid():
             form.save()
             messages.info(request, "You successfuly added %s to %s's gradebook!" % (form.instance.curriculum, student))
-            messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
+            if form.cleaned_data['subject'] != 'Other':
+                messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
 
             if "enroll_stay" in request.POST:
                 # reinit the form with student and semester

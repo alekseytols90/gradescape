@@ -395,7 +395,7 @@ def get_active_sems(student):
     as_options = generate_semester_choices()
     active_sems = []
     for sem in as_options:
-        enrollments = Enrollment.objects.filter(student=student, academic_semester=sem)
+        enrollments = Enrollment.objects.filter(student=student, academic_semester=sem).exclude(curriculum__subject='Other')
         if enrollments.count() > 0:
             data = {'sem':sem,'subjects':[]}
             for enr in enrollments:

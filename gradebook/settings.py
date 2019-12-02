@@ -153,6 +153,8 @@ STATICFILES_DIRS = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+LOGIN_URL = '/login/'
+
 #CRAWLER_USE_FAKE_DATA = True
 CRAWLER_USE_FAKE_DATA = False
 
