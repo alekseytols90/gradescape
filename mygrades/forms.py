@@ -98,19 +98,23 @@ TRACKING = [
 ]
 
 def generate_semester_choices(for_choice_field=False):
-    """ Generate options for the current academic year and the next
+    """ Generate options for per semester for the current academic year and the next
 
         1- get current year
         2- if I'm before Jul 30 of c_year, base:  (c_year-1)-c_year    -> start by c_year-1
            if I'm after  Jul 30 of c_year, base: c_year-(c_year+1)    -> start by c_year
 
         Examples:
-        19-20
-        20-21
+        19-20 A
+        19-20 B
+        20-21 A
+        20-21 B
 
         Formulation:
-        start-(start+1)
-        (start+1)-(start+2)
+        start-(start+1)-A
+        start-(start+1)-B
+        (start+1)-(start+2)-A
+        (start+1)-(start+2)-B
     """
     now = timezone.now()
     current_year = now.year
@@ -122,8 +126,10 @@ def generate_semester_choices(for_choice_field=False):
         start = current_year - 1
 
     options = []
-    options.append("%s-%s" % (str(start)[2:],str(start+1)[2:]))
-    options.append("%s-%s" % (str(start+1)[2:],str(start+2)[2:]))
+    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "A"))
+    options.append("%s-%s-%s" % (str(start)[2:],str(start+1)[2:], "B"))
+    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "A"))
+    options.append("%s-%s-%s" % (str(start+1)[2:],str(start+2)[2:], "B"))
 
     if for_choice_field:
         choices = []
@@ -330,17 +336,12 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         if not self.instance.pk:
             core_enrollment = Enrollment.objects.filter(student=student, academic_semester=semester, curriculum__subject=subject, level="Core")
 
-            if subject == 'Other':
-                if cleaned_data['level'] == "Supplemental":
-                    self.add_error(None, "Enrollments with subject \"Other\" must be always Core.")
-            else:
-                if cleaned_data['level'] == "Core":
-                    if core_enrollment.count() > 0:
-                        self.add_error(None, "A CORE enrollment already exist for subject \"%s\".  Only one CORE is allowed, as it determines the pacing of other curriculum." % subject)
-                else: #supplemental
-                    if core_enrollment.count() == 0:
-                        self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
-
+            if cleaned_data['level'] == "Core":
+                if core_enrollment.count() > 0:
+                    self.add_error(None, "A CORE enrollment already exist for subject \"%s\".  Only one CORE is allowed, as it determines the pacing of other curriculum." % subject)
+            else: #supplemental
+                if core_enrollment.count() == 0:
+                    self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
         else:
             if self.initial["level"] == "Core" and cleaned_data["level"] == "Supplemental":
                 self.add_error(None, mark_safe("%s is %s's CORE curriculum. This sets the pacing of assignments. If you wish to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
@@ -462,6 +463,7 @@ class StandardSetupForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        instance = kwargs.pop("instance", None)
         request = kwargs.pop("request", None)
         super(StandardSetupForm, self).__init__(*args, **kwargs)
 
@@ -662,20 +664,28 @@ class AssignmentCreateForm(forms.ModelForm):
             
         ]
 
-        labels = {
-            "name": "Title",
-            "description": "Instructions or Link",
-            "standard": "OAS Standard Number",
-            "curriculum": "In Which Curriculum Will This Assignment Be Included?",
+class CreateMessageForm(forms.ModelForm):
+    student = forms.ModelMultipleChoiceField(Student.objects.all())
+       
+    class Meta:
+        model = Message
 
+        fields = [
+            "student",
+            "message",            
+        ]
+
+        labels = {
+            "student": "Which Students Will See This Message?",
+            "message": "What Is Your Message?  NOTE: This will overwrite the existing message on the student's Home screen.",
+            
         }
 
         def __init__(self, *args, **kwargs):
             instance = kwargs.pop("instance", None)
             request = kwargs.pop("request", None)
-            super(StudentEnrollmentForm, self).__init__(*args, **kwargs)
-            self.fields["standard"].queryset = Standard.objects.all()
-            self.fields["curriculum"].queryset = Curriculum.objects.all()
+            super(CreateMessageForm, self).__init__(*args, **kwargs)
+            self.fields["student"].queryset = Student.objects.filter(teacher_email=request.user.email).order_by("last_name")
 
 
 
@@ -1140,6 +1150,7 @@ def gen_overall_data_progress_weekly(academic_semester, student, semester, quart
         overall.update({subject:[]})
 
         for week in range(start_week,start_week+9): #for each week e.g (10-18)
+            total = 0
             gbs = gradebooks.filter(curriculum=item.curriculum, week=week)
 
             if gbs.count() == 0:
@@ -1149,7 +1160,7 @@ def gen_overall_data_progress_weekly(academic_semester, student, semester, quart
             total = 0
             if gbs.count() == 1:
                 gb = gbs[0]
-                total += gb.grade  # no need to use weight since single course
+                total += round(gb.grade * (enr.weight/100))
             overall[subject].append(total)
 
 
@@ -1219,26 +1230,3 @@ def gen_rep_data_progress_weekly(academic_semester, student, semester, quarter):
         del item['raw']
 
     return {'grades':data,'overall':overall}
-
-class CreateMessageForm(forms.ModelForm):
-    student = forms.ModelMultipleChoiceField(Student.objects.all())
-       
-    class Meta:
-        model = Message
-
-        fields = [
-            "student",
-            "message",            
-        ]
-
-        labels = {
-            "student": "Which Students Will See This Message?",
-            "message": "What Is Your Message?  NOTE: This will overwrite the existing message on the student's Home screen.",
-            
-        }
-
-        def __init__(self, *args, **kwargs):
-            instance = kwargs.pop("instance", None)
-            request = kwargs.pop("request", None)
-            super(CreateMessageForm, self).__init__(*args, **kwargs)
-            self.fields["student"].queryset = Student.objects.filter(teacher_email=request.user.email).order_by("last_name")
