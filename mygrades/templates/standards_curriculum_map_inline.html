@@ -1,25 +1,11 @@
-<h5 class = 'card-title'> Curriculum: {{object.name}} </h5>
-Total Standards In Database (this prints 35, and is correct):  
+{% load filter_tags %}
 
-{{standard_count_in_database}}<br/>
-
-Total Standards Available for This Assignment's Subject and GradeLevel containing "A1".  
-This prints 34 and is correct.:  
-
-{{countofthissubjectandgradelevelstandards}}<br/>
-
-Count in the following assignment list only (This prints nothing.):  
-{{ count_in_these_assignments }}<br/>
-
-These standards are NOT included in this curriculum:
+<h4 class = 'card-title'> Curriculum: {{object.name}} </h4>
+<p>{{ object.curriculum_assignment.standard.count }}</p>
+Total OAS Standards in Grade and Subject:  {{totals|hash:object.name}}<br/>
+<strong>OAS Testable Standards Covered In This Curriculum:  {{assignment_standards|hash:object.name}}<br/>
+Percentage of OAS Standards Covered:  {{percentanges|hash:object.name}} %<br/></strong>
+OAS Standards Not Covered by this Curriculum <strong>(Supplements Needed)</strong>: <br/> {% for i in not_covered|hash:object.name %}{{i}}, {% endfor %}<br/><br/>
 
 
-
-The assignments in this curriculum cover {{ percent }} of the standards for this grade level.<br/>
-{% for assignment in object.curriculum_assignment.all %}
-<class = 'card-title'>
-Title: {{assignment.name}}<br/>
-Standards Covered:{% for standard in assignment.standard.all %} {{standard.standard_code}},
-{% endfor %} 
-{% endfor %}
 
