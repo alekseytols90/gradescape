@@ -64,31 +64,9 @@
 
 
 {% if user.is_authenticated%}
- {% ifequal user.groups.all.0.name "Teacher" %}
-<center><h2>Grades and MORE</h2>
-<h3>Hello {{user.first_name}}!</h3>
-<p></p>
-<h2>In case you haven't heard it today, you are an amazing teacher!</h2>
+ 
 
-<p>This is your personal website.  <br/> <br/>It is accessible to YOU ONLY.<br/>
-NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information.  SSSSHHHHH, it's our little secret!</p>
-
-<h2>New upgrade?  <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Take it for a spin with this tutorial!</a></h2>
-
-<p>Do you need a standard added?  <a href="https://forms.gle/baSq48zHHrrSY2MY8"target = "_blank">Complete this form.</a></p>
-
-<p>Do you need a curriculum added?  <a href="https://forms.gle/yXymhDWikZcJz4Vv7"target = "_blank">Complete this form.</a></p>
-
-<p>Do you need an assignment added?  <a href="https://forms.gle/jxvTSYqiTvE75dp27"target = "_blank">Complete this form.</a></p>
-
-<p>Do you need a student added? <a href="/students-setup/"target = "_blank">Click here.</a></p>
-
-{% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
-<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com"target = "_blank">simply send a message!</a></center></div>
-
-{% endifequal %}
-
-{% ifequal user.groups.all.0.name "Trial" %}
+{% ifequal user.groups.all.0.name "Teacher" %}
 
 
 <center><h3>Hello!</h3>
