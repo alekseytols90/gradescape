@@ -18,13 +18,17 @@
 
         <div class = 'card-text'> Secondary eMail: <a href = "mailto:{{enrollment.student.additional_email}}">{{object.additional_email}}</a><br/> </div>
 
-      <div class = 'card-text'>Birthdate: {{object.date_of_birth}}
+      <div class = 'card-text'>Birthdate: {{object.birthdate}}
 
         Grade: {{object.grade}}</div>
         <div class = 'card-text'>Primary Phone: {{object.phone_number}}<br/>
 
         Secondary Phone: {{object.additional_phone_number}}<br/>
+        Public Google calendar URL:  {{object.goog_calendar}}
       </div>
+
+    
+    
 
       <a href='{% url "create_weekly_action object.student.pk curriculum.pk {{ object.get_edit_url }}' > Edit {{object.first_name}}
 

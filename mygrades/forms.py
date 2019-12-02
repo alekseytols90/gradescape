@@ -23,6 +23,7 @@ from mygrades.models import (
     User,
     Teacher,
     StudentGradeBookReport,
+    Message,
 )
 
 CURRICULUMGRADE = [
@@ -209,6 +210,7 @@ class StudentModelForm(forms.ModelForm):
             "grade",
             "birthdate",
             "teacher_email",
+            "goog_calendar"
 
         ]
         labels = {
@@ -222,6 +224,7 @@ class StudentModelForm(forms.ModelForm):
             "grade": "Student Enrollment Grade - Change this each year for previous students.",
             "birthdate": "Date of Birth (Happy Birthday shows on Student's screen)",
             "teacher_email": "Teacher's eMail - MUST be the email that you supplied when you purchased your site.  ALL LOWERCASE.  Any mis-spelling will hide your students from you.",
+            "goog_calendar": "Set up a NEW calendar just for this student.  Paste the public URL here."
         }
 
     def clean_epicenter_id(self, *arts, **kwargs):
@@ -730,6 +733,8 @@ class TeacherModelForm(forms.ModelForm):
             "email",
             "zoom",
             "syllabus",
+            "principal_email",
+            "phone",
         ]
         labels = {
             "first_name": "Teacher's First Name - Capitalize First Letter ONLY",
@@ -737,6 +742,8 @@ class TeacherModelForm(forms.ModelForm):
             "email": "Teacher e-Mail - all lowercase",
             "zoom": "Zoom Link",
             "syllabus":"Syllabus Link",
+            "principal_email": "Send PLP's to your principal with a click.",
+            "phone":"Phone Number"
         }
 
         def __init__(self, *args, **kwargs):
@@ -1212,3 +1219,26 @@ def gen_rep_data_progress_weekly(academic_semester, student, semester, quarter):
         del item['raw']
 
     return {'grades':data,'overall':overall}
+
+class CreateMessageForm(forms.ModelForm):
+    student = forms.ModelMultipleChoiceField(Student.objects.all())
+       
+    class Meta:
+        model = Message
+
+        fields = [
+            "student",
+            "message",            
+        ]
+
+        labels = {
+            "student": "Which Students Will See This Message?",
+            "message": "What Is Your Message?  NOTE: This will overwrite the existing message on the student's Home screen.",
+            
+        }
+
+        def __init__(self, *args, **kwargs):
+            instance = kwargs.pop("instance", None)
+            request = kwargs.pop("request", None)
+            super(CreateMessageForm, self).__init__(*args, **kwargs)
+            self.fields["student"].queryset = Student.objects.filter(teacher_email=request.user.email).order_by("last_name")
