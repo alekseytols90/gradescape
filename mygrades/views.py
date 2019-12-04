@@ -8,12 +8,11 @@ from uuid import uuid4
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ValidationError
-from django.core.exceptions import MultipleObjectsReturned
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
@@ -97,48 +96,6 @@ from mygrades.models import (
     Message,
     
 )
-
-@login_required
-def standards_curriculum_map_view(request):
-    my_title = "Standards Scope for Curriculum"
-    qs = Curriculum.objects.all()
-    curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
-
-    totals = {}
-    assignment_standards = {}
-    standards_free = {}
-    percentanges = {}
-    not_covered = {}
-    ls = []
-    lst = []
-
-    for i in curriculum_filter.qs:
-        [ls.append(k.standard_code) for k in Standard.objects.filter( grade_level=i.grade_level, subject=i.subject,)]
-        totals[i.name] = len(set(ls))
-
-        a = Assignment.objects.filter(curriculum_id=i.id).prefetch_related('standard')
-
-        for j in a:
-            temp = j.get_standards()
-            for t in temp.split('|'):
-                lst.append(t.strip())
-        lst = list(set(lst))
-        lst = [i for i in lst if i != '']
-        not_covered[i.name] = list(set(ls) - set(lst))
-
-        assignment_standards[i.name] = len(lst)
-        try:
-            percentanges[i.name] = int(assignment_standards[i.name]/totals[i.name] * 100)
-        except ZeroDivisionError:
-            percentanges[i.name] = 'Unavailable'
-        lst.clear()
-        ls.clear()
-        standards_free[i.name] = totals[i.name] - assignment_standards[i.name]
-
-    template_name = "standards_curriculum_map_view.html"
-    context = {"object_list": curriculum_filter.qs[:50],"filter": curriculum_filter, "title": my_title, "totals": totals, "assignment_standards": assignment_standards, "standards_free": standards_free, "percentanges": percentanges, "not_covered": not_covered, "limited":True}
-    return render(request, template_name, context)
-
 
 @login_required
 def create_message(request):
@@ -262,10 +219,10 @@ def user_upload(request):
         is_active=clear_field(column[7]).lower()
         is_superuser=clear_field(column[8]).lower()
 
-        if User.objects.filter(username=username).count() > 0:
-            user = User.objects.get(username=username)
+        if User.objects.filter(email=email).count() > 0:
+            user = User.objects.get(email=email)
             user.set_password(password)
-            user.email = email
+            user.username = username
             user.save()
         else:
             user = User.objects.create_user(username, email, password)
@@ -277,7 +234,6 @@ def user_upload(request):
         user.last_name = last_name 
         user.save()
 
-        user.groups.clear()
         if group:
             group = Group.objects.get(name__icontains=group)
             group.user_set.add(user)
@@ -332,10 +288,15 @@ def teacher_upload(request):
 @csrf_exempt
 def user_login(request):
     # form =  LoginForm(request)
+    # render_to_response('login.html')
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
+        print("befor login")
+        print(request)
         user = authenticate(request, username=username, password=password)
+        print("afer login")
+        print(user)
         if user is not None:
             login(request, user)
             if user.is_active:
@@ -355,7 +316,9 @@ def user_login(request):
 
 
 def user_logout(request):
-    logout(request)
+    # form =  LoginForm(request)
+    username = ""
+    password = ""
     return HttpResponse("<a href='/login'>Log In</>")
 
 
@@ -468,8 +431,9 @@ def crawl(request):
 # possible resolutions: duplicate students (choose a student), week data exists (confirm overwrite)
 @login_required
 def crawler(request, site_name=None):
+    print('request method me => ', request)
     if request.method == 'POST':
-        print('site name => ', site_name)
+            
 
         # reuse data
         response = json.loads(request.POST.get('data_json'))
@@ -525,6 +489,7 @@ def crawler(request, site_name=None):
 
         return redirect('/grades')
 
+    print('site name => ', site_name)
     template_name = "report_page.html"
     if site_name == 'Dreambox':
         response = get_dream_box_data()
@@ -532,18 +497,27 @@ def crawler(request, site_name=None):
         response = get_epiclive_data()
     elif site_name == 'Reading Eggs':
         response = get_reading_eggs_data()
+    elif site_name == 'Reading Eggspress':
+        response = get_reading_eggspress_data()
+    elif site_name == 'Math Seeds':
+        response = get_math_seeds()
+    # elif site_name == 'Learning':
+    #     response = get_learning_wood_data()
     elif site_name == 'Compass':
-        response = get_learning_wood_data()
-    elif site_name == 'MyON':
+        response = get_compass()
+    elif site_name == 'MyON Minutes':
         response = get_my_on_data()
     elif site_name == 'all':
         response = get_all_data()
+    elif site_name == 'Dreambox-minutes':
+        response = get_dreambox_minutes()
     else:
         response = {"status_code": "204", 'message': "Site not handled, Invalid URL"}
 
     # pass data to next request, no need to crawl again
     response.update({"json": json.dumps(response,default=str)})
     response.update({'semester_options': generate_semester_choices()})
+    print(response)
     return render(request, template_name, response)
 
 
@@ -624,7 +598,6 @@ def save_grade(request, response, site_name):
                     grade = value['lesson_completed']
                 if student not in registered:
                     required = student_enrollment.required
-                    complete = grade
                     if required:
                         if grade > required:
                             grade = required
@@ -644,7 +617,6 @@ def save_grade(request, response, site_name):
                             if value["gradebook_action"] == "write":
                                 gradebook = gradebook[0]
                                 gradebook.grade = grade
-                                gradebook.complete = complete
                                 gradebook.save()
                             elif value["gradebook_action"] == "ignore":
                                 continue
@@ -659,8 +631,7 @@ def save_grade(request, response, site_name):
                                                  quarter=form_data['quarter'][0],
                                                  week=form_data['week'],
                                                  semester=form_data['semester'],
-                                                 grade=grade,
-                                                 complete=complete
+                                                 grade=grade
                                                  )
                         gradebook.save()
 
@@ -703,30 +674,20 @@ def standard_upload(request):
         messages.error(request, "Make sure table consists of 11 columns. %s" % prompt['order'])
         return render(request, template)
 
-    count = 1
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
-
-        try:
-            _, created = Standard.objects.update_or_create(
-                standard_code=clear_field(column[8]),
-                defaults = {
-                    'grade_level':clear_field(column[0]),
-                    'standard_number':clear_field(column[1]),
-                    'standard_description':clear_field(column[2]),
-                    'strand_code':clear_field(column[3]),
-                    'strand':clear_field(column[4]),
-                    'strand_description':clear_field(column[5]),
-                    'objective_number':clear_field(column[6]),
-                    'objective_description':clear_field(column[7]),
-                    'PDF_link':clear_field(column[9]),
-                    'subject':clear_field(column[10])
-                }
-            )
-        except MultipleObjectsReturned: 
-            messages.error(request, "skipped row %d (exists more than 1)" % count)
-            continue
-
-        count += 1
+        _, created = Standard.objects.update_or_create(
+            grade_level=clear_field(column[0]),
+            standard_number=clear_field(column[1]),
+            standard_description=clear_field(column[2]),
+            strand_code=clear_field(column[3]),
+            strand=clear_field(column[4]),
+            strand_description=clear_field(column[5]),
+            objective_number=clear_field(column[6]),
+            objective_description=clear_field(column[7]),
+            standard_code=clear_field(column[8]),
+            PDF_link=clear_field(column[9]),
+            subject=clear_field(column[10])
+        )
 
     return redirect("/standard")
 
@@ -919,78 +880,6 @@ def student_setup_view(request):
     context = {"form": form, "title": my_title}
     return render(request, template_name, context)
 
-@login_required
-def see_plp_home(request):
-    my_title = "This Week's PLP's"
-
-    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
-        student = get_object_or_404(Student, email=request.user.email)
-        return redirect(reverse("see_plp_detail", args=[student.pk]))
-
-    if request.user.groups.filter(name="Owner").count() > 0:
-        qs = Student.objects.all()
-    else:
-        qs = Student.objects.filter(teacher_email=request.user.email)
-
-    student_filter = StudentFilter(request.GET, queryset=qs)
-
-    p = Paginator(student_filter.qs, 10)
-    page = request.GET.get('page',1)
-    object_list = p.get_page(page)
-
-    template_name = "student_plp_home.html"
-    context = {"object_list": object_list, "filter": student_filter, "title": my_title}
-    return render(request, template_name, context)
-
-@login_required
-def see_plp_detail(request, student_pk):
-    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
-        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
-    elif request.user.groups.filter(name="Owner").count() > 0:
-        student = get_object_or_404(Student, pk=student_pk)
-    else:
-        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
-    teacher = get_object_or_404(Teacher, email=request.user.email)
-    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
-
-    data = [] 
-    for asm in assignments:
-        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
-        if standards == "":
-            standards = "-"
-        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
-
-    template_name = "student_plp_detail.html"
-    context = {"object": student, "assignments": data, "teacher": teacher}
-    return render(request, template_name, context)
-
-@login_required
-def send_plp_email(request, student_pk):
-    if request.user.groups.filter(name="Owner").count() > 0:
-        student = get_object_or_404(Student, pk=student_pk)
-    else:
-        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
-    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
-
-    data = [] 
-    for asm in assignments:
-        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
-        if standards == "":
-            standards = "-"
-        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
-    
-    teacher = get_object_or_404(Teacher, email=request.user.email)
-    subject, from_email, to = "%s's PLP for This Week" % student.get_full_name(), 'yourschoolwebsitedonotreply@gmail.com', [
-    teacher.principal_email]
-
-    text_content = 'A PLP for this week are below.  You may need to open this in a different browser if you do not see it here. '
-    html_content = render_to_string('mail_plp.html', context={'assignments':data, 'student':student})
-    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
-
-    messages.success(request, "%s's PLP was sent to your principal's email!" % student.get_full_name())
-    return redirect(reverse("see_plp_detail", args=[student.pk]))
 
 def teacher_setup_view(request):
     my_title = "Setup a Teacher"
@@ -1103,7 +992,7 @@ def curriculum_create_view(request):
 @login_required
 def curriculum_detail_view(request, id):
     my_title = "Curriculum Details"
-    qs = Assignment.objects.filter(curriculum__pk=id).order_by('pk')
+    qs = Assignment.objects.filter(curriculum__pk=id)
     assignment_filter = AssignmentFilter(request.GET, queryset=qs)
     template_name = "assignment_list_view.html"
     context = {"object_list": assignment_filter.qs,"filter":assignment_filter, "title": my_title} 
@@ -1168,9 +1057,9 @@ def standard_list_view(request):
 def standard_update_view(request, id):
     obj = get_object_or_404(Standard, id=id)
     form = StandardSetupForm(request.POST or None, instance=obj)
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
+    if form.is_valid():
+        form.save()
+        form = StandardSetupForm()
     template_name = "form.html"
     context = {"title": f"Change Information for: {obj.standard_code}", "form": form}
     return render(request, template_name, context)
@@ -1217,7 +1106,46 @@ def student_assignment_list_view(request,sid,cid):
     context = {"formset": formset, "object_list": assignments, "student":student, "curriculum":curriculum, "title": my_title}
     return render(request, template_name, context)
 
+@login_required
+def standards_curriculum_map_view(request):
+    my_title = "Standards Scope for Curriculum"
+    qs = Curriculum.objects.all()
+    curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
 
+    totals = {}
+    assignment_standards = {}
+    standards_free = {}
+    percentanges = {}
+    not_covered = {}
+    ls = []
+    lst = []
+
+    for i in curriculum_filter.qs:
+        [ls.append(k.standard_code) for k in Standard.objects.filter( grade_level=i.grade_level, subject=i.subject,)]
+        totals[i.name] = len(set(ls))
+
+        a = Assignment.objects.filter(curriculum_id=i.id).prefetch_related('standard')
+
+        for j in a:
+            temp = j.get_standards()
+            for t in temp.split('|'):
+                lst.append(t.strip())
+        lst = list(set(lst))
+        lst = [i for i in lst if i != '']
+        not_covered[i.name] = list(set(ls) - set(lst))
+
+        assignment_standards[i.name] = len(lst)
+        try:
+            percentanges[i.name] = int(assignment_standards[i.name]/totals[i.name] * 100)
+        except ZeroDivisionError:
+            percentanges[i.name] = 'Unavailable'
+        lst.clear()
+        ls.clear()
+        standards_free[i.name] = totals[i.name] - assignment_standards[i.name]
+
+    template_name = "standards_curriculum_map_view.html"
+    context = {"object_list": curriculum_filter.qs[:50],"filter": curriculum_filter, "title": my_title, "totals": totals, "assignment_standards": assignment_standards, "standards_free": standards_free, "percentanges": percentanges, "not_covered": not_covered, "limited":True}
+    return render(request, template_name, context)
 
 @login_required
 def assignment_list_view(request):
@@ -1272,8 +1200,7 @@ def enroll_student_step2(request, semester, student_pk):
         if form.is_valid():
             form.save()
             messages.info(request, "You successfuly added %s to %s's gradebook!" % (form.instance.curriculum, student))
-            if form.cleaned_data['subject'] != 'Other':
-                messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
+            messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
 
             if "enroll_stay" in request.POST:
                 # reinit the form with student and semester
@@ -1329,7 +1256,7 @@ def enroll_delete(request, enrollment_pk):
     sem = enrollment.academic_semester
     subject = enrollment.curriculum.subject
 
-    if subject != 'Other' and enrollment.level == "Core" and Enrollment.objects.filter(student=student, academic_semester=sem, curriculum__subject=subject).count() > 1:
+    if enrollment.level == "Core" and Enrollment.objects.filter(student=student, academic_semester=sem, curriculum__subject=subject).count() > 1:
        messages.error(request,mark_safe("Hey, wait Teacher, %s is %s's CORE curriculum. It is setting her pace. If you want delete it, first choose another CORE on this page first for subject %s." % (enrollment.curriculum.name,student.get_full_name(), subject)))
        return redirect(reverse("curriculum-schedule-detail", args=[student.pk]))
 
@@ -1391,7 +1318,7 @@ def create_weekly_step2(request, semester):
     data = []
     for student in student_filter.qs: 
         ordered = []
-        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester).filter(Q(status='Not Assigned')|Q(status='Assigned',enrollment__tracking='Repeating Weekly')).order_by('-pk') #, shown_in_weekly=False)
+        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester).filter(Q(status='Not Assigned')|Q(status='Assigned',enrollment__tracking='Repeating Weekly')) #, shown_in_weekly=False)
 
         # group by curriculum
         curriculum_pks = list(assignments.values_list('assignment__curriculum',flat=True).distinct())
@@ -1454,14 +1381,10 @@ def create_weekly_step2(request, semester):
         students.append({"pk":change["student"].pk, "name":change["student"].get_full_name(), "curriculums":change["curriculums"]})
         
         for assignment in change["assignments"]:
-            standards = ",".join(assignment.assignment.standard.all().values_list("standard_code",flat=True))
-            if standards == "":
-                standards = "-"
-
             initial.append({
                 'assignment':assignment,
                 'new_status':'Assigned', 
-                'assignment_description': assignment.assignment.name +"<br/><small>Standards: " + standards + "<br/>" + assignment.assignment.description + "</small>"})
+                'assignment_description': assignment.assignment.name +"<br/><small>" + assignment.assignment.description + "</small>"})
     StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
     formset = StatusChangeFormset(request.POST or None, initial=initial)
 
@@ -1554,7 +1477,8 @@ def report_progress_step3(request, asem, quarter, sem):
 
     data = []
     for student in student_filter.qs: 
-        data.append({"student":student})
+        #overall_preview = gen_overall_data_progress_weekly(asem, student, sem, quarter)
+        data.append({"student":student})  #overall_preview
         
     # generate form
     initial = []
@@ -1562,6 +1486,7 @@ def report_progress_step3(request, asem, quarter, sem):
         initial.append({
             'student': change['student'],
             'student_desc': change['student'].get_full_name(),
+            #'overall': change['overall_preview']
         })
 
     ReportProgressFormset = formset_factory(ReportProgressForm, extra=0, can_delete=False)
@@ -1646,33 +1571,10 @@ def report_card_step3(request, asem, quarter, sem):
 
     student_filter = StudentFilter(request.GET, queryset=qs)
 
-
-    data = []
-    for student in student_filter.qs: 
-        overall_preview = gen_quarter_overall_average(asem, student, sem, quarter)
-        data.append({"student":student, "overall_preview":overall_preview})
-        
-    # generate form
-    initial = []
-    for change in data:
-        overall_preview = change["overall_preview"]
-        data = {
-            'student': change['student'],
-            'math_overall': overall_preview['Math'],
-            'ela_overall': overall_preview['ELA'],
-            'science_overall': overall_preview['Science'],
-            'history_overall': overall_preview['History'],
-            'ga_overall': overall_preview['GA']
-        }
-        others = filter(lambda x: x not in ['Math','ELA','Science','History','GA'], overall_preview.keys())
-        for key in others:
-            data.update({'other_'+key.replace(' ','-'): overall_preview[key]})
-        initial.append(data)
-
     # write reports when submitted
     if request.method == "POST":
         ReportCardFormset = formset_factory(ReportCardForm, extra=0, can_delete=False)
-        formset = ReportCardFormset(request.POST, initial=initial)
+        formset = ReportCardFormset(request.POST)
         if formset.is_valid():
             for form in formset.forms:
                 form.save(asem=asem,quarter=quarter,semester=sem)
@@ -1680,8 +1582,22 @@ def report_card_step3(request, asem, quarter, sem):
             messages.success(request, "All reports are sent to the student screen.")
             return redirect('/')
 
-    ReportCardFormset = formset_factory(ReportCardForm, extra=0, can_delete=False)
-    formset = ReportCardFormset(request.POST or None, initial=initial)
+    data = []
+    for student in student_filter.qs: 
+        #overall_preview = gen_overall_data_card_weekly(asem, student, sem, quarter)
+        data.append({"student":student})  #overall_preview
+        
+    # generate form
+    initial = []
+    for change in data:
+        initial.append({
+            'student': change['student'],
+            'student_desc': change['student'].get_full_name(),
+            #'overall': change['overall_preview']
+        })
+
+    ReportProgressFormset = formset_factory(ReportProgressForm, extra=0, can_delete=False)
+    formset = ReportProgressFormset(request.POST or None, initial=initial)
 
     context = {"formset": formset, 'asem':asem,'sem':sem,'quarter':quarter} #"students":students}
     template_name = "report_card_step3.html"
@@ -1757,18 +1673,10 @@ def see_late_detail(request, student_pk):
 
     data = [] 
     for asm in assignments:
-        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
-        if standards == "":
-            standards = "-"
-        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
-
-    # everyone can email except the student
-    can_email = True
-    if request.user.groups.filter(name="Student").count() > 0:
-        can_email = False
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
 
     template_name = "student_weekly_detail.html"
-    context = {"object": student, "assignments": data, "late_view": True, "can_email":can_email}
+    context = {"object": student, "assignments": data, "late_view": True}
     return render(request, template_name, context)
 
 @login_required
@@ -1820,6 +1728,77 @@ def see_weekly_detail(request, student_pk):
     template_name = "student_weekly_detail.html"
     context = {"object": student, "assignments": data, "can_email":can_email}
     return render(request, template_name, context)
+
+@login_required
+def see_plp_home(request):
+    my_title = "This Week's PLP's"
+
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, email=request.user.email)
+        return redirect(reverse("see_plp_detail", args=[student.pk]))
+
+    qs = Student.objects.filter(teacher_email=request.user.email)
+
+    student_filter = StudentFilter(request.GET, queryset=qs)
+
+    p = Paginator(student_filter.qs, 10)
+    page = request.GET.get('page',1)
+    object_list = p.get_page(page)
+
+    template_name = "student_plp_home.html"
+    context = {"object_list": object_list, "filter": student_filter, "title": my_title}
+    return render(request, template_name, context)
+
+@login_required
+def see_plp_detail(request, student_pk):
+    if request.user.groups.filter(name="Student").count() > 0: # student is viewing
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+    elif request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    teacher = get_object_or_404(Teacher, email=request.user.email)
+    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
+
+    data = [] 
+    for asm in assignments:
+        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
+        if standards == "":
+            standards = "-"
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
+
+    template_name = "student_plp_detail.html"
+    context = {"object": student, "assignments": data, "teacher": teacher}
+    return render(request, template_name, context)
+
+@login_required
+def send_plp_email(request, student_pk):
+    if request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
+
+    data = [] 
+    for asm in assignments:
+        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
+        if standards == "":
+            standards = "-"
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
+    
+    teacher = get_object_or_404(Teacher, email=request.user.email)
+    subject, from_email, to = "%s's PLP for This Week" % student.get_full_name(), 'yourschoolwebsitedonotreply@gmail.com', [
+    teacher.principal_email]
+
+    text_content = 'A PLP for this week are below.  You may need to open this in a different browser if you do not see it here. '
+    html_content = render_to_string('mail_plp.html', context={'assignments':data, 'student':student})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    messages.success(request, "%s's PLP was sent to your principal's email!" % student.get_full_name())
+    return redirect(reverse("see_plp_detail", args=[student.pk]))
+
 
 @login_required
 def see_attendance_home(request):
@@ -1898,18 +1877,9 @@ def see_progress_detail(request, student_pk):
     for rep in reports:
         rep.data = json.loads(rep.json)
 
-    # everyone can email except the student
-    can_email = True
-    if request.user.groups.filter(name="Student").count() > 0:
-        can_email = False
-
     template_name = "report_see_progress_detail.html"
-
-    start_week = 1
-    if len(reports) > 1:
-        start_week = (int(reports[0].quarter)-1)*9+1  #TODO: move to the report data
-
-    context = {"object": student, "reports": reports, "weeks": range(start_week,start_week+9), "can_email":can_email}
+    start_week = (int(reports[0].quarter)-1)*9+1  #TODO: move to the report data
+    context = {"object": student, "reports": reports, "weeks": range(start_week,start_week+9)}
     return render(request, template_name, context)
 
 @login_required
@@ -1949,13 +1919,8 @@ def see_card_detail(request, student_pk):
     for rep in reports:
         rep.data = json.loads(rep.json)
 
-    # everyone can email except the student
-    can_email = True
-    if request.user.groups.filter(name="Student").count() > 0:
-        can_email = False
-
     template_name = "report_see_card_detail.html"
-    context = {"object": student, "reports": reports, "can_email":can_email}
+    context = {"object": student, "reports": reports}
     return render(request, template_name, context)
 
 
@@ -1971,7 +1936,10 @@ def send_weekly_email(request, student_pk):
 
     data = [] 
     for asm in assignments:
-        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
+        standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
+        if standards == "":
+            standards = "-"
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
 
     subject, from_email, to = "%s's Assignments for This Week" % student.get_full_name(), 'yourepiconline@gmail.com', [
     student.email, student.additional_email]
@@ -2165,22 +2133,20 @@ def grades_record_manual(request, enrollment_pk):
 
     initial = {"student":student, "curriculum":enrollment.curriculum, "academic_semester":enrollment.academic_semester}
 
-    form = RecordGradeManualForm(request.POST or None, initial=initial, enrollment=enrollment)
+    form = RecordGradeManualForm(request.POST or None, initial=initial)
     if form.is_valid():
         form.cleaned_data['student'] = student # ensure for security
         m = form.save()
-        return redirect("/grades")
+        return redirect(reverse("grades-record-manual-edit", args=[m.pk]))
 
     #overwrite if ?overwrite=1 is given
     ask_overwrite = False
-    if form.errors and '__all__' in form.errors and 'already exists' in form.errors['__all__'][0]:
+    if form.errors and 'already exists' in form.errors['__all__'][0]:
         form.cleaned_data['student'] = student # ensure for security
         ask_overwrite = True
         if request.GET.get('overwrite','') == '1':
             data_copy = form.cleaned_data.copy()
-            del data_copy['required_desc']
             del data_copy['grade']  # delete whatever will be modified
-            del data_copy['complete']  # delete whatever will be modified
             instance = GradeBook.objects.get(**data_copy)
             for key,value in form.cleaned_data.items():
                 setattr(instance,key,value)
@@ -2200,7 +2166,7 @@ def grades_record_manual_edit(request, gradebook_pk):
     else:
         gradebook = get_object_or_404(GradeBook, pk=gradebook_pk, student__teacher_email=request.user.email)
 
-    form = RecordGradeManualForm(request.POST or None, instance=gradebook, enrollment=gradebook.get_enrollment())
+    form = RecordGradeManualForm(request.POST or None, instance=gradebook)
     if form.is_valid():
         form.cleaned_data['student'] = gradebook.student # ensure for security
         m = form.save()
@@ -2225,11 +2191,7 @@ def grades_record_view(request):
 @login_required
 def grades_list_view(request):
     my_title = "Gradebook"
-    if request.user.groups.filter(name="Owner").count() > 0:
-        qs = GradeBook.objects.all().order_by('student','semester','quarter','week')
-    else:
-        qs = GradeBook.objects.filter(student__teacher_email=request.user.email).order_by('student','semester','quarter','week')
-
+    qs = GradeBook.objects.all()
     gradebook_filter = GradeBookFilter(request.GET, queryset=qs)
     template_name = "gradebook_list_view.html"
     context = {"object_list": gradebook_filter, "title": my_title}
@@ -2250,20 +2212,13 @@ def grades_update_view(request, id):
 
 
 @staff_member_required
-def grades_delete_view(request, id):
-    gradebook = get_object_or_404(GradeBook, id=id)
+def grades_delete_view(request, epicenter_id):
+    obj = get_object_or_404(GradeBook, id=id)
     template_name = "gradebook_delete_view.html"
-
-    if request.user.groups.filter(name="Owner").count() > 0:
-        student = gradebook.student
-    else:
-        student = get_object_or_404(Student, pk=gradebook.student.pk, teacher_email=request.user.email)
-
     if request.method == "POST":
-        gradebook.delete()
+        obj.delete()
         return redirect("/grades")
-
-    context = {"gradebook": gradebook, "student":student}
+    context = {"object": obj}
     return render(request, template_name, context)
 
 @login_required

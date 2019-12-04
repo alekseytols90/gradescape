@@ -15,7 +15,7 @@
 No assignments.
 {% endif %}
 
-{% if request.user.groups.all.0.name == "Teacher" or request.user.groups.all.0.name == "Owner" %}
+{% if request.user.groups.all.0.name == "Silver" or request.user.groups.all.0.name == "Owner" or  request.user.groups.all.0.name == "Gold"%}
 
 <a class="btn btn-primary btn-lg" href="{% url "send_plp_email" student_pk=object.pk %}" role="button">EMail PLP to Principal</a><br/><br/>
 {% endif %}
