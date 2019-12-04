@@ -88,19 +88,6 @@ E-Mailing Assignment Lists</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ONwrgd2HkY8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p></p>
 
-<h3 font=24>
-Student Calendars and WHY?</h3>
-<p></p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LJB0T2YiMAQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p></p>
-
-
-
-<body>
-</div></div>
-    <div class='col-md-6'>
-        <div class = 'col-md-12'>
-
 
 
 <h3 font=24>
@@ -113,19 +100,6 @@ Standards</h3>
 Curriculum</h3>
 <p></p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/8QmMZOf3r8c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p></p>
-
-
-<h3 font=24>
-Gradable Assignments</h3>
-<p></p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZBGWjXw57ng" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p></p>
-
-<h3 font=24>
-Editing the Gradable Assignments Earned</h3>
-<p></p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RgkeSlEaWlU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p></p>
 
 <h3 font=24>
@@ -151,6 +125,41 @@ Creating, Sending and Viewing Report Cards for Students</h3>
 <p></p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/i30_meI696E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p></p>
+
+
+
+{% if request.user.groups.all.0.name == "Silver" or request.user.groups.all.0.name == "Owner" or  request.user.groups.all.0.name == "Gold" or request.user.groups.all.0.name == "Teacher" or  request.user.groups.all.0.name == "Bronze"%}
+
+<h3 font=24>
+Student Calendars and WHY?</h3>
+<p></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LJB0T2YiMAQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p></p>
+
+
+
+<body>
+</div></div>
+    <div class='col-md-6'>
+        <div class = 'col-md-12'>
+
+<h3 font=24>
+Gradable Assignments</h3>
+<p></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZBGWjXw57ng" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p></p>
+
+<h3 font=24>
+Editing the Gradable Assignments Earned</h3>
+<p></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RgkeSlEaWlU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p></p>
+
+{% endif %}
+
+
+
+
 
 </div>
 </div>
