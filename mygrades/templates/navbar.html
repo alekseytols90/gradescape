@@ -19,10 +19,45 @@
         <a class="dropdown-item" href="/act">ACT and College</a>
         <a class="dropdown-item" href="/workstudy">Work Study & Internships</a>
         <a class="dropdown-item" href="/driver">Driver's Education</a>
-        <a class="dropdown-item" href="/honors">Honors Programs</a>
-         <a class="dropdown-item" href="/promgrad">Prom and Graduation</a>
-          <a class="dropdown-item" href="/military">Military</a>
+         <a class="dropdown-item" href="/military">Military</a>
         <a class="dropdown-item" href="/sat">SAT</a>
+
+{% if user.is_authenticated%}
+
+ {% ifequal user.groups.all.0.name "Teacher" %}<a class="dropdown-item" href="/honors">Honors Programs</a>
+         <a class="dropdown-item" href="/promgrad">Prom and Graduation</a>
+{% endifequal %}
+
+
+
+ {% ifequal user.groups.all.0.name "Gold" %}<a class="dropdown-item" href="/honors">Honors Programs</a>
+         <a class="dropdown-item" href="/promgrad">Prom and Graduation</a>
+{% endifequal %}
+
+
+ {% ifequal user.groups.all.0.name "Silver" %}<a class="dropdown-item" href="/honors">Honors Programs</a>
+         <a class="dropdown-item" href="/promgrad">Prom and Graduation</a>
+{% endifequal %}
+
+
+
+ {% ifequal user.groups.all.0.name "Bronze" %}<a class="dropdown-item" href="/honors">Honors Programs</a>
+         <a class="dropdown-item" href="/promgrad">Prom and Graduation</a>
+{% endifequal %}
+
+{% ifequal user.groups.all.0.name "Owner" %}<a class="dropdown-item" href="/honors">Honors Programs</a>
+         <a class="dropdown-item" href="/promgrad">Prom and Graduation</a>
+{% endifequal %}
+
+{% ifequal user.groups.all.0.name "Student" %}<a class="dropdown-item" href="/honors">Honors Programs</a>
+         <a class="dropdown-item" href="/promgrad">Prom and Graduation</a>
+{% endifequal %}
+
+{% endif %}
+
+
+
+         
         </div>
         </li>
 
@@ -45,8 +80,8 @@
                PLP's
             </a>
             <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+<a class="dropdown-item" href="/see-plp">View and Send PLP's to Principal</a>
 
-<a class="dropdown-item" href="see-plp/">Create and Send PLP's to Principal</a>
 </div>    </li>
 
 
@@ -183,14 +218,14 @@ Gradebook
   <a class="nav-link" href="/tutorials/">Help Videos</a>
 
 <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                PLP's
             </a>
             <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+<a class="dropdown-item" href="/see-plp">View and Send PLP's to Principal</a>
 
-<a class="dropdown-item" href="see-plp/">Create and Send PLP's to Principal</a>
 </div>    </li>
-
          <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                Pull Last Week's Progress
@@ -289,8 +324,8 @@ Gradebook
                PLP's
             </a>
             <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+<a class="dropdown-item" href="/see-plp">View and Send PLP's to Principal</a>
 
-<a class="dropdown-item" href="see-plp/">Create and Send PLP's to Principal</a>
 </div>    </li>
 
          <li class="nav-item dropdown">
@@ -391,9 +426,8 @@ Gradebook
                PLP's
             </a>
             <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+<a class="nav-link disabled" href="/see-plp">View and Send PLP's to Principal (Silver)</a>
 
-
-<a class="nav-link disabled" href="see-plp/">Create and Send a PLP to Your Principal (Silver)</a>
 </div>    </li>
 
          <li class="nav-item dropdown">
@@ -494,9 +528,8 @@ Gradebook
                PLP's
             </a>
             <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+<a class="nav-link disabled" href="/see-plp">View and Send PLP's to Principal (Silver)</a>
 
-
-<a class="nav-link disabled" href="see-plp/">Create and Send a PLP to Your Principal (Silver)</a>
 </div>    </li>
 
          <li class="nav-item dropdown">

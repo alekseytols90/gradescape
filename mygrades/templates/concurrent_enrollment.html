@@ -3,19 +3,18 @@
 
 
 {% block content %}
-<h5>Concurrent Enrollment - Juniors and Seniors</h5>
+<h3>Concurrent Enrollment - Juniors and Seniors</h3>
 
 
 <p>Yes! You can attend college both your junior and senior year and receive high school credit!  You will first 
 	<a href="https://fafsa.gov" target="_blank">complete your financial aid application</a> and apply for admission to the colleges that are available to Epic Charter Schools for concurrent enrollment.  Even if you do not live near the campus, most schools offer online courses. Should you choose to do this, get with your teacher and they will assist you with the process!</p>
 
-<p>If you are planning to enroll concurrently, you may make application to the Institution of your choice by contacting their admissions office or visiting their website for an online application. You will need a transcript to finalize your enrollment. You may <a href="https://epiccharterschools.org/records-request"target="_blank">request your transcript here.</a> </p>
+<p>If you are planning to enroll concurrently, you may make application to the Institution of your choice by contacting their admissions office or visiting their website for an online application. You will need a transcript to finalize your enrollment.  </p>
 
 <p>For Spring, applications need to be submitted by December and for Fall in March or April.</p>
 
 <p>Need more information?  See this <a href="https://drive.google.com/file/d/1aKTHrz5oT9A0bRqDCynpg-LuenFy0ElE/view"target="_blank">brochure from the State Department of Education.</a></p>
 
-<p>It is important to note that Epic will not reimburse ANY charges.  </p>
 
 <p>For Seniors only, the state of Oklahoma pays for 6 hours.  The family is responsible for additional fees and books.  </p>
 
@@ -23,7 +22,55 @@
 
 <p>In addition, some universities will give a tuition waiver to juniors if they score a 26 or higher on the ACT. </p>
 
+{% if user.is_authenticated%}
+
+ {% ifequal user.groups.all.0.name "Teacher" %}
 <h3>TEL Courses: 9-12 Students</h3>
 <p>For $75 per course, you can earn college credit FROM HOME, paid for out of the learning fund.  This is a great opportunity for Epic students.  <a href="https://drive.google.com/drive/folders/1jjpCG9Ve4AZuiTpQgpEjmMLI7x0kMNqZ"target="_blank">See a Catalog of available courses here.</a>  This is through a partnership with Colorado Christian University.  Students must have a 3.0 GPA or higher</p>
+
+You may <a href="https://epiccharterschools.org/records-request"target="_blank">request your transcript here.</a>
+{% endifequal %}
+
+
+
+ {% ifequal user.groups.all.0.name "Gold" %}
+<h3>TEL Courses: 9-12 Students</h3>
+<p>For $75 per course, you can earn college credit FROM HOME, paid for out of the learning fund.  This is a great opportunity for Epic students.  <a href="https://drive.google.com/drive/folders/1jjpCG9Ve4AZuiTpQgpEjmMLI7x0kMNqZ"target="_blank">See a Catalog of available courses here.</a>  This is through a partnership with Colorado Christian University.  Students must have a 3.0 GPA or higher</p>
+
+You may <a href="https://epiccharterschools.org/records-request"target="_blank">request your transcript here.</a>
+{% endifequal %}
+
+
+ {% ifequal user.groups.all.0.name "Silver" %}
+<h3>TEL Courses: 9-12 Students</h3>
+<p>For $75 per course, you can earn college credit FROM HOME, paid for out of the learning fund.  This is a great opportunity for Epic students.  <a href="https://drive.google.com/drive/folders/1jjpCG9Ve4AZuiTpQgpEjmMLI7x0kMNqZ"target="_blank">See a Catalog of available courses here.</a>  This is through a partnership with Colorado Christian University.  Students must have a 3.0 GPA or higher</p>
+
+You may <a href="https://epiccharterschools.org/records-request"target="_blank">request your transcript here.</a>
+{% endifequal %}
+
+
+
+ {% ifequal user.groups.all.0.name "Bronze" %}
+<h3>TEL Courses: 9-12 Students</h3>
+<p>For $75 per course, you can earn college credit FROM HOME, paid for out of the learning fund.  This is a great opportunity for Epic students.  <a href="https://drive.google.com/drive/folders/1jjpCG9Ve4AZuiTpQgpEjmMLI7x0kMNqZ"target="_blank">See a Catalog of available courses here.</a>  This is through a partnership with Colorado Christian University.  Students must have a 3.0 GPA or higher</p>
+
+You may <a href="https://epiccharterschools.org/records-request"target="_blank">request your transcript here.</a>
+{% endifequal %}
+
+{% ifequal user.groups.all.0.name "Owner" %}
+<h3>TEL Courses: 9-12 Students</h3>
+<p>For $75 per course, you can earn college credit FROM HOME, paid for out of the learning fund.  This is a great opportunity for Epic students.  <a href="https://drive.google.com/drive/folders/1jjpCG9Ve4AZuiTpQgpEjmMLI7x0kMNqZ"target="_blank">See a Catalog of available courses here.</a>  This is through a partnership with Colorado Christian University.  Students must have a 3.0 GPA or higher</p>
+
+You may <a href="https://epiccharterschools.org/records-request"target="_blank">request your transcript here.</a>
+{% endifequal %}
+
+{% ifequal user.groups.all.0.name "Student" %}
+<h3>TEL Courses: 9-12 Students</h3>
+<p>For $75 per course, you can earn college credit FROM HOME, paid for out of the learning fund.  This is a great opportunity for Epic students.  <a href="https://drive.google.com/drive/folders/1jjpCG9Ve4AZuiTpQgpEjmMLI7x0kMNqZ"target="_blank">See a Catalog of available courses here.</a>  This is through a partnership with Colorado Christian University.  Students must have a 3.0 GPA or higher</p>
+
+You may <a href="https://epiccharterschools.org/records-request"target="_blank">request your transcript here.</a>
+{% endifequal %}
+
+{% endif %}
 
 {% endblock %}

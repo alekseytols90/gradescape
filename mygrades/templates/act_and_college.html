@@ -12,12 +12,51 @@
 
 <p>Go here for extensive information: <a href="http://www.act.org/">ACT Site</a></p>
 
+
+{% if user.is_authenticated%}
+
+ {% ifequal user.groups.all.0.name "Teacher" %}
 <p><strong>Epic Charter School ACT Code:  372720</p></strong>
+<p>Epic sets up school tours all year. <a href="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago">Look on the Epic School Calendar to find one</a></p>
+{% endifequal %}
+
+
+
+ {% ifequal user.groups.all.0.name "Gold" %}
+<p><strong>Epic Charter School ACT Code:  372720</p></strong>
+<p>Epic sets up school tours all year. <a href="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago">Look on the Epic School Calendar to find one</a></p>
+{% endifequal %}
+
+
+ {% ifequal user.groups.all.0.name "Silver" %}
+<p><strong>Epic Charter School ACT Code:  372720</p></strong>
+<p>Epic sets up school tours all year. <a href="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago">Look on the Epic School Calendar to find one</a></p>
+{% endifequal %}
+
+
+
+ {% ifequal user.groups.all.0.name "Bronze" %}
+<p><strong>Epic Charter School ACT Code:  372720</p></strong>
+<p>Epic sets up school tours all year. <a href="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago">Look on the Epic School Calendar to find one</a></p>
+{% endifequal %}
+
+{% ifequal user.groups.all.0.name "Owner" %}
+<p><strong>Epic Charter School ACT Code:  372720</p></strong>
+<p>Epic sets up school tours all year. <a href="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago">Look on the Epic School Calendar to find one</a></p>
+{% endifequal %}
+
+{% ifequal user.groups.all.0.name "Student" %}
+<p><strong>Epic Charter School ACT Code:  372720</p></strong>
+
+<p>Epic sets up school tours all year. <a href="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago">Look on the Epic School Calendar to find one</a></p>
+{% endifequal %}
+
+{% endif %}
 
 <h3>Choosing a College</h3>
 <p>By the end of your Junior year, you should know exactly where you want to go to college.</p>
 
-<p>During your 9th and 10th grade years, this is when you set up a tour of all of the places that interest you.  Just go to the college website or call them and set it up.  Epic sets up school tours all year. <a href="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago">Look on the Epic School Calendar to find one</a>!</p>
+<p>During your 9th and 10th grade years, this is when you set up a tour of all of the places that interest you.  Just go to the college website or call them and set it up.  !</p>
 
 <p>Pay close attention to the admission requirements.  Know the ACT score that will be required.  Begin taking the ACT as early as 8th grade so that you have plenty of time to get rid of those gitters and improve that score.  You want to take it multiple times to do your best.</p>
 
