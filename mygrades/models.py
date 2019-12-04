@@ -309,6 +309,10 @@ class Assignment(models.Model):
     class Meta:
         unique_together = ("name", "curriculum", "description")
 
+    def get_standards(self):
+        if self.standard:
+            return '%s' % " | ".join([standard.standard_code for standard in self.standard.all()])
+
     def get_absolute_url(self):
         return f"/assignment/{self.id}"
 

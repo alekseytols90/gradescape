@@ -103,22 +103,42 @@ def standards_curriculum_map_view(request):
     my_title = "Standards Scope for Curriculum"
     qs = Curriculum.objects.all()
     curriculum_filter = CurriculumFilter(request.GET, queryset=qs)
-    thissubjectandgradelevelstandards = Standard.objects.filter(
-            grade_level='High School',
-            subject='Math',
-            standard_code__startswith='A1',
-        )
-    countofthissubjectandgradelevelstandards = thissubjectandgradelevelstandards.count()
-    #this does count only the number of standards in our database that match the filter attributes
-    for c in thissubjectandgradelevelstandards:
-        print(c.grade_level, c.subject, c.standard_code)
-    standard_count_in_database = Standard.objects.distinct().count()
-    #this is counting ALL of the standards, all subjects and all grade_levels 
-    count_in_these_assignments = standard.standard_code.distinct()
-    #this is what i want, and it's not working....i want the distinct count in the list that appears on the screen.
+
+    totals = {}
+    assignment_standards = {}
+    standards_free = {}
+    percentanges = {}
+    not_covered = {}
+    ls = []
+    lst = []
+
+    for i in curriculum_filter.qs:
+        [ls.append(k.standard_code) for k in Standard.objects.filter( grade_level=i.grade_level, subject=i.subject,)]
+        totals[i.name] = len(set(ls))
+
+        a = Assignment.objects.filter(curriculum_id=i.id).prefetch_related('standard')
+
+        for j in a:
+            temp = j.get_standards()
+            for t in temp.split('|'):
+                lst.append(t.strip())
+        lst = list(set(lst))
+        lst = [i for i in lst if i != '']
+        not_covered[i.name] = list(set(ls) - set(lst))
+
+        assignment_standards[i.name] = len(lst)
+        try:
+            percentanges[i.name] = int(assignment_standards[i.name]/totals[i.name] * 100)
+        except ZeroDivisionError:
+            percentanges[i.name] = 'Unavailable'
+        lst.clear()
+        ls.clear()
+        standards_free[i.name] = totals[i.name] - assignment_standards[i.name]
+
     template_name = "standards_curriculum_map_view.html"
-    context = {"count_in_these_assignments": count_in_these_assignments,"countofthissubjectandgradelevelstandards": countofthissubjectandgradelevelstandards, "object_list": curriculum_filter.qs[:50],"filter": curriculum_filter, "title": my_title, "standard_count_in_database": standard_count_in_database, "thissubjectandgradelevelstandards":thissubjectandgradelevelstandards, "limited":True}
+    context = {"object_list": curriculum_filter.qs[:50],"filter": curriculum_filter, "title": my_title, "totals": totals, "assignment_standards": assignment_standards, "standards_free": standards_free, "percentanges": percentanges, "not_covered": not_covered, "limited":True}
     return render(request, template_name, context)
+
 
 @login_required
 def create_message(request):
