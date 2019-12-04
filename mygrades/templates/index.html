@@ -62,6 +62,10 @@
       {% load staticfiles %} <img src="{% static 'images/november.jpg' %}" />
       {% endif %}
 
+{% now "F" as todays_month %}
+    {% if todays_month == "December" %}
+      {% load staticfiles %} <img src="{% static 'images/december.jpg' %}" />
+      {% endif %}
 
 {% if user.is_authenticated%}
  {% ifequal user.groups.all.0.name "Teacher" %}
