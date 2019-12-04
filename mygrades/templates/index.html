@@ -64,9 +64,33 @@
 
 
 {% if user.is_authenticated%}
+ {% ifequal user.groups.all.0.name "Teacher" %}
+<center><h2>Grades and MORE</h2>
+<center><h3>Hello!</h3>
+<p></p>
+<h4>You are logged into the Basic Version.</center><div align="left"><p>
+This gives you access to all OAS Standards in an easy search model. </p>
+<p>You also have unlimited access to standards correlated assignments from which you can copy and paste pacing guides.<br/></h4>
+What is the Upgraded version?</p>
+<ul>
+<li>Automatically pull progress from most all websites that you use into one place.</li>
+<li>Your roster is imported into your website for you.</li>
+<li>Your families have their own personal log ins</li>
+<li>Send next week's assignment list directly to the student screen with a CLICK.  The system figures out how many assignments are needed to stay on pace to complete by the ending date that YOU SET.</li>
+<li>System determines the number of gradable assignments for you and prints a report on student's screen.</li>
+<li>View Standards Completion Maps for students.</li>
+<li>Send custom alerts to specific students</li>
+<li>E-mail next week's assignments to families with a CLICK.</li>
+<li>E-mail late assignment reports to families with a CLICK.</li>
+<li>Add curriculum or assignments based on performance or grade level WITH A CLICK!</li>
+</ul>
+<p>Why upgrade? <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Look through this manual to see what you can do with the upgraded version.</a></p>
+<h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
+</div>
 
+{% endifequal %}
 
-{% ifequal user.groups.all.0.name "Teacher" %}
+{% ifequal user.groups.all.0.name "Trial" %}
 
 
 <center><h3>Hello!</h3>
@@ -87,13 +111,40 @@ What is the Upgraded version?</p>
 <li>E-mail late assignment reports to families with a CLICK.</li>
 <li>Add curriculum or assignments based on performance or grade level WITH A CLICK!</li>
 </ul>
-<p>Why upgrade? This is what you can do.<a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Take it for a spin with this tutorial!</a></p>
+<p>Why upgrade? <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Look through this manual to see what you can do with the upgraded version.</a></p>
 <h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
 </div>
 
 
 
 {% endifequal %}
+
+ {% ifequal user.groups.all.0.name "Home" %}
+<center><h2>Grades and MORE</h2>
+<center><h3>Hello Homeschool Family!</h3>
+<p></p>
+<h4>You have found the resource that will change your school environment forever!</center><div align="left"><p>
+You have access to all Oklahoma Academic Standards in an easy search model. </p>
+<p>You also have unlimited access to standards correlated assignments from which you can copy, paste, or click many links.<br/></h4>
+What is the Upgraded version?</p>
+<ul>
+<li>Automatically pull progress from most all websites that you use into one place.</li>
+<li>Your family is imported into your website.</li>
+<li>Your students have their own personal log-ins</li>
+<li>Send assignments directly to the student's screen with a CLICK.  The system figures out how many assignments are needed to stay on pace to complete by the ending date that YOU SET.</li>
+<li>Let the system keep your family on pace!</li>
+<li>View Standards Completion Maps for students.</li>
+<li>Send custom alerts to specific students</li>
+
+<li>Add curriculum or assignments at any grade level WITH A CLICK!</li>
+</ul>
+
+<h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
+</div>
+
+{% endifequal %}
+
+
 
 
 {% ifequal user.groups.all.0.name "Owner" %}
@@ -157,8 +208,7 @@ What is the Upgraded version?</p>
 
   <p><a href="mailto:support@epiccharterschools.org">Contact technical support.</a></p>
 
-  <h4>The Epic School Calendar:</h4>
-<p><iframe src="https://calendar.google.com/calendar/embed?src=epiccharterschools.org_13eh9eja802is2e99c1toue790%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></p>
+
 
 </center>
 {% endifequal %}
@@ -185,7 +235,7 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 <p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/"target = "_blank">Click here.</a></p>
 
 {% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
-<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a><br/>As a GOLD level customer, you may also call us directly at 405-578-5701 whenever you need assistance.</center></div>
+<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a><br/>As a GOLD level customer, you may also call us directly at:<br/>405-578-5701 whenever you need assistance.</center></div>
 
 {% endifequal %}
 
