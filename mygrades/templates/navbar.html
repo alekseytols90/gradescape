@@ -711,6 +711,96 @@ Gradebook
       
       {% endifequal %}
 
+ {% ifequal user.groups.all.0.name "HomeUpgraded" %}
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+  <a class="nav-link" href="/tutorials/">Demo Videos of Upgraded Website</a>
+                <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Pull Last Week's Progress
+            </a>
+            <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+<a class="dropdown-item" href="/api/crawler/Dreambox">Dreambox Minutes Worked</a>
+
+<a class="dropdown-item" href="/api/crawler/Compass">Compass Progress</a>
+<a class="dropdown-item" href="/api/crawler/Reading Eggs">Reading Eggs Lessons Complete</a>
+<a class="dropdown-item" href="/api/crawler/">Reading EggsPress Lessons Complete</a>
+<a class="dropdown-item" href="/api/crawler/">Math Seeds Lessons Complete</a>
+<a class="dropdown-item" href="/api/crawler/MyON">MyON Minutes Read</a>
+<a class="dropdown-item" href="/api/crawler/">MyON Number of Books Read</a>
+                
+<a class="dropdown-item" href="/api/crawler/">SuccessMaker Math Minutes Worked</a><a class="dropdown-item" href="/api/crawler/">SuccessMaker Reading Minutes Worked</a>
+<a class="dropdown-item" href="/api/crawler/">MindPlay Minutes Worked</a>
+ <a class="dropdown-item" href="/api/crawler/">Edmentum Progress</a>
+ <a class="dropdown-item" href="/api/crawler/">Comprehend Progress</a>
+<a class="dropdown-item" href="/api/crawler/">Apex Progress</a>
+<a class="dropdown-item" href="/api/crawler/">Exact Path Progress</a>
+<a class="dropdown-item" href="/api/crawler/">Study Island Progress</a>
+<a class="dropdown-item" href="/api/crawler/">IXL Progress</a>          </div>    </li>
+    
+ <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Pacing        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url "create_weekly_home" %}">Send Next Week's Assignments to Student Screen</a>
+           <a class="dropdown-item" href="{% url "see_late_home" %}">See Late Assignments</a>
+        <a class="dropdown-item" href="/enroll-student">Attach a List of Assignments to Student Pacing</a>
+        <a class="dropdown-item" href="{% url "see_weekly_home" %}">View Your Student's Weekly Assignment List</a>
+        <a class="dropdown-item" href="/curriculum-schedule">View or Change the Curriculum Attached to a Student's Pacing</a>
+        <a class="dropdown-item" href="{% url "see_late_home" %}">See Late Assignments (Upgrade)</a>
+       </li>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Students        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<a class="dropdown-item" href="/roster">See Your Students</a>
+<a class="dropdown-item" href="/contact-all">eMail All of Your Students</a>
+<a class="dropdown-item" href="/students-setup">Set Up a Student</a>
+
+<a class="dropdown-item" href="/curriculum-schedule">View or Change the Assignments in a Curriculum Attached to a Student's Pacing</a>
+        </div>      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Curriculum        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<a class="dropdown-item" href="/curriculum">View Available Curriculum</a>
+
+<a class="dropdown-item" href="/curriculum-map/">See the OAS Standard's Measurement of a Curriculum</a>
+          </div>      </li>
+       <li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Standards        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/standard">View or Search Oklahoma Standards</a>
+          </div>      </li>
+      <li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Assignments        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/assignment">View All Assignments In the System</a>
+           </div>      </li>
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Gradebook
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+ <a class="dropdown-item" href="/grades">View or Edit Gradebook</a>
+<a class="dropdown-item" href="/curriculum-schedule">Manually Record Grades</a>
+
+ <a class="dropdown-item" href="{% url "report_progress_home" %}">Send a Current Progress Report to Student Screen</a>
+<a class="dropdown-item" href="{% url "report_card_home" %}">Send a Final Report Card to Student Screen</a>
+<a class="dropdown-item" href="{% url "see_progress_home" %}">View a Copy of a Student's Progress Report</a>
+<a class="dropdown-item" href="{% url "see_card_home" %}">View a Copy of a Student's Report Card</a>
+        </div>
+      </li>
+      
+      {% endifequal %}
+
+
 
   </ul>
 

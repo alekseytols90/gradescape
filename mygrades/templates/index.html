@@ -89,8 +89,9 @@ What is the Upgraded version?</p>
 <li>Add curriculum or assignments based on performance or grade level WITH A CLICK!</li>
 </ul>
 <p>Why upgrade? <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Look through this manual to see what you can do with the upgraded version.</a></p>
-<h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
+<center><h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
 </div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8ZuLCdCYUS0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 
 {% endifequal %}
 
@@ -116,14 +117,36 @@ What is the Upgraded version?</p>
 <li>Add curriculum or assignments based on performance or grade level WITH A CLICK!</li>
 </ul>
 <p>Why upgrade? <a href="https://docs.google.com/document/d/1_fCUfh1p53noEGq0eikm2x-SJbTbW5IOXWoskqSu2Rg/edit#heading=h.vw5w4sn3b6tb"target = "_blank">Look through this manual to see what you can do with the upgraded version.</a></p>
-<h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
+<center><h2><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</h2>
 </div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8ZuLCdCYUS0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+
+
 
 
 
 {% endifequal %}
 
- {% ifequal user.groups.all.0.name "Home" %}
+ {% ifequal user.groups.all.0.name "HomeUpgraded" %}
+
+<center><h3>Hello and Welcome {{user.first_name}}!</h3>
+<p></p>
+
+<h2>We want you to know we appreciate your commitment to your family as well as your continued business.</h2>
+
+<h4>You have the resource that will change your homeschool environment forever!</center><div align="left"><H5>This website was created by a homeschool mom who just happens to be a certified teacher.  We know the tricks of the trade in traditional education and we also have a tiny passion for software engineering.  Put those two loves together and you get this website - made just for YOU!</H5>
+
+  <p>You have <STRONG>FOREVER UNLIMITED</STRONG> access to all Oklahoma Academic Standards in an easy search model. </p>
+<p>You also have <STRONG>FOREVER UNLIMITED</STRONG> access to standards correlated assignments from which you can copy, paste, or click many links.</p></h4>
+
+<p>Again, welcome to your upgraded site. Thank you for your business!  No question is too small.  Don't ever hesitate to <strong><a href="mailto:tynercreeksoftware@gmail.com">contact us!</strong></a> Feel free to share the video with your fellow homeschool families!</p>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/izDho57VpCE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div></center>
+
+{% endifequal %}
+
+{% ifequal user.groups.all.0.name "Home" %}
 
 <center><h3>Hello and Welcome!</h3>
 <p></p>
@@ -144,13 +167,13 @@ You have no obligation to upgrade and you will never be required to upgrade.  Bu
 
 <li>Add curriculum or assignments at any grade level WITH A CLICK!</li>
 </ul>
-
-<strong><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</strong>
+<center>
+<p><strong><a href="mailto:tynercreeksoftware@gmail.com">Ask about Upgrading</a></strong></p>
 </div>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/izDho57VpCE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
 {% endifequal %}
-
-
 
 
 {% ifequal user.groups.all.0.name "Owner" %}
@@ -241,7 +264,11 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 <p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/"target = "_blank">Click here.</a></p>
 
 {% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
-<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a><br/>As a GOLD level customer, you may also call us directly at:<br/>405-578-5701 whenever you need assistance.</center></div>
+<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a><br/>As a GOLD level customer, you may also call us directly at:<br/>405-578-5701 whenever you need assistance.
+
+<center><h5>Share With Your Friends</h5>
+</div>
+<iframe width="300" height="150" src="https://www.youtube.com/embed/8ZuLCdCYUS0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 
 {% endifequal %}
 
@@ -264,7 +291,11 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 <p>Do you need a student added? That's EXACTLY why we're here!<a href="/students-setup/"target = "_blank">Click here.</a></p>
 
 {% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
-<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a></center></div>
+<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a>
+
+<center><h5>Share With Your Friends</h5>
+</div>
+<iframe width="300" height="150" src="https://www.youtube.com/embed/8ZuLCdCYUS0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 
 {% endifequal %}
 
@@ -282,7 +313,11 @@ NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING
 NO OTHER PERSON has access or knows about it.  <br/><br/>NO ONE can see ANYTHING on this site, unless you share your log-in information</p>
 
 {% load staticfiles %} <img src="{% static 'images/tynercreeksoftwarewhitebackground.jpg' %}" width= "200px" />
-<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a></center></div>
+<div font=4, align='center', color='grey', style = 'italics'> You have a fulltime custom software designer for your website.  YOUR satisfaction is important.  For ANY problems at all, <a href="mailto:tynercreeksoftware@gmail.com">simply send a message!</a>
+
+<center><h5>Share With Your Friends</h5>
+</div>
+<iframe width="300" height="150" src="https://www.youtube.com/embed/8ZuLCdCYUS0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 
 {% endifequal %}
 
