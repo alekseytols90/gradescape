@@ -20,7 +20,7 @@ No assignments.
 <a class="btn btn-primary btn-lg" href="{% url "send_plp_email" student_pk=object.pk %}" role="button">EMail PLP to Principal</a><br/><br/>
 {% endif %}
 
-<h3>Teacher: {{teacher.first_name}} {{teacher.last_name}}
+<p>Teacher: {{student.teacher.first_name}} {{teacher.last_name}}</p>
 
 {% for cur in as_list %}
 <table class="table table-striped table-bordered">

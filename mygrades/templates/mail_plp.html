@@ -1,6 +1,9 @@
 {% regroup assignments|dictsort:"cur_pk" by cur_pk as as_list %}
 <div class='col-80 col-md-100 mb-1 mx-auto'>
     <strong>{{student.get_full_name}}'s PLP For This Week</strong><p></p>
+    <p>Epic Teacher: {{teacher.first_name}} {{teacher.last_name}}</p>
+
+Here are the lessons and standards that {{student.get_full_name}} will be working on this week.
 
     {% for cur in as_list %}
     <div class='card'>

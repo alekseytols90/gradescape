@@ -1775,8 +1775,10 @@ def see_plp_detail(request, student_pk):
 def send_plp_email(request, student_pk):
     if request.user.groups.filter(name="Owner").count() > 0:
         student = get_object_or_404(Student, pk=student_pk)
+        teacher = get_object_or_404(Teacher, email=request.user.email)
     else:
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+        teacher = get_object_or_404(Teacher, email=request.user.email)
     assignments = StudentAssignment.objects.filter(student=student, status='Assigned') #, shown_in_weekly=True)
 
     data = [] 
@@ -1791,7 +1793,7 @@ def send_plp_email(request, student_pk):
     teacher.principal_email]
 
     text_content = 'A PLP for this week are below.  You may need to open this in a different browser if you do not see it here. '
-    html_content = render_to_string('mail_plp.html', context={'assignments':data, 'student':student})
+    html_content = render_to_string('mail_plp.html', context={'assignments':data, 'student':student, 'teacher':teacher})
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
