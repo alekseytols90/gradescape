@@ -1786,7 +1786,7 @@ def send_plp_email(request, student_pk):
         standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
         if standards == "":
             standards = "-"
-        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
+        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'grade_level':asm.assignment.curriculum.grade_level, 'subject':asm.assignment.curriculum.subject,'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
     
     teacher = get_object_or_404(Teacher, email=request.user.email)
     subject, from_email, to = "%s's PLP for This Week" % student.get_full_name(), 'yourschoolwebsitedonotreply@gmail.com', [

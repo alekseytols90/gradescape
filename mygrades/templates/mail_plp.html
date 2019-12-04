@@ -8,11 +8,12 @@ Here are the lessons and standards that {{student.get_full_name}} will be workin
     {% for cur in as_list %}
     <div class='card'>
       <div class = 'card-title'>
-          <h3>{{cur.list.0.curriculum}}</h3>
+          <h3>Curriculum: {{cur.list.0.curriculum}}<br/>
+          Grade level: {{cur.list.0.grade_level}}, Subject: {{cur.list.0.subject}}</h3>
       </div>
       <div class='card-body'>
         {% for item in cur.list %}
-        {{ item.title }}<br/>
+        {{ item.title }}, {{item.grade_level}}, {{item.subject}}<br/>
          <small>Standards: {{ item.standards }}</small><br/>
         {{ item.detail }}<br/>
         <br/>
