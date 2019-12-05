@@ -850,14 +850,14 @@ def student_upload(request):
     for column in csv.reader(io_string, delimiter=',', quotechar='"'):
         birthdate = clear_field(column[8])
     
-	if birthdate != "":
-		try:
-		    birthdate = datetime.datetime.strptime(birthdate, "%m/%d/%Y").date()
-		except Exception:
-		    birthdate = None
-		    messages.warning(request, "Warning: row %d has a bad birthday format, so it's ignored during the upload." % count) 
-	else:
-	    birthdate = None
+        if birthdate != "":
+            try:
+                birthdate = datetime.datetime.strptime(birthdate, "%m/%d/%Y").date()
+            except Exception:
+                birthdate = None
+                messages.warning(request, "Warning: row %d has a bad birthday format, so it's ignored during the upload." % count) 
+        else:
+            birthdate = None
 
         _, created = Student.objects.update_or_create(
             epicenter_id=clear_field(column[7]),
@@ -871,9 +871,9 @@ def student_upload(request):
                 'grade':clear_field(column[6]),
                 'birthdate':birthdate,
                 'teacher_email':clear_field(column[9]),
-            	'goog_calendar': clear_field(column[10]),
+                'goog_calendar': clear_field(column[10]),
             }
-	count += 1
+        count += 1
 
     return redirect("/")
 
@@ -1083,8 +1083,8 @@ def standard_update_view(request, id):
     obj = get_object_or_404(Standard, id=id)
     form = StandardSetupForm(request.POST or None, instance=obj)
     if request.method == "POST":
-    	if form.is_valid():
-	    form.save()
+        if form.is_valid():
+            form.save()
     template_name = "form.html"
     context = {"title": f"Change Information for: {obj.standard_code}", "form": form}
     return render(request, template_name, context)
@@ -2208,9 +2208,9 @@ def grades_record_manual(request, enrollment_pk):
         ask_overwrite = True
         if request.GET.get('overwrite','') == '1':
             data_copy = form.cleaned_data.copy()
-	    del data_copy['required_desc']
+            del data_copy['required_desc']
             del data_copy['grade']  # delete whatever will be modified
-	    del data_copy['complete']  # delete whatever will be modified
+            del data_copy['complete']  # delete whatever will be modified
             instance = GradeBook.objects.get(**data_copy)
             for key,value in form.cleaned_data.items():
                 setattr(instance,key,value)
@@ -2290,7 +2290,7 @@ def grades_delete_view(request, id):
         student = get_object_or_404(Student, pk=gradebook.student.pk, teacher_email=request.user.email)
 
     if request.method == "POST":
-    	gradebook.delete()
+        gradebook.delete()
         return redirect("/grades")
 
     context = {"gradebook": gradebook, "student":student}
