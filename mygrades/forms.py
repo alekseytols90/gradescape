@@ -694,7 +694,7 @@ class StudentAssignmentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(StudentAssignmentForm, self).__init__(*args, **kwargs)
         if self.instance.pk != None:
-            standards = ",".join(self.instance.assignment.standard.all().values_list("standard_code",flat=True))
+            standards = ", ".join(self.instance.assignment.standard.all().values_list("standard_code",flat=True))
             self.fields['desc'].initial = self.instance.assignment.name + "<br/><small>" + standards + "<br/>" + self.instance.assignment.description + "</small>"
 
 
