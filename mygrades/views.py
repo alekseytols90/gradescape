@@ -872,7 +872,7 @@ def student_upload(request):
                 'birthdate':birthdate,
                 'teacher_email':clear_field(column[9]),
                 'goog_calendar': clear_field(column[10]),
-            }
+            })
         count += 1
 
     return redirect("/")
@@ -1415,7 +1415,7 @@ def create_weekly_step2(request, semester):
                 'assignment':assignment,
                 'new_status':'Assigned', 
                 'assignment_description': assignment.assignment.name +"<br/><small>Standards: " + standards + "<br/>" + assignment.assignment.description + "</small>"})
-+
+
     StatusChangeFormset = formset_factory(StatusChangeForm, extra=0, can_delete=False)
     formset = StatusChangeFormset(request.POST or None, initial=initial)
 
@@ -1508,7 +1508,7 @@ def report_progress_step3(request, asem, quarter, sem):
 
     data = []
     for student in student_filter.qs: 
-        data.append({"student":student}
+        data.append({"student":student})
         
     # generate form
     initial = []
@@ -2230,7 +2230,7 @@ def grades_record_manual_edit(request, gradebook_pk):
     else:
         gradebook = get_object_or_404(GradeBook, pk=gradebook_pk, student__teacher_email=request.user.email)
 
-    form = RecordGradeManualForm(request.POST or None, instance=gradebook,enrollment=gradebook.get_enrollment()))
+    form = RecordGradeManualForm(request.POST or None, instance=gradebook,enrollment=gradebook.get_enrollment())
     if form.is_valid():
         form.cleaned_data['student'] = gradebook.student # ensure for security
         m = form.save()
