@@ -9,32 +9,32 @@
 {% if user.is_authenticated%}
 
  {% ifequal user.groups.all.0.name "Teacher" %}<p>
-There is a "parent taught" online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
+There is a parent taught online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
 {% endifequal %}
 
 
 
  {% ifequal user.groups.all.0.name "Gold" %}<p>
-There is a "parent taught" online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
+There is a parent taught online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
 {% endifequal %}
 
 
  {% ifequal user.groups.all.0.name "Silver" %}<p>
-There is a "parent taught" online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
+There is a parent taught online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
 {% endifequal %}
 
 
 
  {% ifequal user.groups.all.0.name "Bronze" %}<p>
-There is a "parent taught" online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
+There is a parent taught online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
 {% endifequal %}
 
 {% ifequal user.groups.all.0.name "Owner" %}<p>
-There is a "parent taught" online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
+There is a parent taught online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
 {% endifequal %}
 
 {% ifequal user.groups.all.0.name "Student" %}<p>
-There is a "parent taught" online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
+There is a parent taught online Driver's Education.  It is not free. The learning fund will pay for a driver's education curriculum for high school credit.  </p>
 {% endifequal %}
 
 {% endif %}
@@ -46,7 +46,7 @@ There is a "parent taught" online Driver's Education.  It is not free. The learn
 
 <p>Before you can obtain a driver's permit, for either option, you will need to <a href="https://www.ok.gov/dps/documents/parent_taught.pdf" target="_blank">complete this parent affidavit.</a></p>
 
-<p>E-mail the completed affidavit to <a href="mailto:parent@dps.ok.gov">parent@dps.ok.gov</a> and they will stamp it.  You must take this stamped affidavit with you to take the written test.</p>
+<p>E-mail the completed affidavit to <a href="mailto:parent@dps.ok.gov"target="_blank">parent@dps.ok.gov</a> and they will stamp it.  You must take this stamped affidavit with you to take the written test.</p>
 
 {% load staticfiles %} <img src="{% static 'images/driversed.jpg' %}"/>
 {% endblock %}

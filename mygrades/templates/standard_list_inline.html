@@ -19,7 +19,8 @@
       Strand-{{object.strand}}<br/>
       Strand Description-{{object.strand_description}}<br/>
       Objective Number-{{object.objective_number}}<br/>
-      Objective Description-<i><strong>{{object.objective_description}}</strong></i><br/>PDF Link to State Department: {{object.PDF_link}}</div>
+      Objective Description-<i><strong>{{object.objective_description}}</strong></i><br/>
+    PDF Link to State Department:<a href='{{object.PDF_link}}'>{{object.PDF_link}}</a></div>
 
 
 {% ifequal user.groups.all.0.name "Owner" %}

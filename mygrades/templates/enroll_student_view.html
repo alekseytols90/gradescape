@@ -2,7 +2,7 @@
 
 {% block content %}
 <h3 align="center">Student Curriculum</h3>
-<b>Please choose a student and semester in order to begin selecting curriculum.</b>
+<b>Please choose a student and year in order to begin selecting curriculum.</b>
 <br/><br/>
 <form method="get">
     {{ filter.form.as_p }}
@@ -51,7 +51,7 @@
         </span>
     </div>
     <br/>
-    Academic Year and Semester:
+    Academic Year:
     <select name="semester" required>
         <option value=""> ----- </option>
         {% for option in semester_options %}
