@@ -106,9 +106,7 @@ class CurriculumFilter(django_filters.FilterSet):
     grade_level = django_filters.CharFilter(
         lookup_expr="icontains", label="Grade Level"
     )
-    recorded_from = django_filters.CharFilter(
-        lookup_expr="icontains", label="Manual or Automatic?"
-    )
+
 
     class Meta:
         model = Curriculum
