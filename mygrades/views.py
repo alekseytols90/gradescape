@@ -1411,6 +1411,10 @@ def create_weekly_step2(request, semester):
         students.append({"pk":change["student"].pk, "name":change["student"].get_full_name(), "curriculums":change["curriculums"]})
         
         for assignment in change["assignments"]:
+            standards = ",".join(assignment.assignment.standard.all().values_list("standard_code",flat=True))
+            if standards == "":
+                standards = "-"
+
             initial.append({
                 'assignment':assignment,
                 'new_status':'Assigned', 
