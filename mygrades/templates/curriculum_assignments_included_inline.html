@@ -17,7 +17,8 @@
                 Standards Covered:{% for standard in assignment.standard.all %} {{standard.standard_code}}, 
                 {% endfor %}
                 <br/>
-                Instructions or Link: {{assignment.description}}<br/>
+                Instructions or Link: <a href = "{{assignment.description}}">{{assignment.description}}</a>
+                  <br/>
           
            {% ifequal user.groups.all.0.name "Owner" %}
   
