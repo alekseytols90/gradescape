@@ -333,9 +333,9 @@ def send_pacing_guide(request):
         first_name = form.cleaned_data["student"].first_name
         last_name = form.cleaned_data["student"].last_name
 
-        subject, from_email, to = 'Your Assignments For This Week', 'yourepiconline@gmail.com', [
+        subject, from_email, to = 'Your Assignments For This Week', 'yourschoolwebsitedonotreply@gmail.com', [
             form.cleaned_data["student"].email, form.cleaned_data["student"].additional_email]
-        text_content = 'Your most updated list of weekly assignments.  You may need to open this in a different browser if you do not see it here. '
+        text_content = 'Your assignments for this week.  You may need to open this in a different browser if you do not see it here. '
         html_content = render_to_string('mail_pacing_guide.html', context=form.cleaned_data)
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
@@ -470,7 +470,7 @@ def crawler(request, site_name=None):
         # - week is already has data, needs confirmation
         if ask_for:
             template_name = "report_page_ask.html"
-            messages.info(request, "While we've written the gradebooks for what we could, following student grades has to be resolved in order to continue saving them.")
+            messages.info(request, "We've saved some information to the gradebook, but some grades have to be resolved in order to continue saving them.")
 
             # template is responsible for making an exact POST request with change suggestions
             context = {"ask_for":ask_for}
@@ -508,7 +508,7 @@ def crawler(request, site_name=None):
         response = get_my_on_data()
     elif site_name == 'all':
         response = get_all_data()
-    elif site_name == 'Dreambox-minutes':
+    elif site_name == 'dreambox-minutes':
         response = get_dreambox_minutes()
     else:
         response = {"status_code": "204", 'message': "Site not handled, Invalid URL"}
@@ -891,7 +891,7 @@ def student_setup_view(request):
             "Student Setup Confirmation",
             "You successfully registered {0} {1} in your online system.\nHere is what was received: \nEpicenter "
             "ID: {2} \neMail: {3} \nPhone: {5} \nAlternate eMail: {4} \nAlternate Phone: {6} \nStudent is Enrolled in "
-            "Grade: {7}\nThe next step is to add some curriculums for grade tracking and pacing guides.".format(
+            "Grade: {7}\nThe next step is to attach some curriculums for grade tracking and assignment lists.".format(
                 form.cleaned_data["first_name"], form.cleaned_data["last_name"], form.cleaned_data["epicenter_id"],
                 form.cleaned_data["email"], form.cleaned_data["additional_email"], form.cleaned_data["phone_number"],
                 form.cleaned_data["additional_phone_number"], form.cleaned_data["grade"],
@@ -1026,7 +1026,7 @@ def curriculum_detail_view(request, id):
 
 @login_required
 def curriculum_list_view(request):
-    my_title = "Curriculum Choices - Missing One? Look on Your Home Page!"
+    my_title = "Curriculum Available"
     form =  CurriculumViewForm()
     template_name = "curriculum_list_view.html"
     context = {"title": my_title, "form":form}
@@ -1103,7 +1103,7 @@ def standard_delete_view(request, id):
 
 @login_required
 def assignment_create_view(request):
-    my_title = "Setup a New Assignment"
+    my_title = "Create a New Assignment"
     form = AssignmentCreateForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -1114,7 +1114,7 @@ def assignment_create_view(request):
 
 @login_required
 def student_assignment_list_view(request,sid,cid):
-    my_title = "Student Curriculum Assignment Detail"
+    my_title = "Student Curriculum - Assignment Detail"
     student = get_object_or_404(Student, pk=sid)
     curriculum = get_object_or_404(Curriculum, pk=cid)
     assignments = StudentAssignment.objects.filter(student=student, assignment__curriculum=curriculum)
@@ -1286,13 +1286,13 @@ def enroll_delete(request, enrollment_pk):
 
     if subject != 'Other' and enrollment.level == "Core" and Enrollment.objects.filter(student=student, academic_semester=sem, curriculum__subject=subject).count() > 1:
 
-       messages.error(request,mark_safe("Hey, wait Teacher, %s is %s's CORE curriculum. It is setting her pace. If you want delete it, first choose another CORE on this page first for subject %s." % (enrollment.curriculum.name,student.get_full_name(), subject)))
+       messages.error(request,mark_safe("%s is %s's CORE curriculum. It is setting his or her pace. If you want delete it, first choose another CORE on this page for %s." % (enrollment.curriculum.name,student.get_full_name(), subject)))
        return redirect(reverse("curriculum-schedule-detail", args=[student.pk]))
 
     enrollment.delete()
     distribute_weights_for_sem(student, sem, subject)
-    messages.success(request, "Deleted enrollment %s and all its assignments successfuly. " % (enrollment,))
-    messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[sem, student.pk, subject]),)))
+    messages.success(request, "You deleted enrollment %s and all its assignments successfuly. " % (enrollment,))
+    messages.info(request, mark_safe("Weights were automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[sem, student.pk, subject]),)))
     return redirect(reverse("curriculum-schedule-detail", args=[student.pk]))
 
 @login_required
@@ -1307,7 +1307,7 @@ def weight_edit_view(request, semester, student_pk, subject):
         formset = WFSet(request.POST, queryset=qs)
         if formset.is_valid():
             formset.save()
-            messages.info(request, "You successfuly set the weights for that student and subject!")
+            messages.info(request, "You successfuly set the weights!")
 
     template_name = "weight_form.html"
     context = {"formset": formset, "student":student, "semester":semester, "subject":subject}
@@ -1340,7 +1340,7 @@ def create_weekly_step2(request, semester):
             for form in formset.forms:
                 form.save()
 
-            messages.success(request, "All assignments are updated on the student screen.")
+            messages.success(request, "All assignments were updated on the student screen.")
 
             return redirect('/')
 
@@ -1430,7 +1430,7 @@ def create_weekly_step2(request, semester):
                 'assignment': form.initial['assignment'],
                 'new_status': form.initial['new_status']}
             form.save()
-        messages.success(request, "All assignments marked as assigned are now showing on the student screen. You may always re-generate a new list.")
+        messages.success(request, "All assignments marked as assigned are now showing on the student screen. You may send a new list at anytime to update.")
         return redirect('/')
 
     context = {"formset": formset, "students":students}
@@ -1507,7 +1507,7 @@ def report_progress_step3(request, asem, quarter, sem):
             for form in formset.forms:
                 form.save(asem=asem,quarter=quarter,semester=sem)
 
-            messages.success(request, "All reports are sent to the student screen.")
+            messages.success(request, "All reports were sent to the student screen.")
             return redirect('/')
 
     data = []
@@ -1635,7 +1635,7 @@ def report_card_step3(request, asem, quarter, sem):
             for form in formset.forms:
                 form.save(asem=asem,quarter=quarter,semester=sem)
 
-            messages.success(request, "All reports are sent to the student screen.")
+            messages.success(request, "All reports were sent to the student screen.")
             return redirect('/')
 
     ReportCardFormset = formset_factory(ReportCardForm, extra=0, can_delete=False)
@@ -1842,13 +1842,13 @@ def send_plp_email(request, student_pk):
     subject, from_email, to = "%s's PLP for This Week" % student.get_full_name(), 'yourschoolwebsitedonotreply@gmail.com', [
     teacher.principal_email]
 
-    text_content = 'A PLP for this week are below.  You may need to open this in a different browser if you do not see it here. '
+    text_content = 'A PLP for this week is below.  You may need to open this in a different browser if you do not see it here. '
     html_content = render_to_string('mail_plp.html', context={'assignments':data, 'student':student, 'teacher':teacher})
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
-    messages.success(request, "%s's PLP was sent to your principal's email!" % student.get_full_name())
+    messages.success(request, "%s's PLP was sent to the principal's email listed for you in the system!" % student.get_full_name())
     return redirect(reverse("see_plp_detail", args=[student.pk]))
 
 
@@ -2007,9 +2007,9 @@ def send_weekly_email(request, student_pk):
             standards = "-"
         data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
 
-    subject, from_email, to = "%s's Assignments for This Week" % student.get_full_name(), 'yourepiconline@gmail.com', [
+    subject, from_email, to = "%s's Assignments for This Week" % student.get_full_name(), 'yourschoolwebsitedonotreply@gmail.com', [
     student.email, student.additional_email]
-    text_content = 'Your most updated list of weekly assignments.  You may need to open this in a different browser if you do not see it here. '
+    text_content = 'Your weekly assignment list is included.  You may need to open this in a different browser if you do not see it here. '
     html_content = render_to_string('mail_weekly_assignments.html', context={'assignments':data, 'student':student})
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
@@ -2032,9 +2032,9 @@ def send_late_email(request, student_pk):
     for asm in assignments:
         data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk})
 
-    subject, from_email, to = "%s's Late Assignments As Of: %s" % (student.get_full_name(),timezone.now().date()), 'yourepiconline@gmail.com', [
+    subject, from_email, to = "%s's Late Assignments As Of: %s" % (student.get_full_name(),timezone.now().date()), 'yourschoolwebsitedonotreply@gmail.com', [
     student.email, student.additional_email]
-    text_content = 'Your most updated list of late assignments.  You may need to open this in a different browser if you do not see it here. '
+    text_content = 'Your list of late assignments is included.  You may need to open this in a different browser if you do not see it here. '
     html_content = render_to_string('mail_late_assignments.html', context={'assignments':data, 'student':student})
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
@@ -2054,9 +2054,9 @@ def send_progress_email(request, report_pk):
     else:
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
 
-    subject, from_email, to = "%s's Progress Report As Of: %s" % (student.get_full_name(),report.updated), 'yourepiconline@gmail.com', [
+    subject, from_email, to = "%s's Progress Report As Of: %s" % (student.get_full_name(),report.updated), 'yourschoolwebsitedonotreply@gmail.com', [
     student.email, student.additional_email]
-    text_content = 'Your most updated progress report. You may need to open this in a different browser if you do not see it here. '
+    text_content = 'Your most recent progress report is included. You may need to open this in a different browser if you do not see it here. '
     start_week = (int(report.quarter)-1)*9+1  #TODO: move to the report data
     html_content = render_to_string('mail_report_progress.html', context={'report':report, 'object':student,"weeks": range(start_week,start_week+9)})
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
@@ -2077,9 +2077,9 @@ def send_card_email(request, report_pk):
     else:
         student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
 
-    subject, from_email, to = "%s's Report Card" % (student.get_full_name(),), 'yourepiconline@gmail.com', [
+    subject, from_email, to = "%s's Report Card" % (student.get_full_name(),), 'yourschoolwebsitedonotreply@gmail.com', [
     student.email, student.additional_email]
-    text_content = 'Your most recent report card. You may need to open this in a different browser if you do not see it here. '
+    text_content = 'Your most recent report card is included. You may need to open this in a different browser if you do not see it here. '
     html_content = render_to_string('mail_report_card.html', context={'report':report, 'object':student})
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
@@ -2168,9 +2168,9 @@ def process_gradable_step2(request,asem,quarter,week,sem):
     if request.method == 'POST':
         if formset.is_valid():
             formset.save() 
-            messages.success(request, "Successfuly saved the total gradable assignments for given students for academic year %s and semester, quarter and week: %s/%s/%s" % (asem, quarter, week, sem))
+            messages.success(request, "Successfuly saved the attendance report (gradable assignments) for academic year %s and semester, quarter and week: %s/%s/%s" % (asem, quarter, week, sem))
             if formset.alert_email_sent:
-                messages.warning(request, "Be aware that an email was sent to students that have not completed a gradable assignment in two weeks or longer notifying them they are at risk of truancy.")
+                messages.warning(request, "Be aware that an email was sent to students that have not completed a gradable assignment in two weeks or longer notifying them they are at risk of truancy.  You may wish to follow up on that message.")
             return redirect(reverse('process_gradable'))
 
     template_name = "student_gradable_step2.html"
