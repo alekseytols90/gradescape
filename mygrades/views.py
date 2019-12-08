@@ -1857,10 +1857,7 @@ def see_weekly_home(request):
         student = get_object_or_404(Student, email=request.user.email)
         return redirect(reverse("see_weekly_detail", args=[student.pk]))
 
-    if request.user.groups.filter(name="Owner").count() > 0:
-        qs = Student.objects.all()
-    else:
-        qs = Student.objects.filter(teacher_email=request.user.email)
+    qs = Student.objects.filter(teacher_email=request.user.email)
 
     student_filter = StudentFilter(request.GET, queryset=qs)
 
