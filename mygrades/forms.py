@@ -324,7 +324,7 @@ class CurriculumEnrollmentForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         cur = cleaned_data['curriculum']
-        semester = cleaned_data['academic_semester']
+        semester = cleaned_data.get('academic_semester','')
         student = cleaned_data['student']
         subject = cur.subject
 
@@ -346,7 +346,7 @@ class CurriculumEnrollmentForm(forms.ModelForm):
             if self.initial["level"] == "Core" and cleaned_data["level"] == "Supplemental":
                 self.add_error(None, mark_safe("%s is %s's CORE curriculum. This sets the pacing of assignments. If you wish to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
 
-        recorded_from = cleaned_data['recorded_from']
+        recorded_from = cleaned_data.get('recorded_from','')
         username = cleaned_data['username']
         password = cleaned_data['password']
         loginurl = cleaned_data['loginurl']

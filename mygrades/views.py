@@ -17,7 +17,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.core.validators import URLValidator
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.db.models import Q
 from django.forms import formset_factory
 from django.forms import inlineformset_factory
@@ -875,6 +875,127 @@ def student_upload(request):
             })
         count += 1
 
+    return redirect("/")
+
+@login_required
+def enrollment_upload(request):
+    template = "enrollment_upload.html"
+    prompt = {
+        'order': "The columns should be: Academic Year, Epicenter ID, Grade, Subject, Curriculum Name, Level, Gradassign, Semesterend, Required Each Week, Pacing Method, Record How?, Username, Password, URL With Data" 
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, "Only CSV files may be uploaded.")
+        return render(request, template)
+
+    data_set = ""
+    try:
+        data_set = csv_file.read().decode("UTF8")
+    except Exception as e:
+        csv_file.seek(0)
+        data_set = csv_file.read().decode("ISO-8859-1") 
+
+    io_string = io.StringIO(data_set)
+
+    # header count check
+    header = next(io_string)
+    header_clean = [x for x in  header.split(',') if not x in ['','\r\n','\n']]
+    if len(header_clean) != 14:
+        messages.error(request, "Make sure header consists of 14 elements. %s" % prompt['order'])
+        return render(request, template)
+
+    count = 1
+    for column in csv.reader(io_string, delimiter=',', quotechar='"'):
+        semesterend_str = clear_field(column[7])
+        semesterend = None
+    
+        if semesterend_str != "":
+            try:
+                semesterend = datetime.datetime.strptime(semesterend_str, "%m/%d/%Y").date()
+            except Exception:
+                semesterend = None
+                messages.error(request, "Error: row %d has a bad semesterend format, all enrollments are rejected." % count) 
+                transaction.set_rollback(True)
+                return render(request, template)
+        else:
+            semesterend = None
+
+        academic_year = clear_field(column[0])
+        epicenter_id = clear_field(column[1])
+        grade = clear_field(column[2])
+        subject = clear_field(column[3])
+        cur_name = clear_field(column[4])
+        level = clear_field(column[5])
+        gradassign = clear_field(column[6])
+
+        try:
+            min_required = int(clear_field(column[8]))
+        except Exception as e:
+            min_required = None 
+
+        is_min_required = False
+        if min_required != None and min_required > 0:
+            is_min_required = True 
+
+        pacing_method = clear_field(column[9]) 
+        record = clear_field(column[10]) 
+        username = clear_field(column[11]) 
+        password = clear_field(column[12]) 
+        url = clear_field(column[13]) 
+
+        try:
+            student = Student.objects.get(epicenter_id=epicenter_id)
+        except Exception:
+            messages.error(request, "Error: student in row %d is not found, all enrollments are rejected." % count)
+            transaction.set_rollback(True)
+            return render(request, template)
+
+        try:
+            curriculum = Curriculum.objects.get(name=cur_name, subject=subject, grade_level=grade)
+        except Exception:
+            messages.error(request, "Error: curriculum in row %d is not found, all enrollments are rejected." % count) 
+            transaction.set_rollback(True)
+            return render(request, template)
+
+        data = {'subject': subject, 
+                'grade_level': grade,
+                'curriculum': curriculum.pk,
+                'tracking': pacing_method,
+                'is_min_required': 'on' if is_min_required else 'off',
+                'required': '' if not is_min_required else str(min_required),
+                'semesterend': semesterend_str,
+                'level': level,
+                'gradassign': gradassign,
+                'recorded_from': record,
+                'username': username,
+                'password': password,
+                'loginurl': url,
+                'student': student.pk,
+                'academic_semester': academic_year,
+                'enroll': 'Enroll'}
+
+        cqs = Curriculum.objects.all()
+        form = CurriculumEnrollmentForm(data, student_pk=student.pk, curriculum_qs=cqs, initial={"student":student, "academic_semester":academic_year, "curriculum":curriculum, "is_min_required":is_min_required})
+
+        if form.is_valid():
+            form.save()
+        else:
+            messages.error(request, "Error: enrollment in row %d is not valid. All enrollments are rejected until following issues has ben resolved for the row.<br/><br/>" % count)
+            messages.error(request, "Student: %s" % student.get_full_name())
+            messages.error(request, "Curriculum: %s" % cur_name)
+            messages.error(request, "Academic Year: %s" % academic_year)
+            if '__all__' in form.errors:
+                form.errors['General'] = form.errors.pop('__all__')
+            messages.error(request, form.errors)
+            transaction.set_rollback(True)
+            return render(request, template)
+
+        count += 1
+    
+    messages.info(request, "All enrollments uploaded successfully!") 
     return redirect("/")
 
 
