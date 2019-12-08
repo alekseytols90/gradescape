@@ -331,12 +331,17 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         if not self.instance.pk:
             core_enrollment = Enrollment.objects.filter(student=student, academic_semester=semester, curriculum__subject=subject, level="Core")
 
-            if cleaned_data['level'] == "Core":
-                if core_enrollment.count() > 0:
-                    self.add_error(None, "A CORE enrollment already exist for subject \"%s\".  Only one CORE is allowed, as it determines the pacing of other curriculum." % subject)
-            else: #supplemental
-                if core_enrollment.count() == 0:
-                    self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+            if subject == 'Other':
+                if cleaned_data['level'] == "Supplemental":
+                    self.add_error(None, "Enrollments with subject \"Other\" must be always Core.")
+            else:
+                if cleaned_data['level'] == "Core":
+                    if core_enrollment.count() > 0:
+                        self.add_error(None, "A CORE enrollment already exist for subject \"%s\".  Only one CORE is allowed, as it determines the pacing of other curriculum." % subject)
+                else: #supplemental
+                    if core_enrollment.count() == 0:
+                        self.add_error(None, "First enrollment must be core for subject \"%s\"." % subject)
+
         else:
             if self.initial["level"] == "Core" and cleaned_data["level"] == "Supplemental":
                 self.add_error(None, mark_safe("%s is %s's CORE curriculum. This sets the pacing of assignments. If you wish to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
@@ -351,6 +356,7 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         required = cleaned_data['required']
         if is_min_required and required == None: 
             self.add_error(None, "You must enter a value for the minimum amount of lessons, minutes, or number required because you checked the box to tell the system this enrollment has a minimum requirement.")
+
 
     def save(self):
         m = super(CurriculumEnrollmentForm, self).save(commit=True)
