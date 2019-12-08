@@ -964,7 +964,7 @@ def enrollment_upload(request):
                 'grade_level': grade,
                 'curriculum': curriculum.pk,
                 'tracking': pacing_method,
-                'is_min_required': 'on' if is_min_required else 'off',
+                'is_min_required': 'on' if is_min_required else '',
                 'required': '' if not is_min_required else str(min_required),
                 'semesterend': semesterend_str,
                 'level': level,
@@ -1346,7 +1346,6 @@ def enroll_student_step2(request, semester, student_pk):
         if form.is_valid():
             form.save()
             messages.info(request, "You successfuly added %s to %s's gradebook!" % (form.instance.curriculum, student))
-            messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
             if form.cleaned_data['subject'] != 'Other':
                 messages.info(request, mark_safe("Weights are automatically evenly distributed per subject %s.  You may edit the weights <a href=\"%s\" target=\"_blank\">here.</a>" % (subject, reverse('weight_edit_view', args=[semester, student.pk, subject]),)))
 
