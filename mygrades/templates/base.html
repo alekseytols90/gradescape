@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
     <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
@@ -17,6 +18,10 @@
     <h1 style="text-align:center">{{title}}</h1>
 </head>
 <body>
+
+<div id="banner-msg" class="d-none"><span id="banner-msg-box"></span>
+    <button id="banner-close" class="close" aria-hidden="true">&times</button></div>
+
 {% include 'navbar.html' %}
 <div class='container'>
     {% if messages %}
@@ -61,6 +66,14 @@
             // $( "#id_date_of_birth" ).datepicker();
         } );
 
+    var match = /\?messages=(.+?)(?:&|\?|$)/.exec(window.location.href);
+    if (match && match.length >= 2) {
+        var message = decodeURIComponent(match[1]);
+        $('#banner-msg-box').html(message);
+        $('#banner-msg').removeClass('d-none');
+    }
+
+    $('#banner-close').click(function () {$('#banner-msg').addClass('d-none')});
 
 </script>
 {% block custom_scripts %}
