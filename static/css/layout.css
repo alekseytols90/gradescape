@@ -1,0 +1,22 @@
+#banner-msg {
+    width: 100%;
+    top: 0;
+    line-height: 30px;
+    height: 30px;
+    background-color: #5b9e00;
+    position: fixed;
+    color: #d3f9ad;
+    text-align: center;
+}
+
+#banner-close {
+    position: fixed;
+    right: 1%;
+    top: -5px;
+    font-size: xx-large;
+    background-color: inherit;
+    border: none;
+    height: inherit;
+    margin: auto;
+    color: inherit;
+}
