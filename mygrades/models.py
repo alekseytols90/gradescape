@@ -1,6 +1,7 @@
 import json
 import os
 
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
@@ -357,7 +358,7 @@ class StudentAssignment(models.Model):
     registered_datetime = models.DateTimeField(auto_now=True)
     submission_date = models.DateTimeField(null=True, blank=True)
 
-    path = os.path.join(os.environ['TEMP'], 'user-uploads')
+    path = os.path.join(settings.TEMP, 'user-uploads')
     storage = FileSystemStorage(location=path)
 
     class Meta:
