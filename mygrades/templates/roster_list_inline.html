@@ -9,6 +9,10 @@ Secondary eMail: <a href = "mailto:{{object.additional_email}}">{{object.additio
 Birthdate: {{object.birthdate}}<br/>
 Primary Phone: {{object.phone_number}}<br/>
 Secondary Phone: {{object.additional_phone_number}}<br/>
+
+<a href='{{ object.get_edit_url }}' > Edit {{object.first_name}}
+
+        {{object.last_name}}'s Information</a>
      
           </div>
 
