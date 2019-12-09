@@ -167,8 +167,6 @@ LOGIN_URL = '/login/'
 #CRAWLER_USE_FAKE_DATA = True
 CRAWLER_USE_FAKE_DATA = False
 
-TEMP = os.environ.get('TEMP', MEDIA_ROOT + "/custom") 
-
 DEBUG_PROPAGATE_EXCEPTIONS = False
 if not DEBUG:
     DEBUG_PROPAGATE_EXCEPTIONS = True
