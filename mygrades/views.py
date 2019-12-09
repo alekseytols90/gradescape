@@ -1147,11 +1147,12 @@ def curriculum_detail_view(request, id):
 
 
 @login_required
-def curriculum_list_view(request):
-    my_title = "Curriculum Available"
-    form =  CurriculumViewForm()
-    template_name = "curriculum_list_view.html"
-    context = {"title": my_title, "form":form}
+def curriculum_detail_view(request, id):
+    my_title = "Curriculum Details"
+    qs = Assignment.objects.filter(curriculum__pk=id).order_by('pk')
+    assignment_filter = AssignmentFilter(request.GET, queryset=qs)
+    template_name = "assignment_list_view.html"
+    context = {"object_list": assignment_filter.qs,"filter":assignment_filter, "title": my_title} 
     return render(request, template_name, context)
 
 

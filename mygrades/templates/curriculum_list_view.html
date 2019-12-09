@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 align="center"> Scroll Down to View All or Filter </h3>
+<h3 align="center">Choose a Subject and Grade</h3>
 <form method="get">
     <table style="table table-sm">
     {{ form.as_table }}
     </table>
+</form>
+<h3 align="center">Search the List Here</h3>
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
 </form>
 
 <div class='col-20 col-md-50 mb-1 mx-auto' id="id_curriculum">
