@@ -6,6 +6,7 @@ from dateutil import rrule
 from urllib.parse import urlparse
 from uuid import uuid4
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
@@ -16,8 +17,8 @@ from django.core.exceptions import ValidationError
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.core.validators import URLValidator
-from django.db import IntegrityError, transaction
+from django.core.validators import URLValidator, transaction
+from django.db import IntegrityError
 from django.db.models import Q
 from django.forms import formset_factory
 from django.forms import inlineformset_factory
@@ -1882,16 +1883,99 @@ def see_weekly_detail(request, student_pk):
         standards = ",".join(asm.assignment.standard.all().values_list("standard_code",flat=True))
         if standards == "":
             standards = "-"
-        data.append({'title':asm.assignment.name, 'detail':asm.assignment.description, 'curriculum':asm.assignment.curriculum.name, 'cur_pk':asm.assignment.curriculum.pk, 'standards': standards})
-
+        data.append({'id': asm.id,
+                     'title': asm.assignment.name,
+                     'detail': asm.assignment.description,
+                     'curriculum': asm.assignment.curriculum.name,
+                     'cur_pk': asm.assignment.curriculum.pk,
+                     'standards': standards}
+                    )
     # everyone can email except the student
     can_email = True
     if request.user.groups.filter(name="Student").count() > 0:
         can_email = False
 
     template_name = "student_weekly_detail.html"
-    context = {"object": student, "assignments": data, "can_email":can_email}
+    context = {"object": student, "assignments": data, "can_email":can_email, 'student_pk': student_pk}
     return render(request, template_name, context)
+
+def send_submission_email(student, assignment, context, file_path=None):
+    subject = f"{student.first_name} {student.last_name}'s assignment submission "
+    text_content = f"{student.first_name} {student.last_name} has submitted the assignment {assignment.assignment.name}." \
+                   " Teacher, please verify completion.  This assignment has been marked as complete," \
+                   " but you may change the status here https://myonlineepic.com/curriculum-schedule/"
+    html_content = render_to_string('submission_email.html', context)
+    msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, (student.teacher_email,))
+    msg.attach_alternative(html_content, "text/html")
+    if file_path:
+        msg.attach_file(file_path)
+    else:
+        assignment.status = "Complete"
+        assignment.submitted_resource = None
+        assignment.resource_type = None
+        assignment.resource_name = None
+        assignment.save()
+    msg.send()
+
+
+@login_required
+def submit_ffw_proxy(request, student_pk, assign_num):
+    """When called skips the file upload."""
+    return submit_assignment(request, student_pk, assign_num, fast_forward=True)
+
+@login_required
+def submit_assignment(request, student_pk, assign_num, fast_forward=False):
+    is_student = False
+    if request.user.groups.filter(name="Student").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+        is_student = True
+    elif request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+
+    if is_student:
+        assignment = get_object_or_404(StudentAssignment, student=student, status='Assigned', id=assign_num)
+    else:
+        assignment = get_object_or_404(StudentAssignment, student=student, id=assign_num)
+
+    context = {'assignment': assignment.assignment,
+               'student': student,
+               'is_student': is_student}
+    if assignment.submitted_resource and not is_student:
+        context['link'] = reverse('fetch_submission', args=(student_pk, assign_num))
+        context['filetype'] = assignment.resource_type
+        context['filename'] = assignment.resource_name
+
+    if assignment.resource_type == 'text':
+        with open(assignment.storage.path(assignment.submitted_resource), 'r') as file:
+            context['text'] = file.read()
+
+    redir = redirect(reverse('see_weekly_detail', args=(student_pk,)) + '?messages=Successfuly submitted assignment!')
+    if request.method == 'POST':
+        file_path = assignment.save_file(request.FILES['upload'], request.POST['file-type'])
+        send_submission_email(student, assignment, context, file_path=file_path)
+        return redir
+    if fast_forward:
+        send_submission_email(student, assignment, context)
+        return redir
+    return render(request, 'submit_assignment.html', context)
+
+
+@login_required
+def fetch_submission(request, student_pk, assign_num):
+    if request.user.groups.filter(name="Student").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk, email=request.user.email)
+        is_student = True
+    elif request.user.groups.filter(name="Owner").count() > 0:
+        student = get_object_or_404(Student, pk=student_pk)
+    else:
+        student = get_object_or_404(Student, pk=student_pk, teacher_email=request.user.email)
+    assignment = get_object_or_404(StudentAssignment, student=student,  id=assign_num)
+    with open(assignment.storage.path(assignment.submitted_resource), 'rb') as file:
+        response = HttpResponse(file.read(), content_type="application/octet-stream")
+        response['Content-Disposition'] = f'attachment; filename="{assignment.resource_name}"'
+    return response
 
 @login_required
 def see_plp_home(request):
