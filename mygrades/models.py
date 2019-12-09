@@ -1,6 +1,9 @@
 import json
+import os
+
 from django.db import models
 from django.utils import timezone
+from django.core.files.storage import FileSystemStorage
 
 
 class User(models.Model):
@@ -334,17 +337,28 @@ class StudentAssignment(models.Model):
         ("Complete", "Complete"),
     ]
 
+    RESC_TYPES = [  # Supported in browser preview types
+        ("text", "text"),
+        ("image", "image")
+    ]
+
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, null=True) #TODO: remove null=True
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     status = models.CharField(max_length=30, choices=STATUS, null=False)
     shown_in_weekly = models.BooleanField(default=False)  #TODO: remove, not in use
+    submitted_resource = models.CharField(max_length=255, null=True)
+    resource_type = models.CharField(max_length=30, choices=RESC_TYPES, null=True)
+    resource_name = models.CharField(max_length=100, null=True)  # original file name.
 
     # not used yet
     active = models.BooleanField(default=False)
     late = models.BooleanField(default=0)
     registered_datetime = models.DateTimeField(auto_now=True)
     submission_date = models.DateTimeField(null=True, blank=True)
+
+    path = os.path.join(os.environ['TEMP'], 'user-uploads')
+    storage = FileSystemStorage(location=path)
 
     class Meta:
         verbose_name_plural = "Student Assignments"
@@ -354,6 +368,19 @@ class StudentAssignment(models.Model):
             self.submission_date = timezone.now()+timezone.timedelta(days=7)
             self.active = True
         super(StudentAssignment, self).save(*args, **kwargs)
+
+    def save_file(self, file, resource_type):
+        if not os.path.exists(self.path):
+            os.mkdir(self.path)
+        if self.submitted_resource and self.storage.exists(self.submitted_resource):  # Delete old resource
+            self.storage.delete(self.submitted_resource)
+        name = self.storage.save(file._name, file.file)
+        self.submitted_resource = name
+        self.resource_type = resource_type
+        self.resource_name = file._name
+        self.status = "Complete"
+        self.save()
+        return self.storage.path(self.submitted_resource)
 
     def __str__(self):
         return "%s -> %s" % (str(self.student), self.assignment.name)
