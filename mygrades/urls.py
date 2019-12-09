@@ -47,6 +47,9 @@ from mygrades.views import (
     send_late_email,
     send_progress_email,
     send_card_email,
+    submit_assignment,
+    submit_ffw_proxy,
+    fetch_submission,
     process_gradable_home,
     process_gradable_step1,
     process_gradable_step2,
@@ -183,7 +186,9 @@ urlpatterns = [
     path("see-report-card/", see_card_home, name="see_card_home"),
     path("see-report-card/<int:student_pk>/", see_card_detail, name="see_card_detail"),
     path("send-weekly-assignment/<int:student_pk>/", send_weekly_email, name="send_weekly_email"),
-
+    path("submit-assignment/<int:student_pk>/<int:assign_num>/", submit_assignment, name="submit_assignment"),
+    path("submit-assignment/<int:student_pk>/<int:assign_num>/fastforward/", submit_ffw_proxy, name="submit_ffw_proxy"),
+    path("fetch-submission/<int:student_pk>/<int:assign_num>/", fetch_submission, name="fetch_submission"),
     path("send-plp/<int:student_pk>/", send_plp_email, name="send_plp_email"),
 
     path("see-plp/", see_plp_home, name="see_plp_home"),
