@@ -17,8 +17,8 @@ from django.core.exceptions import ValidationError
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.core.validators import URLValidator, transaction
-from django.db import IntegrityError
+from django.core.validators import URLValidator
+from django.db import IntegrityError, transaction
 from django.db.models import Q
 from django.forms import formset_factory
 from django.forms import inlineformset_factory
@@ -1137,12 +1137,11 @@ def curriculum_create_view(request):
 
 
 @login_required
-def curriculum_detail_view(request, id):
-    my_title = "Curriculum Details"
-    qs = Assignment.objects.filter(curriculum__pk=id).order_by('pk')
-    assignment_filter = AssignmentFilter(request.GET, queryset=qs)
-    template_name = "assignment_list_view.html"
-    context = {"object_list": assignment_filter.qs,"filter":assignment_filter, "title": my_title} 
+def curriculum_list_view(request):
+    my_title = "Curriculum Available"
+    form =  CurriculumViewForm()
+    template_name = "curriculum_list_view.html"
+    context = {"title": my_title, "form":form}
     return render(request, template_name, context)
 
 
