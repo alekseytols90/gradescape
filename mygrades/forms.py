@@ -702,6 +702,10 @@ class StudentAssignmentForm(forms.ModelForm):
         if self.instance.pk != None:
             standards = ", ".join(self.instance.assignment.standard.all().values_list("standard_code",flat=True))
             self.fields['desc'].initial = self.instance.assignment.name + "<br/><small>" + standards + "<br/>" + self.instance.assignment.description + "</small>"
+            if self.instance.submitted_resource:
+                self.fields['desc'].initial += '<br><a href="' + \
+                        reverse('submit_assignment', args=(self.instance.student_id, self.instance.id)) +\
+                        '">View submitted assignment</a>'
 
 
 class SendPacingGuideForm(forms.ModelForm):
