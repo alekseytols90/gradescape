@@ -1,0 +1,83 @@
+
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block custom_styles %}
+<style>
+        .preview-inner {
+            width: 100%;
+            height: auto;
+        }
+        textarea.preview-inner {
+            overflow: scroll;
+            height: 100px;
+        }
+        #preview-not-supported {
+            color: #ff3434;
+        }
+</style>
+{% endblock %}
+
+{% block content %}
+<h3 align="center">{% if is_student %}Submit{% else %}Submitted{% endif %} Assignment</h3>
+<table class="table table-bordered">
+    <thead>
+        <th>{{assignment.curriculum.name}}</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                {% if not is_student %}
+                Student: {{ student.first_name }} {{ student.last_name }}
+                <br>
+                {% endif %}
+                {{ assignment.name }}
+                <br>
+                <small>{{ assignment.description }}</small>
+            </td>
+        </tr>
+        <tr>
+            <td id="preview-container" style="position: relative;"{% if is_student %} class="d-none" {% endif %}>
+                <h3>Preview:</h3>
+                {% if link %}Download file {{ filename }} <a href="{{ link }}">here.</a>{% endif %}
+                <img {% ifequal filetype "image" %} src="{{ link }}" {% endifequal %} id="image-preview" class="preview-inner">
+                <textarea id="text-preview" readonly class="preview-inner {%if not text %}d-none{% endif %}">{{ text }}</textarea>
+                <p id="preview-not-supported" {% ifnotequal filetype "unsupported" %}class="d-none"{% endifnotequal %}>An in browser preview for this file type is not supported.</p>
+            </td>
+        </tr>
+        {% if is_student %}
+        <tr>
+            <td>
+            <form method="post" id="upload-form" enctype="multipart/form-data"> {% csrf_token %}
+                <label class="btn btn-primary btn-sm" style="margin-top: 5px;">
+                    Upload File
+                <input style="display: none;" name="upload" id="file-upload" type="file">
+                </label>
+                <span id="file-name" style="font-size: .9rem;">
+                or paste screenshot by pressing control+v
+                </span>
+                <br>
+                <input class="d-none" id="file-type" name="file-type">
+            </form>
+                <button id="submit" class="btn btn-primary btn-sm d-none">Submit</button>
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+
+</table>
+{% include 'bootstrap-confirm.html' %}
+{% endblock %}
+
+{% block custom_scripts %}
+{% if text %}
+<script>
+    $('#text-preview').height(Math.min($('textarea#text-preview')[0].scrollHeight, 1000));
+</script>
+{% endif %}
+{% if is_student %}
+<script src="{% static 'js/bootstrap-confirm.js' %}"></script>
+<script src="{% static 'js/submit-assignment.js' %}"></script>
+{% endif %}
+{% endblock %}
