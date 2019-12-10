@@ -10,9 +10,19 @@ Birthdate: {{object.birthdate}}<br/>
 Primary Phone: {{object.phone_number}}<br/>
 Secondary Phone: {{object.additional_phone_number}}<br/>
 
-<a href='{{ object.get_edit_url }}' > Edit {{object.first_name}}
+ Birthdate: {{object.birthdate}}<br/>
 
-        {{object.last_name}}'s Information</a>
+        Grade: {{object.grade}} Primary Phone: {{object.phone_number}}<br/>
+
+        Secondary Phone: {{object.additional_phone_number}}<br/>
+        Public Google calendar URL:  <a href = "{{object.goog_calendar}}">{{object.goog_calendar}}</a><br/>
+      
+
+
+ <a href='{{ object.get_edit_url }}' >Edit {{object.first_name}}'s CONTACT information</a>.<br/>
+        <a href='{{ object.get_delete_url }}' > Delete 
+        {{object.first_name}}</a>
+        
      
           </div>
 
