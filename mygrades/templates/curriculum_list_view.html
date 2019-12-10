@@ -7,11 +7,6 @@
     {{ form.as_table }}
     </table>
 </form>
-<h3 align="center">Search the List For A Curriculum Title</h3>
-<form method="get">
-    {{ filter.form.as_p }}
-    <button type="submit">Search</button>
-</form>
 
 <div class='col-20 col-md-50 mb-1 mx-auto' id="id_curriculum">
 </div>
@@ -21,6 +16,21 @@
 
 <script>
 $(document).ready(function() {
+    jQuery.expr[':'].contains = function(a, i, m) {
+      return jQuery(a).text().toUpperCase()
+          .indexOf(m[3].toUpperCase()) >= 0;
+    };
+
+    function search() {
+        var val = $('#title_search').val()
+        $.each($('.card'), function(i,v) {
+            $(v).hide();
+        });
+        $.each($('.card:contains("'+ val + '")'), function(i,v) {
+            $(v).show();
+        });
+    }
+
     function update_curriculum_choices() {
         var subject_val = $("#id_subject").val();
         var grade_level_val = $("#id_grade_level").val();
@@ -41,7 +51,13 @@ $(document).ready(function() {
                 if(count == 1) {
                     $("#id_curriculum").html("No results.");
                 } else {
-                    $("#id_curriculum").html(curs);
+                    $("#id_curriculum").html("<div style='margin-top:2px; margin-bottom:2px;'><label for=\"title_search\"><b>Title:</b></label> <input id=\"title_search\" type=\"text\"></div>" + curs);
+                    $("#title_search").unbind()
+                    $("#title_search").keyup(function(e) {
+                        clearTimeout($.data(this, 'timer'));
+                        var wait = setTimeout(search, 500);
+                        $(this).data('timer', wait);
+                    })
                 }
             })
             .fail(function() {
@@ -61,13 +77,6 @@ $(document).ready(function() {
     });
 
 
-	/*
-    if ( $("#id_curriculum li").length > 1) {
-        $("#id_curriculum_0").parent().remove();
-    } else {
-        $("#id_curriculum").html('-');
-    }
-	*/
 
 });
 </script>
