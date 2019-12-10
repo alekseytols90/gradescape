@@ -347,9 +347,9 @@ class CurriculumEnrollmentForm(forms.ModelForm):
                 self.add_error(None, mark_safe("%s is %s's CORE curriculum. This sets the pacing of assignments. If you wish to make it a Supplemental curriculum, first choose another CORE <a href='%s'>here</a> first for subject %s." % (cur.name,student.get_full_name(), reverse("curriculum-schedule-detail",args=[self.instance.student.pk]), subject)))
 
         recorded_from = cleaned_data.get('recorded_from','')
-        username = cleaned_data['username']
-        password = cleaned_data['password']
-        loginurl = cleaned_data['loginurl']
+        username = cleaned_data.get('username','')
+        password = cleaned_data.get('password','')
+        loginurl = cleaned_data.get('loginurl','')
         if recorded_from == 'Automatic' and not (username and password and loginurl):
             self.add_error(None, "You must enter a username, password and login url for automatically monitored curriculum.")
         is_min_required = cleaned_data['is_min_required']
