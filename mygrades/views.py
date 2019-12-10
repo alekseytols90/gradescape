@@ -1011,9 +1011,9 @@ def student_setup_view(request):
         emailto = [request.user.email]
         send_mail(
             "Student Setup Confirmation",
-            "You successfully registered {0} {1} in your online system.\nHere is what was received: \nEpicenter "
+            "{0} {1} was successfully registered in your online system.  Please be aware, the student is not able to log in until you request a log-in from us at tynercreeksoftware@gmail.com.\nHere is what was received: \nEpicenter "
             "ID: {2} \neMail: {3} \nPhone: {5} \nAlternate eMail: {4} \nAlternate Phone: {6} \nStudent is Enrolled in "
-            "Grade: {7}\nThe next step is to attach some curriculums for grade tracking and assignment lists.".format(
+            "Grade: {7}\nThe next step is to attach some curriculums for grade tracking and assignment lists.  You do NOT need to do this manually, although you certainly have that option under the Pacing tab.  Instead, just find the curriculum you want here:  https://docs.google.com/spreadsheets/d/1_SvwXTvTRsr3hAU2FfQ_wbW4-DtAW7fxCZOCJwOxnP0/edit?usp=sharing.  Then, complete this form and send it to tynercreeksoftware@gmail.com:  (There's an instructional video at the top) https://docs.google.com/spreadsheets/d/145b5Ju4SckuRRZoo_k5C7NtO3DZbsnbo_MTCO5ZTD7Y/edit?usp=sharing.  ".format(
                 form.cleaned_data["first_name"], form.cleaned_data["last_name"], form.cleaned_data["epicenter_id"],
                 form.cleaned_data["email"], form.cleaned_data["additional_email"], form.cleaned_data["phone_number"],
                 form.cleaned_data["additional_phone_number"], form.cleaned_data["grade"],
