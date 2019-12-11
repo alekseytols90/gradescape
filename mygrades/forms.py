@@ -367,7 +367,7 @@ class CurriculumEnrollmentForm(forms.ModelForm):
         distribute_weights_for_sem(student, academic_semester, self.instance.curriculum.subject)
 
         # copy assignments
-        for item in self.instance.curriculum.curriculum_assignment.all():
+        for item in self.instance.curriculum.curriculum_assignment.all().order_by('pk'):
             sa = StudentAssignment(student=self.instance.student, assignment=item, enrollment=m, status="Not Assigned")
             sa.save()
 
