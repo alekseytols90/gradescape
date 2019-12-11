@@ -1468,7 +1468,7 @@ def create_weekly_step2(request, semester):
     data = []
     for student in student_filter.qs: 
         ordered = []
-        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester).filter(Q(status='Not Assigned')|Q(status='Assigned',enrollment__tracking='Repeating Weekly')).order_by('-pk') #, shown_in_weekly=False)
+        assignments = StudentAssignment.objects.filter(student=student, enrollment__academic_semester=semester).filter(Q(status='Not Assigned')|Q(status='Assigned',enrollment__tracking='Repeating Weekly')).order_by('pk') #, shown_in_weekly=False)
 
 
         # group by curriculum
