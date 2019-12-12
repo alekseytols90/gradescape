@@ -3,18 +3,41 @@ const imageBox = $('#image-preview');
 const textBox = $('#text-preview');
 const unsupportedBox = $('#preview-not-supported');
 const fileName = $('#file-name');
-const submitButton = $('#submit');
+const submitButton = $('#send');
 const fileType = $('#file-type');
 const fileUpload = document.getElementById('file-upload');
 
-$('#submit').click(function (event) {
+var is_url_required = false;
+
+submitButton.click(function (event) {
+    event.preventDefault();
+
+    if (is_url_required) {
+        if ($("#url-input").val().length <= 3) {
+            alert("Please enter a valid URL to continue submission.");
+            return;
+        }
+    }
+
     $.bootstrapConfirm("Submit this assignment?", "Are you sure you would like to submit this assignment? Once " +
     "submitted it cannot be changed.", function (status) {
         console.log("CALLED");
-        if (status == 1) $('#upload-form').submit();
+        if (status == 1) {
+            console.log("submitting...");
+            $('#upload-form').submit();
+        }
     })
 
 })
+
+$('#send-link').click(function (event) {
+    $("#upload-label").hide();
+    $("#send-link").hide();
+    $("#url-input").show();
+    submitButton.removeClass('d-none');
+    $("#url-input").focus();
+    is_url_required = true;
+});
 
 function updatePreview (file) {
     resetPreview();
@@ -72,7 +95,10 @@ function updateUpload() {
         submitButton.removeClass('d-none');
         updatePreview(fileUpload.files[0]);
         $('#preview-container').removeClass('d-none');
+        $("#send-link").hide();
     }
 }
 
 fileUpload.addEventListener('change', updateUpload);
+
+

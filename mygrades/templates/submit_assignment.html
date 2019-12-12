@@ -50,20 +50,16 @@
         <tr>
             <td>
             <form method="post" id="upload-form" enctype="multipart/form-data"> {% csrf_token %}
-                <label class="btn btn-primary btn-sm" style="margin-top: 5px;">
+                <label id="upload-label" class="btn btn-primary btn-sm" style="margin-top: 5px;">
                     Upload File
                 <input style="display: none;" name="upload" id="file-upload" type="file">
                 </label>
-                {% comment %}
-                <span id="file-name" style="font-size: .9rem;">
-                or paste screenshot by pressing control+v
-                </span>
-                {% endcomment %}
-                <br>
                 <input class="d-none" id="file-type" name="file-type">
-                <button id="change-form" style="width: 40%; margin-top:2px;" class="btn btn-primary btn-sm">Paste a Google or YouTube Link</button>
+                <input type="text" name="url-txt" id="url-input" name="url" placeholder="Paste your link here" style="display:none; margin-bottom: 10px;">
+                <br/>
+                <button id="send-link" style="width: 40%; margin-top:2px;" class="btn btn-primary btn-sm" type="button">Paste a Google or YouTube Link</button>
+                <button id="send" class="btn btn-primary btn-sm d-none">Submit</button>
             </form>
-                <button id="submit" class="btn btn-primary btn-sm d-none">Submit</button>
             </td>
         </tr>
         {% endif %}

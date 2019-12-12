@@ -1900,16 +1900,20 @@ def see_weekly_detail(request, student_pk):
     context = {"object": student, "assignments": data, "can_email":can_email, 'student_pk': student_pk}
     return render(request, template_name, context)
 
-def send_submission_email(student, assignment, context, file_path=None):
+def send_submission_email(student, assignment, context, file_path=None, raw_data=False):
     subject = f"{student.first_name} {student.last_name}'s assignment submission "
     text_content = f"{student.first_name} {student.last_name} has submitted the assignment {assignment.assignment.name}." \
                    " Teacher, please verify completion.  This assignment has been marked as complete," \
                    " but you may change the status here https://myonlineepic.com/curriculum-schedule/"
+    if assignment.raw:
+        text_content += " Assignment is submitted as an url as follows: " + assignment.raw
     html_content = render_to_string('submission_email.html', context)
     msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, (student.teacher_email,))
     msg.attach_alternative(html_content, "text/html")
     if file_path:
         msg.attach_file(file_path)
+    elif raw_data:
+        pass
     else:
         assignment.status = "Complete"
         assignment.submitted_resource = None
@@ -1954,8 +1958,19 @@ def submit_assignment(request, student_pk, assign_num, fast_forward=False):
 
     redir = redirect(reverse('see_weekly_detail', args=(student_pk,)) + '?messages=Successfuly submitted assignment!')
     if request.method == 'POST':
-        file_path = assignment.save_file(request.FILES['upload'], request.POST['file-type'])
-        send_submission_email(student, assignment, context, file_path=file_path)
+        raw_txt = request.POST.get('url-txt','')
+        if raw_txt != '':
+            assignment.raw = raw_txt
+            assignment.status = 'Complete'
+            assignment.save()
+            context['assignment'] = assignment
+            send_submission_email(student, assignment, context, raw_data=True)
+        elif request.POST['file-type']:
+            file_path = assignment.save_file(request.FILES['upload'], request.POST['file-type'])
+            send_submission_email(student, assignment, context, file_path=file_path)
+        else:
+            messages.error(request, "Please submit data to continue.")
+            return render(request, 'submit_assignment.html', context)
         return redir
     if fast_forward:
         send_submission_email(student, assignment, context)

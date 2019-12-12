@@ -27,6 +27,10 @@
 <br>
 Teacher, please verify completion.  This assignment has been marked as complete, but you may change the status here:
 <a href="https://myonlineepic.com/curriculum-schedule/">https://myonlineepic.com/curriculum-schedule/</a>.  Changing to Assigned will put it back on the student screen under Weekly Assignment List the next time you send the list to the student's screen.  Changing the status to Incomplete will add it to the Late Assignments.
-
+{% if assignment.raw %}
+<br/><br/>Here is the submitted link:<br/>
+<b>{{ assignment.raw }}</b>
+<br/><br/>
+{% endif %}
 
 </body>

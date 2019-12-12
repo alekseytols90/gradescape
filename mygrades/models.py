@@ -350,6 +350,7 @@ class StudentAssignment(models.Model):
     late = models.BooleanField(default=0)
     registered_datetime = models.DateTimeField(auto_now=True)
     submission_date = models.DateTimeField(null=True, blank=True)
+    raw = models.TextField(blank=True) # used for storing url submission instead of a file
 
     path = os.path.join(os.environ.get('TEMP',''), 'user-uploads')
     storage = FileSystemStorage(location=path)
