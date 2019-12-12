@@ -804,7 +804,7 @@ def assignment_upload(request):
                                                                        #status=status,
                                                                        description=description,
                                                                        curriculum=curriculum.first(),
-                                                                       type_of="Repeating Weekly")
+                                                                       )
                 assignment.standard.add(*standards.values_list('id', flat=True))
             except Exception as e:
                 messages.error(request, "Fix error in row number %s :: <br/> %s" % (counter, e))
@@ -1888,7 +1888,7 @@ def see_weekly_detail(request, student_pk):
                      'detail': asm.assignment.description,
                      'curriculum': asm.assignment.curriculum.name,
                      'cur_pk': asm.assignment.curriculum.pk,
-                     'weekly': True if asm.assignment.type_of == 'Repeating Weekly' else False,
+                     'weekly': True if asm.enrollment.tracking == 'Repeating Weekly' else False,
                      'standards': standards}
                     )
     # everyone can email except the student

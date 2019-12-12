@@ -295,11 +295,6 @@ class Standard(models.Model):
 
 
 class Assignment(models.Model):
-    TYPE = [
-        ("Repeating Weekly", "Repeating Weekly"),
-        ("From Pacing List", "From Pacing List"),
-    ]
-
     standard = models.ManyToManyField(
         Standard)
     curriculum = models.ForeignKey(
@@ -307,7 +302,6 @@ class Assignment(models.Model):
     )
     name = models.CharField(max_length=500, null=False)
     description = models.CharField(max_length=500, null=False)
-    type_of = models.CharField(max_length=30, choices=TYPE, null=False)
 
     class Meta:
         unique_together = ("name", "curriculum", "description")

@@ -43,7 +43,7 @@
                 {% if link %}Download file {{ filename }} <a href="{{ link }}">here.</a>{% endif %}
                 <img {% ifequal filetype "image" %} src="{{ link }}" {% endifequal %} id="image-preview" class="preview-inner">
                 <textarea id="text-preview" readonly class="preview-inner {%if not text %}d-none{% endif %}">{{ text }}</textarea>
-                <p id="preview-not-supported" {% ifnotequal filetype "unsupported" %}class="d-none"{% endifnotequal %}>An in browser preview for this file type is not supported.</p>
+                <p id="preview-not-supported" {% ifnotequal filetype "unsupported" %}class="d-none"{% endifnotequal %}>Not all types of files will show a preview. This just happens to be one of those.</p>
             </td>
         </tr>
         {% if is_student %}

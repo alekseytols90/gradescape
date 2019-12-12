@@ -54,9 +54,8 @@ class TeacherAdmin(admin.ModelAdmin):
 
 @admin.register(Assignment)
 class AssignmentAdmin(admin.ModelAdmin):
-    list_filter = ("type_of",)
     raw_id_fields = ['standard', 'curriculum']
-    fields = ['standard', 'curriculum', 'name', 'description', 'type_of']
+    fields = ['standard', 'curriculum', 'name', 'description']
 
 
 @admin.register(StudentAssignment)
