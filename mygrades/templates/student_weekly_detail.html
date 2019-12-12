@@ -52,7 +52,7 @@ No {% if late_view %}late{% else %}weekly{% endif %} assignments.
             </td>
             <td class="button-cell">
                 {% if not item.weekly %}
-                <button class="btn btn-primary btn-sm assign-submit" data-href="{% url "submit_assignment" student_pk=student_pk assign_num=item.id %}">Submit Now</button></br>
+                <button class="btn btn-primary btn-sm assign-submit" data-href="{% url "submit_assignment" student_pk=student_pk assign_num=item.id %}">I'm Finished</button></br>
                 {% endif %}
             </td>
         </tr>
