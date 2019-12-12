@@ -1888,6 +1888,7 @@ def see_weekly_detail(request, student_pk):
                      'detail': asm.assignment.description,
                      'curriculum': asm.assignment.curriculum.name,
                      'cur_pk': asm.assignment.curriculum.pk,
+                     'weekly': True if asm.assignment.type_of == 'Repeating Weekly' else False,
                      'standards': standards}
                     )
     # everyone can email except the student
