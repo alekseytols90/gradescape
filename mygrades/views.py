@@ -1966,7 +1966,10 @@ def submit_assignment(request, student_pk, assign_num, fast_forward=False):
             context['assignment'] = assignment
             send_submission_email(student, assignment, context, raw_data=True)
         elif request.POST['file-type']:
-            file_path = assignment.save_file(request.FILES['upload'], request.POST['file-type'])
+            file_path, error = assignment.save_file(request.FILES['upload'], request.POST['file-type'])
+            if error == "too large":
+                messages.error(request, mark_safe("<span style='color:red'><b>File size should be less than 3 MBs. Please reduce your image resolution.</b></span>"))
+                return render(request, 'submit_assignment.html', context)
             send_submission_email(student, assignment, context, file_path=file_path)
         else:
             messages.error(request, "Please submit data to continue.")

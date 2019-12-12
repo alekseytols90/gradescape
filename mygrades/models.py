@@ -365,17 +365,23 @@ class StudentAssignment(models.Model):
         super(StudentAssignment, self).save(*args, **kwargs)
 
     def save_file(self, file, resource_type):
+        error= ''
         if not os.path.exists(self.path):
             os.mkdir(self.path)
         if self.submitted_resource and self.storage.exists(self.submitted_resource):  # Delete old resource
             self.storage.delete(self.submitted_resource)
         name = self.storage.save(file._name, file.file)
-        self.submitted_resource = name
-        self.resource_type = resource_type
-        self.resource_name = file._name
-        self.status = "Complete"
-        self.save()
-        return self.storage.path(self.submitted_resource)
+
+        mbs = os.path.getsize(self.storage.path(name)) >> 20
+        if mbs > 3:
+            error = "too large"
+        else:
+            self.submitted_resource = name
+            self.resource_type = resource_type
+            self.resource_name = file._name
+            self.status = "Complete"
+            self.save()
+        return self.storage.path(name), error
 
     def __str__(self):
         return "%s -> %s" % (str(self.student), self.assignment.name)
