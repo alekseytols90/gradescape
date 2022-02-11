@@ -59,7 +59,7 @@ service-identity==18.1.0
 six==1.12.0
 sqlparse==0.3.0
 traitlets==4.3.3
-Twisted==19.7.0
+Twisted==22.1.0
 urllib3==1.25.3
 virtualenv==16.7.2
 virtualenv-clone==0.5.3
